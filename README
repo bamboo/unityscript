@@ -1,6 +1,8 @@
 UnityScript
 ===========
 
+A JavaScript implementation based on the Boo programming language.
+
 Building the MonoDevelop addin
 ==============================
 
