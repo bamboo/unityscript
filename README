@@ -1,0 +1,14 @@
+UnityScript
+===========
+
+Building the MonoDevelop addin
+==============================
+
+Create a build.properties file and configure the md.bin.dir property to
+point to the directory containing the MonoDevelop binaries. For instance:
+
+	<?xml version="1.0"?>
+	<project>
+		<property name="md.bin.dir" value="/Applications/MonoDevelop.app/Contents/MacOS/lib/monodevelop/bin" /> 
+	</project>
+
