@@ -12,3 +12,9 @@ point to the directory containing the MonoDevelop binaries. For instance:
 		<property name="md.bin.dir" value="/Applications/MonoDevelop.app/Contents/MacOS/lib/monodevelop/bin" /> 
 	</project>
 
+And then:
+
+	nant md
+
+This will build and copy the required assemblies to ~/.config/MonoDevelop/addins/UnityScript.
+
