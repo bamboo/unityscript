@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <RootNamespace>UnityScript</RootNamespace>
+    <AssemblyName>UnityScript</AssemblyName>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A76D75AA-A412-4319-A01F-8E9850FBD2DA}</ProjectGuid>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <UsePartialTypes>false</UsePartialTypes>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <Optimize>False</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <Optimize>True</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <ducky>false</ducky>
+    <culture />
+    <genwarnings>false</genwarnings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <ducky>false</ducky>
+    <culture />
+    <genwarnings>false</genwarnings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.boo" />
+    <Compile Include="Macros\SwitchMacro.boo" />
+    <Compile Include="Scripting\EvaluationContext.boo" />
+    <Compile Include="Scripting\Evaluator.boo" />
+    <Compile Include="Scripting\Pipeline\IntroduceEvaluationContext.boo" />
+    <Compile Include="Scripting\Pipeline\IntroduceImports.boo" />
+    <Compile Include="Scripting\Pipeline\IntroduceReturnValue.boo" />
+    <Compile Include="Scripting\Pipeline\IntroduceScriptingNamespace.boo" />
+    <Compile Include="Scripting\Pipeline\ProcessScriptingMethods.boo" />
+    <Compile Include="Steps\ExpandUnityDuckTypedExpressions.boo" />
+    <Compile Include="Steps\IntroduceUnityGlobalNamespaces.boo" />
+    <Compile Include="Steps\ProcessEvalInvocations.boo" />
+    <Compile Include="Steps\ProcessUnityScriptMethods.boo" />
+    <Compile Include="Steps\SuppressWarnings.boo" />
+    <Compile Include="Steps\UnityCallableResolutionService.boo" />
+    <Compile Include="Steps\UnityExpandVarArgsMethodInvocations.boo" />
+    <Compile Include="Steps\UnityScriptTypeSystem.boo" />
+    <Compile Include="Steps\Utilities.boo" />
+    <Compile Include="UnityScriptCompiler.boo" />
+    <Compile Include="Steps\ApplySemantics.boo" />
+    <Compile Include="Steps\InitializeUnityScriptTypeSystem.boo" />
+    <Compile Include="Steps\Parse.boo" />
+    <Compile Include="Steps\ProcessAssignmentToDuckMembers.boo" />
+    <Compile Include="Parser\UnityScriptLexer.boo" />
+    <Compile Include="Parser\UnityScriptParser.boo" />
+    <Compile Include="Parser\UnityScriptTokenTypes.boo" />
+    <Compile Include="Steps\PreProcess.boo" />
+    <Compile Include="Steps\EnableRawArrayIndexing.boo" />
+    <Compile Include="Steps\CheckBaseTypes.boo" />
+    <Compile Include="Core\UnityScriptCompilerErrors.boo" />
+    <Compile Include="Core\BaseTypeAnnotations.boo" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="..\..\..\..\Projects\unityscript\src\UnityScript\" />
+    <Folder Include="..\..\..\..\Projects\unityscript\src\UnityScript\" />
+    <ProjectReference Include="..\UnityScript.Lang\UnityScript.Lang.booproj">
+      <Project>{D8EFEF9A-4D5D-4473-9573-BF3AC0416016}</Project>
+      <Name>UnityScript.Lang</Name>
+    </ProjectReference>
+    <Folder Include="Core\" />
+    <Reference Include="Boo.Lang.Compiler">
+      <HintPath>..\..\lib\net-2.0\bin\Boo.Lang.Compiler.dll</HintPath>
+    </Reference>
+    <Reference Include="Boo.Lang.Parser">
+      <HintPath>..\..\lib\net-2.0\bin\Boo.Lang.Parser.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Import Project="$(BooBinPath)\Boo.Microsoft.Build.targets" />
+</Project>

@@ -1,0 +1,32 @@
+<Combine fileversion="2.0" name="UnityScript">
+  <Configurations active="Debug">
+    <Configuration name="Debug" ctype="CombineConfiguration">
+      <Entry build="True" name="UnityScript.Lang" configuration="Debug" />
+      <Entry build="True" name="UnityScript" configuration="Debug" />
+      <Entry build="True" name="UnityScript.Tests.CSharp" configuration="Debug" />
+      <Entry build="True" name="us" configuration="Debug" />
+      <Entry build="True" name="UnityScript.Tests" configuration="Debug" />
+    </Configuration>
+    <Configuration name="Release" ctype="CombineConfiguration">
+      <Entry build="True" name="UnityScript.Lang" configuration="Release" />
+      <Entry build="True" name="UnityScript" configuration="Release" />
+      <Entry build="True" name="UnityScript.Tests.CSharp" configuration="Release" />
+      <Entry build="True" name="us" configuration="Release" />
+      <Entry build="True" name="UnityScript.Tests" configuration="Release" />
+    </Configuration>
+  </Configurations>
+  <StartMode startupentry="UnityScript.Lang" single="True">
+    <Execute type="None" entry="UnityScript.Lang" />
+    <Execute type="None" entry="UnityScript" />
+    <Execute type="None" entry="UnityScript.Tests.CSharp" />
+    <Execute type="None" entry="us" />
+    <Execute type="None" entry="UnityScript.Tests" />
+  </StartMode>
+  <Entries>
+    <Entry filename="src/UnityScript.Lang/UnityScript.Lang.booproj" />
+    <Entry filename="src/UnityScript/UnityScript.booproj" />
+    <Entry filename="src/UnityScript.Tests.CSharp/UnityScript.Tests.CSharp.csproj" />
+    <Entry filename="src/us/us.booproj" />
+    <Entry filename="src/UnityScript.Tests/UnityScript.Tests.booproj" />
+  </Entries>
+</Combine>

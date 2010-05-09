@@ -1,0 +1,6 @@
+﻿Microsoft Visual Studio Solution File, Format Version 9.00
+# SharpDevelop 2.0.0.1222
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityScript.Tests.CSharp", "UnityScript.Tests.CSharp.csproj", "{1764A349-FEAF-4821-896A-6A90858F760E}"
+EndProject
+Global
+EndGlobal

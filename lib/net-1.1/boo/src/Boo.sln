@@ -1,0 +1,69 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boo.Lang.Parser", "Boo.Lang.Parser\Boo.Lang.Parser.csproj", "{3C1EB592-285E-49A4-8D1B-A5CA39426C00}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boo.Lang", "Boo.Lang\Boo.Lang.csproj", "{76BB6897-0F7E-4DAD-936F-F520E24BF48F}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boo.Lang.Compiler", "Boo.Lang.Compiler\Boo.Lang.Compiler.csproj", "{31FC55D5-8E71-468C-8506-9016D979FA89}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooCompiler.Tests", "..\tests\BooCompiler.Tests\BooCompiler.Tests.csproj", "{BDAD494B-5B49-46E8-A8DA-89C1590D3515}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "booc", "booc\booc.csproj", "{460DC4DE-ABED-40B9-A5F9-B9077E151E82}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boo.Lang.Parser.Tests", "..\tests\Boo.Lang.Parser.Tests\Boo.Lang.Parser.Tests.csproj", "{35E222C3-F8B4-4F09-AC65-223730ED2C3E}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boo.Lang.Runtime.Tests", "..\tests\Boo.Lang.Runtime.Tests\Boo.Lang.Runtime.Tests.csproj", "{0682B593-3CC0-4256-A700-089479EC3B87}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{3C1EB592-285E-49A4-8D1B-A5CA39426C00}.Debug.ActiveCfg = Debug|.NET
+		{3C1EB592-285E-49A4-8D1B-A5CA39426C00}.Debug.Build.0 = Debug|.NET
+		{3C1EB592-285E-49A4-8D1B-A5CA39426C00}.Release.ActiveCfg = Release|.NET
+		{3C1EB592-285E-49A4-8D1B-A5CA39426C00}.Release.Build.0 = Release|.NET
+		{76BB6897-0F7E-4DAD-936F-F520E24BF48F}.Debug.ActiveCfg = Debug|.NET
+		{76BB6897-0F7E-4DAD-936F-F520E24BF48F}.Debug.Build.0 = Debug|.NET
+		{76BB6897-0F7E-4DAD-936F-F520E24BF48F}.Release.ActiveCfg = Release|.NET
+		{76BB6897-0F7E-4DAD-936F-F520E24BF48F}.Release.Build.0 = Release|.NET
+		{31FC55D5-8E71-468C-8506-9016D979FA89}.Debug.ActiveCfg = Debug|.NET
+		{31FC55D5-8E71-468C-8506-9016D979FA89}.Debug.Build.0 = Debug|.NET
+		{31FC55D5-8E71-468C-8506-9016D979FA89}.Release.ActiveCfg = Release|.NET
+		{31FC55D5-8E71-468C-8506-9016D979FA89}.Release.Build.0 = Release|.NET
+		{BDAD494B-5B49-46E8-A8DA-89C1590D3515}.Debug.ActiveCfg = Debug|.NET
+		{BDAD494B-5B49-46E8-A8DA-89C1590D3515}.Debug.Build.0 = Debug|.NET
+		{BDAD494B-5B49-46E8-A8DA-89C1590D3515}.Release.ActiveCfg = Release|.NET
+		{BDAD494B-5B49-46E8-A8DA-89C1590D3515}.Release.Build.0 = Release|.NET
+		{460DC4DE-ABED-40B9-A5F9-B9077E151E82}.Debug.ActiveCfg = Debug|.NET
+		{460DC4DE-ABED-40B9-A5F9-B9077E151E82}.Debug.Build.0 = Debug|.NET
+		{460DC4DE-ABED-40B9-A5F9-B9077E151E82}.Release.ActiveCfg = Release|.NET
+		{460DC4DE-ABED-40B9-A5F9-B9077E151E82}.Release.Build.0 = Release|.NET
+		{35E222C3-F8B4-4F09-AC65-223730ED2C3E}.Debug.ActiveCfg = Debug|.NET
+		{35E222C3-F8B4-4F09-AC65-223730ED2C3E}.Debug.Build.0 = Debug|.NET
+		{35E222C3-F8B4-4F09-AC65-223730ED2C3E}.Release.ActiveCfg = Release|.NET
+		{35E222C3-F8B4-4F09-AC65-223730ED2C3E}.Release.Build.0 = Release|.NET
+		{0682B593-3CC0-4256-A700-089479EC3B87}.Debug.ActiveCfg = Debug|.NET
+		{0682B593-3CC0-4256-A700-089479EC3B87}.Debug.Build.0 = Debug|.NET
+		{0682B593-3CC0-4256-A700-089479EC3B87}.Release.ActiveCfg = Release|.NET
+		{0682B593-3CC0-4256-A700-089479EC3B87}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

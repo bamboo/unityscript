@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <RootNamespace>UnityScript.Tests</RootNamespace>
+    <AssemblyName>UnityScript.Tests</AssemblyName>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EF774FAE-F854-4B84-9528-279AB3986F5A}</ProjectGuid>
+    <UsePartialTypes>false</UsePartialTypes>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <Optimize>False</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <Optimize>True</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <ducky>false</ducky>
+    <culture />
+    <genwarnings>false</genwarnings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <ducky>false</ducky>
+    <culture />
+    <genwarnings>false</genwarnings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework">
+      <Package>mono-nunit</Package>
+    </Reference>
+    <Reference Include="Boo.Lang.Compiler, Version=2.0.9.4, Culture=neutral, PublicKeyToken=32c39770e9a21a67">
+      <HintPath>..\..\lib\net-2.0\bin\Boo.Lang.Compiler.dll</HintPath>
+    </Reference>
+    <Reference Include="Boo.Lang.PatternMatching, Version=2.0.9.4, Culture=neutral, PublicKeyToken=32c39770e9a21a67">
+      <HintPath>..\..\lib\net-2.0\bin\Boo.Lang.PatternMatching.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.boo" />
+    <Compile Include="AbstractCompilerTestFixture.boo" />
+    <Compile Include="AbstractIntegrationTestFixture.boo" />
+    <Compile Include="AbstractSemanticsTestFixture.boo" />
+    <Compile Include="ErrorMessagesTestFixture.boo" />
+    <Compile Include="ErrorMessagesTestFixture.Generated.boo" />
+    <Compile Include="EvalTestFixture.boo" />
+    <Compile Include="ExpandoTestFixture.boo" />
+    <Compile Include="IntegrationTestFixture.boo" />
+    <Compile Include="MonoBehaviour.boo" />
+    <Compile Include="ParserTestFixture.boo" />
+    <Compile Include="PEVerify.boo" />
+    <Compile Include="RuntimeTestFixture.boo" />
+    <Compile Include="SemanticsTestFixture.boo" />
+    <Compile Include="StackTraceTestFixture.boo" />
+    <Compile Include="StackTraceTestFixture.Generated.boo" />
+    <Compile Include="UnityScriptCompilerTestFixture.boo" />
+    <Compile Include="UsTestFixture.boo" />
+    <Compile Include="CommandLineOptionsTestFixture.boo" />
+    <Compile Include="UnityScriptCompilerFactoryTestFixture.boo" />
+    <Compile Include="Globals.boo" />
+    <Compile Include="ParserTestFixture.Generated.boo" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UnityScript\UnityScript.booproj">
+      <Project>{A76D75AA-A412-4319-A01F-8E9850FBD2DA}</Project>
+      <Name>UnityScript</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityScript.Tests.CSharp\UnityScript.Tests.CSharp.csproj">
+      <Project>{1764A349-FEAF-4821-896A-6A90858F760E}</Project>
+      <Name>UnityScript.Tests.CSharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\us\us.booproj">
+      <Project>{551646DA-1DB9-4519-AAE9-45143BF4625B}</Project>
+      <Name>us</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityScript.Lang\UnityScript.Lang.booproj">
+      <Project>{D8EFEF9A-4D5D-4473-9573-BF3AC0416016}</Project>
+      <Name>UnityScript.Lang</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(BooBinPath)\Boo.Microsoft.Build.targets" />
+</Project>

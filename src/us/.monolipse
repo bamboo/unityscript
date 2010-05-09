@@ -1,0 +1,14 @@
+<settings>
+  <language>boo</language>
+  <outputType>exe</outputType>
+  <references>
+    <monolipse.core.internal.AssemblySourceReference-Remembrance>
+      <path>/UnityScript/src/UnityScript</path>
+    </monolipse.core.internal.AssemblySourceReference-Remembrance>
+    <monolipse.core.internal.LocalAssemblyReference-Remembrance>
+      <path>/UnityScript/lib/net-2.0/bin/Boo.Lang.Useful.dll</path>
+    </monolipse.core.internal.LocalAssemblyReference-Remembrance>
+  </references>
+  <outputFolder>/UnityScript/bin</outputFolder>
+  <additionalOptions></additionalOptions>
+</settings>

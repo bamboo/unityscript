@@ -1,0 +1,12 @@
+*** Eval ***
+
+*) current imports should be effective inside eval code
+*) cache eval assemblies used in static methods
+*) for-loop variables should be visible to eval
+*) propagate strict mode?
+
+************
+
+print usage information for bin/us
+
+->* lexical scopes for 'for' statements

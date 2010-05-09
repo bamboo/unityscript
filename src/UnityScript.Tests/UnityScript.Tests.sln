@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+# SharpDevelop 2.1.0.2527
+Project("{A33008B1-5DAC-44D5-9060-242E3B6E38F2}") = "UnityScript.Tests", "UnityScript.Tests.booproj", "{EF774FAE-F854-4B84-9528-279AB3986F5A}"
+EndProject
+Project("{A33008B1-5DAC-44D5-9060-242E3B6E38F2}") = "UnityScript", "..\UnityScript\UnityScript.booproj", "{A76D75AA-A412-4319-A01F-8E9850FBD2DA}"
+EndProject
+Project("{A33008B1-5DAC-44D5-9060-242E3B6E38F2}") = "UnityScript.Lang", "..\UnityScript.Lang\UnityScript.Lang.booproj", "{D8EFEF9A-4D5D-4473-9573-BF3AC0416016}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityScript.Tests.CSharp", "..\UnityScript.Tests.CSharp\UnityScript.Tests.CSharp.csproj", "{1764A349-FEAF-4821-896A-6A90858F760E}"
+EndProject
+Project("{A33008B1-5DAC-44D5-9060-242E3B6E38F2}") = "us", "..\us\us.booproj", "{551646DA-1DB9-4519-AAE9-45143BF4625B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF774FAE-F854-4B84-9528-279AB3986F5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF774FAE-F854-4B84-9528-279AB3986F5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF774FAE-F854-4B84-9528-279AB3986F5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF774FAE-F854-4B84-9528-279AB3986F5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A76D75AA-A412-4319-A01F-8E9850FBD2DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A76D75AA-A412-4319-A01F-8E9850FBD2DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A76D75AA-A412-4319-A01F-8E9850FBD2DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A76D75AA-A412-4319-A01F-8E9850FBD2DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8EFEF9A-4D5D-4473-9573-BF3AC0416016}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8EFEF9A-4D5D-4473-9573-BF3AC0416016}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8EFEF9A-4D5D-4473-9573-BF3AC0416016}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8EFEF9A-4D5D-4473-9573-BF3AC0416016}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1764A349-FEAF-4821-896A-6A90858F760E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1764A349-FEAF-4821-896A-6A90858F760E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1764A349-FEAF-4821-896A-6A90858F760E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1764A349-FEAF-4821-896A-6A90858F760E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{551646DA-1DB9-4519-AAE9-45143BF4625B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{551646DA-1DB9-4519-AAE9-45143BF4625B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{551646DA-1DB9-4519-AAE9-45143BF4625B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{551646DA-1DB9-4519-AAE9-45143BF4625B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+EndGlobal

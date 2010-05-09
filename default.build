@@ -1,0 +1,220 @@
+<?xml version="1.0"?>
+<project name="unityscript" default="all">
+
+	<property name="java" value="java" />	
+	<property name="antlr.jar" value="lib/antlr-2.7.5.jar" />
+	<property name="platformId" value="net-${framework::get-version(framework::get-target-framework())}" />
+	<property name="build.dir" value="bin/${platformId}" />
+	<property name="boo.lib.dir" value="lib/${platformId}/bin" />
+	<property name="md.bin.dir" value="/usr/lib/monodevelop/bin" />
+	<property name="debug" value="true" />
+	
+	<include buildfile="nunit.inc" />
+	<include buildfile="build.properties" if="${file::exists('build.properties')}" />
+		
+	<target name="set-release-configuration">
+		<property name="debug" value="false" />
+	</target>
+	
+	<target name="test" depends="UnityScript.Tests">
+		<nunit2>       
+			<formatter type="Plain" />
+			<test>
+				<assemblies basedir="${build.dir}">				
+					<include name="UnityScript.Tests.dll" />					
+				</assemblies>
+			</test>
+		</nunit2>
+	</target>
+	
+	<target name="all" depends="UnityScript.Tests, prevent-system-references">
+	</target>
+	
+	<target name="prevent-system-references" depends="init">
+		<boo src="prevent-system-references.boo" />
+	</target>
+	
+	<target name="UnityScript.Tests" depends="refresh-tests, UnityScript, us">
+		<csc
+			target="library"
+			output="${build.dir}/UnityScript.Tests.CSharp.dll"
+			debug="true">
+			
+			<sources basedir="src/UnityScript.Tests.CSharp">
+				<include name="**/*.cs" />
+			</sources>
+			<references basedir="${build.dir}">
+				<include name="Boo.Lang.dll" />
+			</references>
+		</csc>
+		
+		<booc
+			target="library"
+			output="${build.dir}/UnityScript.Tests.dll"
+			debug="true">
+			<sources basedir="src/UnityScript.Tests">
+				<include name="**/*.boo" />
+			</sources>
+			<references basedir="${build.dir}">
+				<include name="us.exe" />
+				<include name="UnityScript.dll" />
+				<include name="UnityScript.Lang.dll" />
+				<include name="UnityScript.Tests.CSharp.dll" />
+				<include name="Boo.Lang.Compiler.dll" />
+				<include name="Boo.Lang.Useful.dll" />
+				<include name="${nunit.framework.dll}" />
+			</references>
+		</booc>
+	</target>
+	
+	<target name="refresh-tests" depends="init">
+		<boo src="refresh-tests.boo" />
+	</target>
+	
+	<target name="UnityScript" depends="init">
+	
+		<uptodate property="parser.uptodate">
+			<sourcefiles basedir="src/UnityScript">
+				<include name="UnityScript.g" />
+			</sourcefiles>
+			<targetfiles basedir="src/UnityScript/Parser">
+				<include name="UnityScriptParser.boo" />
+			</targetfiles>
+		</uptodate>
+
+		<if test="${not parser.uptodate}">
+			<exec
+				program="${java}"
+				failonerror="true">				
+				<arg value="-cp" />
+				<arg value="${antlr.jar}" />
+				<arg value="antlr.Tool" />
+				<!-- <arg value="-traceParser" /> -->
+				<arg value="-o" />
+				<arg value="src/UnityScript/Parser" />
+				<arg value="src/UnityScript/UnityScript.g" />
+			</exec>
+			<touch file="src/UnityScript/Parser/UnityScriptParser.boo" />
+		</if>
+		
+		<booc
+			target="library"
+			output="${build.dir}/UnityScript.Lang.dll"
+			debug="${debug}"
+			noconfig="true">
+			<sources basedir="src/UnityScript.Lang">
+				<include name="**/*.boo" />
+			</sources>
+			<references basedir="${build.dir}">
+				<include name="Boo.Lang.Interpreter.dll" />
+			</references>
+		</booc>
+		
+		<booc
+			target="library"
+			output="${build.dir}/UnityScript.dll"
+			debug="${debug}">
+			<sources basedir="src/UnityScript">
+				<include name="**/*.boo" />
+			</sources>
+			<references basedir="${build.dir}">
+				<include name="Boo.Lang.Parser.dll" />
+				<include name="Boo.Lang.PatternMatching.dll" />
+				<include name="UnityScript.Lang.dll" />
+			</references>
+		</booc>
+	</target>
+	
+	<target name="us" depends="UnityScript">
+		<booc
+			output="${build.dir}/us.exe"
+			target="exe"
+			debug="${debug}">
+			<sources basedir="src/us">
+				<include name="*.boo" />
+			</sources>
+			<references basedir="${build.dir}">
+				<include name="Boo.Lang.Interpreter.dll" />
+				<include name="UnityScript.dll" />
+				<include name="Boo.Lang.Useful.dll" />
+			</references>
+		</booc>
+	</target>
+	
+	<target name="md" description="MonoDevelop addin" depends="us">
+		<booc
+			output="${build.dir}/UnityScript.MonoDevelop.dll"
+			target="library"
+			debug="true"
+			rebuild="true">
+			<sources basedir="src/UnityScript.MonoDevelop">
+				<include name="**/*.boo" />
+			</sources>
+			<references>
+				<include name="${build.dir}/UnityScript.dll" />
+				<include name="${md.bin.dir}/Mono.TextEditor.dll" />
+				<include name="${md.bin.dir}/MonoDevelop.*.dll" />
+				<include name="${md.bin.dir}/../AddIns/MonoDevelop.SourceEditor2.dll" />
+				<include name="${md.bin.dir}/Mono.Debugging.dll" />
+				<include name="${md.bin.dir}/../AddIns/MonoDevelop.Debugger/MonoDevelop.Debugger.dll" />
+				<include name="${md.bin.dir}/../AddIns/MonoDevelop.DesignerSupport/MonoDevelop.DesignerSupport.dll" />
+			</references>
+			
+			<embed basedir="src/UnityScript.MonoDevelop">
+				<include name="UnityScript.MonoDevelop.addin.xml" />
+				<include name="UnityScriptSyntaxMode.xml" />
+				<include name="Templates/*.xft.xml" />
+				<include name="Templates/*.xpt.xml" />
+				<include name="Icons/*.png" />
+			</embed>
+		</booc>
+		
+		<property name="dir.md.addins" value="${environment::get-folder-path('Personal')}/.config/MonoDevelop/addins/UnityScript" />
+		
+		<copy todir="${dir.md.addins}">
+			<fileset basedir="${build.dir}">
+				<include name="UnityScript.MonoDevelop.*" />
+			</fileset>
+		</copy>
+		<copy todir="${dir.md.addins}">
+			<fileset basedir=".">
+				<include name="bin/net-2.0/*.*" />
+				<exclude name="**/*.MonoDevelop.*" />
+			</fileset>
+		</copy>
+		
+	</target>
+	
+	<target name="init">
+		<mkdir dir="${build.dir}" />
+		<copy todir="${build.dir}">
+			<fileset basedir="${boo.lib.dir}">
+				<include name="Boo.Lang*.dll" />
+				<include name="Boo.Lang*.pdb" />
+				<include name="Boo.Lang*.mdb" />
+			</fileset>
+		</copy>
+		<copy todir="${build.dir}" file="${nunit.framework.dll}" if="${file::exists(nunit.framework.dll)}" />
+		<loadtasks assembly="${boo.lib.dir}/Boo.NAnt.Tasks.dll" />
+	</target>
+	
+	<target name="update-boo-libs">
+		<property name="boo.dir" value="../boo" unless="${property::exists('boo.dir')}" />
+		
+		<nant buildfile="${boo.dir}/default.build" target="set-release-configuration nostdlib rebuild" />
+		
+		<copy todir="${boo.lib.dir}">
+			<fileset basedir="${boo.dir}/build">
+				<include name="*.dll" />
+				<include name="*.exe" />
+			</fileset>
+		</copy>
+		<copy file="${boo.dir}/lib/antlr-2.7.5/antlr-2.7.5.jar" todir="lib" />
+	</target>
+	
+	<target name="clean">
+		<delete dir="${build.dir}" if="${directory::exists(build.dir)}" />
+	</target>
+	
+	<target name="rebuild" depends="clean, all" />
+</project>

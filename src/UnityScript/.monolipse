@@ -1,0 +1,20 @@
+<settings>
+  <language>boo</language>
+  <outputType>library</outputType>
+  <references>
+    <monolipse.core.internal.LocalAssemblyReference-Remembrance>
+      <path>/UnityScript/lib/net-2.0/bin/Boo.Lang.Compiler.dll</path>
+    </monolipse.core.internal.LocalAssemblyReference-Remembrance>
+    <monolipse.core.internal.LocalAssemblyReference-Remembrance>
+      <path>/UnityScript/lib/net-2.0/bin/Boo.Lang.Parser.dll</path>
+    </monolipse.core.internal.LocalAssemblyReference-Remembrance>
+    <monolipse.core.internal.AssemblySourceReference-Remembrance>
+      <path>/UnityScript/src/UnityScript.Lang</path>
+    </monolipse.core.internal.AssemblySourceReference-Remembrance>
+    <monolipse.core.internal.LocalAssemblyReference-Remembrance>
+      <path>/UnityScript/lib/net-2.0/bin/Boo.Lang.PatternMatching.dll</path>
+    </monolipse.core.internal.LocalAssemblyReference-Remembrance>
+  </references>
+  <outputFolder>/UnityScript/bin</outputFolder>
+  <additionalOptions></additionalOptions>
+</settings>

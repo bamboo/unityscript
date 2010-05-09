@@ -1,0 +1,26 @@
+<settings>
+  <language>boo</language>
+  <outputType>library</outputType>
+  <references>
+    <monolipse.core.internal.AssemblySourceReference-Remembrance>
+      <path>/UnityScript/src/UnityScript</path>
+    </monolipse.core.internal.AssemblySourceReference-Remembrance>
+    <monolipse.core.internal.AssemblySourceReference-Remembrance>
+      <path>/UnityScript/src/UnityScript.Lang</path>
+    </monolipse.core.internal.AssemblySourceReference-Remembrance>
+    <monolipse.core.internal.AssemblySourceReference-Remembrance>
+      <path>/UnityScript/src/UnityScript.Tests.CSharp</path>
+    </monolipse.core.internal.AssemblySourceReference-Remembrance>
+    <monolipse.core.internal.GlobalAssemblyCacheReference-Remembrance>
+      <name>nunit.framework</name>
+      <version>2.2.0.0</version>
+      <culture>neutral</culture>
+      <token>96d09a1eb7f44a77</token>
+    </monolipse.core.internal.GlobalAssemblyCacheReference-Remembrance>
+    <monolipse.core.internal.AssemblySourceReference-Remembrance>
+      <path>/UnityScript/src/us</path>
+    </monolipse.core.internal.AssemblySourceReference-Remembrance>
+  </references>
+  <outputFolder>/UnityScript/bin</outputFolder>
+  <additionalOptions></additionalOptions>
+</settings>

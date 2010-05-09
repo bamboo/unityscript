@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Template Originator="Rodrigo B. de Oliveira" Language="UnityScript" Created="10/08/2009" LastModified="10/08/2009">
+	
+	<TemplateConfiguration>
+		<_Name>Empty File</_Name>
+		<Icon>md-unityscript-file</Icon>
+		<_Category>General</_Category>
+		<Language>UnityScript</Language>
+		<_Description>Creates an empty UnityScript file.</_Description>
+	</TemplateConfiguration>
+	
+	<TemplateFiles>
+		<File DefaultExtension=".js" DefaultName="EmptyUnityScriptFile" AddStandardHeader="True">
+		</File>
+	</TemplateFiles>
+	
+	<FileOptions/>
+	
+</Template>
