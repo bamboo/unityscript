@@ -1,1 +1,67 @@
-<?xml version="1.0" encoding="utf-8"?><Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">  <PropertyGroup>    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>    <ProductVersion>8.0.50727</ProductVersion>    <SchemaVersion>2.0</SchemaVersion>    <ProjectGuid>{FCFE96D7-4BDB-4EE9-BD11-E3E263E1DE38}</ProjectGuid>    <OutputType>Library</OutputType>    <RootNamespace>UnityScript.MonoDevelop</RootNamespace>    <UsePartialTypes>false</UsePartialTypes>    <AssemblyName>UnityScript.MonoDevelop</AssemblyName>  </PropertyGroup>  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">    <DebugSymbols>true</DebugSymbols>    <DebugType>full</DebugType>    <OutputPath>bin\Debug</OutputPath>    <ErrorReport>prompt</ErrorReport>    <ducky>false</ducky>    <culture />    <genwarnings>false</genwarnings>  </PropertyGroup>  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">    <DebugType>none</DebugType>    <OutputPath>bin\Release</OutputPath>    <ErrorReport>prompt</ErrorReport>    <ducky>false</ducky>    <culture />    <genwarnings>false</genwarnings>  </PropertyGroup>  <ItemGroup>    <Reference Include="System" />    <Reference Include="MonoDevelop.Core, Version=2.2.0.0, Culture=neutral">      <Package>monodevelop</Package>    </Reference>    <Reference Include="MonoDevelop.Ide, Version=2.2.0.0, Culture=neutral">      <Package>monodevelop</Package>    </Reference>    <Reference Include="MonoDevelop.Projects.Gui, Version=2.2.0.0, Culture=neutral">      <Package>monodevelop</Package>    </Reference>    <Reference Include="MonoDevelop.Refactoring, Version=2.2.0.0, Culture=neutral">      <Package>monodevelop-core-addins</Package>    </Reference>    <Reference Include="NRefactory, Version=2.1.1.0, Culture=neutral">      <Package>monodevelop</Package>    </Reference>  </ItemGroup>  <ItemGroup>    <Compile Include="Completion\UnityScriptEditorCompletion.boo" />    <Compile Include="ProjectModel\DomConversionVisitor.boo" />    <Compile Include="ProjectModel\UnityScriptCodeDomProvider.boo" />    <Compile Include="ProjectModel\UnityScriptCodeGenerator.boo" />    <Compile Include="ProjectModel\UnityScriptCompilationParameters.boo" />    <Compile Include="ProjectModel\UnityScriptCompiler.boo" />    <Compile Include="ProjectModel\UnityScriptLanguageBinding.boo" />    <Compile Include="ProjectModel\UnityScriptParser.boo" />    <Compile Include="ProjectModel\UnityScriptProjectParameters.boo" />    <Compile Include="CommandHandlers\withAtomicUndoOn.boo" />  </ItemGroup>  <ItemGroup>    <ProjectReference Include="..\UnityScript\UnityScript.booproj">      <Project>{A76D75AA-A412-4319-A01F-8E9850FBD2DA}</Project>      <Name>UnityScript</Name>    </ProjectReference>    <ProjectReference Include="..\UnityScript.Lang\UnityScript.Lang.booproj">      <Project>{D8EFEF9A-4D5D-4473-9573-BF3AC0416016}</Project>      <Name>UnityScript.Lang</Name>    </ProjectReference>  </ItemGroup>  <ProjectExtensions>    <MonoDevelop>      <Properties InternalTargetFrameworkVersion="3.5" xmlns="" />    </MonoDevelop>  </ProjectExtensions></Project>
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FCFE96D7-4BDB-4EE9-BD11-E3E263E1DE38}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>UnityScript.MonoDevelop</RootNamespace>
+    <UsePartialTypes>false</UsePartialTypes>
+    <AssemblyName>UnityScript.MonoDevelop</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <OutputPath>bin\Debug</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <ducky>false</ducky>
+    <culture />
+    <genwarnings>false</genwarnings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <ducky>false</ducky>
+    <culture />
+    <genwarnings>false</genwarnings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="MonoDevelop.Core, Version=2.2.0.0, Culture=neutral">
+      <Package>monodevelop</Package>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="MonoDevelop.Ide, Version=2.2.0.0, Culture=neutral">
+      <Package>monodevelop</Package>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="MonoDevelop.Refactoring, Version=2.2.0.0, Culture=neutral">
+      <Package>monodevelop-core-addins</Package>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="NRefactory, Version=2.1.1.0, Culture=neutral">
+      <Package>monodevelop</Package>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Completion\UnityScriptEditorCompletion.boo" />
+    <Compile Include="ProjectModel\DomConversionVisitor.boo" />
+    <Compile Include="ProjectModel\UnityScriptCodeDomProvider.boo" />
+    <Compile Include="ProjectModel\UnityScriptCodeGenerator.boo" />
+    <Compile Include="ProjectModel\UnityScriptCompilationParameters.boo" />
+    <Compile Include="ProjectModel\UnityScriptCompiler.boo" />
+    <Compile Include="ProjectModel\UnityScriptLanguageBinding.boo" />
+    <Compile Include="ProjectModel\UnityScriptParser.boo" />
+    <Compile Include="ProjectModel\UnityScriptProjectParameters.boo" />
+    <Compile Include="CommandHandlers\withAtomicUndoOn.boo" />
+  </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties InternalTargetFrameworkVersion="3.5" />
+    </MonoDevelop>
+  </ProjectExtensions>
+</Project>
