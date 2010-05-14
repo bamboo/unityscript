@@ -134,7 +134,6 @@
 				<include name="*.boo" />
 			</sources>
 			<references basedir="${build.dir}">
-				<include name="Boo.Lang.Interpreter.dll" />
 				<include name="UnityScript.dll" />
 				<include name="Boo.Lang.Useful.dll" />
 			</references>

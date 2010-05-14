@@ -4,7 +4,6 @@ import System
 import System.Reflection
 import System.IO
 import Boo.Lang.Compiler
-import Boo.Lang.Interpreter
 import UnityScript.Steps
 
 def Main([required] argv as (string)) as int:
@@ -14,10 +13,6 @@ def Main([required] argv as (string)) as int:
 		print "Error:", x
 	return 255
 
-class ParseIgnoringMissingSemicolon(Parse):
-	override protected def ParseReader(name as string, reader as TextReader):
-		super(name, StringReader(reader.ReadToEnd() + ";"))
-		
 def getAssemblyTitle():
 	return cast(AssemblyTitleAttribute, getAssemblyAttribute(AssemblyTitleAttribute)).Title
 	
@@ -30,17 +25,6 @@ def getAssemblyCopyright():
 def getAssemblyAttribute(type as System.Type):
 	return Attribute.GetCustomAttribute(Assembly.GetExecutingAssembly(), type)
 
-def shell(): 
-	banner()
-	print "Welcome to the UnityScript interactive shell"
-	print "type 'globals()<ENTER>' for a list of global symbols"
-	
-	interpreter = InteractiveInterpreter(ParseIgnoringMissingSemicolon(),
-									BlockStarters: ("{",),
-									RememberLastValue: true)
-	interpreter.SetValue("exit", "CTRL+D to exit")
-	interpreter.ConsoleLoopEval()
-	
 def compile(options as CommandLineOptions):
 	
 	compiler = UnityScriptCompilerFactory.FromCommandLineOptions(options)
@@ -69,18 +53,16 @@ def banner():
 def run(argv as (string)):
 	options = parseCommandLineOptions(argv)
 	
-	if 0 == len(argv):
-		shell()
+	if options.IsValid and not options.DoHelp:
+		try:
+			return compile(options)
+		except x as ApplicationException:
+			print "ERROR:", x.Message
+		except x:
+			print "ERROR:", x
 	else:
-		if options.IsValid and not options.DoHelp:
-			try:
-				return compile(options)
-			except x as ApplicationException:
-				print "ERROR:", x.Message
-			except x:
-				print "ERROR:", x
-		else:
-			usage(options)
+		usage(options)
+		
 	return 255
 	
 def parseCommandLineOptions(argv as (string)):
