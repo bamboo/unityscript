@@ -60,7 +60,8 @@
     <Compile Include="ExpandoTestFixture.boo" />
     <Compile Include="IntegrationTestFixture.boo" />
     <Compile Include="MonoBehaviour.boo" />
-    <Compile Include="ParserTestFixture.boo" />
+	<Compile Include="ParserTestFixture.boo" />
+    <Compile Include="PragmaTestFixture.boo" />
     <Compile Include="PEVerify.boo" />
     <Compile Include="RuntimeTestFixture.boo" />
     <Compile Include="SemanticsTestFixture.boo" />

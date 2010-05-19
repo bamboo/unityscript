@@ -87,16 +87,23 @@ class SemanticsTestFixture(AbstractSemanticsTestFixture):
 GenerateTestFixture("tests/integration", "src/UnityScript.Tests/IntegrationTestFixture.boo", """
 namespace UnityScript.Tests
 
-
 import NUnit.Framework
 	
 [TestFixture]
 class IntegrationTestFixture(AbstractIntegrationTestFixture):
 """)
 
-GenerateTestFixture("tests/generics", "src/UnityScript.Tests/GenericsTestFixture.Generated.boo", """
+GenerateTestFixture("tests/pragma", "src/UnityScript.Tests/PragmaTestFixture.boo", """
 namespace UnityScript.Tests
 
+import NUnit.Framework
+	
+[TestFixture]
+class PragmaTestFixture(AbstractIntegrationTestFixture):
+""")
+
+GenerateTestFixture("tests/generics", "src/UnityScript.Tests/GenericsTestFixture.Generated.boo", """
+namespace UnityScript.Tests
 
 import NUnit.Framework
 	
@@ -107,7 +114,6 @@ class GenericsTestFixture(AbstractIntegrationTestFixture):
 GenerateTestFixture("tests/eval", "src/UnityScript.Tests/EvalTestFixture.boo", """
 namespace UnityScript.Tests
 
-
 import NUnit.Framework
 	
 [TestFixture]
@@ -116,7 +122,6 @@ class EvalTestFixture(AbstractIntegrationTestFixture):
 
 GenerateTestFixture("tests/expando", "src/UnityScript.Tests/ExpandoTestFixture.boo", """
 namespace UnityScript.Tests
-
 
 import NUnit.Framework
 	

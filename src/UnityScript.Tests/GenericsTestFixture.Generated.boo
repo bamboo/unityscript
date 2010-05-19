@@ -1,7 +1,6 @@
 
 namespace UnityScript.Tests
 
-
 import NUnit.Framework
 	
 [TestFixture]

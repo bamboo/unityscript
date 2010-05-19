@@ -25,6 +25,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 	
 	_strict = false
 	
+	_implicit = false
 	
 	override def Initialize(context as CompilerContext):
 		super(context)
@@ -66,6 +67,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 			
 	override def OnModule(module as Module):           
 		Parameters.Strict = _strict = module.ContainsAnnotation("strict")
+		_implicit = module.ContainsAnnotation("implicit")
 		super(module)
 		
 	override def OnMethod(node as Method):
@@ -82,7 +84,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		ContextAnnotations.SetEntryPoint(_context, node)
 		
 	override def ProcessAutoLocalDeclaration(node as BinaryExpression, reference as ReferenceExpression):
-		if _strict and not IsCompilerGenerated(reference):
+		if (_strict and not _implicit) and not IsCompilerGenerated(reference):
 			EmitUnknownIdentifierError(reference, reference.Name)
 		else:
 			super(node, reference)

@@ -237,7 +237,7 @@ class UnityScriptParser(antlr.LLkParser):
 	static def CreateModuleName(fname as string):
 		return System.IO.Path.GetFileNameWithoutExtension(fname)
 		
-	static final ValidPragmas = ("strict", "expando")
+	static final ValidPragmas = ("strict", "expando", "implicit")
 
 	
 	protected def initialize():
