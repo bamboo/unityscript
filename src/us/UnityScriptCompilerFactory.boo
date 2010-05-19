@@ -46,8 +46,14 @@ class UnityScriptCompilerFactory:
 			compiler.Parameters.Pipeline = UnityScriptCompiler.Pipelines.CompileToFile()
 			
 		if len(options.SuppressedWarnings):
-			compiler.Parameters.Pipeline.Insert(0,
+			compiler.Parameters.Pipeline.Insert(
+				0,
 				UnityScript.Steps.SuppressWarnings(options.SuppressedWarnings))
+				
+		if len(options.Pragmas):
+			compiler.Parameters.Pipeline.InsertAfter(
+				UnityScript.Steps.Parse,
+				UnityScript.Steps.IntroducePragmas(options.Pragmas))
 	
 		baseType = resolveType(assemblies, options.BaseClass)	  
 		compiler.Parameters.ScriptBaseType = baseType

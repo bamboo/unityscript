@@ -30,6 +30,9 @@ class CommandLineOptions(AbstractCommandLine):
 	[getter(Defines)]
 	_defines = []
 	
+	[getter(Pragmas)]
+	_pragmas = List of string()
+	
 	def constructor(*argv as (string)):
 		Parse(argv)
 		
@@ -79,6 +82,10 @@ class CommandLineOptions(AbstractCommandLine):
 	
 	[Option("Enable verbose mode.", LongForm: "verbose")]
 	public Verbose = false
+	
+	[Option("Enables a comma separated {set} of #pragma directives on every module", LongForm: "pragmas", MaxOccurs: int.MaxValue)]
+	def AddPragmas(pragmas as string):
+		_pragmas.ExtendUnique(pragma.Trim() for pragma in pragmas.Split(char(',')))
 
 	[Option("References the specified {assembly}", ShortForm: 'r', LongForm: "reference", MaxOccurs: int.MaxValue)]
 	def AddReference(reference as string):

@@ -15,9 +15,17 @@ class UsTestFixture:
 			"-m:Awake",
 			"-nowarn:BCW0016",
 			ResolvePath("warnings-1.js"), )
-		exitCode, output as string = ExecuteUs(argv)
-		Assert.AreEqual(0, exitCode)
-		assert output.Trim().StartsWith("Successfully compiled")
+		AssertSuccessfulCompilation(argv)
+		
+	[Test]
+	def Pragmas():
+		argv = (
+			"-r:${GetAssemblyLocation()}",
+			"-b:UnityScript.Tests.MonoBehaviour",
+			"-m:Awake",
+			"-pragmas:strict,implicit",
+			ResolvePath("pragmas-1.js"), )
+		AssertSuccessfulCompilation(argv)
 
 	[Test]
 	def WarningsAndErrorsReportCorrectFileNames():
@@ -49,6 +57,11 @@ class UsTestFixture:
 		Assert.AreEqual(255, exitCode)
 		Assert.AreEqual(expected.Trim(), output.Trim())
 		
+	def AssertSuccessfulCompilation(argv as (string)):
+		exitCode, output as string = ExecuteUs(argv)
+		Assert.AreEqual(0, exitCode, output)
+		assert output.Trim().StartsWith("Successfully compiled")
+		
 	def ExecuteUs(argv as (string)):
 		if PlatformInformation.IsMono:
 			p = shellp("mono", UsExePath + " ${join(argv)}")
@@ -72,6 +85,5 @@ class UsTestFixture:
 		return p
 
 	UsExePath:
-		get:
-			return typeof(us.CommandLineOptions).Module.FullyQualifiedName
+		get: return typeof(us.CommandLineOptions).Module.FullyQualifiedName
 		
