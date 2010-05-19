@@ -5,21 +5,26 @@ import Boo.Lang.Compiler.Ast
 import Boo.Lang.Compiler.TypeSystem
 import Boo.Lang.Compiler.TypeSystem.Internal
 import Boo.Lang.Compiler.Steps
+import UnityScript.Macros
 
 class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 	
-	static final IEnumerable_GetEnumerator = Types.IEnumerable.GetMethod("GetEnumerator");
+	deferred IEnumerable_GetEnumerator = Types.IEnumerable.GetMethod("GetEnumerator");
 		
-	static final IEnumerator_MoveNext = Types.IEnumerator.GetMethod("MoveNext");
+	deferred IEnumerator_MoveNext = Types.IEnumerator.GetMethod("MoveNext");
 		
-	static final IEnumerator_get_Current = Types.IEnumerator.GetProperty("Current").GetGetMethod();
+	deferred IEnumerator_get_Current = Types.IEnumerator.GetProperty("Current").GetGetMethod();
 	
-	_StartCoroutine as IMethod
-	_UnityRuntimeServices_GetEnumerator as IMethod
-	_UnityRuntimeServices_Update as IMethod
-	_UnityRuntimeServices_GetTypeOf as IMethod
+	deferred _StartCoroutine = NameResolutionService.ResolveMethod(UnityScriptTypeSystem.ScriptBaseType, "StartCoroutine_Auto")		
+	
+	deferred _UnityRuntimeServices_GetEnumerator = ResolveUnityRuntimeMethod("GetEnumerator")													
+	
+	deferred _UnityRuntimeServices_Update = ResolveUnityRuntimeMethod("Update")
+	
+	deferred _UnityRuntimeServices_GetTypeOf = ResolveUnityRuntimeMethod("GetTypeOf")
 	
 	_strict = false
+	
 	
 	override def Initialize(context as CompilerContext):
 		super(context)
@@ -31,17 +36,10 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		// but into:
 		//     foo.Equals(null)						
 		self.OptimizeNullComparisons = false
-		self._StartCoroutine = NameResolutionService.ResolveMethod(
-													UnityScriptTypeSystem.ScriptBaseType,
-													"StartCoroutine_Auto")		
-		self._UnityRuntimeServices_GetEnumerator = ResolveUnityRuntimeMethod("GetEnumerator")													
-		self._UnityRuntimeServices_Update = ResolveUnityRuntimeMethod("Update")
-		self._UnityRuntimeServices_GetTypeOf = ResolveUnityRuntimeMethod("GetTypeOf")
+		
 		
 	def ResolveUnityRuntimeMethod(name as string):
-		return NameResolutionService.ResolveMethod(
-					TypeSystemServices.Map(UnityScript.Lang.UnityRuntimeServices),
-					name)
+		return NameResolutionService.ResolveMethod(TypeSystemServices.Map(UnityScript.Lang.UnityRuntimeServices), name)
 		
 	UnityScriptTypeSystem as UnityScript.Steps.UnityScriptTypeSystem:
 		get: return self.TypeSystemServices

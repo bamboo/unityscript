@@ -70,20 +70,24 @@
     <Compile Include="Steps\CheckBaseTypes.boo" />
     <Compile Include="Core\UnityScriptCompilerErrors.boo" />
     <Compile Include="Core\BaseTypeAnnotations.boo" />
+    <Compile Include="Macros\DeferredMacro.boo" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="..\..\..\..\Projects\unityscript\src\UnityScript\" />
     <Folder Include="..\..\..\..\Projects\unityscript\src\UnityScript\" />
     <ProjectReference Include="..\UnityScript.Lang\UnityScript.Lang.booproj">
       <Project>{D8EFEF9A-4D5D-4473-9573-BF3AC0416016}</Project>
       <Name>UnityScript.Lang</Name>
     </ProjectReference>
     <Folder Include="Core\" />
-    <Reference Include="Boo.Lang.Compiler">
+    <Reference Include="Boo.Lang.Compiler, Version=2.0.9.4, Culture=neutral, PublicKeyToken=32c39770e9a21a67">
       <HintPath>..\..\lib\net-2.0\bin\Boo.Lang.Compiler.dll</HintPath>
     </Reference>
-    <Reference Include="Boo.Lang.Parser">
+    <Reference Include="Boo.Lang.Parser, Version=2.0.9.4, Culture=neutral, PublicKeyToken=32c39770e9a21a67">
       <HintPath>..\..\lib\net-2.0\bin\Boo.Lang.Parser.dll</HintPath>
+    </Reference>
+    <Reference Include="Boo.Lang.PatternMatching, Version=2.0.9.4, Culture=neutral, PublicKeyToken=32c39770e9a21a67">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\net-2.0\bin\Boo.Lang.PatternMatching.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(BooBinPath)\Boo.Microsoft.Build.targets" />
