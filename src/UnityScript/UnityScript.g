@@ -217,7 +217,7 @@ tokens
 	static def CreateModuleName(fname as string):
 		return System.IO.Path.GetFileNameWithoutExtension(fname)
 		
-	static final ValidPragmas = ("strict", "expando", "implicit")
+	static final ValidPragmas = ("strict", "expando", "implicit", "downcast")
 
 }
 

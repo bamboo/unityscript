@@ -70,6 +70,10 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/pragma-strict-3js.js")
 		
 	[Test]
+	def pragma_strict_4():
+		RunTestCase("tests/error-messages/pragma-strict-4.js")
+		
+	[Test]
 	def pragma_strict():
 		RunTestCase("tests/error-messages/pragma-strict.js")
 		

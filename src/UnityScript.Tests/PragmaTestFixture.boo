@@ -7,6 +7,10 @@ import NUnit.Framework
 class PragmaTestFixture(AbstractIntegrationTestFixture):
 
 	[Test]
+	def downcast_plus_strict_1():
+		RunTestCase("tests/pragma/downcast-plus-strict-1.js")
+		
+	[Test]
 	def implicit_1():
 		RunTestCase("tests/pragma/implicit-1.js")
 		

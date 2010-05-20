@@ -4,6 +4,7 @@ import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
 import Boo.Lang.Compiler.TypeSystem
 import Boo.Lang.Compiler.TypeSystem.Internal
+import Boo.Lang.Compiler.TypeSystem.Services
 import Boo.Lang.Compiler.Steps
 import UnityScript.Macros
 
@@ -68,6 +69,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 	override def OnModule(module as Module):           
 		Parameters.Strict = _strict = module.ContainsAnnotation("strict")
 		_implicit = module.ContainsAnnotation("implicit")
+		my(UnityDowncastPermissions).Enabled = module.ContainsAnnotation("downcast")
 		super(module)
 		
 	override def OnMethod(node as Method):
