@@ -132,6 +132,8 @@ class Evaluator:
 		compiler.Parameters.ScriptBaseType = EvaluationScript
 		compiler.Parameters.ScriptMainMethod = "Run"
 		compiler.Parameters.Input.Add(StringInput("script", _code + ";"))
+		compiler.Parameters.Debug = false
+		compiler.Parameters.GenerateInMemory = true
 		
 		contextAssembly = _context.GetType().Assembly
 		compiler.Parameters.References.Add(contextAssembly)
