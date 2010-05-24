@@ -1,5 +1,5 @@
 /*
-Bar
+Bar[]
 */
 #pragma strict
 #pragma downcast

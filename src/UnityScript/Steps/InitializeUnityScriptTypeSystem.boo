@@ -11,4 +11,4 @@ class InitializeUnityScriptTypeSystem(InitializeTypeSystemServices):
 		return UnityCallableResolutionService(Context)
 		
 	override def CreateDowncastPermissions():
-		return UnityDowncastPermissions(Context)
+		return UnityDowncastPermissions()
