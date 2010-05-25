@@ -1,5 +1,0 @@
-"""
-namespace CPlusPlusStyleComments
-"""
-namespace CPlusPlusStyleComments
-

@@ -3,9 +3,8 @@
 
 	<property name="java" value="java" />	
 	<property name="antlr.jar" value="lib/antlr-2.7.5.jar" />
-	<property name="platformId" value="net-${framework::get-version(framework::get-target-framework())}" />
-	<property name="build.dir" value="bin/${platformId}" />
-	<property name="boo.lib.dir" value="lib/${platformId}/bin" />
+	<property name="build.dir" value="bin" />
+	<property name="boo.lib.dir" value="../boo/build" />
 	<property name="md.bin.dir" value="/usr/lib/monodevelop/bin" />
 	<property name="debug" value="true" />
 	

@@ -1,2 +1,0 @@
-#!/bin/sh
-env mono build/booi.exe "$@"

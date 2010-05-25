@@ -1,5 +1,0 @@
-"""
-0xABBA: 43962
-"""
-print("0xABBA: ${0xABBA}")
-
