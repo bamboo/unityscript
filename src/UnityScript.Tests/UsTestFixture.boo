@@ -18,6 +18,16 @@ class UsTestFixture:
 		AssertSuccessfulCompilation(argv)
 		
 	[Test]
+	def ExeTarget():
+		argv = (
+			"-r:${GetAssemblyLocation()}",
+			"-b:UnityScript.Tests.MonoBehaviour",
+			"-m:Awake",
+			"-target:exe",
+			ResolvePath("target-exe.js"), )
+		AssertSuccessfulCompilation(argv)
+		
+	[Test]
 	def Pragmas():
 		argv = (
 			"-r:${GetAssemblyLocation()}",
