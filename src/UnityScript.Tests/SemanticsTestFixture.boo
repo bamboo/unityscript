@@ -35,6 +35,10 @@ class SemanticsTestFixture(AbstractSemanticsTestFixture):
 		RunTestCase("tests/semantics/magic-members.js")
 		
 	[Test]
+	def single_update_function():
+		RunTestCase("tests/semantics/single-update-function.js")
+		
+	[Test]
 	def variables():
 		RunTestCase("tests/semantics/variables.js")
 		
