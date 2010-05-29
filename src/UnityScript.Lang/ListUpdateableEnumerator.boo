@@ -18,8 +18,7 @@ internal class ListUpdateableEnumerator(IEnumerator):
 		return _current < _list.Count
 		
 	Current:
-		get:
-			return _list[_current]
+		get: return _list[_current]
 			
 	def Update(newValue):
 		_list[_current] = newValue
