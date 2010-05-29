@@ -1,4 +1,4 @@
-// $ANTLR 2.7.5 (20050517): "UnityScript.g" -> "UnityScriptLexer.boo"$
+// $ANTLR 2.7.5 (20050517): "src/UnityScript/UnityScript.g" -> "UnityScriptLexer.boo"$
 
 namespace UnityScript.Parser
 // Generate header specific to lexer Boo file
@@ -41,37 +41,37 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 	public static final ENUM = 10
 	public static final EXTENDS = 11
 	public static final FALSE = 12
-	public static final FINALLY = 13
-	public static final FOR = 14
-	public static final FUNCTION = 15
-	public static final GET = 16
-	public static final IF = 17
-	public static final IMPORT = 18
-	public static final IMPLEMENTS = 19
-	public static final IN = 20
-	public static final INTERFACE = 21
-	public static final INSTANCEOF = 22
-	public static final NEW = 23
-	public static final NOT = 24
-	public static final NULL = 25
-	public static final RETURN = 26
-	public static final PUBLIC = 27
-	public static final PROTECTED = 28
-	public static final INTERNAL = 29
-	public static final OVERRIDE = 30
-	public static final PARTIAL = 31
-	public static final PRAGMA = 32
-	public static final PRIVATE = 33
-	public static final SET = 34
-	public static final STATIC = 35
-	public static final SUPER = 36
-	public static final THIS = 37
-	public static final THROW = 38
-	public static final TRUE = 39
-	public static final TRY = 40
-	public static final TYPEOF = 41
-	public static final VAR = 42
-	public static final VIRTUAL = 43
+	public static final FINAL = 13
+	public static final FINALLY = 14
+	public static final FOR = 15
+	public static final FUNCTION = 16
+	public static final GET = 17
+	public static final IF = 18
+	public static final IMPORT = 19
+	public static final IMPLEMENTS = 20
+	public static final IN = 21
+	public static final INTERFACE = 22
+	public static final INSTANCEOF = 23
+	public static final NEW = 24
+	public static final NOT = 25
+	public static final NULL = 26
+	public static final RETURN = 27
+	public static final PUBLIC = 28
+	public static final PROTECTED = 29
+	public static final INTERNAL = 30
+	public static final OVERRIDE = 31
+	public static final PARTIAL = 32
+	public static final PRAGMA = 33
+	public static final PRIVATE = 34
+	public static final SET = 35
+	public static final STATIC = 36
+	public static final SUPER = 37
+	public static final THIS = 38
+	public static final THROW = 39
+	public static final TRUE = 40
+	public static final TRY = 41
+	public static final TYPEOF = 42
+	public static final VAR = 43
 	public static final WHILE = 44
 	public static final YIELD = 45
 	public static final SWITCH = 46
@@ -166,94 +166,94 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 		setCaseSensitive(true)
 		literals = Hashtable(100, 0.4, null, Comparer.Default)
 		literals.Add(",", 61)
-		literals.Add("public", 27)
+		literals.Add("public", 28)
 		literals.Add("a string", 54)
 		literals.Add("an identifier", 53)
 		literals.Add("]", 63)
 		literals.Add("case", 47)
 		literals.Add("break", 5)
 		literals.Add("while", 44)
-		literals.Add("new", 23)
+		literals.Add("new", 24)
 		literals.Add("||", 69)
 		literals.Add("+", 75)
-		literals.Add("instanceof", 22)
-		literals.Add("implements", 19)
+		literals.Add("instanceof", 23)
+		literals.Add("implements", 20)
 		literals.Add("*", 78)
 		literals.Add("|=", 65)
-		literals.Add("typeof", 41)
+		literals.Add("typeof", 42)
 		literals.Add("[", 62)
 		literals.Add(">>=", 92)
-		literals.Add("not", 24)
-		literals.Add("return", 26)
-		literals.Add("throw", 38)
-		literals.Add("var", 42)
+		literals.Add("not", 25)
+		literals.Add("return", 27)
+		literals.Add("throw", 39)
+		literals.Add("var", 43)
 		literals.Add(")", 58)
 		literals.Add("==", 79)
-		literals.Add("null", 25)
-		literals.Add("protected", 28)
+		literals.Add("null", 26)
+		literals.Add("protected", 29)
 		literals.Add("@script", 94)
 		literals.Add("class", 7)
 		literals.Add("(", 57)
 		literals.Add("~", 82)
-		literals.Add("function", 15)
+		literals.Add("function", 16)
 		literals.Add("/=", 49)
-		literals.Add("super", 36)
+		literals.Add("super", 37)
 		literals.Add("@", 93)
 		literals.Add("-=", 51)
-		literals.Add("set", 34)
+		literals.Add("set", 35)
 		literals.Add("+=", 50)
 		literals.Add("!==", 84)
 		literals.Add("}", 56)
-		literals.Add("interface", 21)
+		literals.Add("interface", 22)
 		literals.Add("?", 81)
 		literals.Add("&", 66)
-		literals.Add("internal", 29)
+		literals.Add("internal", 30)
+		literals.Add("final", 13)
 		literals.Add("yield", 45)
 		literals.Add("!=", 80)
 		literals.Add("===", 83)
-		literals.Add("if", 17)
+		literals.Add("if", 18)
 		literals.Add("|", 64)
-		literals.Add("override", 30)
+		literals.Add("override", 31)
 		literals.Add(">", 89)
 		literals.Add("as", 4)
 		literals.Add("%", 77)
-		literals.Add("pragma", 32)
+		literals.Add("pragma", 33)
 		literals.Add("catch", 6)
-		literals.Add("try", 40)
+		literals.Add("try", 41)
 		literals.Add("{", 55)
 		literals.Add("=", 72)
 		literals.Add("enum", 10)
-		literals.Add("for", 14)
+		literals.Add("for", 15)
 		literals.Add(">>", 91)
 		literals.Add("extends", 11)
-		literals.Add("private", 33)
+		literals.Add("private", 34)
 		literals.Add("default", 48)
 		literals.Add("--", 74)
 		literals.Add("<", 85)
 		literals.Add("false", 12)
-		literals.Add("this", 37)
-		literals.Add("static", 35)
+		literals.Add("this", 38)
+		literals.Add("static", 36)
 		literals.Add(">=", 90)
 		literals.Add("<=", 86)
-		literals.Add("partial", 31)
+		literals.Add("partial", 32)
 		literals.Add(";", 71)
-		literals.Add("get", 16)
+		literals.Add("get", 17)
 		literals.Add("<<=", 88)
 		literals.Add("continue", 8)
 		literals.Add("&&", 70)
 		literals.Add("<<", 87)
 		literals.Add(".", 59)
-		literals.Add("finally", 13)
+		literals.Add("finally", 14)
 		literals.Add("else", 9)
-		literals.Add("import", 18)
+		literals.Add("import", 19)
 		literals.Add("++", 73)
 		literals.Add(":", 60)
-		literals.Add("in", 20)
+		literals.Add("in", 21)
 		literals.Add("switch", 46)
-		literals.Add("true", 39)
+		literals.Add("true", 40)
 		literals.Add("-", 76)
 		literals.Add("*=", 52)
-		literals.Add("virtual", 43)
 		literals.Add("^", 67)
 		literals.Add("&=", 68)
 	

@@ -1,4 +1,4 @@
-// $ANTLR 2.7.5 (20050517): "UnityScript.g" -> "UnityScriptLexer.boo"$
+// $ANTLR 2.7.5 (20050517): "src/UnityScript/UnityScript.g" -> "UnityScriptLexer.boo"$
 
 namespace UnityScript.Parser
 class UnityScriptTokenTypes:
@@ -13,37 +13,37 @@ class UnityScriptTokenTypes:
 	public static final ENUM = 10
 	public static final EXTENDS = 11
 	public static final FALSE = 12
-	public static final FINALLY = 13
-	public static final FOR = 14
-	public static final FUNCTION = 15
-	public static final GET = 16
-	public static final IF = 17
-	public static final IMPORT = 18
-	public static final IMPLEMENTS = 19
-	public static final IN = 20
-	public static final INTERFACE = 21
-	public static final INSTANCEOF = 22
-	public static final NEW = 23
-	public static final NOT = 24
-	public static final NULL = 25
-	public static final RETURN = 26
-	public static final PUBLIC = 27
-	public static final PROTECTED = 28
-	public static final INTERNAL = 29
-	public static final OVERRIDE = 30
-	public static final PARTIAL = 31
-	public static final PRAGMA = 32
-	public static final PRIVATE = 33
-	public static final SET = 34
-	public static final STATIC = 35
-	public static final SUPER = 36
-	public static final THIS = 37
-	public static final THROW = 38
-	public static final TRUE = 39
-	public static final TRY = 40
-	public static final TYPEOF = 41
-	public static final VAR = 42
-	public static final VIRTUAL = 43
+	public static final FINAL = 13
+	public static final FINALLY = 14
+	public static final FOR = 15
+	public static final FUNCTION = 16
+	public static final GET = 17
+	public static final IF = 18
+	public static final IMPORT = 19
+	public static final IMPLEMENTS = 20
+	public static final IN = 21
+	public static final INTERFACE = 22
+	public static final INSTANCEOF = 23
+	public static final NEW = 24
+	public static final NOT = 25
+	public static final NULL = 26
+	public static final RETURN = 27
+	public static final PUBLIC = 28
+	public static final PROTECTED = 29
+	public static final INTERNAL = 30
+	public static final OVERRIDE = 31
+	public static final PARTIAL = 32
+	public static final PRAGMA = 33
+	public static final PRIVATE = 34
+	public static final SET = 35
+	public static final STATIC = 36
+	public static final SUPER = 37
+	public static final THIS = 38
+	public static final THROW = 39
+	public static final TRUE = 40
+	public static final TRY = 41
+	public static final TYPEOF = 42
+	public static final VAR = 43
 	public static final WHILE = 44
 	public static final YIELD = 45
 	public static final SWITCH = 46

@@ -1,4 +1,4 @@
-// $ANTLR 2.7.5 (20050517): "UnityScript.g" -> "UnityScriptParser.boo"$
+// $ANTLR 2.7.5 (20050517): "src/UnityScript/UnityScript.g" -> "UnityScriptParser.boo"$
 
 namespace UnityScript.Parser
 // Generate the header common to all output files.
@@ -38,37 +38,37 @@ class UnityScriptParser(antlr.LLkParser):
 	public static final ENUM = 10
 	public static final EXTENDS = 11
 	public static final FALSE = 12
-	public static final FINALLY = 13
-	public static final FOR = 14
-	public static final FUNCTION = 15
-	public static final GET = 16
-	public static final IF = 17
-	public static final IMPORT = 18
-	public static final IMPLEMENTS = 19
-	public static final IN = 20
-	public static final INTERFACE = 21
-	public static final INSTANCEOF = 22
-	public static final NEW = 23
-	public static final NOT = 24
-	public static final NULL = 25
-	public static final RETURN = 26
-	public static final PUBLIC = 27
-	public static final PROTECTED = 28
-	public static final INTERNAL = 29
-	public static final OVERRIDE = 30
-	public static final PARTIAL = 31
-	public static final PRAGMA = 32
-	public static final PRIVATE = 33
-	public static final SET = 34
-	public static final STATIC = 35
-	public static final SUPER = 36
-	public static final THIS = 37
-	public static final THROW = 38
-	public static final TRUE = 39
-	public static final TRY = 40
-	public static final TYPEOF = 41
-	public static final VAR = 42
-	public static final VIRTUAL = 43
+	public static final FINAL = 13
+	public static final FINALLY = 14
+	public static final FOR = 15
+	public static final FUNCTION = 16
+	public static final GET = 17
+	public static final IF = 18
+	public static final IMPORT = 19
+	public static final IMPLEMENTS = 20
+	public static final IN = 21
+	public static final INTERFACE = 22
+	public static final INSTANCEOF = 23
+	public static final NEW = 24
+	public static final NOT = 25
+	public static final NULL = 26
+	public static final RETURN = 27
+	public static final PUBLIC = 28
+	public static final PROTECTED = 29
+	public static final INTERNAL = 30
+	public static final OVERRIDE = 31
+	public static final PARTIAL = 32
+	public static final PRAGMA = 33
+	public static final PRIVATE = 34
+	public static final SET = 35
+	public static final STATIC = 36
+	public static final SUPER = 37
+	public static final THIS = 38
+	public static final THROW = 39
+	public static final TRUE = 40
+	public static final TRY = 41
+	public static final TYPEOF = 42
+	public static final VAR = 43
 	public static final WHILE = 44
 	public static final YIELD = 45
 	public static final SWITCH = 46
@@ -383,7 +383,8 @@ class UnityScriptParser(antlr.LLkParser):
 				interface_declaration(m)
 			elif ((_givenValue == ENUM)): // 1831
 				enum_declaration(m)
-			elif ((_givenValue == FUNCTION)
+			elif ((_givenValue == FINAL)
+				 or (_givenValue ==FUNCTION)
 				 or (_givenValue ==PUBLIC)
 				 or (_givenValue ==PROTECTED)
 				 or (_givenValue ==INTERNAL)
@@ -391,7 +392,6 @@ class UnityScriptParser(antlr.LLkParser):
 				 or (_givenValue ==PRIVATE)
 				 or (_givenValue ==STATIC)
 				 or (_givenValue ==VAR)
-				 or (_givenValue ==VIRTUAL)
 			): // 1827
 				module_function_or_field(m)
 			elif ((_givenValue == SCRIPT_ATTRIBUTE_MARKER)): // 1831
@@ -986,7 +986,8 @@ class UnityScriptParser(antlr.LLkParser):
 					_givenValue  = LA(1)
 					if ((_givenValue == AT)): // 1831
 						attributes()
-					elif ((_givenValue == FUNCTION)
+					elif ((_givenValue == FINAL)
+						 or (_givenValue ==FUNCTION)
 						 or (_givenValue ==PUBLIC)
 						 or (_givenValue ==PROTECTED)
 						 or (_givenValue ==INTERNAL)
@@ -994,7 +995,6 @@ class UnityScriptParser(antlr.LLkParser):
 						 or (_givenValue ==PRIVATE)
 						 or (_givenValue ==STATIC)
 						 or (_givenValue ==VAR)
-						 or (_givenValue ==VIRTUAL)
 					): // 1827
 						pass // 947
 					else: // line 1969
@@ -1198,10 +1198,10 @@ class UnityScriptParser(antlr.LLkParser):
 		try:     // for error handling
 			while true:
 				_givenValue  = LA(1)
-				if ((_givenValue == VIRTUAL)): // 1831
-					match(VIRTUAL)
+				if ((_givenValue == FINAL)): // 1831
+					match(FINAL)
 					if 0 == inputState.guessing:
-						m |= TypeMemberModifiers.Virtual 
+						m |= TypeMemberModifiers.Final 
 				elif ((_givenValue == OVERRIDE)): // 1831
 					match(OVERRIDE)
 					if 0 == inputState.guessing:
@@ -1299,6 +1299,7 @@ class UnityScriptParser(antlr.LLkParser):
 				 or (_givenValue ==CONTINUE)
 				 or (_givenValue ==ENUM)
 				 or (_givenValue ==FALSE)
+				 or (_givenValue ==FINAL)
 				 or (_givenValue ==FINALLY)
 				 or (_givenValue ==FOR)
 				 or (_givenValue ==FUNCTION)
@@ -1322,7 +1323,6 @@ class UnityScriptParser(antlr.LLkParser):
 				 or (_givenValue ==TRY)
 				 or (_givenValue ==TYPEOF)
 				 or (_givenValue ==VAR)
-				 or (_givenValue ==VIRTUAL)
 				 or (_givenValue ==WHILE)
 				 or (_givenValue ==YIELD)
 				 or (_givenValue ==SWITCH)
@@ -1358,6 +1358,7 @@ class UnityScriptParser(antlr.LLkParser):
 				 or (_givenValue ==CONTINUE)
 				 or (_givenValue ==ENUM)
 				 or (_givenValue ==FALSE)
+				 or (_givenValue ==FINAL)
 				 or (_givenValue ==FINALLY)
 				 or (_givenValue ==FOR)
 				 or (_givenValue ==FUNCTION)
@@ -1381,7 +1382,6 @@ class UnityScriptParser(antlr.LLkParser):
 				 or (_givenValue ==TRY)
 				 or (_givenValue ==TYPEOF)
 				 or (_givenValue ==VAR)
-				 or (_givenValue ==VIRTUAL)
 				 or (_givenValue ==WHILE)
 				 or (_givenValue ==YIELD)
 				 or (_givenValue ==SWITCH)
@@ -1823,6 +1823,7 @@ class UnityScriptParser(antlr.LLkParser):
 				 or (_givenValue ==ELSE)
 				 or (_givenValue ==ENUM)
 				 or (_givenValue ==FALSE)
+				 or (_givenValue ==FINAL)
 				 or (_givenValue ==FINALLY)
 				 or (_givenValue ==FOR)
 				 or (_givenValue ==FUNCTION)
@@ -1846,7 +1847,6 @@ class UnityScriptParser(antlr.LLkParser):
 				 or (_givenValue ==TRY)
 				 or (_givenValue ==TYPEOF)
 				 or (_givenValue ==VAR)
-				 or (_givenValue ==VIRTUAL)
 				 or (_givenValue ==WHILE)
 				 or (_givenValue ==YIELD)
 				 or (_givenValue ==SWITCH)
@@ -2412,6 +2412,7 @@ class UnityScriptParser(antlr.LLkParser):
 				 or (_givenValue ==ELSE)
 				 or (_givenValue ==ENUM)
 				 or (_givenValue ==FALSE)
+				 or (_givenValue ==FINAL)
 				 or (_givenValue ==FINALLY)
 				 or (_givenValue ==FOR)
 				 or (_givenValue ==FUNCTION)
@@ -2436,7 +2437,6 @@ class UnityScriptParser(antlr.LLkParser):
 				 or (_givenValue ==TRY)
 				 or (_givenValue ==TYPEOF)
 				 or (_givenValue ==VAR)
-				 or (_givenValue ==VIRTUAL)
 				 or (_givenValue ==WHILE)
 				 or (_givenValue ==YIELD)
 				 or (_givenValue ==SWITCH)
@@ -2572,6 +2572,7 @@ class UnityScriptParser(antlr.LLkParser):
 				 or (_givenValue ==ELSE)
 				 or (_givenValue ==ENUM)
 				 or (_givenValue ==FALSE)
+				 or (_givenValue ==FINAL)
 				 or (_givenValue ==FINALLY)
 				 or (_givenValue ==FOR)
 				 or (_givenValue ==FUNCTION)
@@ -2595,7 +2596,6 @@ class UnityScriptParser(antlr.LLkParser):
 				 or (_givenValue ==TRY)
 				 or (_givenValue ==TYPEOF)
 				 or (_givenValue ==VAR)
-				 or (_givenValue ==VIRTUAL)
 				 or (_givenValue ==WHILE)
 				 or (_givenValue ==YIELD)
 				 or (_givenValue ==SWITCH)
@@ -4126,6 +4126,7 @@ class UnityScriptParser(antlr.LLkParser):
 		'enum',
 		'extends',
 		'false',
+		'final',
 		'finally',
 		'for',
 		'function',
@@ -4156,7 +4157,6 @@ class UnityScriptParser(antlr.LLkParser):
 		'try',
 		'typeof',
 		'var',
-		'virtual',
 		'while',
 		'yield',
 		'switch',
@@ -4232,19 +4232,19 @@ class UnityScriptParser(antlr.LLkParser):
 	)
 	
 	private static def mk_tokenSet_0_() as (long):
-		data = (13241252086912L, 1073741824L, 0L, 0L, )
+		data = (8890318136448L, 1073741824L, 0L, 0L, )
 		return data
 	public static final tokenSet_0_ = BitSet(mk_tokenSet_0_())
 	private static def mk_tokenSet_1_() as (long):
-		data = (9020438357246080L, 0L, )
+		data = (9016085273714816L, 0L, )
 		return data
 	public static final tokenSet_1_ = BitSet(mk_tokenSet_1_())
 	private static def mk_tokenSet_2_() as (long):
-		data = (4818983474088309024L, 515396343296L, 0L, 0L, )
+		data = (4818992201587872032L, 515396343296L, 0L, 0L, )
 		return data
 	public static final tokenSet_2_ = BitSet(mk_tokenSet_2_())
 	private static def mk_tokenSet_3_() as (long):
-		data = (-3747417123913009742L, 547608330239L, 0L, 0L, )
+		data = (-3747417145388698190L, 547608330239L, 0L, 0L, )
 		return data
 	public static final tokenSet_3_ = BitSet(mk_tokenSet_3_())
 	private static def mk_tokenSet_4_() as (long):
@@ -4252,11 +4252,11 @@ class UnityScriptParser(antlr.LLkParser):
 		return data
 	public static final tokenSet_4_ = BitSet(mk_tokenSet_4_())
 	private static def mk_tokenSet_5_() as (long):
-		data = (4818992317294114210L, 519154439680L, 0L, 0L, )
+		data = (4818992295813445026L, 519154439680L, 0L, 0L, )
 		return data
 	public static final tokenSet_5_ = BitSet(mk_tokenSet_5_())
 	private static def mk_tokenSet_6_() as (long):
-		data = (4818992317293852066L, 517006956032L, 0L, 0L, )
+		data = (4818992295812920738L, 517006956032L, 0L, 0L, )
 		return data
 	public static final tokenSet_6_ = BitSet(mk_tokenSet_6_())
 	private static def mk_tokenSet_7_() as (long):
@@ -4264,11 +4264,11 @@ class UnityScriptParser(antlr.LLkParser):
 		return data
 	public static final tokenSet_7_ = BitSet(mk_tokenSet_7_())
 	private static def mk_tokenSet_8_() as (long):
-		data = (153124586353885184L, 0L, )
+		data = (153126785377173504L, 0L, )
 		return data
 	public static final tokenSet_8_ = BitSet(mk_tokenSet_8_())
 	private static def mk_tokenSet_9_() as (long):
-		data = (7989388693951516672L, 515396343296L, 0L, 0L, )
+		data = (7989391648947769344L, 515396343296L, 0L, 0L, )
 		return data
 	public static final tokenSet_9_ = BitSet(mk_tokenSet_9_())
 	private static def mk_tokenSet_10_() as (long):
@@ -4276,11 +4276,11 @@ class UnityScriptParser(antlr.LLkParser):
 		return data
 	public static final tokenSet_10_ = BitSet(mk_tokenSet_10_())
 	private static def mk_tokenSet_11_() as (long):
-		data = (-21475690510L, 547608330239L, 0L, 0L, )
+		data = (-42951378958L, 547608330239L, 0L, 0L, )
 		return data
 	public static final tokenSet_11_ = BitSet(mk_tokenSet_11_())
 	private static def mk_tokenSet_12_() as (long):
-		data = (4818854556282687488L, 515396343296L, 0L, 0L, )
+		data = (4818857511278940160L, 515396343296L, 0L, 0L, )
 		return data
 	public static final tokenSet_12_ = BitSet(mk_tokenSet_12_())
 	private static def mk_tokenSet_13_() as (long):
@@ -4292,99 +4292,99 @@ class UnityScriptParser(antlr.LLkParser):
 		return data
 	public static final tokenSet_14_ = BitSet(mk_tokenSet_14_())
 	private static def mk_tokenSet_15_() as (long):
-		data = (171139534652739584L, 481036337152L, 0L, 0L, )
+		data = (171142283465396224L, 481036337152L, 0L, 0L, )
 		return data
 	public static final tokenSet_15_ = BitSet(mk_tokenSet_15_())
 	private static def mk_tokenSet_16_() as (long):
-		data = (7989388693951516672L, 515396343297L, 0L, 0L, )
+		data = (7989391648947769344L, 515396343297L, 0L, 0L, )
 		return data
 	public static final tokenSet_16_ = BitSet(mk_tokenSet_16_())
 	private static def mk_tokenSet_17_() as (long):
-		data = (13241252086912L, 1610612736L, 0L, 0L, )
+		data = (8890318136448L, 1610612736L, 0L, 0L, )
 		return data
 	public static final tokenSet_17_ = BitSet(mk_tokenSet_17_())
 	private static def mk_tokenSet_18_() as (long):
-		data = (459369910804451328L, 481036337152L, 0L, 0L, )
+		data = (459372659617107968L, 481036337152L, 0L, 0L, )
 		return data
 	public static final tokenSet_18_ = BitSet(mk_tokenSet_18_())
 	private static def mk_tokenSet_19_() as (long):
-		data = (-3747417106733075022L, 547608330239L, 0L, 0L, )
+		data = (-3747417111028828750L, 547608330239L, 0L, 0L, )
 		return data
 	public static final tokenSet_19_ = BitSet(mk_tokenSet_19_())
 	private static def mk_tokenSet_20_() as (long):
-		data = (-21474904078L, 549755813887L, 0L, 0L, )
+		data = (-42949806094L, 549755813887L, 0L, 0L, )
 		return data
 	public static final tokenSet_20_ = BitSet(mk_tokenSet_20_())
 	private static def mk_tokenSet_21_() as (long):
-		data = (13239102504960L, 536870912L, 0L, 0L, )
+		data = (8886018973696L, 536870912L, 0L, 0L, )
 		return data
 	public static final tokenSet_21_ = BitSet(mk_tokenSet_21_())
 	private static def mk_tokenSet_22_() as (long):
-		data = (13239102504960L, 0L, )
+		data = (8886018973696L, 0L, )
 		return data
 	public static final tokenSet_22_ = BitSet(mk_tokenSet_22_())
 	private static def mk_tokenSet_23_() as (long):
-		data = (9020455537180672L, 0L, )
+		data = (9016119633584128L, 0L, )
 		return data
 	public static final tokenSet_23_ = BitSet(mk_tokenSet_23_())
 	private static def mk_tokenSet_24_() as (long):
-		data = (13239102472192L, 0L, )
+		data = (8886018908160L, 0L, )
 		return data
 	public static final tokenSet_24_ = BitSet(mk_tokenSet_24_())
 	private static def mk_tokenSet_25_() as (long):
-		data = (9020438357213184L, 0L, )
+		data = (9016085273649152L, 0L, )
 		return data
 	public static final tokenSet_25_ = BitSet(mk_tokenSet_25_())
 	private static def mk_tokenSet_26_() as (long):
-		data = (8841055993856L, 0L, )
+		data = (89925951488L, 0L, )
 		return data
 	public static final tokenSet_26_ = BitSet(mk_tokenSet_26_())
 	private static def mk_tokenSet_27_() as (long):
-		data = (9016040310734848L, 0L, )
+		data = (9007289180692480L, 0L, )
 		return data
 	public static final tokenSet_27_ = BitSet(mk_tokenSet_27_())
 	private static def mk_tokenSet_28_() as (long):
-		data = (4398046543872L, 0L, )
+		data = (8796093087744L, 0L, )
 		return data
 	public static final tokenSet_28_ = BitSet(mk_tokenSet_28_())
 	private static def mk_tokenSet_29_() as (long):
-		data = (4891049911331780002L, 517006956032L, 0L, 0L, )
+		data = (4891049889850848674L, 517006956032L, 0L, 0L, )
 		return data
 	public static final tokenSet_29_ = BitSet(mk_tokenSet_29_())
 	private static def mk_tokenSet_30_() as (long):
-		data = (4891472123796846562L, 517006956160L, 0L, 0L, )
+		data = (4891472102315915234L, 517006956160L, 0L, 0L, )
 		return data
 	public static final tokenSet_30_ = BitSet(mk_tokenSet_30_())
 	private static def mk_tokenSet_31_() as (long):
-		data = (4818858954329198592L, 515396343424L, 0L, 0L, )
+		data = (4818866307371962368L, 515396343424L, 0L, 0L, )
 		return data
 	public static final tokenSet_31_ = BitSet(mk_tokenSet_31_())
 	private static def mk_tokenSet_32_() as (long):
-		data = (-3747554884924174320L, 545997717503L, 0L, 0L, )
+		data = (-3747551929922678768L, 545997717503L, 0L, 0L, )
 		return data
 	public static final tokenSet_32_ = BitSet(mk_tokenSet_32_())
 	private static def mk_tokenSet_33_() as (long):
-		data = (4818983474088309024L, 515396343424L, 0L, 0L, )
+		data = (4818992201587872032L, 515396343424L, 0L, 0L, )
 		return data
 	public static final tokenSet_33_ = BitSet(mk_tokenSet_33_())
 	private static def mk_tokenSet_34_() as (long):
-		data = (-3755439160749262862L, 543028149997L, 0L, 0L, )
+		data = (-3755439182224951310L, 543028149997L, 0L, 0L, )
 		return data
 	public static final tokenSet_34_ = BitSet(mk_tokenSet_34_())
 	private static def mk_tokenSet_35_() as (long):
-		data = (4891472123797108706L, 519154439808L, 0L, 0L, )
+		data = (4891472102316439522L, 519154439808L, 0L, 0L, )
 		return data
 	public static final tokenSet_35_ = BitSet(mk_tokenSet_35_())
 	private static def mk_tokenSet_36_() as (long):
-		data = (-788494L, 547608330239L, 0L, 0L, )
+		data = (-1574926L, 547608330239L, 0L, 0L, )
 		return data
 	public static final tokenSet_36_ = BitSet(mk_tokenSet_36_())
 	private static def mk_tokenSet_37_() as (long):
-		data = (-21475166222L, 547608330239L, 0L, 0L, )
+		data = (-42950330382L, 547608330239L, 0L, 0L, )
 		return data
 	public static final tokenSet_37_ = BitSet(mk_tokenSet_37_())
 	private static def mk_tokenSet_38_() as (long):
-		data = (-4295231502L, 547608330239L, 0L, 0L, )
+		data = (-8590460942L, 547608330239L, 0L, 0L, )
 		return data
 	public static final tokenSet_38_ = BitSet(mk_tokenSet_38_())
 	private static def mk_tokenSet_39_() as (long):
@@ -4392,11 +4392,11 @@ class UnityScriptParser(antlr.LLkParser):
 		return data
 	public static final tokenSet_39_ = BitSet(mk_tokenSet_39_())
 	private static def mk_tokenSet_40_() as (long):
-		data = (72070833140432896L, 536870912L, 0L, 0L, )
+		data = (72066480056901632L, 536870912L, 0L, 0L, )
 		return data
 	public static final tokenSet_40_ = BitSet(mk_tokenSet_40_())
 	private static def mk_tokenSet_41_() as (long):
-		data = (72057594037960704L, 536870912L, 0L, 0L, )
+		data = (72057594037993472L, 536870912L, 0L, 0L, )
 		return data
 	public static final tokenSet_41_ = BitSet(mk_tokenSet_41_())
 	private static def mk_tokenSet_42_() as (long):
@@ -4408,23 +4408,23 @@ class UnityScriptParser(antlr.LLkParser):
 		return data
 	public static final tokenSet_43_ = BitSet(mk_tokenSet_43_())
 	private static def mk_tokenSet_44_() as (long):
-		data = (4891041068126236960L, 515396343424L, 0L, 0L, )
+		data = (4891049795625799968L, 515396343424L, 0L, 0L, )
 		return data
 	public static final tokenSet_44_ = BitSet(mk_tokenSet_44_())
 	private static def mk_tokenSet_45_() as (long):
-		data = (-3746994911447943182L, 547608330239L, 0L, 0L, )
+		data = (-3746994932923631630L, 547608330239L, 0L, 0L, )
 		return data
 	public static final tokenSet_45_ = BitSet(mk_tokenSet_45_())
 	private static def mk_tokenSet_46_() as (long):
-		data = (4891472123797895138L, 517006956416L, 0L, 0L, )
+		data = (4891472102318012386L, 517006956416L, 0L, 0L, )
 		return data
 	public static final tokenSet_46_ = BitSet(mk_tokenSet_46_())
 	private static def mk_tokenSet_47_() as (long):
-		data = (5179702499948558306L, 517006956160L, 0L, 0L, )
+		data = (5179702478467626978L, 517006956160L, 0L, 0L, )
 		return data
 	public static final tokenSet_47_ = BitSet(mk_tokenSet_47_())
 	private static def mk_tokenSet_48_() as (long):
-		data = (-4295755790L, 547608330239L, 0L, 0L, )
+		data = (-8591509518L, 547608330239L, 0L, 0L, )
 		return data
 	public static final tokenSet_48_ = BitSet(mk_tokenSet_48_())
 	private static def mk_tokenSet_49_() as (long):
@@ -4440,19 +4440,19 @@ class UnityScriptParser(antlr.LLkParser):
 		return data
 	public static final tokenSet_51_ = BitSet(mk_tokenSet_51_())
 	private static def mk_tokenSet_52_() as (long):
-		data = (22020096L, 108625920L, 0L, 0L, )
+		data = (44040192L, 108625920L, 0L, 0L, )
 		return data
 	public static final tokenSet_52_ = BitSet(mk_tokenSet_52_())
 	private static def mk_tokenSet_53_() as (long):
-		data = (4818854556283736064L, 515396343296L, 0L, 0L, )
+		data = (4818857511281037312L, 515396343296L, 0L, 0L, )
 		return data
 	public static final tokenSet_53_ = BitSet(mk_tokenSet_53_())
 	private static def mk_tokenSet_54_() as (long):
-		data = (5971776060889534464L, 515396343296L, 0L, 0L, )
+		data = (5971779015885787136L, 515396343296L, 0L, 0L, )
 		return data
 	public static final tokenSet_54_ = BitSet(mk_tokenSet_54_())
 	private static def mk_tokenSet_55_() as (long):
-		data = (5107084932434399232L, 515396343296L, 0L, 0L, )
+		data = (5107087887430651904L, 515396343296L, 0L, 0L, )
 		return data
 	public static final tokenSet_55_ = BitSet(mk_tokenSet_55_())
 	
