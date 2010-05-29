@@ -52,7 +52,8 @@ class UnityRuntimeServices:
 		except x:
 			return true
 			
-	static def GetEnumerator([required] obj) as System.Collections.IEnumerator:
+	static def GetEnumerator(obj) as System.Collections.IEnumerator:
+		if obj is null: return (,).GetEnumerator()
 		if IsValueTypeArray(obj) or obj isa UnityScript.Lang.Array:
 			return ListUpdateableEnumerator(obj)
 		enumerator = obj as System.Collections.IEnumerator

@@ -1,6 +1,7 @@
 /*
 0
 zomg!
+zomg!
 2
 Hey!
 */
@@ -21,5 +22,8 @@ function printAll(items) {
 }
 
 printAll(new Foo().Bar());
+
 if (new Foo2().Bar() != null) throw new System.Exception();
+printAll(new Foo2().Bar());
+
 printAll(new Foo3().Bar());
