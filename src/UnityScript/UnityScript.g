@@ -31,6 +31,7 @@ tokens
 	ENUM="enum";
 	EXTENDS="extends";
 	FALSE="false";
+	FINAL="final";
 	FINALLY="finally";
 	FOR="for";
 	FUNCTION="function";
@@ -61,7 +62,6 @@ tokens
 	TRY="try";
 	TYPEOF="typeof";
 	VAR="var";
-	VIRTUAL="virtual";
 	WHILE="while";
 	YIELD="yield";	
 	
@@ -448,7 +448,7 @@ modifiers returns [TypeMemberModifiers m]
 	m = TypeMemberModifiers.None
 }:
 	(		
-		VIRTUAL { m |= TypeMemberModifiers.Virtual }
+		FINAL { m |= TypeMemberModifiers.Final }
 		| OVERRIDE { m |= TypeMemberModifiers.Override }
 		| PUBLIC { m |= TypeMemberModifiers.Public }
 		| PRIVATE { m |= TypeMemberModifiers.Private }

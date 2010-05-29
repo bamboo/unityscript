@@ -12,14 +12,14 @@ class Person:
 		_age = age
 
 	Name:
-		get:
+		virtual get:
 			return _name
 
 	Age:
-		get:
+		virtual get:
 			return _age
 
-	def ToString() as string:
+	virtual def ToString() as string:
 		return ((_name + ', ') + _age)
 
 	static def StaticFunction():

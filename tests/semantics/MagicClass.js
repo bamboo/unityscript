@@ -3,10 +3,10 @@ import UnityScript.Tests
 
 partial class MagicClass(AnotherMagicClass):
 
-	def foo():
+	virtual def foo():
 		pass
 
-	def bar():
+	virtual def bar():
 		pass
 
 	def constructor(value):

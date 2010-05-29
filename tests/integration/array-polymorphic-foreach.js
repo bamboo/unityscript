@@ -3,7 +3,7 @@ Bar.Run
 Bar.Run
 */
 class Foo {
-	public virtual function Run(): void {
+	public function Run(): void {
 	}
 }
 

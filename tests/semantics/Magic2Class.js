@@ -3,10 +3,10 @@ import UnityScript.Tests
 
 partial class Magic2Class:
 
-	def foo():
+	virtual def foo():
 		pass
 
-	def bar():
+	virtual def bar():
 		pass
 
 	public def Awake():

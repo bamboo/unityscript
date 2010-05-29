@@ -9,40 +9,33 @@ Not Virtual 5
 // boo for the accessors being used the bug disappeared and was only
 // reproducable by making all the components and structs in c#.
 
-class Test1 extends BaseTest
-{
-	function DoStuff (p : float)
-	{
+class Test1 extends BaseTest {
+	
+	final function DoStuff (p : float) {
 		print("Test1 " + p);
 	}
-	function DoStuffNotVirtual (p : float)
-	{
+	
+	final function DoStuffNotVirtual (p : float) {
 		print("Test1");
 	}
 }
 
-class Test2 extends BaseTest
-{
-	virtual function DoStuff (p : float)
-	{
+class Test2 extends BaseTest {
+	
+	function DoStuff (p : float) {
 		print("Test2 " + p);
 	}
 
-	function DoStuffNotVirtual (p : float)
-	{
+	final function DoStuffNotVirtual (p : float) {
 		print("Test2");
 	}
 }
 
-class BaseTest
-{
-	virtual function DoStuff (p : float)
-	{
-		
+class BaseTest {
+	function DoStuff (p : float) {	
 	}
 
-	function DoStuffNotVirtual (p : float)
-	{
+	final function DoStuffNotVirtual (p : float) {
 		print("Not Virtual " + p);
 	}
 }

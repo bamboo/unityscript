@@ -28,12 +28,3 @@ while (0)
 {
 	var otherValue3 = 7;
 }
-
-/* Dont know how to emulate a switch in boo
-switch (5)
-{
-	default: 
-	var otherValue4 = 7;
-	break;
-}
-*/

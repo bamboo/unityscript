@@ -3,7 +3,7 @@ import UnityScript.Tests
 
 partial class coroutine(UnityScript.Tests.MonoBehaviour):
 
-	def spam():
+	private def spam():
 		yield 
 		yield 0
 		yield 1
@@ -15,7 +15,7 @@ partial class coroutine(UnityScript.Tests.MonoBehaviour):
 			print(e)
 */
 
-function spam()
+private function spam()
 {
 	// Allow for this shorthand form of yield.
 	// It should yield 0

@@ -106,7 +106,13 @@ class ApplySemantics(AbstractVisitorCompilerStep):
 			EndSourceLocation: method.EndSourceLocation)
 		
 	override def OnField(node as Field):
-		SetPublicByDefault(node)		
+		SetPublicByDefault(node)
+		
+	override def OnMethod(node as Method):
+		if node.IsPrivate: return
+		if node.IsFinal: return
+		if node.IsStatic: return
+		node.Modifiers |= TypeMemberModifiers.Virtual
 
 	def FindOrCreateScriptClass(module as Module):
 		for existing as ClassDefinition in module.Members.Select(NodeType.ClassDefinition):

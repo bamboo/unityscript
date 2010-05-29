@@ -487,6 +487,10 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/operators-5.js")
 		
 	[Test]
+	def override_1():
+		RunTestCase("tests/integration/override-1.js")
+		
+	[Test]
 	def param_test():
 		RunTestCase("tests/integration/param_test.js")
 		
@@ -585,10 +589,6 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 	[Test]
 	def vars_1():
 		RunTestCase("tests/integration/vars-1.js")
-		
-	[Test]
-	def virtual_test_base():
-		RunTestCase("tests/integration/virtual-test-base.js")
 		
 	[Test]
 	def virtual_test():
