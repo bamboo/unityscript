@@ -4,7 +4,6 @@ import System
 import System.Reflection
 import System.IO
 import Boo.Lang.Compiler
-import UnityScript.Steps
 
 def Main([required] argv as (string)) as int:
 	try:

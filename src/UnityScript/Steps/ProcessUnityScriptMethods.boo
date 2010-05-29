@@ -4,7 +4,6 @@ import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
 import Boo.Lang.Compiler.TypeSystem
 import Boo.Lang.Compiler.TypeSystem.Internal
-import Boo.Lang.Compiler.TypeSystem.Services
 import Boo.Lang.Compiler.Steps
 
 import Boo.Lang.Environments
