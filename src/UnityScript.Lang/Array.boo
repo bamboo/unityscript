@@ -185,6 +185,9 @@ class Array(CollectionBase, Boo.Lang.Runtime.ICoercible):
 	def AddRange([required] collection as IEnumerable):
 		for item in collection:
 			self.InnerList.Add(item)
+			
+	override protected def OnValidate(newValue):
+		pass // anything goes
 
 	private def AddImpl(value as object, [required] items as IEnumerable):
 		self.InnerList.Add(value)

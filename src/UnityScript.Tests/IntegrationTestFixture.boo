@@ -7,14 +7,6 @@ import NUnit.Framework
 class IntegrationTestFixture(AbstractIntegrationTestFixture):
 
 	[Test]
-	def JSCheckFloatToIntOverflow():
-		RunTestCase("tests/integration/JSCheckFloatToIntOverflow.js")
-		
-	[Test]
-	def JSChooseOverload():
-		RunTestCase("tests/integration/JSChooseOverload.js")
-		
-	[Test]
 	def accessor_2_duck():
 		RunTestCase("tests/integration/accessor-2-duck.js")
 		
@@ -51,16 +43,12 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/anonymous-function-type-3.js")
 		
 	[Test]
-	def array_Add():
-		RunTestCase("tests/integration/array-Add.js")
-		
-	[Test]
-	def array_Remove():
-		RunTestCase("tests/integration/array-Remove.js")
-		
-	[Test]
 	def array_access():
 		RunTestCase("tests/integration/array-access.js")
+		
+	[Test]
+	def array_Add():
+		RunTestCase("tests/integration/array-Add.js")
 		
 	[Test]
 	def array_cast_2():
@@ -103,6 +91,10 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/array-iterate.js")
 		
 	[Test]
+	def array_iteration_with_nulls():
+		RunTestCase("tests/integration/array-iteration-with-nulls.js")
+		
+	[Test]
 	def array_join():
 		RunTestCase("tests/integration/array-join.js")
 		
@@ -141,6 +133,10 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 	[Test]
 	def array_push():
 		RunTestCase("tests/integration/array-push.js")
+		
+	[Test]
+	def array_Remove():
+		RunTestCase("tests/integration/array-Remove.js")
 		
 	[Test]
 	def array_shift():
@@ -445,6 +441,14 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 	[Test]
 	def invalidil():
 		RunTestCase("tests/integration/invalidil.js")
+		
+	[Test]
+	def JSCheckFloatToIntOverflow():
+		RunTestCase("tests/integration/JSCheckFloatToIntOverflow.js")
+		
+	[Test]
+	def JSChooseOverload():
+		RunTestCase("tests/integration/JSChooseOverload.js")
 		
 	[Test]
 	def length_string():
