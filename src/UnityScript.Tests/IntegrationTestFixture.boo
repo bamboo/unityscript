@@ -427,6 +427,10 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/functions-1.js")
 		
 	[Test]
+	def generator_inheritance():
+		RunTestCase("tests/integration/generator-inheritance.js")
+		
+	[Test]
 	def implicit_conversion():
 		RunTestCase("tests/integration/implicit_conversion.js")
 		
