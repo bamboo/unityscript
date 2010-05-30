@@ -130,6 +130,7 @@ class Evaluator:
 		compiler = UnityScriptCompiler()
 		compiler.Parameters.Pipeline = AdjustPipeline(_context, UnityScriptCompiler.Pipelines.CompileToMemory())
 		compiler.Parameters.ScriptBaseType = EvaluationScript
+		compiler.Parameters.GlobalVariablesBecomeFields = false
 		compiler.Parameters.ScriptMainMethod = "Run"
 		compiler.Parameters.Input.Add(StringInput("script", _code + ";"))
 		compiler.Parameters.Debug = false
@@ -143,9 +144,8 @@ class Evaluator:
 		_compilationResult = compiler.Run()
 		if len(_compilationResult.Errors):
 			raise CompilationErrorsException(_compilationResult.Errors)
-			
-		//Console.Error.WriteLine(results.CompileUnit.ToCodeString())
 		
+		print _compilationResult.CompileUnit.ToCodeString()
 		return _compilationResult.GeneratedAssembly.GetType("script")
 		
 	static def AdjustPipeline(context as EvaluationContext, pipeline as CompilerPipeline):

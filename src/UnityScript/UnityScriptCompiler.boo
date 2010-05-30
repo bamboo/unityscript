@@ -15,6 +15,9 @@ class UnityScriptCompilerParameters(CompilerParameters):
 	
 	[property(Expando)]
 	_expando = false
+	
+	[property(GlobalVariablesBecomeFields)]
+	_globalVariablesBecomeFields = true
 
 	def constructor():
 		self.Ducky = true

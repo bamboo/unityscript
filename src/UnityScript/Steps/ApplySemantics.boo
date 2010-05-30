@@ -50,9 +50,13 @@ class ApplySemantics(AbstractVisitorCompilerStep):
 		main = FindExistingMainMethodOn(script)
 		if main is null:
 			main = CreateMainMethod(module)
-			script.Members.Add(main)		
+			script.Members.Add(main)
+			
 		main.Body.Statements.Extend(module.Globals.Statements)
-		main.Accept(DeclareGlobalVariables(script))
+		
+		if UnityScriptParameters.GlobalVariablesBecomeFields:
+			main.Accept(DeclareGlobalVariables(script))
+			
 		module.Globals.Statements.Clear()
 		
 	def FindExistingMainMethodOn(typeDef as TypeDefinition):

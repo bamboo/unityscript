@@ -67,6 +67,10 @@ class EvalTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/eval/simple-1.js")
 		
 	[Test]
+	def variable_initializer_doesnt_move():
+		RunTestCase("tests/eval/variable-initializer-doesnt-move.js")
+		
+	[Test]
 	def variables_1():
 		RunTestCase("tests/eval/variables-1.js")
 		
