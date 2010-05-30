@@ -920,6 +920,11 @@ switch_statement[Block container]
 			itemBlock = item.Body
 			switchBlock.Add(item)
 		}
+		(
+			fallthrough:CASE e=expression COLON
+			{ item.Arguments.Add(e); }
+		)*
+		
 		(statement[itemBlock])+
 	)*
 	(

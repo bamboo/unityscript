@@ -5,7 +5,7 @@ import Boo.Lang.Compiler.Ast
 import Boo.Lang.PatternMatching
 
 class CaseStatement(CustomStatement):
-	public Expression as Expression
+	public Expressions as ExpressionCollection
 	public Body as Block
 	
 class DefaultStatement(CustomStatement):
@@ -15,8 +15,8 @@ macro switch:
 	
 	assert len(switch.Arguments) == 1
 	
-	macro case(e as Expression):
-		return CaseStatement(Expression: e, Body: case.Body)
+	macro case:
+		return CaseStatement(Expressions: case.Arguments, Body: case.Body)
 		
 	macro default():
 		return DefaultStatement(Body: default.Body)
@@ -40,10 +40,11 @@ macro switch:
 	for item in switch.Body.Statements:
 		match item:
 			
-			case CaseStatement(Expression: expression, Body: body):
+			case CaseStatement(Expressions: expressions, Body: body):
 			
+				condition = ComparisonFor(local, expressions)
 				stmt = [|
-					if $local == $expression:
+					if $condition:
 						pass
 				|]
 				
@@ -63,6 +64,14 @@ macro switch:
 	block.Accept(GotoOnTopLevelBreak(endLabel))
 	block.Add(endLabel)
 	return block
+	
+def ComparisonFor(local as Expression, expressions as Expression*):
+	e = expressions.GetEnumerator()
+	assert e.MoveNext()
+	condition as Expression = [| $local == $(e.Current) |]
+	while e.MoveNext():
+		condition = [| $condition or $local == $(e.Current) |]
+	return condition
 		
 def EndsWithBreak(block as Block):
 	if 0 == len(block.Statements): return false
