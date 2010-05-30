@@ -543,6 +543,10 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/switch-3.js")
 		
 	[Test]
+	def switch_fallthrough():
+		RunTestCase("tests/integration/switch-fallthrough.js")
+		
+	[Test]
 	def switch_simple_2():
 		RunTestCase("tests/integration/switch-simple-2.js")
 		
