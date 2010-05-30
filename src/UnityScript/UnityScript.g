@@ -10,6 +10,7 @@ import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
 import System.Globalization
 
+import UnityScript
 import UnityScript.Core
 }
 
@@ -161,6 +162,12 @@ tokens
 	def FlushAttributes(node as INodeWithAttributes):
 		node.Attributes.Extend(_attributes)
 		_attributes.Clear()
+		
+	def GlobalVariablesBecomeFields():
+		return UnityScriptParameters.GlobalVariablesBecomeFields
+		
+	UnityScriptParameters as UnityScriptCompilerParameters:
+		get: return _context.Parameters
 	
 	static def ToLexicalInfo(token as antlr.IToken):
 		return LexicalInfo(token.getFilename(),
@@ -353,9 +360,11 @@ script_attribute[Module m]
 
 module_function_or_field[Module m]
 {
+	globals = m.Globals
 }:
 	
-	(modifiers VAR) => module_field[m]
+	{GlobalVariablesBecomeFields()}? (modifiers VAR) => module_field[m]
+	| declaration_statement[globals] eos
 	| function_declaration[m]		
 ;
 

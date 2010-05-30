@@ -1,7 +1,7 @@
 /*
 foo
 bar
-baz
+a: baz
 */
 function foo() { print("foo"); }
 function bar() { print("bar"); return "baz"; }

@@ -145,7 +145,7 @@ class Evaluator:
 		if len(_compilationResult.Errors):
 			raise CompilationErrorsException(_compilationResult.Errors)
 		
-		print _compilationResult.CompileUnit.ToCodeString()
+		#print _compilationResult.CompileUnit.ToCodeString()
 		return _compilationResult.GeneratedAssembly.GetType("script")
 		
 	static def AdjustPipeline(context as EvaluationContext, pipeline as CompilerPipeline):
