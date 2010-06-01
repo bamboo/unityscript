@@ -363,15 +363,15 @@ module_function_or_field[Module m]
 	globals = m.Globals
 }:
 	
-	{GlobalVariablesBecomeFields()}? (modifiers VAR) => module_field[m]
+	{GlobalVariablesBecomeFields()}? (module_member_modifiers VAR) => module_field[m]
 	| declaration_statement[globals] eos
-	| function_declaration[m]		
+	| module_function[m]		
 ;
 
 module_field[Module m]
 {
 }:
-	mod=modifiers
+	mod=module_member_modifiers
 	f=field_member[m]
 	{ f.Modifiers |= mod }
 ;
@@ -452,7 +452,21 @@ eos:
 	)
 ;
 
-modifiers returns [TypeMemberModifiers m]
+module_member_modifiers returns [TypeMemberModifiers m]
+{
+	m = TypeMemberModifiers.None
+}:
+	(		
+		FINAL { m |= TypeMemberModifiers.Final }
+		| PUBLIC { m |= TypeMemberModifiers.Public }
+		| PRIVATE { m |= TypeMemberModifiers.Private }
+		| PROTECTED { m |= TypeMemberModifiers.Protected }
+		| INTERNAL { m |= TypeMemberModifiers.Internal }
+		| STATIC { m |= TypeMemberModifiers.Static }
+	)*
+;
+
+member_modifiers returns [TypeMemberModifiers m]
 {
 	m = TypeMemberModifiers.None
 }:
@@ -464,6 +478,7 @@ modifiers returns [TypeMemberModifiers m]
 		| PROTECTED { m |= TypeMemberModifiers.Protected }
 		| INTERNAL { m |= TypeMemberModifiers.Internal }
 		| STATIC { m |= TypeMemberModifiers.Static }
+		| NEW { m |= TypeMemberModifiers.New }
 	)*
 ;
 
@@ -496,7 +511,7 @@ class_declaration[TypeDefinition parent]
 	(
 		{ mod = TypeMemberModifiers.None }
 		(attributes)?
-		(mod=modifiers)?
+		(mod=member_modifiers)?
 		(
 			m=function_member[cd] |
 			m=field_member[cd]
@@ -634,10 +649,10 @@ function_member[ClassDefinition cd] returns [TypeMember member]
 	}
 ;
 
-function_declaration[TypeDefinition parent]
+module_function[TypeDefinition parent]
 {
 }:
-	mod=modifiers
+	mod=module_member_modifiers
 	FUNCTION name:ID
 	{
 		method = Method(ToLexicalInfo(name), Name: name.getText())

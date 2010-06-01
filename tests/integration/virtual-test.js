@@ -4,39 +4,36 @@ Test2 5
 Not Virtual 5
 */
 
-// Compiler warning say can "Assignment to temporary"
-// When i tried reproducing the bug using
-// boo for the accessors being used the bug disappeared and was only
-// reproducable by making all the components and structs in c#.
-
-class Test1 extends BaseTest {
-	
-	final function DoStuff (p : float) {
-		print("Test1 " + p);
-	}
-	
-	final function DoStuffNotVirtual (p : float) {
-		print("Test1");
-	}
-}
-
-class Test2 extends BaseTest {
-	
-	function DoStuff (p : float) {
-		print("Test2 " + p);
-	}
-
-	final function DoStuffNotVirtual (p : float) {
-		print("Test2");
-	}
-}
-
 class BaseTest {
 	function DoStuff (p : float) {	
 	}
 
 	final function DoStuffNotVirtual (p : float) {
 		print("Not Virtual " + p);
+	}
+}
+
+class Test1 extends BaseTest {
+	
+	// implicit override
+	function DoStuff (p : float) {
+		print("Test1 " + p);
+	}
+	
+	// implicit shadowing, gives a warning
+	function DoStuffNotVirtual (p : float) {
+		print("Test1");
+	}
+}
+
+class Test2 extends BaseTest {
+	
+	override function DoStuff (p : float) {
+		print("Test2 " + p);
+	}
+
+	new function DoStuffNotVirtual (p : float) {
+		print("Test2");
 	}
 }
 

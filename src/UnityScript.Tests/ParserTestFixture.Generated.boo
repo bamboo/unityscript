@@ -138,6 +138,14 @@ partial class ParserTestFixture:
 		RunTestCase("tests/parser/new-2.js")
 		
 	[Test]
+	def new_3():
+		RunTestCase("tests/parser/new-3.js")
+		
+	[Test]
+	def new_4():
+		RunTestCase("tests/parser/new-4.js")
+		
+	[Test]
 	def OperationInsideAParam():
 		RunTestCase("tests/parser/OperationInsideAParam.js")
 		
