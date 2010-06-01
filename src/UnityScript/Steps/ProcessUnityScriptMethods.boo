@@ -41,9 +41,13 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		//     foo.Equals(null)						
 		self.OptimizeNullComparisons = false
 		
-		
 	def ResolveUnityRuntimeMethod(name as string):
-		return NameResolutionService.ResolveMethod(TypeSystemServices.Map(UnityScript.Lang.UnityRuntimeServices), name)
+		return NameResolutionService.ResolveMethod(UnityRuntimeServicesType, name)
+		
+	def ResolveUnityRuntimeField(name as string):
+		return NameResolutionService.ResolveField(UnityRuntimeServicesType, name)
+		
+	deferred UnityRuntimeServicesType = TypeSystemServices.Map(UnityScript.Lang.UnityRuntimeServices)
 		
 	UnityScriptTypeSystem as UnityScript.Steps.UnityScriptTypeSystem:
 		get: return self.TypeSystemServices
@@ -76,8 +80,20 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		
 	override def OnMethod(node as Method):
 		super(node)
+		CheckForEmptyCoroutine(node)
 		return if Parameters.OutputType == CompilerOutputType.Library
 		CheckEntryPoint(node)
+		
+	def CheckForEmptyCoroutine(node as Method):
+		if not IsEmptyCoroutine(node):
+			return
+		node.Body.Add([| return $(EmptyEnumeratorReference) |])
+			
+	def IsEmptyCoroutine(node as Method):
+		entity as InternalMethod = GetEntity(node)
+		return entity.ReturnType is GetGeneratorReturnType(entity) and HasNeitherReturnNorYield(node)
+		
+	deferred EmptyEnumeratorReference = CodeBuilder.CreateMemberReference(ResolveUnityRuntimeField("EmptyEnumerator"))
 		
 	def CheckEntryPoint(node as Method):
 		if not node.IsStatic: return

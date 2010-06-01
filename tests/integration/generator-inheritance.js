@@ -23,7 +23,9 @@ function printAll(items) {
 
 printAll(new Foo().Bar());
 
-if (new Foo2().Bar() != null) throw new System.Exception();
+if (new Foo2().Bar() == null)
+	print("empty generator shouldn't return null");
+
 printAll(new Foo2().Bar());
 
 printAll(new Foo3().Bar());

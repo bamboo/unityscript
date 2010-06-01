@@ -435,6 +435,10 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/for-continue-2.js")
 		
 	[Test]
+	def for_over_null():
+		RunTestCase("tests/integration/for-over-null.js")
+		
+	[Test]
 	def functions_1():
 		RunTestCase("tests/integration/functions-1.js")
 		

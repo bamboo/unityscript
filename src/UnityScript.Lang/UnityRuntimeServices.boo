@@ -2,6 +2,8 @@ namespace UnityScript.Lang
 
 class UnityRuntimeServices:
 	
+	public static EmptyEnumerator = (,).GetEnumerator()
+	
 	static EnumeratorType = typeof(System.Collections.IEnumerator)
 	
 	public static final Initialized as bool
