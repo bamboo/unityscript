@@ -3063,14 +3063,7 @@ class UnityScriptParser(antlr.LLkParser):
 			count=sum()
 			match(RBRACK)
 			if 0 == inputState.guessing:
-				//atr = ArrayTypeReference(elementType.LexicalInfo, elementType);
-				arrayBuiltin = AstUtil.CreateReferenceExpression("Boo.Lang.Builtins.array")
-				arrayBuiltin.LexicalInfo = tr.LexicalInfo
-				e = mie = MethodInvocationExpression(
-						tr.LexicalInfo, 
-						Target: arrayBuiltin)
-				mie.Arguments.Add(TypeofExpression(tr.LexicalInfo, tr))
-				mie.Arguments.Add(count)
+				e = CodeFactory.NewArrayInitializer(tr.LexicalInfo, tr, count)
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)

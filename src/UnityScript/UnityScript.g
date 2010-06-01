@@ -1089,14 +1089,7 @@ array_initializer returns [Expression e]
 }:
 	tr=simple_type_reference LBRACK count=sum RBRACK
 	{
-		//atr = ArrayTypeReference(elementType.LexicalInfo, elementType);
-		arrayBuiltin = AstUtil.CreateReferenceExpression("Boo.Lang.Builtins.array")
-		arrayBuiltin.LexicalInfo = tr.LexicalInfo
-		e = mie = MethodInvocationExpression(
-				tr.LexicalInfo, 
-				Target: arrayBuiltin)
-		mie.Arguments.Add(TypeofExpression(tr.LexicalInfo, tr))
-		mie.Arguments.Add(count)
+		e = CodeFactory.NewArrayInitializer(tr.LexicalInfo, tr, count)
 	}
 ;
 
