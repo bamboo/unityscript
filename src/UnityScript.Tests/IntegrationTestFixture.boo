@@ -87,6 +87,18 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/array-create.js")
 		
 	[Test]
+	def array_ctor_with_single_null_element():
+		RunTestCase("tests/integration/array-ctor-with-single-null-element.js")
+		
+	[Test]
+	def array_implicit_from_null_enumerable():
+		RunTestCase("tests/integration/array-implicit-from-null-enumerable.js")
+		
+	[Test]
+	def array_implicit_from_null():
+		RunTestCase("tests/integration/array-implicit-from-null.js")
+		
+	[Test]
 	def array_iterate():
 		RunTestCase("tests/integration/array-iterate.js")
 		

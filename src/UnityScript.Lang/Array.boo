@@ -24,9 +24,11 @@ class Array(CollectionBase, Boo.Lang.Runtime.ICoercible):
 			AddRange(items)
 
 	static def op_Implicit(e as IEnumerable) as Array:
+		if e is null: return null
 		return Array(e)
 		
 	static def op_Implicit(a as System.Array) as Array:
+		if a is null: return null
 		return Array((a as IEnumerable))
 
 	length:
