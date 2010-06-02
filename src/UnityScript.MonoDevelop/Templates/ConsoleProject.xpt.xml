@@ -14,7 +14,7 @@
 	
 	<!-- Actions -->
 	<Actions>
-		<Open filename = "Main.us"/>
+		<Open filename = "Main.js"/>
 	</Actions>
 	
 	<!-- Template Content -->

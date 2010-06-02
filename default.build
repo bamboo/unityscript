@@ -6,7 +6,7 @@
 	<property name="boo.dir" value="../boo" />
 	<property name="boo.lib.dir" value="${boo.dir}/build" />
 	<property name="antlr.jar" value="${boo.dir}/lib/antlr-2.7.5/antlr-2.7.5.jar" />
-	<property name="md.bin.dir" value="/usr/lib/monodevelop/bin" />
+	<property name="md.bin.dir" value="../tmp/monodevelop/bin" />
 	<property name="debug" value="true" />
 	<property name="disallow.system.dll.references" value="false" />
 	
