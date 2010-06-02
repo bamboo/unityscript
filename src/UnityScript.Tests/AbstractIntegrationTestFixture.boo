@@ -10,6 +10,9 @@ import System.Threading
 
 class AbstractIntegrationTestFixture(AbstractCompilerTestFixture):
 	
+	override DisplayErrorStackTrace:
+		get: return true
+	
 	OutputAssemblyPath:
 		get: return Path.Combine(
 						Path.Combine(Path.GetTempPath(), "UnityScript"),

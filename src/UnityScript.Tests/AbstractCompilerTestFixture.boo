@@ -8,7 +8,8 @@ import UnityScript
 
 abstract class AbstractCompilerTestFixture:
 	
-	static DisplayErrorStackTrace = false
+	virtual DisplayErrorStackTrace:
+		get: return false
 	
 	static BasePath as string:
 		get:
