@@ -213,6 +213,9 @@ tokens
 	protected def VirtualKeywordHasNoEffect(token as antlr.IToken):
 		_context.Warnings.Add(UnityScriptWarnings.VirtualKeywordHasNoEffect(ToLexicalInfo(token)))
 		
+	protected def KeywordCannotBeUsedAsAnIdentifier(token as antlr.IToken):
+		ReportError(UnityScriptCompilerErrors.KeywordCannotBeUsedAsAnIdentifier(ToLexicalInfo(token), token.getText()))
+		
 	protected def SemicolonExpected():
 		if _last is not null:
 			li = LexicalInfo(
@@ -597,10 +600,17 @@ enum_member [EnumDefinition container]
 	}	
 ;
 
+member_name returns [antlr.IToken token]
+{
+}:
+	name:ID { token = name; }
+	| f:FINAL { token = f; KeywordCannotBeUsedAsAnIdentifier(token); }
+;
+
 field_member[TypeDefinition cd] returns [TypeMember member]
 {
 }:
-	VAR name:ID (COLON tr=type_reference)? (ASSIGN initializer=expression)? eos
+	VAR name=member_name (COLON tr=type_reference)? (ASSIGN initializer=expression)? eos
 	{
 		member = Field(ToLexicalInfo(name),
 				Name: name.getText(),
@@ -614,7 +624,7 @@ field_member[TypeDefinition cd] returns [TypeMember member]
 function_member[ClassDefinition cd] returns [TypeMember member]
 {
 }:
-	FUNCTION (getter:GET | setter:SET)? memberName:ID 
+	FUNCTION (getter:GET | setter:SET)? memberName=member_name 
 	{
 		method as Method
 		if memberName.getText() == cd.Name:

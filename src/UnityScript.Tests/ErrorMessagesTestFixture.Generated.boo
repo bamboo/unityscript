@@ -22,6 +22,10 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/conditional-compilation-with-pragma-strict.js")
 		
 	[Test]
+	def error_for_final_used_as_identifier():
+		RunTestCase("tests/error-messages/error-for-final-used-as-identifier.js")
+		
+	[Test]
 	def incompatible_initializer_1():
 		RunTestCase("tests/error-messages/incompatible-initializer-1.js")
 		
