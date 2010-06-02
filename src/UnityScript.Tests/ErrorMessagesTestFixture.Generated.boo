@@ -90,6 +90,10 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/unused-variable.js")
 		
 	[Test]
+	def virtual_warning():
+		RunTestCase("tests/error-messages/virtual-warning.js")
+		
+	[Test]
 	def void_declaration():
 		RunTestCase("tests/error-messages/void-declaration.js")
 		

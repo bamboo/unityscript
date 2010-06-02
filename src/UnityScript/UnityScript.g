@@ -63,6 +63,7 @@ tokens
 	TRY="try";
 	TYPEOF="typeof";
 	VAR="var";
+	VIRTUAL="virtual";
 	WHILE="while";
 	YIELD="yield";	
 	
@@ -170,9 +171,7 @@ tokens
 		get: return _context.Parameters
 	
 	static def ToLexicalInfo(token as antlr.IToken):
-		return LexicalInfo(token.getFilename(),
-								token.getLine(),
-								token.getColumn())
+		return LexicalInfo(token.getFilename(), token.getLine(), token.getColumn())
 								
 	static def SetEndSourceLocation(node as Node, token as antlr.IToken):
 		node.EndSourceLocation = ToSourceLocation(token)
@@ -210,6 +209,9 @@ tokens
 			
 	protected def ReportError(error as CompilerError):
 		_context.Errors.Add(error)
+		
+	protected def VirtualKeywordHasNoEffect(token as antlr.IToken):
+		_context.Warnings.Add(UnityScriptWarnings.VirtualKeywordHasNoEffect(ToLexicalInfo(token)))
 		
 	protected def SemicolonExpected():
 		if _last is not null:
@@ -463,6 +465,7 @@ module_member_modifiers returns [TypeMemberModifiers m]
 		| PROTECTED { m |= TypeMemberModifiers.Protected }
 		| INTERNAL { m |= TypeMemberModifiers.Internal }
 		| STATIC { m |= TypeMemberModifiers.Static }
+		| v:VIRTUAL { VirtualKeywordHasNoEffect(v) }
 	)*
 ;
 
@@ -479,6 +482,7 @@ member_modifiers returns [TypeMemberModifiers m]
 		| INTERNAL { m |= TypeMemberModifiers.Internal }
 		| STATIC { m |= TypeMemberModifiers.Static }
 		| NEW { m |= TypeMemberModifiers.New }
+		| v:VIRTUAL { VirtualKeywordHasNoEffect(v) }
 	)*
 ;
 
