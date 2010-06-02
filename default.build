@@ -8,6 +8,7 @@
 	<property name="antlr.jar" value="${boo.dir}/lib/antlr-2.7.5/antlr-2.7.5.jar" />
 	<property name="md.bin.dir" value="/usr/lib/monodevelop/bin" />
 	<property name="debug" value="true" />
+	<property name="disallow.system.dll.references" value="false" />
 	
 	<include buildfile="nunit.inc" />
 	<include buildfile="build.properties" if="${file::exists('build.properties')}" />
@@ -30,7 +31,7 @@
 	<target name="all" depends="UnityScript.Tests, prevent-system-references">
 	</target>
 	
-	<target name="prevent-system-references" depends="init">
+	<target name="prevent-system-references" depends="init" if="${disallow.system.dll.references}">
 		<boo src="prevent-system-references.boo" />
 	</target>
 	
