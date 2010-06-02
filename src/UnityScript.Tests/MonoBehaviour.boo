@@ -65,9 +65,6 @@ class AttributeWithMask (System.Attribute):
 	def constructor(a as AttributeMaskEnum):
 		_mask = a
 
-class Coroutine:
-	pass
-
 class ImplicitBoolTest:
 	bool_casted = false
 	def constructor(a as bool):
@@ -93,10 +90,10 @@ class MonoBehaviour(Component):
 	abstract def Awake():
 		pass
 
-	def StartCoroutine_Auto(routine as IEnumerator) as Coroutine:
-		print("Received coroutine");
+	def StartCoroutine_Auto(routine as IEnumerator):
+		print("Received coroutine")
 		routine.MoveNext()
-		return Coroutine()
+		return routine.Current
 
 	[DuckTyped]
 	def GetComponent(type as System.Type) as Component:

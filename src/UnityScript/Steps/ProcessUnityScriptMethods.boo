@@ -157,9 +157,15 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		parentNode.Replace(
 			node,
 			CodeBuilder.CreateMethodInvocation(
-				cast(MemberReferenceExpression, node.Target).Target.CloneNode(),
+				TargetForStartCoroutineInvocation(node, method),
 				_StartCoroutine,
 				node))
+				
+	def TargetForStartCoroutineInvocation(node as MethodInvocationExpression, method as IMethod):
+		target = cast(MemberReferenceExpression, node.Target).Target
+		if target isa SuperLiteralExpression: // super becomes self for coroutine invocation
+			return CodeBuilder.CreateSelfReference(target.LexicalInfo, method.DeclaringType)
+		return target.CloneNode()
 				
 	override def ProcessStaticallyTypedAssignment(node as BinaryExpression):
 		TryToResolveAmbiguousAssignment(node)		

@@ -443,6 +443,14 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/functions-1.js")
 		
 	[Test]
+	def generator_inheritance_calling_super():
+		RunTestCase("tests/integration/generator-inheritance-calling-super.js")
+		
+	[Test]
+	def generator_inheritance_yielding_super():
+		RunTestCase("tests/integration/generator-inheritance-yielding-super.js")
+		
+	[Test]
 	def generator_inheritance():
 		RunTestCase("tests/integration/generator-inheritance.js")
 		
