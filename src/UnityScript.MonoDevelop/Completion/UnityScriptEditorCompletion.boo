@@ -57,19 +57,21 @@ class UnityScriptEditorCompletion(CompletionTextEditorExtension):
 		
 		match completionChar.ToString():
 			case ' ':
-				lineText = GetLineText(context.TriggerLine)
+				lineText = GetLineText(context.TriggerLine).TrimStart()
 				if not lineText.StartsWith("import "):
 					return null
 					
 				return ImportCompletionDataFor('')
 				
 			case '.':
-				# lineText = GetLineText(context.TriggerLine)
-				# if not lineText.StartsWith("import "):
-				# 	return null
-				
-				# nameSpace = lineText[len("import "):context.TriggerLineOffset-2].Trim()
-				# return ImportCompletionDataFor(nameSpace)
+				lineText = GetLineText(context.TriggerLine)
+				lineLength = lineText.Length
+				lineText = lineText.TrimStart()
+				trimmedLength = lineLength - lineText.Length
+				if lineText.StartsWith("import "):
+					nameSpace = lineText[len("import "):context.TriggerLineOffset-(2+trimmedLength)].Trim()
+					return ImportCompletionDataFor(nameSpace)
+					
 				result = null as CompletionDataList
 				text = string.Format ("{0}{1} {2}", Document.TextEditor.GetText (0, context.TriggerOffset),
 				                                    CompletionFinder.CompletionToken,
