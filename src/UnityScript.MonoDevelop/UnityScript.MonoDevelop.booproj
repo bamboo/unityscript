@@ -58,10 +58,15 @@
     <Compile Include="ProjectModel\UnityScriptParser.boo" />
     <Compile Include="ProjectModel\UnityScriptProjectParameters.boo" />
     <Compile Include="CommandHandlers\withAtomicUndoOn.boo" />
+    <Compile Include="Completion\ResolveMonoBehaviourType.boo" />
+    <Compile Include="Completion\CompletionFinder.boo" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
       <Properties InternalTargetFrameworkVersion="3.5" />
     </MonoDevelop>
   </ProjectExtensions>
+  <ItemGroup>
+    <None Include="Completion\UnityScriptTypeResolver.boo" />
+  </ItemGroup>
 </Project>
