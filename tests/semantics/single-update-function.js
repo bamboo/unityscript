@@ -3,7 +3,7 @@ import UnityScript.Tests
 
 partial class single-update-function(UnityScript.Tests.MonoBehaviour):
 
-	virtual def Update():
+	public virtual def Update():
 		pass
 
 	public def Awake():

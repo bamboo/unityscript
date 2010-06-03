@@ -1,5 +1,7 @@
 namespace UnityScript.Steps
 
+import UnityScript.Core
+
 import Boo.Lang.Compiler.Ast
 import Boo.Lang.Compiler.Steps
 
@@ -51,6 +53,8 @@ class ApplySemantics(AbstractVisitorCompilerStep):
 		if main is null:
 			main = CreateMainMethod(module)
 			script.Members.Add(main)
+		else:
+			Warnings.Add(UnityScriptWarnings.ScriptMainMethodIsImplicitlyDefined(main.LexicalInfo, main.Name))
 			
 		main.Body.Statements.Extend(module.Globals.Statements)
 		
@@ -83,10 +87,13 @@ class ApplySemantics(AbstractVisitorCompilerStep):
 	def MoveMembers(fromType as TypeDefinition, toType as TypeDefinition):
 		moved = []
 		for member in fromType.Members:
-			unless member isa TypeDefinition:
-				toType.Members.Add(MovedMember(toType, member))
+			if not member isa TypeDefinition:
+				movedMember = MovedMember(toType, member)
+				toType.Members.Add(movedMember)
+				Visit(movedMember)
 				moved.Add(member)
-			Visit(member)
+			else:
+				Visit(member)
 		
 		for member in moved:
 			fromType.Members.Remove(member)
@@ -112,8 +119,13 @@ class ApplySemantics(AbstractVisitorCompilerStep):
 	override def OnField(node as Field):
 		SetPublicByDefault(node)
 		
+	override def OnConstructor(node as Constructor):
+		SetPublicByDefault(node)
+		
 	override def OnMethod(node as Method):
 		if node.IsPrivate: return
+		
+		SetPublicByDefault(node)
 		if node.IsFinal: return
 		if node.IsStatic: return
 		node.Modifiers |= TypeMemberModifiers.Virtual

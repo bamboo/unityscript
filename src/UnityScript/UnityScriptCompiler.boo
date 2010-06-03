@@ -26,6 +26,9 @@ class UnityScriptCompiler:
 			pipeline = RawParsing()
 			pipeline.Add(UnityScript.Steps.ApplySemantics())
 			return pipeline
+			
+		static def Compile():
+			return AdjustBooPipeline(Boo.Lang.Compiler.Pipelines.Compile())
 		
 		static def CompileToMemory():
 			return AdjustBooPipeline(Boo.Lang.Compiler.Pipelines.CompileToMemory())

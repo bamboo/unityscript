@@ -12,7 +12,7 @@ import UnityScript
 partial class ErrorMessagesTestFixture(AbstractCompilerTestFixture):
 	
 	override protected def CreateCompilerPipeline():
-		return UnityScriptCompiler.Pipelines.CompileToMemory()
+		return UnityScriptCompiler.Pipelines.Compile()
 		
 	override protected def CheckTestCaseCompilationResult(result as CompilerContext):
 		pass

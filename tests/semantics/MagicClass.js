@@ -3,13 +3,13 @@ import UnityScript.Tests
 
 partial class MagicClass(AnotherMagicClass):
 
-	virtual def foo():
+	public virtual def foo():
 		pass
 
-	virtual def bar():
+	public virtual def bar():
 		pass
 
-	def constructor(value):
+	public def constructor(value):
 		pass
 
 	public def Awake():

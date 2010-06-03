@@ -6,7 +6,7 @@ import NUnit.Framework
 partial class StackTraceTestFixture(AbstractIntegrationTestFixture):
 	override def ExecuteScript(type as System.Type):
 		try:
-			script as MonoBehaviour = type()
+			script as duck = type()
 			script.Awake()
 		except x:
 			System.Console.WriteLine(x)

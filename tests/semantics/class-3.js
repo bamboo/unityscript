@@ -7,22 +7,22 @@ class Person:
 
 	private _age as int
 
-	def constructor(name as string, age as int):
+	public def constructor(name as string, age as int):
 		_name = name
 		_age = age
 
 	Name:
-		virtual get:
+		public virtual get:
 			return _name
 
 	Age:
-		virtual get:
+		public virtual get:
 			return _age
 
-	virtual def ToString() as string:
+	public virtual def ToString() as string:
 		return ((_name + ', ') + _age)
 
-	static def StaticFunction():
+	public static def StaticFunction():
 		pass
 
 partial class class-3(UnityScript.Tests.MonoBehaviour):

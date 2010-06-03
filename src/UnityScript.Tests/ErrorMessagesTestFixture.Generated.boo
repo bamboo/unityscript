@@ -26,6 +26,10 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/error-for-final-used-as-identifier.js")
 		
 	[Test]
+	def implicit_main_shouldnt_be_redefined():
+		RunTestCase("tests/error-messages/implicit-main-shouldnt-be-redefined.js")
+		
+	[Test]
 	def incompatible_initializer_1():
 		RunTestCase("tests/error-messages/incompatible-initializer-1.js")
 		

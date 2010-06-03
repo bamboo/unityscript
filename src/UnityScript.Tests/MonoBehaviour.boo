@@ -86,9 +86,6 @@ class MonoBehaviour(Component):
 		
 	[getter(transform)]
 	m_Transform = Transform()
-		
-	abstract def Awake():
-		pass
 
 	def StartCoroutine_Auto(routine as IEnumerator):
 		print("Received coroutine")
