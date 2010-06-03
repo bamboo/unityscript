@@ -49,6 +49,9 @@ class ApplySemantics(AbstractVisitorCompilerStep):
 		SetScriptClass(Context, script)
 		
 	def SetUpMainMethod(module as Module, script as TypeDefinition):
+		
+		TransformGlobalVariablesIntoFields(module, script)
+		
 		main = FindExistingMainMethodOn(script)
 		if main is null:
 			main = CreateMainMethod(module)
@@ -57,11 +60,12 @@ class ApplySemantics(AbstractVisitorCompilerStep):
 			Warnings.Add(UnityScriptWarnings.ScriptMainMethodIsImplicitlyDefined(main.LexicalInfo, main.Name))
 			
 		main.Body.Statements.Extend(module.Globals.Statements)
-		
-		if UnityScriptParameters.GlobalVariablesBecomeFields:
-			main.Accept(DeclareGlobalVariables(script))
-			
 		module.Globals.Statements.Clear()
+		
+	def TransformGlobalVariablesIntoFields(module as Module, script as TypeDefinition):
+		if not UnityScriptParameters.GlobalVariablesBecomeFields:
+			return
+		module.Globals.Accept(DeclareGlobalVariables(script))
 		
 	def FindExistingMainMethodOn(typeDef as TypeDefinition):
 		for member in typeDef.Members:
