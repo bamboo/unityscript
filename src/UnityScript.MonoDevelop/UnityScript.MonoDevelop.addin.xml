@@ -10,17 +10,17 @@
 	   
 	<Runtime>
 		<Import assembly="UnityScript.MonoDevelop.dll" />
-		<Import assembly="bin/net-2.0/UnityScript.Lang.dll" />
-		<Import assembly="bin/net-2.0/UnityScript.dll" />
-		<Import assembly="bin/net-2.0/Boo.Lang.dll" />
-		<Import assembly="bin/net-2.0/Boo.Lang.Extensions.dll" />
-		<Import assembly="bin/net-2.0/Boo.Lang.Useful.dll" />
-		<Import assembly="bin/net-2.0/Boo.Lang.Compiler.dll" />
-		<Import assembly="bin/net-2.0/Boo.Lang.Parser.dll" />
-		<Import assembly="bin/net-2.0/Boo.Lang.PatternMatching.dll" />
-		<Import assembly="bin/net-2.0/Boo.Lang.CodeDom.dll" />
-		<Import assembly="bin/net-2.0/Boo.Lang.Interpreter.dll" />
-		<Import file="bin/net-2.0/us.exe" />
+		<Import assembly="bin/UnityScript.Lang.dll" />
+		<Import assembly="bin/UnityScript.dll" />
+		<Import assembly="bin/Boo.Lang.dll" />
+		<Import assembly="bin/Boo.Lang.Extensions.dll" />
+		<Import assembly="bin/Boo.Lang.Useful.dll" />
+		<Import assembly="bin/Boo.Lang.Compiler.dll" />
+		<Import assembly="bin/Boo.Lang.Parser.dll" />
+		<Import assembly="bin/Boo.Lang.PatternMatching.dll" />
+		<Import assembly="bin/Boo.Lang.CodeDom.dll" />
+		<Import assembly="bin/Boo.Lang.Interpreter.dll" />
+		<Import file="bin/us.exe" />
 	</Runtime>
 
 	<Dependencies>
