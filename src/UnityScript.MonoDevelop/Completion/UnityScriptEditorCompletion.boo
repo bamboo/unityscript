@@ -9,6 +9,7 @@ import UnityScript.MonoDevelop.ProjectModel
 import MonoDevelop.Core
 import MonoDevelop.Projects
 import MonoDevelop.Projects.Dom.Parser 
+import MonoDevelop.Ide.Gui
 import MonoDevelop.Ide.Gui.Content
 import MonoDevelop.Ide.CodeCompletion
 
@@ -31,6 +32,9 @@ class UnityScriptEditorCompletion(CompletionTextEditorExtension):
 		InstallUnityScriptSyntaxModeIfNeeded()
 		_resolver = UnityScriptTypeResolver()
 		_project = Document.Project as DotNetProject
+		for reference in _project.References:
+			if ReferenceType.Project != reference.ReferenceType:
+				_resolver.AddReference(reference.Reference)
 		
 	def InstallUnityScriptSyntaxModeIfNeeded():
 		view = Document.GetContent[of MonoDevelop.SourceEditor.SourceEditorView]()
@@ -53,40 +57,43 @@ class UnityScriptEditorCompletion(CompletionTextEditorExtension):
 		
 		match completionChar.ToString():
 			case ' ':
-				lineText = GetLineText(context.TriggerLine)
+				lineText = GetLineText(context.TriggerLine).TrimStart()
 				if not lineText.StartsWith("import "):
 					return null
 					
 				return ImportCompletionDataFor('')
 				
 			case '.':
-				# lineText = GetLineText(context.TriggerLine)
-				# if not lineText.StartsWith("import "):
-				# 	return null
-				
-				# nameSpace = lineText[len("import "):context.TriggerLineOffset-2].Trim()
-				# return ImportCompletionDataFor(nameSpace)
+				lineText = GetLineText(context.TriggerLine)
+				lineLength = lineText.Length
+				lineText = lineText.TrimStart()
+				trimmedLength = lineLength - lineText.Length
+				if lineText.StartsWith("import "):
+					nameSpace = lineText[len("import "):context.TriggerLineOffset-(2+trimmedLength)].Trim()
+					return ImportCompletionDataFor(nameSpace)
+					
 				result = null as CompletionDataList
 				text = string.Format ("{0}{1} {2}", Document.TextEditor.GetText (0, context.TriggerOffset),
 				                                    CompletionFinder.CompletionToken,
 				                                    Document.TextEditor.GetText (context.TriggerOffset, Document.TextEditor.TextLength))
-				print text
+				# print text
 				_resolver.Input.Clear()
 				_resolver.Input.Add(StringInput("completion text", text))
 				
 				ast = _resolver.Run()
-				print ast.ToCodeString()
+				# print ast.ToCodeString()
 				
 				finder = CompletionFinder()
 				type = finder.FindCompletionTypeFor(ast)
-				print type
+				# print type
 				if (null != type):
 					result = CompletionDataList()
 					resultHash = Dictionary[of string,string]()
 					for member in type.GetMembers():
-						print member
-						resultHash[member.Name] = member.Name
-					result.AddRange(resultHash.Keys)
+						# print member
+						resultHash[member.Name] = GetIconForMember(member)
+					for pair in resultHash:
+						result.Add(pair.Key, pair.Value)
        
 				return result
 				
@@ -104,4 +111,14 @@ class UnityScriptEditorCompletion(CompletionTextEditorExtension):
 	def GetLineText(line as int):
 		return Document.TextEditor.GetLineText(line)
 		
+	def GetIconForMember(member as IEntity):
+		if (EntityType.Method == member.EntityType):
+			return Stock.Method
+		elif (EntityType.Field == member.EntityType):
+			return Stock.Field
+		elif (EntityType.Property == member.EntityType):
+			return Stock.Property
+		elif (EntityType.Event == member.EntityType):
+			return Stock.Event
+		return Stock.Literal
 	

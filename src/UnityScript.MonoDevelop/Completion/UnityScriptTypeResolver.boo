@@ -38,5 +38,6 @@ class UnityScriptTypeResolver:
        def Run():
                result = _compiler.Run()
                for error in result.Errors:
-                       print error
+                       # print error
+                       pass
                return result.CompileUnit
