@@ -29,7 +29,7 @@ partial class class-3(UnityScript.Tests.MonoBehaviour):
 
 	public p as Person = Person('Eric Idle', 42)
 
-	public def Awake():
+	public virtual def Awake():
 		print(p.ToString())
 */
 

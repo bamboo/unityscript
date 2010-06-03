@@ -11,7 +11,7 @@ partial class functions-2(UnityScript.Tests.MonoBehaviour):
 	private def eggs():
 		print(spam(3))
 
-	public def Awake():
+	public virtual def Awake():
 		eggs()	
 */
 

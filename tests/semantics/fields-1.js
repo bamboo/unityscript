@@ -9,7 +9,7 @@ class Fields:
 
 partial class fields-1(UnityScript.Tests.MonoBehaviour):
 
-	public def Awake():
+	public virtual def Awake():
 		pass
 */
 class Fields {

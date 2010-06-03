@@ -5,7 +5,7 @@ partial class magic-members(UnityScript.Tests.MonoBehaviour):
 
 	public value = 5
 
-	public def Awake():
+	public virtual def Awake():
 		if 1:
 			otherValue1 = 7
 		else:

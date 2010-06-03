@@ -9,7 +9,7 @@ partial class Magic2Class:
 	public virtual def bar():
 		pass
 
-	public def Awake():
+	public virtual def Awake():
 		pass
 */
 class Magic2Class

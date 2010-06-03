@@ -12,7 +12,7 @@ partial class MagicClass(AnotherMagicClass):
 	public def constructor(value):
 		pass
 
-	public def Awake():
+	public virtual def Awake():
 		pass
 */
 class MagicClass extends AnotherMagicClass {

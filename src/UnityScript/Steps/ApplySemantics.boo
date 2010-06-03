@@ -160,7 +160,7 @@ class ApplySemantics(AbstractVisitorCompilerStep):
 	
 	def CreateMainMethod(module as Module):
 		method = Method(module.LexicalInfo, Name: ScriptMainMethod)
-		method.Modifiers = TypeMemberModifiers.Public
+		method.Modifiers = TypeMemberModifiers.Public | TypeMemberModifiers.Virtual
 		
 		stmts = module.Globals.Statements
 		if len(stmts) > 0: method.LexicalInfo = Copy(stmts[0].LexicalInfo)

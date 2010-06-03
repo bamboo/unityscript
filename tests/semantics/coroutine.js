@@ -9,7 +9,7 @@ partial class coroutine(UnityScript.Tests.MonoBehaviour):
 		yield 1
 		yield 2
 
-	public def Awake():
+	public virtual def Awake():
 		enumerate = spam()
 		for e in enumerate:
 			print(e)

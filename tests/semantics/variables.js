@@ -5,7 +5,7 @@ partial class variables(UnityScript.Tests.MonoBehaviour):
 
 	public value = 5
 
-	public def Awake():
+	public virtual def Awake():
 		otherValue = 7
 */
 
