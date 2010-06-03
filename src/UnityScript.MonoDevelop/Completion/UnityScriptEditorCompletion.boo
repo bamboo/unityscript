@@ -32,6 +32,12 @@ class UnityScriptEditorCompletion(CompletionTextEditorExtension):
 		InstallUnityScriptSyntaxModeIfNeeded()
 		_resolver = UnityScriptTypeResolver()
 		_project = Document.Project as DotNetProject
+		InitializeProjectReferences()
+		
+	def InitializeProjectReferences():
+		if _project is null:
+			return
+				
 		for reference in _project.References:
 			if ReferenceType.Project != reference.ReferenceType:
 				_resolver.AddReference(reference.Reference)
