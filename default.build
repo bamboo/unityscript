@@ -178,7 +178,7 @@
 		</copy>
 		<copy todir="${dir.md.addins}">
 			<fileset basedir=".">
-				<include name="bin/net-2.0/*.*" />
+				<include name="bin/*.*" />
 				<exclude name="**/*.MonoDevelop.*" />
 			</fileset>
 		</copy>
