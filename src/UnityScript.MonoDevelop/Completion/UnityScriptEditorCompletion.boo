@@ -118,13 +118,15 @@ class UnityScriptEditorCompletion(CompletionTextEditorExtension):
 		return Document.TextEditor.GetLineText(line)
 		
 	def GetIconForMember(member as IEntity):
-		if (EntityType.Method == member.EntityType):
-			return Stock.Method
-		elif (EntityType.Field == member.EntityType):
-			return Stock.Field
-		elif (EntityType.Property == member.EntityType):
-			return Stock.Property
-		elif (EntityType.Event == member.EntityType):
-			return Stock.Event
-		return Stock.Literal
+		match member.EntityType:
+			case EntityType.Method:
+				return Stock.Method
+			case EntityType.Field:
+				return Stock.Field
+			case EntityType.Property:
+				return Stock.Property
+			case EntityType.Event:
+				return Stock.Event
+			otherwise:
+				return Stock.Literal
 	
