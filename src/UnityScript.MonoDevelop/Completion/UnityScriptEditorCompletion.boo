@@ -114,8 +114,14 @@ class UnityScriptEditorCompletion(CompletionTextEditorExtension):
 		
 	def GetIconForMember(member as IEntity):
 		match member.EntityType:
+			case EntityType.BuiltinFunction:
+				return Stock.Method
+			case EntityType.Constructor:
+				return Stock.Method
 			case EntityType.Method:
 				return Stock.Method
+			case EntityType.Local:
+				return Stock.Field
 			case EntityType.Field:
 				return Stock.Field
 			case EntityType.Property:
