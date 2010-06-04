@@ -86,14 +86,9 @@ class UnityScriptEditorCompletion(CompletionTextEditorExtension):
 				_resolver.Input.Clear()
 				_resolver.Input.Add(StringInput("completion text", text))
 				
-				ast = _resolver.Run()
-				# print ast.ToCodeString()
-				
-				finder = CompletionFinder()
-				type = finder.FindCompletionTypeFor(ast)
-				# print type
-				if (null != type):
-					result = CompletionDataList()
+				result = CompletionDataList()
+					
+				_resolver.ResolveAnd() do (type as IType):
 					resultHash = Dictionary[of string,string]()
 					for member in type.GetMembers():
 						# print member

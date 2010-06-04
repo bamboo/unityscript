@@ -10,20 +10,20 @@ import Boo.Lang.Compiler.TypeSystem
 
 class CompletionFinder(DepthFirstVisitor):
 
-       public static final CompletionToken = "__complete_me__"
+   public static final CompletionToken = "__complete_me__"
 
-       _type as IType
+   _type as IType
 
-       def FindCompletionTypeFor(node as Node):
-               VisitAllowingCancellation(node)
-               return _type
+   def FindCompletionTypeFor(node as Node):
+       VisitAllowingCancellation(node)
+       return _type
 
-       override def LeaveMemberReferenceExpression(node as MemberReferenceExpression):
-               if node.Name != CompletionToken:
-                       return
+   override def LeaveMemberReferenceExpression(node as MemberReferenceExpression):
+       if node.Name != CompletionToken:
+               return
 
-               Found(node.Target.ExpressionType)
+       Found(node.Target.ExpressionType)
 
-       protected def Found(type):
-               _type = type
-               Cancel()
+   protected def Found(type):
+       _type = type
+       Cancel()
