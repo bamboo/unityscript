@@ -1,5 +1,6 @@
 namespace UnityScript.MonoDevelop.Completion
 
+import System
 import System.Collections.Generic
 
 import UnityScript
@@ -92,9 +93,10 @@ class UnityScriptEditorCompletion(CompletionTextEditorExtension):
 					resultHash = Dictionary[of string,string]()
 					for member in type.GetMembers():
 						# print member
-						resultHash[member.Name] = GetIconForMember(member)
+						resultHash[SanitizeMemberName(type,member)] = GetIconForMember(member)
 					for pair in resultHash:
-						result.Add(pair.Key, pair.Value)
+						unless string.IsNullOrEmpty(pair.Key) or (4 < pair.Key.Length and /^[gs]et_/.Matches(pair.Key) and resultHash.ContainsKey(pair.Key[4:])):
+							result.Add(pair.Key, pair.Value)
        
 				return result
 				
@@ -112,6 +114,12 @@ class UnityScriptEditorCompletion(CompletionTextEditorExtension):
 	def GetLineText(line as int):
 		return Document.TextEditor.GetLineText(line)
 		
+	
+	# <summary>
+	# Gets the proper stock icon for an IEntity
+	# </summary>
+	# <param name="member">The member whose icon is wanted</param>
+	# <returns>A stock icon string</returns>
 	def GetIconForMember(member as IEntity):
 		match member.EntityType:
 			case EntityType.BuiltinFunction:
@@ -130,4 +138,20 @@ class UnityScriptEditorCompletion(CompletionTextEditorExtension):
 				return Stock.Event
 			otherwise:
 				return Stock.Literal
-	
+				
+	# <summary>
+	# Sanitizes the member names we get from the compiler pipeline
+	# </summary>
+	# <param name="type">The type to which the member belongs</param>
+	# <param name="member">The member whose name should be sanitized</param>
+	# <returns>The sanitized name (empty for invalid)</returns>
+	def SanitizeMemberName(type as IType,member as IEntity) as string:
+		name = member.Name
+		if (0 <= (lastDot = name.LastIndexOf('.'))):
+			name = name[lastDot:]
+		if ("constructor" == name):
+			name = type.Name
+		if (name.StartsWith("internal_", StringComparison.OrdinalIgnoreCase)):
+			name = string.Empty
+		return name
+		
