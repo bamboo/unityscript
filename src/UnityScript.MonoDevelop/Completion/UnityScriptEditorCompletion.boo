@@ -151,7 +151,7 @@ class UnityScriptEditorCompletion(CompletionTextEditorExtension):
 			name = name[lastDot+1:]
 		if ("constructor" == name):
 			name = type.Name
-		if (name.StartsWith("internal_", StringComparison.OrdinalIgnoreCase)):
+		if (name.StartsWith("internal_", StringComparison.OrdinalIgnoreCase) or name.StartsWith("op_", StringComparison.Ordinal)):
 			name = string.Empty
 		return name
 		
