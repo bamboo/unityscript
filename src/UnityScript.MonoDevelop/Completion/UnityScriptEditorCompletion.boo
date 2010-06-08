@@ -115,11 +115,6 @@ class UnityScriptEditorCompletion(CompletionTextEditorExtension):
 		return Document.TextEditor.GetLineText(line)
 		
 	
-	# <summary>
-	# Gets the proper stock icon for an IEntity
-	# </summary>
-	# <param name="member">The member whose icon is wanted</param>
-	# <returns>A stock icon string</returns>
 	def GetIconForMember(member as IEntity):
 		match member.EntityType:
 			case EntityType.BuiltinFunction:
@@ -139,12 +134,6 @@ class UnityScriptEditorCompletion(CompletionTextEditorExtension):
 			otherwise:
 				return Stock.Literal
 				
-	# <summary>
-	# Sanitizes the member names we get from the compiler pipeline
-	# </summary>
-	# <param name="type">The type to which the member belongs</param>
-	# <param name="member">The member whose name should be sanitized</param>
-	# <returns>The sanitized name (empty for invalid)</returns>
 	def SanitizeMemberName(type as IType,member as IEntity) as string:
 		name = member.Name
 		if (0 <= (lastDot = name.LastIndexOf('.'))):
