@@ -14,32 +14,32 @@ class UnityScriptCompiler:
 	def Run(compileUnit as Boo.Lang.Compiler.Ast.CompileUnit):
 		return _compiler.Run(compileUnit)
 		
-	class Pipelines:
+	static class Pipelines:
 	
-		static def RawParsing():
+		def RawParsing():
 			pipeline = CompilerPipeline()
 			pipeline.Add(UnityScript.Steps.PreProcess())
 			pipeline.Add(UnityScript.Steps.Parse())
 			return pipeline
 		
-		static def Parse():
+		def Parse():
 			pipeline = RawParsing()
 			pipeline.Add(UnityScript.Steps.ApplySemantics())
 			return pipeline
 			
-		static def Compile():
+		def Compile():
 			return AdjustBooPipeline(Boo.Lang.Compiler.Pipelines.Compile())
 		
-		static def CompileToMemory():
+		def CompileToMemory():
 			return AdjustBooPipeline(Boo.Lang.Compiler.Pipelines.CompileToMemory())
 			
-		static def CompileToFile():
+		def CompileToFile():
 			return AdjustBooPipeline(Boo.Lang.Compiler.Pipelines.CompileToFile())
 			
-		static def CompileToBoo():
+		def CompileToBoo():
 			return AdjustBooPipeline(Boo.Lang.Compiler.Pipelines.CompileToBoo())
 			
-		static def AdjustBooPipeline(pipeline as CompilerPipeline):
+		def AdjustBooPipeline(pipeline as CompilerPipeline):
 			pipeline.Insert(0, UnityScript.Steps.PreProcess())
 			
 			pipeline.Replace(Boo.Lang.Parser.BooParsingStep, UnityScript.Steps.Parse())
@@ -76,7 +76,8 @@ class UnityScriptCompiler:
 			
 			return pipeline
 			
-[Extension] def ReplaceOptional(pipeline as CompilerPipeline, optionalPipelineStepType as System.Type, step as ICompilerStep):
+[Extension]
+def ReplaceOptional(pipeline as CompilerPipeline, optionalPipelineStepType as System.Type, step as ICompilerStep):
 	index = pipeline.Find(optionalPipelineStepType)
 	if index < 0: return
 	pipeline.RemoveAt(index)
