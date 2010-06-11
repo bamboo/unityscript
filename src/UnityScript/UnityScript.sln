@@ -39,6 +39,6 @@ Global
 		{EF5AE116-19DD-42DC-847A-7BD3EE49AB01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = UnityScript.booproj
+		StartupItem = ..\us\us.booproj
 	EndGlobalSection
 EndGlobal

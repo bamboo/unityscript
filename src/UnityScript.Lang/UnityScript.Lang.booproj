@@ -1,1 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?><Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">  <PropertyGroup>    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>    <ProductVersion>9.0.21022</ProductVersion>    <SchemaVersion>2.0</SchemaVersion>    <ProjectGuid>{2784E7F4-5206-4BF9-99CD-96B1D94D0E19}</ProjectGuid>    <OutputType>Library</OutputType>    <RootNamespace>UnityScript.Lang</RootNamespace>    <UsePartialTypes>false</UsePartialTypes>    <AssemblyName>UnityScript.Lang</AssemblyName>    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>  </PropertyGroup>  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">    <DebugSymbols>true</DebugSymbols>    <DebugType>full</DebugType>    <OutputPath>bin\Debug</OutputPath>    <ErrorReport>prompt</ErrorReport>    <ducky>false</ducky>    <culture />    <genwarnings>false</genwarnings>  </PropertyGroup>  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">    <DebugType>none</DebugType>    <OutputPath>bin\Release</OutputPath>    <ErrorReport>prompt</ErrorReport>    <ducky>false</ducky>    <culture />    <genwarnings>false</genwarnings>  </PropertyGroup>  <ItemGroup>    <Reference Include="System" />    <Reference Include="Boo.Lang, Version=2.0.9.4, Culture=neutral, PublicKeyToken=32c39770e9a21a67" />  </ItemGroup>  <ItemGroup>    <Compile Include="Array.boo" />    <Compile Include="AssemblyInfo.boo" />    <Compile Include="ExpandoServices.boo" />    <Compile Include="Extensions.boo" />    <Compile Include="ListUpdateableEnumerator.boo" />    <Compile Include="UnityBuiltins.boo" />    <Compile Include="UnityRuntimeServices.boo" />  </ItemGroup></Project>
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2784E7F4-5206-4BF9-99CD-96B1D94D0E19}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>UnityScript.Lang</RootNamespace>
+    <UsePartialTypes>false</UsePartialTypes>
+    <AssemblyName>UnityScript.Lang</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <OutputPath>bin\Debug</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <ducky>false</ducky>
+    <culture />
+    <genwarnings>false</genwarnings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <ducky>false</ducky>
+    <culture />
+    <genwarnings>false</genwarnings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="Boo.Lang, Version=2.0.9.4, Culture=neutral, PublicKeyToken=32c39770e9a21a67" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Array.boo" />
+    <Compile Include="AssemblyInfo.boo" />
+    <Compile Include="ExpandoServices.boo" />
+    <Compile Include="Extensions.boo" />
+    <Compile Include="ListUpdateableEnumerator.boo" />
+    <Compile Include="UnityBuiltins.boo" />
+    <Compile Include="UnityRuntimeServices.boo" />
+  </ItemGroup>
+</Project>
