@@ -1453,7 +1453,6 @@ sum returns [Expression e]
 		(
 			add:ADD { op=add; bOperator = BinaryOperatorType.Addition; } |
 			sub:SUBTRACT { op=sub; bOperator = BinaryOperatorType.Subtraction; } |
-			bitor:BITWISE_OR { op=bitor; bOperator = BinaryOperatorType.BitwiseOr; } |
 			eo:EXCLUSIVE_OR { op=eo; bOperator = BinaryOperatorType.ExclusiveOr; }
 		)
 		r=term
