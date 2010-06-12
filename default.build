@@ -6,6 +6,7 @@
 	<property name="boo.dir" value="../boo" />
 	<property name="boo.lib.dir" value="${boo.dir}/build" />
 	<property name="antlr.jar" value="${boo.dir}/lib/antlr-2.7.5/antlr-2.7.5.jar" />
+	<property name="excluded.test.categories" value="" />
 	
 	<property name="debug" value="true" />
 	<property name="disallow.system.dll.references" value="false" />
@@ -18,7 +19,7 @@
 	</target>
 	
 	<target name="test" depends="UnityScript.Tests">
-		<property name="excluded.categories" value="FailsOnMono" if="${'mono' == framework::get-family(framework::get-runtime-framework())}" />
+		<property name="excluded.test.categories" value="FailsOnMono" if="${'mono' == framework::get-family(framework::get-runtime-framework())}" />
 		<nunit2>       
 			<formatter type="Plain" />
 			<test>
@@ -26,7 +27,7 @@
 					<include name="UnityScript.Tests.dll" />					
 				</assemblies>
 				<categories>
-					<exclude name="${excluded.categories}" />
+					<exclude name="${excluded.test.categories}" />
 				</categories>
 			</test>
 		</nunit2>
