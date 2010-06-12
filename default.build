@@ -18,12 +18,16 @@
 	</target>
 	
 	<target name="test" depends="UnityScript.Tests">
+		<property name="excluded.categories" value="FailsOnMono" if="${'mono' == framework::get-family(framework::get-runtime-framework())}" />
 		<nunit2>       
 			<formatter type="Plain" />
 			<test>
 				<assemblies basedir="${build.dir}">				
 					<include name="UnityScript.Tests.dll" />					
 				</assemblies>
+				<categories>
+					<exclude name="${excluded.categories}" />
+				</categories>
 			</test>
 		</nunit2>
 	</target>
@@ -69,7 +73,11 @@
 	</target>
 	
 	<target name="refresh-tests" depends="init">
-		<boo src="refresh-tests.boo" />
+		<boo src="refresh-tests.boo">
+			<references basedir="${build.dir}">
+				<include name="Boo.Lang.PatternMatching.dll" />
+			</references>
+		</boo>
 	</target>
 	
 	<target name="UnityScript" depends="init">

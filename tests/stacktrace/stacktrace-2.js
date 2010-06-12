@@ -1,3 +1,4 @@
+// category FailsOnMono
 /*
 stacktrace-2.js:16
 stacktrace-2.js:9

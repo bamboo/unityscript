@@ -11,15 +11,15 @@ class ExpandoTestFixture(AbstractIntegrationTestFixture):
 		compiler.Parameters.Expando = true
 		return compiler
 
-	[Test]
-	def expando_1():
+	
+	[Test] def expando_1():
 		RunTestCase("tests/expando/expando-1.js")
 		
-	[Test]
-	def expando_2():
+	
+	[Test] def expando_2():
 		RunTestCase("tests/expando/expando-2.js")
 		
-	[Test]
-	def expando_gc_3():
+	[Category("FailsOnMono")]
+	[Test] def expando_gc_3():
 		RunTestCase("tests/expando/expando-gc-3.js")
 		
