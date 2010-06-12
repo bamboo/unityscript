@@ -44,7 +44,6 @@ tokens
 	INTERFACE="interface";
 	INSTANCEOF="instanceof";
 	NEW="new";
-	NOT="not";
 	NULL="null";
 	RETURN="return";
 	PUBLIC="public";
@@ -101,16 +100,13 @@ tokens
 	INCREMENT="++";
 	DECREMENT="--";
 	ADD="+";
-	INPLACE_ADD="+=";
 	SUBTRACT="-";
-	INPLACE_SUBTRACT="-=";
 	MODULUS="%";
 	MULTIPLY="*";
 	EQUALITY="==";
 	INEQUALITY="!=";
-	NOT="!";
 	QUESTION_MARK="?";
-	ONES_COMPLEMENT="~";
+	BITWISE_NOT="~";
 	REFERENCE_EQUALITY="===";
 	REFERENCE_INEQUALITY="!==";
 	LESS_THAN="<";
@@ -1345,246 +1341,6 @@ assignment_expression returns [Expression e]
 	)?
 ;
 
-conditional_expression returns [Expression e]
-{
-}:
-	e=logical_expression
-	(
-		qm:QUESTION_MARK
-		trueValue=logical_expression 
-		COLON
-		falseValue=conditional_expression
-		{
-			e = ConditionalExpression(ToLexicalInfo(qm),
-					Condition: e,
-					TrueValue: trueValue,
-					FalseValue: falseValue)
-		}
-	)?
-;
-
-logical_expression returns [Expression e]
-{
-}:
-	e=boolean_term
-	(
-		op:LOGICAL_OR
-		rhs=boolean_term
-		{
-			e = BinaryExpression(ToLexicalInfo(op),
-						Operator: BinaryOperatorType.Or,
-						Left: e,
-						Right: rhs)
-		}
-	)*
-;
-
-boolean_term returns [Expression e]
-{
-}:
-	e=comparison_expression
-	(
-		op:LOGICAL_AND
-		rhs=comparison_expression
-		{
-			e=BinaryExpression(ToLexicalInfo(op),
-						Operator: BinaryOperatorType.And,
-						Left: e,
-						Right: rhs)
-		}
-	)*
-;
-
-comparison_expression returns [Expression e]
-{		
-	r as Expression
-	op = BinaryOperatorType.None;
-	token as IToken
-}:
-	e=sum
-	( options { greedy = true; } :
-	 (
-	  (
-		 (
-			(te:EQUALITY { op = BinaryOperatorType.Equality; token = te; } ) |
-			(ti:INEQUALITY { op = BinaryOperatorType.Inequality; token =ti }) |
-			(tgt:GREATER_THAN { op = BinaryOperatorType.GreaterThan; token = tgt; } ) |
-			(tgte:GREATER_THAN_OR_EQUAL { op = BinaryOperatorType.GreaterThanOrEqual; token = tgte }) |
-			(tlt:LESS_THAN { op = BinaryOperatorType.LessThan; token = tlt; }) |
-			(tlte:LESS_THAN_OR_EQUAL { op = BinaryOperatorType.LessThanOrEqual; token = tlte; }) |
-			(re:REFERENCE_EQUALITY { op = BinaryOperatorType.ReferenceEquality; token = re }) |
-			(rie:REFERENCE_INEQUALITY { op = BinaryOperatorType.ReferenceInequality; token = rie })
-		 )
-		 r=sum
-	  ) |
-	  (
-	  	(
-			(tin:IN { op = BinaryOperatorType.Member; token = tin; } ) |
-			(tnint:NOT IN { op = BinaryOperatorType.NotMember; token = tnint; })
-		)		
-		r=expression
-	  ) |	
-	  (
-	  	tisa:INSTANCEOF
-		tr=type_reference
-		{
-			op = BinaryOperatorType.TypeTest;
-			token = tisa;
-			r = TypeofExpression(tr.LexicalInfo, tr);
-		}
-	  )
-	)
-	{
-		be = BinaryExpression(ToLexicalInfo(token))
-		be.Operator = op
-		be.Left = e
-		be.Right = r
-		e = be
-	}
-	)*
-;
-
-sum returns [Expression e]
-{
-	bOperator = BinaryOperatorType.None;
-}:
-	e=term
-	( options { greedy = true; } :
-		(
-			add:ADD { op=add; bOperator = BinaryOperatorType.Addition; } |
-			sub:SUBTRACT { op=sub; bOperator = BinaryOperatorType.Subtraction; } |
-			eo:EXCLUSIVE_OR { op=eo; bOperator = BinaryOperatorType.ExclusiveOr; }
-		)
-		r=term
-		{
-			be = BinaryExpression(ToLexicalInfo(op))
-			be.Operator = bOperator
-			be.Left = e
-			be.Right = r
-			e = be
-		}
-	)*
-;
-
-term returns [Expression e]
-{
-	op = BinaryOperatorType.None 
-}:
-	e=factor
-	( options { greedy = true; } :
-	 	(
-		 m:MULTIPLY { op=BinaryOperatorType.Multiply; token=m; } |
-		 d:DIVISION { op=BinaryOperatorType.Division; token=d; } |
-		 md:MODULUS { op=BinaryOperatorType.Modulus; token=md; }
-		 )
-		r=factor
-		{
-			be = BinaryExpression(ToLexicalInfo(token))
-			be.Operator = op
-			be.Left = e
-			be.Right = r
-			e = be
-		}
-	)*
-;
-
-factor returns [Expression e]
-{
-}:
-	e=bitwise_or
-	( options { greedy = true;} :
-		(
-		sl:SHIFT_LEFT { op = BinaryOperatorType.ShiftLeft; token = sl } |
-		sr:SHIFT_RIGHT { op = BinaryOperatorType.ShiftRight; token = sr }
-		)
-		r=bitwise_or
-		{
-			e = BinaryExpression(ToLexicalInfo(token), Operator: op, Left: e, Right: r)
-		}
-	)*
-;
-
-bitwise_or returns [Expression e]
-{
-}:
-	e=bitwise_xor
-	(options { greedy = true; }:
-	
-		token:BITWISE_OR { op = BinaryOperatorType.BitwiseOr; }
-		
-		r=bitwise_xor
-		{
-			e = BinaryExpression(ToLexicalInfo(token), Operator: op, Left: e, Right: r)
-		}
-	)*
-;
-
-bitwise_xor returns [Expression e]
-{
-}:
-	e=bitwise_and
-	(options { greedy = true; }:
-		token:BITWISE_XOR { op = BinaryOperatorType.ExclusiveOr; }
-		r=bitwise_and
-		{
-			e = BinaryExpression(ToLexicalInfo(token), Operator: op, Left: e, Right: r)
-		}
-	)*
-;
-
-bitwise_and returns [Expression e]
-{
-}:
-	e=unary_expression
-	(options { greedy = true; }:
-		token:BITWISE_AND { op = BinaryOperatorType.BitwiseAnd; }
-		r=unary_expression
-		{
-			e = BinaryExpression(ToLexicalInfo(token), Operator: op, Left: e, Right: r)
-		}
-	)*
-;
-
-unary_expression returns [Expression e]
-{
-	uOperator = UnaryOperatorType.None
-}: 
-	(
-		(
-			(
-				sub:SUBTRACT { op = sub; uOperator = UnaryOperatorType.UnaryNegation; } |
-				inc:INCREMENT { op = inc; uOperator = UnaryOperatorType.Increment; } |
-				dec:DECREMENT { op = dec; uOperator = UnaryOperatorType.Decrement; } |
-				nt:NOT { op = nt; uOperator = UnaryOperatorType.LogicalNot; } |
-				oc:ONES_COMPLEMENT { op = oc; uOperator = UnaryOperatorType.OnesComplement; }
-			)
-			e=slicing_expression
-		) |
-		(
-			e=slicing_expression
-			(
-				postinc:INCREMENT { op = postinc; uOperator = UnaryOperatorType.PostIncrement; } |
-				preinc:DECREMENT { op = preinc; uOperator= UnaryOperatorType.PostDecrement; }
-			)?
-		)
-	)
-	{
-		if op is not null:
-			ue = UnaryExpression(ToLexicalInfo(op))
-			ue.Operator = uOperator
-			ue.Operand = e
-			e = ue
-	}
-	(
-		t:AS
-		tr=type_reference
-		{
-			ae = TryCastExpression(ToLexicalInfo(t), Target: e, Type: tr)
-			e = ae
-		}
-	)?
-;
-
 slicing_expression returns [Expression e]
 {
 	se as SlicingExpression
@@ -1625,6 +1381,254 @@ slicing_expression returns [Expression e]
 		)
 	)*
 ;
+
+
+postfix_unary_expression returns [Expression e]
+{
+}:
+	e=slicing_expression
+	(
+		postinc:INCREMENT { token = postinc; operator = UnaryOperatorType.PostIncrement; } |
+		preinc:DECREMENT { token = preinc; operator= UnaryOperatorType.PostDecrement; }
+	)?
+	{ e = UnaryExpression(ToLexicalInfo(token), operator, e) if token is not null }
+;
+
+unary_expression returns [Expression e]
+{
+	uOperator = UnaryOperatorType.None
+}: 
+	(
+		(
+			(
+				sub:SUBTRACT { op = sub; uOperator = UnaryOperatorType.UnaryNegation; } |
+				inc:INCREMENT { op = inc; uOperator = UnaryOperatorType.Increment; } |
+				dec:DECREMENT { op = dec; uOperator = UnaryOperatorType.Decrement; } |
+				nt:NOT { op = nt; uOperator = UnaryOperatorType.LogicalNot; } |
+				oc:BITWISE_NOT { op = oc; uOperator = UnaryOperatorType.OnesComplement; }
+			)
+			e=unary_expression
+			{ e = UnaryExpression(ToLexicalInfo(op), uOperator, e) if op is not null }
+		)
+		| e=postfix_unary_expression
+	)
+	(
+		t:AS
+		tr=type_reference
+		{
+			e = TryCastExpression(ToLexicalInfo(t), Target: e, Type: tr)
+		}
+	)?
+;
+
+term returns [Expression e]
+{
+	op = BinaryOperatorType.None 
+}:
+	e=unary_expression
+	( options { greedy = true; } :
+	 	(
+		 m:MULTIPLY { op=BinaryOperatorType.Multiply; token=m; } |
+		 d:DIVISION { op=BinaryOperatorType.Division; token=d; } |
+		 md:MODULUS { op=BinaryOperatorType.Modulus; token=md; }
+		 )
+		r=unary_expression
+		{
+			be = BinaryExpression(ToLexicalInfo(token))
+			be.Operator = op
+			be.Left = e
+			be.Right = r
+			e = be
+		}
+	)*
+;
+
+sum returns [Expression e]
+{
+	bOperator = BinaryOperatorType.None;
+}:
+	e=term
+	( options { greedy = true; } :
+		(
+			add:ADD { op=add; bOperator = BinaryOperatorType.Addition; } |
+			sub:SUBTRACT { op=sub; bOperator = BinaryOperatorType.Subtraction; }
+		)
+		r=term
+		{
+			be = BinaryExpression(ToLexicalInfo(op))
+			be.Operator = bOperator
+			be.Left = e
+			be.Right = r
+			e = be
+		}
+	)*
+;
+
+shift returns [Expression e]
+{
+}:
+	e=sum
+	( options { greedy = true;} :
+		(
+		sl:SHIFT_LEFT { op = BinaryOperatorType.ShiftLeft; token = sl } |
+		sr:SHIFT_RIGHT { op = BinaryOperatorType.ShiftRight; token = sr }
+		)
+		r=sum
+		{
+			e = BinaryExpression(ToLexicalInfo(token), Operator: op, Left: e, Right: r)
+		}
+	)*
+;
+
+comparison returns [Expression e]
+{		
+	r as Expression
+	op = BinaryOperatorType.None;
+	token as IToken
+}:
+	e=shift
+	( options { greedy = true; } :
+	 (
+	  (
+		 (
+		 	(tin:IN { op = BinaryOperatorType.Member; token = tin; } ) |
+			(tgt:GREATER_THAN { op = BinaryOperatorType.GreaterThan; token = tgt; } ) |
+			(tgte:GREATER_THAN_OR_EQUAL { op = BinaryOperatorType.GreaterThanOrEqual; token = tgte }) |
+			(tlt:LESS_THAN { op = BinaryOperatorType.LessThan; token = tlt; }) |
+			(tlte:LESS_THAN_OR_EQUAL { op = BinaryOperatorType.LessThanOrEqual; token = tlte; })
+		 )
+		 r=shift
+	  ) |	
+	  (
+	  	tisa:INSTANCEOF
+		tr=type_reference
+		{
+			op = BinaryOperatorType.TypeTest;
+			token = tisa;
+			r = TypeofExpression(tr.LexicalInfo, tr);
+		}
+	  )
+	)
+	{
+		be = BinaryExpression(ToLexicalInfo(token))
+		be.Operator = op
+		be.Left = e
+		be.Right = r
+		e = be
+	}
+	)*
+;
+
+equality returns [Expression e]
+{
+}:
+	e=comparison
+	(options { greedy = true; }:
+		(
+			(te:EQUALITY { op = BinaryOperatorType.Equality; token = te; } ) |
+			(ti:INEQUALITY { op = BinaryOperatorType.Inequality; token = ti }) |			
+			(re:REFERENCE_EQUALITY { op = BinaryOperatorType.ReferenceEquality; token = re }) |
+			(rie:REFERENCE_INEQUALITY { op = BinaryOperatorType.ReferenceInequality; token = rie })
+		)
+		r=comparison
+		{ e = BinaryExpression(ToLexicalInfo(token), op, e, r) }
+	)*
+;
+
+
+bitwise_and returns [Expression e]
+{
+}:
+	e=equality
+	(options { greedy = true; }:
+		token:BITWISE_AND { op = BinaryOperatorType.BitwiseAnd; }
+		r=equality
+		{
+			e = BinaryExpression(ToLexicalInfo(token), Operator: op, Left: e, Right: r)
+		}
+	)*
+;
+
+bitwise_xor returns [Expression e]
+{
+}:
+	e=bitwise_and
+	(options { greedy = true; }:
+		token:BITWISE_XOR { op = BinaryOperatorType.ExclusiveOr; }
+		r=bitwise_and
+		{
+			e = BinaryExpression(ToLexicalInfo(token), Operator: op, Left: e, Right: r)
+		}
+	)*
+;
+
+
+bitwise_or returns [Expression e]
+{
+}:
+	e=bitwise_xor
+	(options { greedy = true; }:
+	
+		token:BITWISE_OR { op = BinaryOperatorType.BitwiseOr; }
+		
+		r=bitwise_xor
+		{
+			e = BinaryExpression(ToLexicalInfo(token), Operator: op, Left: e, Right: r)
+		}
+	)*
+;
+
+logical_and returns [Expression e]
+{
+}:
+	e=bitwise_or
+	(
+		op:LOGICAL_AND
+		rhs=bitwise_or
+		{
+			e=BinaryExpression(ToLexicalInfo(op),
+						Operator: BinaryOperatorType.And,
+						Left: e,
+						Right: rhs)
+		}
+	)*
+;
+
+logical_or returns [Expression e]
+{
+}:
+	e=logical_and
+	(
+		op:LOGICAL_OR
+		rhs=logical_and
+		{
+			e = BinaryExpression(ToLexicalInfo(op),
+						Operator: BinaryOperatorType.Or,
+						Left: e,
+						Right: rhs)
+		}
+	)*
+;
+
+conditional_expression returns [Expression e]
+{
+}:
+	e=logical_or
+	(
+		qm:QUESTION_MARK
+		trueValue=logical_or 
+		COLON
+		falseValue=conditional_expression
+		{
+			e = ConditionalExpression(ToLexicalInfo(qm),
+					Condition: e,
+					TrueValue: trueValue,
+					FalseValue: falseValue)
+		}
+	)?
+;
+
+
 	
 literal returns [Expression e]
 {
@@ -1870,7 +1874,7 @@ NOT: '!';
 
 QUESTION_MARK: '?';
 
-ONES_COMPLEMENT: '~';
+BITWISE_NOT: '~';
 
 REFERENCE_EQUALITY: "===";
 

@@ -4,6 +4,7 @@ Generates test fixtures from files under tests/
 """
 import System
 import System.IO
+import Boo.Lang.PatternMatching
 
 //def MapPath(path):
 //	return Path.Combine(Project.BaseDirectory, path) 
@@ -16,23 +17,26 @@ def WriteTestCases(writer as TextWriter, baseDir as string):
 	for fname in Directory.GetFiles(baseDir):
 		continue unless fname.EndsWith(".js")
 		++count
-		ignoreAttribute = IgnoreAttributeFor(fname)
+		categoryAttribute = CategoryAttributeFor(fname)
 		writer.Write("""
-	[Test]${ignoreAttribute}
-	def ${GetTestCaseName(fname)}():
+	${categoryAttribute}
+	[Test] def ${GetTestCaseName(fname)}():
 		RunTestCase("${fname.Replace('\\', '/')}")
 		""")
 	print("${count} test cases found in ${baseDir}.")
 	
-def IgnoreAttributeFor(testFile as string):
+def CategoryAttributeFor(testFile as string):
 """
-If the first line of the test case file starts with // ignore
-then return a suitable [Ignore()] attribute.
+If the first line of the test case file starts with // category CategoryName 
+then return a suitable [CategoryName()] attribute.
 """
-	m = /\/\/\s*ignore\s+(.*)/.Match(FirstLineOf(testFile))
-	if not m.Success: return string.Empty
-	reason = m.Groups[1].Value.Trim()
-	return """[Ignore("${reason}")]"""
+	match FirstLineOf(testFile):
+		case /\/\/\s*ignore\s+(?<reason>.*)/:
+			return "[Ignore(\"${reason[0].Value.Trim()}\")]"
+		case /\/\/\s*category\s+(?<name>.*)/:
+			return "[Category(\"${name[0].Value.Trim()}\")]"
+		otherwise:
+			return ""
 	
 def FirstLineOf(fname as string):
 	using reader=File.OpenText(fname):

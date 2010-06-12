@@ -6,6 +6,7 @@
 	<property name="boo.dir" value="../boo" />
 	<property name="boo.lib.dir" value="${boo.dir}/build" />
 	<property name="antlr.jar" value="${boo.dir}/lib/antlr-2.7.5/antlr-2.7.5.jar" />
+	<property name="excluded.test.categories" value="" />
 	
 	<property name="debug" value="true" />
 	<property name="disallow.system.dll.references" value="false" />
@@ -18,12 +19,16 @@
 	</target>
 	
 	<target name="test" depends="UnityScript.Tests">
+		<property name="excluded.test.categories" value="FailsOnMono" if="${'mono' == framework::get-family(framework::get-runtime-framework())}" />
 		<nunit2>       
 			<formatter type="Plain" />
 			<test>
 				<assemblies basedir="${build.dir}">				
 					<include name="UnityScript.Tests.dll" />					
 				</assemblies>
+				<categories>
+					<exclude name="${excluded.test.categories}" />
+				</categories>
 			</test>
 		</nunit2>
 	</target>
@@ -69,7 +74,11 @@
 	</target>
 	
 	<target name="refresh-tests" depends="init">
-		<boo src="refresh-tests.boo" />
+		<boo src="refresh-tests.boo">
+			<references basedir="${build.dir}">
+				<include name="Boo.Lang.PatternMatching.dll" />
+			</references>
+		</boo>
 	</target>
 	
 	<target name="UnityScript" depends="init">

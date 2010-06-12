@@ -1,6 +1,7 @@
+// category FailsOnMono
 /*
-stacktrace-2.js:16
-stacktrace-2.js:9
+stacktrace-2.js:17
+stacktrace-2.js:10
 */
 import UnityScript.Tests;
 import System.Runtime.CompilerServices;
