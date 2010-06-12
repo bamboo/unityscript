@@ -70,7 +70,7 @@ def parseCommandLineOptions(argv as (string)):
 	return CommandLineOptions(*argv)
 	
 def parseResponseFile(responseFile as string):
-	args = []
+	args = List of string()
 	
 	using reader = File.OpenText(responseFile):
 		for line in reader:
@@ -78,7 +78,7 @@ def parseResponseFile(responseFile as string):
 				continue if len(arg) == 0
 				args.Add(unquote(arg))
 				
-	return array(string, args)
+	return args.ToArray()
 	
 def unquote(s as string):
 	if s.StartsWith('"'): return s[1:-1]
