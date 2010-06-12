@@ -6,6 +6,10 @@ import NUnit.Framework
 partial class ParserTestFixture:
 
 	[Test]
+	def OperationInsideAParam():
+		RunTestCase("tests/parser/OperationInsideAParam.js")
+		
+	[Test]
 	def attributes_1():
 		RunTestCase("tests/parser/attributes-1.js")
 		
@@ -146,10 +150,6 @@ partial class ParserTestFixture:
 		RunTestCase("tests/parser/new-4.js")
 		
 	[Test]
-	def OperationInsideAParam():
-		RunTestCase("tests/parser/OperationInsideAParam.js")
-		
-	[Test]
 	def operators_1():
 		RunTestCase("tests/parser/operators-1.js")
 		
@@ -178,8 +178,16 @@ partial class ParserTestFixture:
 		RunTestCase("tests/parser/partial-1.js")
 		
 	[Test]
+	def plusplus_minusminus():
+		RunTestCase("tests/parser/plusplus-minusminus.js")
+		
+	[Test]
 	def scientific_notation():
 		RunTestCase("tests/parser/scientific-notation.js")
+		
+	[Test]
+	def shift_left_bitwise_or():
+		RunTestCase("tests/parser/shift-left-bitwise-or.js")
 		
 	[Test]
 	def try_1():
