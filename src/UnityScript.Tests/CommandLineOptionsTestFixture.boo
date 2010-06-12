@@ -25,7 +25,7 @@ class CommandLineOptionsTestFixture:
 		options.ForEachSourceFile(actualFiles.Add)
 		
 		Assert.AreEqual(
-			array(Path.Combine(dir, file) for file in files),
+			array(Path.Combine(dir, file).Replace(char('/'), Path.DirectorySeparatorChar) for file in files),
 			actualFiles.ToArray())
 			
 def CreateFilesOn(dir as string, files as string*):
