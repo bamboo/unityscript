@@ -12,11 +12,13 @@ class UnityScriptCompilerFactoryTestFixture:
 		options = CommandLineOptions(
 						"-d:FOO", "--define:BAR",
 						
-						"-method:Awake", "-base:${typeof(MonoBehaviour).FullName}",
-						"-r:${GetAssemblyLocation()}")
+						"-method:Awake", "-base:${typeof(MonoBehaviour).FullName}", "-r:${GetAssemblyLocation()}")
 						
 		compiler = UnityScriptCompilerFactory.FromCommandLineOptions(options)
 		
 		Assert.AreEqual(["FOO", "BAR"], [define for define in compiler.Parameters.Defines.Keys])
+		
+		
+		
 
 	
