@@ -16,13 +16,13 @@ class CommandLineOptions(AbstractCommandLine):
 	_outputTarget = CompilerOutputType.Library
 	
 	[getter(Imports)]
-	_imports = []
+	_imports = List of string()
 	
 	[getter(SourceFiles)]
-	_sourceFiles = []
+	_sourceFiles = List of string()
 	
 	[getter(SourceDirs)]
-	_srcDirs = []
+	_srcDirs = List of string()
 	
 	[getter(SuppressedWarnings)]
 	_suppressedWarnings = []
