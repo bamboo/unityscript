@@ -20,7 +20,7 @@ class UnityScriptCompilerFactory:
 			assemblies.Add(asm)
 			compiler.Parameters.References.Add(asm)
 			
-		for fname in options.GetAllSourceFiles():
+		options.ForEachSourceFile() do (fname):
 			compiler.Parameters.Input.Add(FileInput(fname))
 			
 		for resource in options.Resources:

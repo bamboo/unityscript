@@ -1,5 +1,6 @@
 namespace us
 
+import System
 import System.IO
 import Boo.Lang.Compiler
 import Boo.Lang.Useful.CommandLine
@@ -36,15 +37,13 @@ class CommandLineOptions(AbstractCommandLine):
 	def constructor(*argv as (string)):
 		Parse(argv)
 		
-	def GetAllSourceFiles():
+	def ForEachSourceFile(action as Action of string):
 		
 		for srcFile as string in _sourceFiles:
-			yield srcFile
+			action(srcFile)
 			
 		for srcDir in _srcDirs:
-			for fname in Directory.GetFiles(srcDir, "*.js"):
-				yield fname
-
+			Useful.IO.forEachFileIn(srcDir, "*.js", action)
 		
 	IsValid:
 		get:
