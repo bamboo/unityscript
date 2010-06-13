@@ -1,6 +1,10 @@
 #!/usr/bin/env booi
 """
 Generates test fixtures from files under tests/
+
+First line of test case can specify a nunit attribute to go with it:
+	* "// ignore reason" for [Ignore("reason")]
+	* "// category name" for [Category("name")]
 """
 import System
 import System.IO
