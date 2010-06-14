@@ -52,7 +52,7 @@ class ApplySemantics(AbstractVisitorCompilerStep):
 		
 		TransformGlobalVariablesIntoFields(module, script)
 		
-		main = FindExistingMainMethodOn(script)
+		main = ExistingMainMethodOn(script)
 		if main is null:
 			main = CreateMainMethod(module)
 			script.Members.Add(main)
@@ -67,13 +67,13 @@ class ApplySemantics(AbstractVisitorCompilerStep):
 			return
 		module.Globals.Accept(DeclareGlobalVariables(script))
 		
-	def FindExistingMainMethodOn(typeDef as TypeDefinition):
+	def ExistingMainMethodOn(typeDef as TypeDefinition):
 		for member in typeDef.Members:
 			method = member as Method
-			found = method is not null \
+			isMainMethod = method is not null \
 				and method.Name == ScriptMainMethod \
 				and len(method.Parameters) == 0
-			return method if found
+			return method if isMainMethod
 		
 	def SetUpScriptClass(global as ClassDefinition):
 		global.Modifiers |= TypeMemberModifiers.Partial		
