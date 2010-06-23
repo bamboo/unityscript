@@ -25,7 +25,7 @@ they point to EvaluationContext provided members.
 	override def OnReferenceExpression(node as ReferenceExpression):
 		super(node)
 
-		entity = GetOptionalEntity(node) as EvaluationContextEntity
+		entity = node.Entity as EvaluationContextEntity
 		if entity is null: return
 
 		if not ValidateContext(entity):
@@ -86,7 +86,3 @@ they point to EvaluationContext provided members.
 
 	def GetScriptClassType():
 		return GetEntity(GetScriptClass(Context))
-
-	def GetOptionalEntity(node as Node):
-		return self.TypeSystemServices.GetOptionalEntity(node)
-

@@ -127,7 +127,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 			Error(node, CompilerError("UCE0001", node.Target.LexicalInfo, "'typeof' takes a single argument.", null))
 			return
 		
-		type = TypeSystemServices.GetOptionalEntity(node.Arguments[0]) as IType
+		type = node.Arguments[0].Entity as IType
 		if type is not null:
 			node.ParentNode.Replace(node, CodeBuilder.CreateTypeofExpression(type))
 			return
@@ -283,5 +283,5 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		override def OnReferenceExpression(node as ReferenceExpression):
 			if _found: return
 			
-			referent = _context.TypeSystemServices.GetOptionalEntity(node)
+			referent = node.Entity
 			_found = referent is _loopVariable

@@ -48,7 +48,7 @@ class ProcessEvalInvocations(AbstractVisitorCompilerStep):
 		
 		
 	override def OnReferenceExpression(node as ReferenceExpression):
-		entity = TypeSystemServices.GetOptionalEntity(node) as IInternalEntity
+		entity = node.Entity as IInternalEntity
 		if entity is null: return
 		
 		field = GetEvaluationContextField(entity.Node)
@@ -148,7 +148,7 @@ class ProcessEvalInvocations(AbstractVisitorCompilerStep):
 		ReplaceEvalByEvaluatorEval(node)
 		
 	def IsEvalInvocation(node as MethodInvocationExpression):
-		return TypeSystemServices.GetOptionalEntity(node.Target) is UnityScriptTypeSystem.UnityScriptEval
+		return node.Target.Entity is UnityScriptTypeSystem.UnityScriptEval
 		
 	def ImplementIEvaluationDomainProvider(node as ClassDefinition):
 		node.BaseTypes.Add(CodeBuilder.CreateTypeReference(IEvaluationDomainProvider))
