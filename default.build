@@ -163,20 +163,6 @@
 		<loadtasks assembly="${boo.lib.dir}/Boo.NAnt.Tasks.dll" />
 	</target>
 	
-	<target name="update-boo-libs">
-		<property name="boo.dir" value="../boo" unless="${property::exists('boo.dir')}" />
-		
-		<nant buildfile="${boo.dir}/default.build" target="set-release-configuration nostdlib rebuild" />
-		
-		<copy todir="${boo.lib.dir}">
-			<fileset basedir="${boo.dir}/build">
-				<include name="*.dll" />
-				<include name="*.exe" />
-			</fileset>
-		</copy>
-		<copy file="${boo.dir}/lib/antlr-2.7.5/antlr-2.7.5.jar" todir="lib" />
-	</target>
-	
 	<target name="clean">
 		<delete dir="${build.dir}" if="${directory::exists(build.dir)}" />
 	</target>
