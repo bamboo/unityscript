@@ -67,13 +67,9 @@ class EvaluationContextNamespace(INamespace):
 		_parent = parent
 		_context = context
 		_contextNamespace = tss.Map(_context.GetType())
-		
-		// the UnityScript compiler will nest EvaluationContext subclasses in the type 
-		// doing the eval so it can be discovered and have its members accessible to the
-		// script
-		contextContainerType = _context.GetType().DeclaringType
-		_scriptContainerNamespace = (tss.Map(contextContainerType) if contextContainerType is not null else NullNamespace.Default)
 		_activeScripts = _context.GetActiveScripts()
+		_scriptContainerNamespace = tss.Map(_context.GetType().DeclaringType)
+		
 		
 	Name:
 		get: return "EvaluationContext"
