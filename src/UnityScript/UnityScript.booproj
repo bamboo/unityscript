@@ -75,6 +75,7 @@
     <Compile Include="Steps\UnityExpandVarArgsMethodInvocations.boo" />
     <Compile Include="Steps\UnityScriptTypeSystem.boo" />
     <Compile Include="Steps\Utilities.boo" />
+    <Compile Include="Scripting\SimpleEvaluationDomainProvider.boo" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UnityScript.Lang\UnityScript.Lang.booproj">

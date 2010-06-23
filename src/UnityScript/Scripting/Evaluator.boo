@@ -21,20 +21,6 @@ Every script in UnityScript defines a new EvaluationDomain.
 	def GetImports() as (string)
 	def GetEvaluationDomain() as EvaluationDomain
 	
-class SimpleEvaluationDomainProvider(IEvaluationDomainProvider):
-"""
-SimpleEvaluationDomainProvider is used whenever there's an eval invocation
-inside a static method.
-"""	
-	private _domain = EvaluationDomain()
-	private _imports as (string)
-	
-	def GetImports():
-		return _imports
-	
-	def GetEvaluationDomain() as EvaluationDomain:
-		return _domain
-	
 class EvaluationDomain:
 """
 Groups together a set of related EvaluationScripts instances.
