@@ -8,10 +8,10 @@ import Boo.Lang.Useful.CommandLine
 class CommandLineOptions(AbstractCommandLine):
 	
 	[getter(References)]
-	_references = []
+	_references = List of string()
 	
 	[getter(Resources)]
-	_resources = []
+	_resources = List of string()
 	
 	[getter(OutputType)]
 	_outputTarget = CompilerOutputType.Library
@@ -26,7 +26,7 @@ class CommandLineOptions(AbstractCommandLine):
 	_srcDirs = List of string()
 	
 	[getter(SuppressedWarnings)]
-	_suppressedWarnings = []
+	_suppressedWarnings = List of string()
 	
 	[getter(Defines)]
 	_defines = List of string()

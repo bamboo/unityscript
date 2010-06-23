@@ -5,9 +5,9 @@ import Boo.Lang.Compiler.Steps
 
 class SuppressWarnings(AbstractCompilerStep):
 
-	_suppressed as Boo.Lang.List
+	_suppressed as List of string
 	
-	def constructor(suppressed as Boo.Lang.List):
+	def constructor(suppressed as List of string):
 		_suppressed = suppressed
 		
 	override def Run():
