@@ -80,7 +80,7 @@ class ProcessEvalInvocations(AbstractVisitorCompilerStep):
 			CodeBuilder.CreateAssignment(
 				CreateEvaluationContextReference(),
 				CodeBuilder.CreateConstructorInvocation(
-					DefaultConstructorFor(evaluationContextType),
+					ConstructorTakingNArgumentsFor(evaluationContextType, 1),
 					GetSelfReferenceIfInInstanceMethod())))
 		
 		for parameter in CurrentMethodNode.Parameters:
@@ -185,16 +185,17 @@ class ProcessEvalInvocations(AbstractVisitorCompilerStep):
 		ifDomainField.TrueBlock.Add(
 			CodeBuilder.CreateFieldAssignment(
 				domainField,
-				CodeBuilder.CreateConstructorInvocation(DefaultConstructorFor(evaluationDomainType))))
+				CodeBuilder.CreateConstructorInvocation(ConstructorTakingNArgumentsFor(evaluationDomainType, 0))))
 				
 		builder.Body.Add(ifDomainField)
 		
 		// return _domain
 		builder.Body.Add(ReturnStatement(CodeBuilder.CreateReference(domainField)))
 		
-	def DefaultConstructorFor(type as IType):
-		first, = type.GetConstructors()
-		return first
+	def ConstructorTakingNArgumentsFor(type as IType, arguments as int):
+		for ctor in type.GetConstructors():
+			return ctor if len(ctor.GetParameters()) == arguments
+		raise "no constructor in $type taking $arguments arguments"
 		
 	def AddVirtualMethod(node as ClassDefinition, name as string, returnType as IType):
 		builder = BooMethodBuilder(
