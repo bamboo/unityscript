@@ -29,7 +29,7 @@ class CommandLineOptions(AbstractCommandLine):
 	_suppressedWarnings = []
 	
 	[getter(Defines)]
-	_defines = []
+	_defines = List of string()
 	
 	[getter(Pragmas)]
 	_pragmas = List of string()
