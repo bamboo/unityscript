@@ -4,7 +4,7 @@
 	<property name="java" value="java" />	
 	<property name="build.dir" value="bin" />
 	<property name="boo.dir" value="../boo" />
-	<property name="boo.lib.dir" value="${boo.dir}/build" />
+	<property name="boo.lib.dir" value="${boo.dir}/build" dynamic="true" />
 	<property name="antlr.jar" value="${boo.dir}/lib/antlr-2.7.5/antlr-2.7.5.jar" />
 	<property name="excluded.test.categories" value="" />
 	
