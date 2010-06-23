@@ -122,10 +122,7 @@ class Evaluator:
 		compiler.Parameters.Debug = false
 		compiler.Parameters.GenerateInMemory = true
 		
-		contextAssembly = _context.GetType().Assembly
-		compiler.Parameters.References.Add(contextAssembly)
-		for name in contextAssembly.GetReferencedAssemblies():
-			compiler.Parameters.References.Add(System.Reflection.Assembly.Load(name))
+		AddEvaluationContextReferencesTo(compiler)
 		
 		_compilationResult = compiler.Run()
 		if len(_compilationResult.Errors):
@@ -133,6 +130,16 @@ class Evaluator:
 		
 		#print _compilationResult.CompileUnit.ToCodeString()
 		return _compilationResult.GeneratedAssembly.GetType("script")
+		
+	private def AddEvaluationContextReferencesTo(compiler as UnityScriptCompiler):
+		contextType = _context.GetType()
+		if contextType.DeclaringType is null:
+			return
+			
+		contextAssembly = contextType.Assembly
+		compiler.Parameters.References.Add(contextAssembly)
+		for name in contextAssembly.GetReferencedAssemblies():
+			compiler.Parameters.References.Add(System.Reflection.Assembly.Load(name))
 		
 	static def AdjustPipeline(context as EvaluationContext, pipeline as CompilerPipeline):
 		pipeline.InsertAfter(
