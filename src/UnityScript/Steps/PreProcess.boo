@@ -10,7 +10,6 @@ class PreProcess(AbstractCompilerStep):
 	override def Run():
 		
 		processed = List[of ICompilerInput]()
-		
 		for input in Parameters.Input:
 			processed.Add(RunPreProcessorOn(input))
 			

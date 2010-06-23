@@ -51,7 +51,6 @@ def banner():
 
 def run(argv as (string)):
 	options = parseCommandLineOptions(argv)
-	
 	if options.IsValid and not options.DoHelp:
 		try:
 			return compile(options)
