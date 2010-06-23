@@ -16,6 +16,9 @@ class EvaluationContext:
 	def constructor(container as IEvaluationDomainProvider):
 		_container = container or SimpleEvaluationDomainProvider()
 		
+	def constructor():
+		_container = SimpleEvaluationDomainProvider()
+		
 	IsStaticContext:
 		get: return SimpleEvaluationDomainProvider is _container.GetType()
 				

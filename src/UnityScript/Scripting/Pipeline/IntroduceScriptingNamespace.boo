@@ -66,10 +66,11 @@ class EvaluationContextNamespace(INamespace):
 		_tss = tss
 		_parent = parent
 		_context = context
-		_contextNamespace = tss.Map(_context.GetType())
-		_activeScripts = _context.GetActiveScripts()
-		_scriptContainerNamespace = tss.Map(_context.GetType().DeclaringType)
 		
+		contextType = tss.Map(_context.GetType())
+		_contextNamespace = contextType
+		_scriptContainerNamespace = contextType.DeclaringEntity or NullNamespace.Default
+		_activeScripts = _context.GetActiveScripts()
 		
 	Name:
 		get: return "EvaluationContext"

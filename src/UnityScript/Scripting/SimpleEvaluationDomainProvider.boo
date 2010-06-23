@@ -8,6 +8,12 @@ inside a static method.
 	private _domain = EvaluationDomain()
 	private _imports as (string)
 	
+	def constructor():
+		pass
+		
+	def constructor(*imports as (string)):
+		_imports = imports
+	
 	def GetImports():
 		return _imports
 	
