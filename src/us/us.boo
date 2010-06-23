@@ -25,7 +25,6 @@ def getAssemblyAttribute(type as System.Type):
 	return Attribute.GetCustomAttribute(Assembly.GetExecutingAssembly(), type)
 
 def compile(options as CommandLineOptions):
-	
 	compiler = UnityScriptCompilerFactory.FromCommandLineOptions(options)
 	results = compiler.Run()
 	if len(results.Errors):
