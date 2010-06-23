@@ -9,7 +9,7 @@ class CommandLineOptionsTestFixture:
 	[Test]
 	def Defines():
 		options = us.CommandLineOptions("-d:FOO", "--define:BAR")
-		assert options.Defines == ["FOO", "BAR"]
+		Assert.AreEqual(("FOO", "BAR"), options.Defines.ToArray())
 	
 			
 	[Test]
