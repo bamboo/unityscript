@@ -5,6 +5,8 @@ import Boo.Lang.Compiler.Ast
 import Boo.Lang.Compiler.TypeSystem
 import Boo.Lang.Compiler.Steps
 
+import UnityScript.TypeSystem
+
 class ExpandUnityDuckTypedExpressions(ExpandDuckTypedExpressions):
 	
 	private UnityRuntimeServices_Invoke as IMethod
@@ -37,7 +39,7 @@ class ExpandUnityDuckTypedExpressions(ExpandDuckTypedExpressions):
 	def ResolveUnityRuntimeMethod(methodName as string):
 		return NameResolutionService.ResolveMethod(UnityRuntimeServicesType, methodName)
 			
-	UnityScriptTypeSystem as UnityScript.Steps.UnityScriptTypeSystem:
+	UnityScriptTypeSystem as UnityScript.TypeSystem.UnityScriptTypeSystem:
 		get: return self.TypeSystemServices
 			
 	UnityScriptParameters as UnityScript.UnityScriptCompilerParameters:

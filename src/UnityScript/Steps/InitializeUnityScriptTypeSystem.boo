@@ -1,6 +1,7 @@
 namespace UnityScript.Steps
 
 import Boo.Lang.Compiler.Steps
+import UnityScript.TypeSystem
 
 class InitializeUnityScriptTypeSystem(InitializeTypeSystemServices):
 	

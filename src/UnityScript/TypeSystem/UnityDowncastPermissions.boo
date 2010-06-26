@@ -1,4 +1,4 @@
-namespace UnityScript.Steps
+namespace UnityScript.TypeSystem
 
 import Boo.Lang.Compiler.TypeSystem
 import Boo.Lang.Compiler.TypeSystem.Services

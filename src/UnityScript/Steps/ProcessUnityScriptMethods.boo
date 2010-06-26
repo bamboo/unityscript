@@ -9,6 +9,7 @@ import Boo.Lang.Compiler.Steps
 import Boo.Lang.Environments
 
 import UnityScript.Macros
+import UnityScript.TypeSystem
 
 class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 	
@@ -49,7 +50,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		
 	deferred UnityRuntimeServicesType = TypeSystemServices.Map(UnityScript.Lang.UnityRuntimeServices)
 		
-	UnityScriptTypeSystem as UnityScript.Steps.UnityScriptTypeSystem:
+	UnityScriptTypeSystem as UnityScript.TypeSystem.UnityScriptTypeSystem:
 		get: return self.TypeSystemServices
 			
 	UnityScriptParameters as UnityScript.UnityScriptCompilerParameters:

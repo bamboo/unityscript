@@ -7,6 +7,7 @@ import Boo.Lang.Compiler.TypeSystem
 import Boo.Lang.Compiler.TypeSystem.Internal
 import Boo.Lang.Compiler.TypeSystem.Builders
 import UnityScript.Scripting
+import UnityScript.TypeSystem
 
 class ProcessEvalInvocations(AbstractVisitorCompilerStep):
 	
