@@ -16,5 +16,5 @@ class UnityDowncastPermissions(DowncastPermissions):
 		return _enabled or super()
 		
 	private def CanBeReachedByArrayDowncast(expectedType as IArrayType, actualType as IArrayType):
-		return expectedType.GetArrayRank() == actualType.GetArrayRank() \
-			and CanBeReachedByDowncast(expectedType.GetElementType(), actualType.GetElementType())
+		return expectedType.Rank == actualType.Rank \
+			and CanBeReachedByDowncast(expectedType.ElementType, actualType.ElementType)

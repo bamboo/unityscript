@@ -185,7 +185,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 						CodeBuilder.CreateMethodInvocation(
 							node.Right,
 							ResolveMethod(right, "ToBuiltin"),
-							CodeBuilder.CreateTypeofExpression(left.GetElementType())))
+							CodeBuilder.CreateTypeofExpression(left.ElementType)))
 				
 	override def OnForStatement(node as ForStatement):
 		assert 1 == len(node.Declarations)
