@@ -10,6 +10,10 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/array-struct-warning.js")
 		
 	
+	[Test] def array_type_name():
+		RunTestCase("tests/error-messages/array-type-name.js")
+		
+	
 	[Test] def builtins():
 		RunTestCase("tests/error-messages/builtins.js")
 		
@@ -24,6 +28,14 @@ partial class ErrorMessagesTestFixture:
 	
 	[Test] def error_for_final_used_as_identifier():
 		RunTestCase("tests/error-messages/error-for-final-used-as-identifier.js")
+		
+	
+	[Test] def function_type_name():
+		RunTestCase("tests/error-messages/function-type-name.js")
+		
+	
+	[Test] def generic_type_name():
+		RunTestCase("tests/error-messages/generic-type-name.js")
 		
 	
 	[Test] def implicit_main_shouldnt_be_redefined():

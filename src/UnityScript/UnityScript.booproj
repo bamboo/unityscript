@@ -70,17 +70,25 @@
     <Compile Include="Steps\ProcessEvalInvocations.boo" />
     <Compile Include="Steps\ProcessUnityScriptMethods.boo" />
     <Compile Include="Steps\SuppressWarnings.boo" />
-    <Compile Include="Steps\UnityCallableResolutionService.boo" />
-    <Compile Include="Steps\UnityDowncastPermissions.boo" />
     <Compile Include="Steps\UnityExpandVarArgsMethodInvocations.boo" />
-    <Compile Include="Steps\UnityScriptTypeSystem.boo" />
     <Compile Include="Steps\Utilities.boo" />
     <Compile Include="Scripting\SimpleEvaluationDomainProvider.boo" />
+    <Compile Include="TypeSystem\UnityScriptTypeSystem.boo" />
+    <Compile Include="TypeSystem\UnityScriptEntityFormatter.boo" />
+    <Compile Include="TypeSystem\UnityDowncastPermissions.boo" />
+    <Compile Include="TypeSystem\UnityCallableResolutionService.boo" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UnityScript.Lang\UnityScript.Lang.booproj">
       <Project>{2784E7F4-5206-4BF9-99CD-96B1D94D0E19}</Project>
       <Name>UnityScript.Lang</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TypeSystem\" />
+    <Folder Include="Steps\" />
+    <Folder Include="Steps\" />
+    <Folder Include="Steps\" />
+    <Folder Include="Steps\" />
   </ItemGroup>
 </Project>

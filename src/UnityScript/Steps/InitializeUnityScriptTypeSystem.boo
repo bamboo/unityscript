@@ -5,6 +5,9 @@ import UnityScript.TypeSystem
 
 class InitializeUnityScriptTypeSystem(InitializeTypeSystemServices):
 	
+	override def CreateEntityFormatter():
+		return UnityScriptEntityFormatter()
+	
 	override def CreateTypeSystemServices():
 		return UnityScriptTypeSystem(Context)
 		
@@ -13,3 +16,4 @@ class InitializeUnityScriptTypeSystem(InitializeTypeSystemServices):
 		
 	override def CreateDowncastPermissions():
 		return UnityDowncastPermissions()
+
