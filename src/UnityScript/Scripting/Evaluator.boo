@@ -139,7 +139,7 @@ class Evaluator:
 		contextAssembly = contextType.Assembly
 		compiler.Parameters.References.Add(contextAssembly)
 		for name in contextAssembly.GetReferencedAssemblies():
-			compiler.Parameters.References.Add(System.Reflection.Assembly.Load(name))
+			compiler.Parameters.References.Add(System.Reflection.Assembly.Load(name.ToString()))
 		
 	static def AdjustPipeline(context as EvaluationContext, pipeline as CompilerPipeline):
 		pipeline.InsertAfter(
