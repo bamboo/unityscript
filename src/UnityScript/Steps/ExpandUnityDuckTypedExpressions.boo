@@ -5,8 +5,6 @@ import Boo.Lang.Compiler.Ast
 import Boo.Lang.Compiler.TypeSystem
 import Boo.Lang.Compiler.Steps
 
-import UnityScript.TypeSystem
-
 class ExpandUnityDuckTypedExpressions(ExpandDuckTypedExpressions):
 	
 	private UnityRuntimeServices_Invoke as IMethod

@@ -5,8 +5,7 @@ import Boo.Lang.Compiler.Ast
 import UnityScript.Steps
 
 class IntroduceReturnValue(AbstractCompilerStep):
-"""
-"""
+	
 	override def Run():
 		klass = GetScriptClass(Context)
 		if klass is null: return

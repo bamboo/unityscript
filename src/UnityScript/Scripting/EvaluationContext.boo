@@ -37,4 +37,6 @@ class EvaluationContext:
 	[lock]
 	def GetActiveScripts():
 		return _activeScripts.ToArray()
+		
+	
 

@@ -1,6 +1,7 @@
 namespace UnityScript.Steps
 
 import System
+import Boo.Lang.Environments
 import Boo.Lang.Compiler.Ast
 import Boo.Lang.Compiler.Steps
 import Boo.Lang.Compiler.TypeSystem
@@ -11,26 +12,13 @@ import UnityScript.TypeSystem
 
 class ProcessEvalInvocations(AbstractVisitorCompilerStep):
 	
-	static final ContainsEvalAnnotation = object()
-	
-	static def Mark(node as Method):
-		AnnotateEval(node.DeclaringType)
-		AnnotateEval(node)
-		
-	static def IsMarked(node as Node):
-		return node.ContainsAnnotation(ContainsEvalAnnotation)
-		
-	static private def AnnotateEval(node as Node):
-		if IsMarked(node): return
-		node.Annotate(ContainsEvalAnnotation)
-	
 	static final Evaluator_Eval = typeof(Evaluator).GetMethod("Eval")
 	
 	_currentMethod as InternalMethod
 	_evaluationContextLocal as InternalLocal
 	
 	override def Run():
-		if Errors.Count > 0: return
+		return if Errors.Count > 0
 		Visit(CompileUnit)
 		
 	override def OnConstructor(node as Constructor):
@@ -38,7 +26,7 @@ class ProcessEvalInvocations(AbstractVisitorCompilerStep):
 	
 	override def OnMethod(node as Method):
 		
-		if not IsMarked(node): return
+		if not EvalAnnotation.IsMarked(node): return
 		
 		_currentMethod = GetEntity(node)
 		
@@ -58,6 +46,11 @@ class ProcessEvalInvocations(AbstractVisitorCompilerStep):
 		node.ParentNode.Replace(
 			node,
 			CreateEvaluationContextFieldReference(field))
+			
+	override def LeaveClassDefinition(node as ClassDefinition):
+		if not EvalAnnotation.IsMarked(node): return
+		
+		my(EvaluationDomainProviderImplementor).ImplementIEvaluationDomainProviderOn(node)
 		
 	def DefineEvaluationContext():
 		
@@ -138,11 +131,6 @@ class ProcessEvalInvocations(AbstractVisitorCompilerStep):
 				
 			ctor.Body.Add(superInvocationStmt)
 		
-	override def LeaveClassDefinition(node as ClassDefinition):
-		if not IsMarked(node): return
-		
-		ImplementIEvaluationDomainProvider(node)
-		
 	override def LeaveMethodInvocationExpression(node as MethodInvocationExpression):
 		if not IsEvalInvocation(node): return
 		
@@ -150,62 +138,6 @@ class ProcessEvalInvocations(AbstractVisitorCompilerStep):
 		
 	def IsEvalInvocation(node as MethodInvocationExpression):
 		return node.Target.Entity is UnityScriptTypeSystem.UnityScriptEval
-		
-	def ImplementIEvaluationDomainProvider(node as ClassDefinition):
-		node.BaseTypes.Add(CodeBuilder.CreateTypeReference(IEvaluationDomainProvider))
-		ImplementGetEvaluationDomain(node)
-		ImplementGetImports(node)
-		
-	def StringArray():
-		return Map(typeof((string)))
-		
-	def ImplementGetImports(node as ClassDefinition):
-		builder = AddVirtualMethod(node, "GetImports", StringArray())
-		builder.Body.Add(ReturnStatement(CreateImportsArray(node)))
-		
-	def CreateImportsArray(node as ClassDefinition):
-		items = ExpressionCollection()
-		for i in node.EnclosingModule.Imports:
-			items.Add(CodeBuilder.CreateStringLiteral(i.Namespace))	
-		return CodeBuilder.CreateArray(StringArray(), items)
-		
-	def ImplementGetEvaluationDomain(node as ClassDefinition):
-		evaluationDomainType = Map(EvaluationDomain)
-		domainField = CodeBuilder.CreateField(Context.GetUniqueName("domain"), evaluationDomainType)
-		node.Members.Add(domainField)
-		
-		builder = AddVirtualMethod(node, "GetEvaluationDomain", evaluationDomainType)
-						
-		// if _domain is null: _domain = EvaluationDomain()
-		ifDomainField = IfStatement(TrueBlock: Block())
-		ifDomainField.Condition = CodeBuilder.CreateBoundBinaryExpression(
-			TypeSystemServices.BoolType,
-			BinaryOperatorType.ReferenceEquality,
-			CodeBuilder.CreateReference(domainField),
-			CodeBuilder.CreateNullLiteral())
-		ifDomainField.TrueBlock.Add(
-			CodeBuilder.CreateFieldAssignment(
-				domainField,
-				CodeBuilder.CreateConstructorInvocation(ConstructorTakingNArgumentsFor(evaluationDomainType, 0))))
-				
-		builder.Body.Add(ifDomainField)
-		
-		// return _domain
-		builder.Body.Add(ReturnStatement(CodeBuilder.CreateReference(domainField)))
-		
-	def ConstructorTakingNArgumentsFor(type as IType, arguments as int):
-		for ctor in type.GetConstructors():
-			return ctor if len(ctor.GetParameters()) == arguments
-		raise "no constructor in $type taking $arguments arguments"
-		
-	def AddVirtualMethod(node as ClassDefinition, name as string, returnType as IType):
-		builder = BooMethodBuilder(
-						CodeBuilder,
-						name,
-						returnType,
-						TypeMemberModifiers.Public|TypeMemberModifiers.Virtual)
-		node.Members.Add(builder.Method)
-		return builder
 		
 	def Map(type as System.Type):
 		return TypeSystemServices.Map(type)

@@ -19,5 +19,8 @@ inside a static method.
 	
 	def GetEvaluationDomain():
 		return _domain
+		
+	virtual def GetAssemblyReferences():
+		return array[of System.Reflection.Assembly](0)
 	
 

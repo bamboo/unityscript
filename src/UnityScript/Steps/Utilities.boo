@@ -2,6 +2,7 @@ namespace UnityScript.Steps
 
 import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
+import Boo.Lang.Compiler.TypeSystem
 
 def IsRhsOfAssignment(node as Expression):
 	be = node.ParentNode as BinaryExpression
@@ -19,3 +20,10 @@ def SetScriptClass(context as CompilerContext, klass as ClassDefinition):
 	
 def GetScriptClass(context as CompilerContext) as ClassDefinition:
 	return context["ScriptClass"]
+	
+def ConstructorTakingNArgumentsFor(type as IType, arguments as int):
+	for ctor in type.GetConstructors():
+		return ctor if len(ctor.GetParameters()) == arguments
+	raise "no constructor in $type taking $arguments arguments"
+		
+

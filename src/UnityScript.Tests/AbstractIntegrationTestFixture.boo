@@ -37,6 +37,7 @@ class AbstractIntegrationTestFixture(AbstractCompilerTestFixture):
 		CopyParentAssembly(GetType())
 		CopyParentAssembly(UnityScript.Tests.CSharp.FooBarEnum)
 		CopyParentAssembly(Assert)
+		CopyParentAssembly(MacroMacro)
 		
 	def CopyParentAssembly(type as System.Type):
 		CopyFile(type.Module.FullyQualifiedName)

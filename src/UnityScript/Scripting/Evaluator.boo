@@ -13,44 +13,6 @@ class CompilationErrorsException(Exception):
 	def constructor(errors as CompilerErrorCollection):
 		super(errors.ToString(true))
 		_errors = errors
-	
-interface IEvaluationDomainProvider:
-"""
-Every script in UnityScript defines a new EvaluationDomain.
-"""
-	def GetImports() as (string)
-	def GetEvaluationDomain() as EvaluationDomain
-	
-class EvaluationDomain:
-"""
-Groups together a set of related EvaluationScripts instances.
-"""
-	_cache = {}
-	
-	[lock]
-	def GetCachedScript(key as EvaluationScriptCacheKey) as System.Type:
-		return _cache[key]
-	
-	[lock]
-	def CacheScript(key as EvaluationScriptCacheKey, type as System.Type):
-		_cache[key] = type
-		
-class EvaluationScriptCacheKey:
-	
-	_contextType as System.Type
-	_code as string
-	
-	def constructor(contextType as Type, code as string):
-		_contextType = contextType
-		_code = code
-		
-	override def Equals(o):
-		other = o as EvaluationScriptCacheKey
-		if other is null: return false
-		return other._contextType is _contextType and other._code == _code
-		
-	override def GetHashCode():
-		return _contextType.GetHashCode() ^ _code.GetHashCode()
 		
 class EvaluationScript:
 	
@@ -132,14 +94,8 @@ class Evaluator:
 		return _compilationResult.GeneratedAssembly.GetType("script")
 		
 	private def AddEvaluationContextReferencesTo(compiler as UnityScriptCompiler):
-		contextType = _context.GetType()
-		if contextType.DeclaringType is null:
-			return
-			
-		contextAssembly = contextType.Assembly
-		compiler.Parameters.References.Add(contextAssembly)
-		for name in contextAssembly.GetReferencedAssemblies():
-			compiler.Parameters.References.Add(System.Reflection.Assembly.Load(name.ToString()))
+		for assembly in _context.ScriptContainer.GetAssemblyReferences():
+			compiler.Parameters.References.Add(assembly)
 		
 	static def AdjustPipeline(context as EvaluationContext, pipeline as CompilerPipeline):
 		pipeline.InsertAfter(

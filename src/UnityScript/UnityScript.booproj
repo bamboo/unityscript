@@ -77,6 +77,9 @@
     <Compile Include="TypeSystem\UnityScriptEntityFormatter.boo" />
     <Compile Include="TypeSystem\UnityDowncastPermissions.boo" />
     <Compile Include="TypeSystem\UnityCallableResolutionService.boo" />
+    <Compile Include="Scripting\IEvaluationDomainProvider.boo" />
+    <Compile Include="Steps\EvaluationDomainProviderImplementor.boo" />
+    <Compile Include="Steps\EvalAnnotation.boo" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UnityScript.Lang\UnityScript.Lang.booproj">

@@ -115,7 +115,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		
 	override protected def ProcessBuiltinInvocation(function as BuiltinFunction, node as MethodInvocationExpression):
 		if function is UnityScriptTypeSystem.UnityScriptEval:
-			ProcessEvalInvocations.Mark(_currentMethod.Method)
+			EvalAnnotation.Mark(_currentMethod.Method)
 			BindExpressionType(node, TypeSystemServices.ObjectType)
 			return
 		if function is UnityScriptTypeSystem.UnityScriptTypeof:
