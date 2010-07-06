@@ -15,16 +15,16 @@ class EvalTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/eval/assembly-caching-2.js")
 		
 	
+	[Test] def assembly_references_are_visible_inside_eval_1():
+		RunTestCase("tests/eval/assembly-references-are-visible-inside-eval-1.js")
+		
+	
+	[Test] def assembly_references_are_visible_inside_eval_2():
+		RunTestCase("tests/eval/assembly-references-are-visible-inside-eval-2.js")
+		
+	
 	[Test] def class_1():
 		RunTestCase("tests/eval/class-1.js")
-		
-	
-	[Test] def class_2():
-		RunTestCase("tests/eval/class-2.js")
-		
-	
-	[Test] def class_3():
-		RunTestCase("tests/eval/class-3.js")
 		
 	
 	[Test] def class_is_visible_1():
@@ -49,6 +49,14 @@ class EvalTestFixture(AbstractIntegrationTestFixture):
 	
 	[Test] def functions_2():
 		RunTestCase("tests/eval/functions-2.js")
+		
+	
+	[Test] def imports_are_visible_inside_eval_1():
+		RunTestCase("tests/eval/imports-are-visible-inside-eval-1.js")
+		
+	
+	[Test] def imports_are_visible_inside_eval_2():
+		RunTestCase("tests/eval/imports-are-visible-inside-eval-2.js")
 		
 	
 	[Test] def return_value_2():
