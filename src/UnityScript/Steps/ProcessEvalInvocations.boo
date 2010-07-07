@@ -75,7 +75,7 @@ class ProcessEvalInvocations(AbstractVisitorCompilerStep):
 				CreateEvaluationContextReference(),
 				CodeBuilder.CreateConstructorInvocation(
 					ConstructorTakingNArgumentsFor(evaluationContextType, 1),
-					GetSelfReferenceIfInInstanceMethod())))
+					EvaluationDomainProviderReference())))
 		
 		for parameter in CurrentMethodNode.Parameters:
 			// $context.param = param
@@ -86,14 +86,14 @@ class ProcessEvalInvocations(AbstractVisitorCompilerStep):
 					
 		return initializationBlock
 		
-	def GetSelfReferenceIfInInstanceMethod():
-		if _currentMethod.IsStatic: return CodeBuilder.CreateNullLiteral()
+	def EvaluationDomainProviderReference():
+		if _currentMethod.IsStatic:
+			staticEvaluationDomainProviderField = my(EvaluationDomainProviderImplementor).StaticEvaluationDomainProviderFor(CurrentTypeNode)
+			return CodeBuilder.CreateReference(staticEvaluationDomainProviderField)
 		return CodeBuilder.CreateSelfReference(CurrentType)
 		
 	def CreateEvaluationContextFieldReference(field as InternalField):
-		return CodeBuilder.CreateMemberReference(
-						CreateEvaluationContextReference(),
-						field)
+		return CodeBuilder.CreateMemberReference(CreateEvaluationContextReference(), field)
 					
 	def CreateEvaluationContextReference():
 		return CodeBuilder.CreateReference(_evaluationContextLocal)

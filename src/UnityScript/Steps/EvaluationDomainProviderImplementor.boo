@@ -1,96 +1,79 @@
 namespace UnityScript.Steps
 
 import System
+import Boo.Lang.Environments
 import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
 import Boo.Lang.Compiler.TypeSystem
+import Boo.Lang.Compiler.TypeSystem.Services
 import Boo.Lang.Compiler.TypeSystem.Reflection
 import UnityScript.Scripting
 
 class EvaluationDomainProviderImplementor(AbstractCompilerComponent):
 	
 	def ImplementIEvaluationDomainProviderOn(node as ClassDefinition):
-		node.BaseTypes.Add(CodeBuilder.CreateTypeReference(IEvaluationDomainProvider))
-		ImplementGetEvaluationDomain(node)
-		ImplementGetImports(node)
-		ImplementGetAssemblyReferences(node)
-		
-	private def ImplementGetImports(node as ClassDefinition):
-		builder = AddVirtualMethod(node, "GetImports", StringArray())
-		builder.Body.Add(ReturnStatement(CreateImportsArray(node)))
-		
-	private def CreateImportsArray(node as ClassDefinition):
-		items = ExpressionCollection()
-		for i in node.EnclosingModule.Imports:
-			items.Add(CodeBuilder.CreateStringLiteral(i.Namespace))	
-		return CodeBuilder.CreateArray(StringArray(), items)
-		
-	private def ImplementGetEvaluationDomain(node as ClassDefinition):
-		evaluationDomainType = Map(EvaluationDomain)
-		domainField = CodeBuilder.CreateField(Context.GetUniqueName("domain"), evaluationDomainType)
-		node.Members.Add(domainField)
-		
-		builder = AddVirtualMethod(node, "GetEvaluationDomain", evaluationDomainType)
-						
-		// if _domain is null: _domain = EvaluationDomain()
-		ifDomainField = IfStatement(TrueBlock: Block())
-		ifDomainField.Condition = CodeBuilder.CreateBoundBinaryExpression(
-			TypeSystemServices.BoolType,
-			BinaryOperatorType.ReferenceEquality,
-			CodeBuilder.CreateReference(domainField),
-			CodeBuilder.CreateNullLiteral())
-		ifDomainField.TrueBlock.Add(
-			CodeBuilder.CreateFieldAssignment(
-				domainField,
-				CodeBuilder.CreateConstructorInvocation(ConstructorTakingNArgumentsFor(evaluationDomainType, 0))))
+		domainField = ReferenceExpression(Context.GetUniqueName("domain"))
+		evaluationDomainProviderImpl = [|
+			class _($IEvaluationDomainProvider):
 				
-		builder.Body.Add(ifDomainField)
+				private $domainField as $EvaluationDomain
+				
+				def GetEvaluationDomain():
+					return $domainField or ($domainField = $EvaluationDomain())
+					
+				def GetImports():
+					return $(ImportsArrayFor(node))
+					
+				def GetAssemblyReferences():
+					return $(AssemblyReferencesArrayFor(node))
+		|]
 		
-		// return _domain
-		builder.Body.Add(ReturnStatement(CodeBuilder.CreateReference(domainField)))
+		my(CodeReifier).MergeInto(node, evaluationDomainProviderImpl)
 		
-	private def ImplementGetAssemblyReferences(node as ClassDefinition):
-		builder = AddVirtualMethod(node, "GetAssemblyReferences", AssemblyArray())
-		builder.Body.Add(ReturnStatement(CreateAssemblyReferencesArray(node)))
+	def StaticEvaluationDomainProviderFor(node as ClassDefinition) as IField:
+		providerField as IField = node[StaticEvaluationDomainProviderKey]
+		if providerField is null:
+			providerField = CreateStaticEvaluationDomainProviderReferenceOn(node)
+			node[StaticEvaluationDomainProviderKey] = providerField
+		return providerField
 		
-	private def CreateAssemblyReferencesArray(node as ClassDefinition):
+	private def CreateStaticEvaluationDomainProviderReferenceOn(node as ClassDefinition):
+		evaluationDomainProviderImpl = [|
+			internal class StaticEvaluationDomainProvider($SimpleEvaluationDomainProvider):
+				
+				public static final Instance = StaticEvaluationDomainProvider()
+				
+				def constructor():
+					super($(ImportsArrayFor(node)))
+					
+				override def GetAssemblyReferences():
+					return $(AssemblyReferencesArrayFor(node))
+		|]
+		my(CodeReifier).ReifyInto(node, evaluationDomainProviderImpl)
+		return evaluationDomainProviderImpl.Members["Instance"].Entity
 		
-		assemblyProperty = SystemTypeAssemblyProperty().GetGetMethod()
+	private static final StaticEvaluationDomainProviderKey = object()
+
+	private def ImportsArrayFor(node as ClassDefinition):
+		result = [| (of $string:,) |]
+		result.Items.Extend([| $(i.Namespace) |] for i in node.EnclosingModule.Imports)
+		return result		
 		
-		references = ExpressionCollection()
-		
-		// generated assembly reference
-		references.Add(
-			CodeBuilder.CreateMethodInvocation(
-				CodeBuilder.CreateTypeofExpression(node.Entity as IType), assemblyProperty))
+	private def AssemblyReferencesArrayFor(node as ClassDefinition):
+		// TODO: only actually used assemblies should be part of this array
+		// otherwise we risk bringing the kitchen sink
+			
+		result = [| (of $Assembly:,) |]
+		result.Items.Add([| typeof($node).Assembly |])
 				
 		for reference in Parameters.References:
 			assemblyRef = reference as IAssemblyReference
 			continue if assemblyRef is null
 			publicType = AnyPublicTypeOf(assemblyRef.Assembly)
 			continue if publicType is null
-			references.Add(
-				CodeBuilder.CreateMethodInvocation(
-					CodeBuilder.CreateTypeofExpression(publicType), assemblyProperty))
+			result.Items.Add([| typeof($publicType).Assembly |])
 				
-		return CodeBuilder.CreateArray(AssemblyArray(), references)
-		
-	private def AddVirtualMethod(node as ClassDefinition, name as string, returnType as IType):
-		builder = BooMethodBuilder(CodeBuilder, name, returnType, TypeMemberModifiers.Public | TypeMemberModifiers.Virtual)
-		node.Members.Add(builder.Method)
-		return builder
-		
-	private def SystemTypeAssemblyProperty() as IProperty:
-		return TypeSystemServices.Map(typeof(System.Type).GetProperty("Assembly"))
-		
-	private def AssemblyArray():
-		return Map(typeof((System.Reflection.Assembly)))
-		
-	private def StringArray():
-		return Map(typeof((string)))
-		
-	private def Map(type as System.Type):
-		return TypeSystemServices.Map(type)
+		return result
 		
 	private def AnyPublicTypeOf(assembly as System.Reflection.Assembly):
 		for t in assembly.GetTypes():

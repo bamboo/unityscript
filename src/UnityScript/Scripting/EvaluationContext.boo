@@ -20,7 +20,7 @@ class EvaluationContext:
 		_container = SimpleEvaluationDomainProvider()
 		
 	IsStaticContext:
-		get: return SimpleEvaluationDomainProvider is _container.GetType()
+		get: return _container isa SimpleEvaluationDomainProvider
 				
 	[lock]
 	def AddScript(script):
