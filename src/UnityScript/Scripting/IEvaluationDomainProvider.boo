@@ -1,6 +1,6 @@
 namespace UnityScript.Scripting
 	
-interface IEvaluationDomainProvider:
+interface IEvaluationDomainProvider: // IEvalHost?
 """
 Every script in UnityScript defines a new EvaluationDomain.
 """

@@ -7,6 +7,7 @@ import Boo.Lang.Compiler.Ast
 import Boo.Lang.Compiler.TypeSystem
 import Boo.Lang.Compiler.TypeSystem.Services
 import Boo.Lang.Compiler.TypeSystem.Reflection
+import UnityScript.Macros
 import UnityScript.Scripting
 
 class EvaluationDomainProviderImplementor(AbstractCompilerComponent):
@@ -25,17 +26,23 @@ class EvaluationDomainProviderImplementor(AbstractCompilerComponent):
 					return $(ImportsArrayFor(node))
 					
 				def GetAssemblyReferences():
-					return $(AssemblyReferencesArrayFor(node))
+					return $(AssemblyReferencesArray())
 		|]
 		
 		my(CodeReifier).MergeInto(node, evaluationDomainProviderImpl)
 		
 	def StaticEvaluationDomainProviderFor(node as ClassDefinition) as IField:
-		providerField as IField = node[StaticEvaluationDomainProviderKey]
-		if providerField is null:
-			providerField = CreateStaticEvaluationDomainProviderReferenceOn(node)
-			node[StaticEvaluationDomainProviderKey] = providerField
-		return providerField
+		perNode node:
+			return CreateStaticEvaluationDomainProviderReferenceOn(node)
+			
+	private def AssemblyReferencesArray() as Expression:
+		perNode CompileUnit:
+			return CodeBuilder.CreateReference(CreateAssemblyReferencesArray())
+		
+	private def ImportsArrayFor(node as ClassDefinition):
+		result = [| (of $string:,) |]
+		result.Items.Extend([| $(i.Namespace) |] for i in node.EnclosingModule.Imports)
+		return result		
 		
 	private def CreateStaticEvaluationDomainProviderReferenceOn(node as ClassDefinition):
 		evaluationDomainProviderImpl = [|
@@ -47,38 +54,56 @@ class EvaluationDomainProviderImplementor(AbstractCompilerComponent):
 					super($(ImportsArrayFor(node)))
 					
 				override def GetAssemblyReferences():
-					return $(AssemblyReferencesArrayFor(node))
+					return $(AssemblyReferencesArray())
 		|]
 		my(CodeReifier).ReifyInto(node, evaluationDomainProviderImpl)
 		return evaluationDomainProviderImpl.Members["Instance"].Entity
 		
-	private static final StaticEvaluationDomainProviderKey = object()
-
-	private def ImportsArrayFor(node as ClassDefinition):
-		result = [| (of $string:,) |]
-		result.Items.Extend([| $(i.Namespace) |] for i in node.EnclosingModule.Imports)
-		return result		
+	private def CreateAssemblyReferencesArray() as IField:
 		
-	private def AssemblyReferencesArrayFor(node as ClassDefinition):
 		// TODO: only actually used assemblies should be part of this array
 		// otherwise we risk bringing the kitchen sink
-			
+		
 		result = [| (of $Assembly:,) |]
-		result.Items.Add([| typeof($node).Assembly |])
+		result.Items.Add([| System.Reflection.Assembly.GetExecutingAssembly() |])
 				
-		for reference in Parameters.References:
-			assemblyRef = reference as IAssemblyReference
-			continue if assemblyRef is null
-			publicType = AnyPublicTypeOf(assemblyRef.Assembly)
+		for assembly in ReferencedAssemblies():
+			publicType = AnyPublicTypeOf(assembly)
 			continue if publicType is null
 			result.Items.Add([| typeof($publicType).Assembly |])
-				
-		return result
+		
+		arrayHolder = [|
+			internal class EvalAssemblyReferences:
+				public static final Value = $result
+		|]
+		my(CodeReifier).ReifyInto(CompileUnit.Modules[0], arrayHolder)
+		return arrayHolder.Members["Value"].Entity
 		
 	private def AnyPublicTypeOf(assembly as System.Reflection.Assembly):
 		for t in assembly.GetTypes():
 			return t if t.IsPublic and not t.IsGenericType
+	
+	private def ReferencedAssemblies():
+		collector = ReferencedAssemblyCollector()
+		CompileUnit.Accept(collector)
+		return collector.ReferencedAssemblies
 		
+class ReferencedAssemblyCollector(DepthFirstVisitor):
+	
+	[getter(ReferencedAssemblies)]
+	_assemblies = Boo.Lang.Compiler.Util.Set of Assembly()
+	
+	override def OnReferenceExpression(node as ReferenceExpression):
+		CheckTypeReference(node)
 		
+	override def LeaveMemberReferenceExpression(node as MemberReferenceExpression):
+		CheckTypeReference(node)
+		
+	override def OnSimpleTypeReference(node as SimpleTypeReference):
+		CheckTypeReference(node)
+		
+	def CheckTypeReference(node as Node):
+		type = node.Entity as Boo.Lang.Compiler.TypeSystem.Reflection.ExternalType
+		if type is null: return
+		_assemblies.Add(type.ActualType.Assembly)
 
-		

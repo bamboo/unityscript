@@ -80,6 +80,7 @@
     <Compile Include="Scripting\IEvaluationDomainProvider.boo" />
     <Compile Include="Steps\EvaluationDomainProviderImplementor.boo" />
     <Compile Include="Steps\EvalAnnotation.boo" />
+    <Compile Include="Macros\PerNodeMacro.boo" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UnityScript.Lang\UnityScript.Lang.booproj">
