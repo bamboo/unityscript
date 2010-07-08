@@ -387,6 +387,14 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/ducky_6.js")
 		
 	
+	[Test] def empty_array_literal_as_return_value():
+		RunTestCase("tests/integration/empty-array-literal-as-return-value.js")
+		
+	
+	[Test] def empty_array_literal_as_yield_value():
+		RunTestCase("tests/integration/empty-array-literal-as-yield-value.js")
+		
+	
 	[Test] def empty_string_array():
 		RunTestCase("tests/integration/empty-string-array.js")
 		
