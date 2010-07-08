@@ -4,9 +4,8 @@ import System.IO
 import Boo.Lang.Compiler
 import Boo.Lang.Compiler.IO
 import NUnit.Framework from nunit.framework
-import UnityScript
 
-abstract class AbstractCompilerTestFixture:
+abstract class AbstractCompilerTestFixture(AbstractCompilerTest):
 	
 	virtual DisplayErrorStackTrace:
 		get: return false
@@ -19,36 +18,14 @@ abstract class AbstractCompilerTestFixture:
 	
 	private static _basePath as string
 
-	_compiler as UnityScriptCompiler
-	
-	[TestFixtureSetUp]
-	virtual def SetUpFixture():		
-		_compiler = CreateCompiler()
-		
-	virtual def CreateCompiler() as UnityScriptCompiler:
-		compiler = UnityScriptCompiler()
-		compiler.Parameters.Ducky = true
-		compiler.Parameters.ScriptBaseType = MonoBehaviour
-		compiler.Parameters.ScriptMainMethod = "Awake"
-		compiler.Parameters.Pipeline = CreateCompilerPipeline()
-		compiler.Parameters.References.Add(typeof(AbstractCompilerTestFixture).Assembly)
-		compiler.Parameters.References.Add(typeof(Assert).Assembly)
-		compiler.Parameters.References.Add(typeof(UnityScript.Tests.CSharp.FooBarEnum).Assembly)
-		return compiler
+	virtual def CompileTestCase([required] fname as string):
+		return CompileTestCase(FileInput(fname))
 	
 	def RunTestCase(fname as string):
 		location = ResolvePath(fname)
 		result = CompileTestCase(location)
 		CheckTestCaseCompilationResult(result)
 		CheckTestCaseOutput(location, GetActualOutput(result))
-		
-	virtual def CompileTestCase([required] fname as string):
-		return CompileTestCase(FileInput(fname))
-		
-	virtual def CompileTestCase([required] input as ICompilerInput):
-		_compiler.Parameters.Input.Clear()
-		_compiler.Parameters.Input.Add(input)
-		return _compiler.Run()
 		
 	virtual protected def CheckTestCaseCompilationResult([required] result as CompilerContext):
 		Assert.AreEqual(0, result.Errors.Count, result.Errors.ToString(DisplayErrorStackTrace))
@@ -75,9 +52,6 @@ abstract class AbstractCompilerTestFixture:
 		
 	protected virtual def GetActualOutput(result as CompilerContext) as string:
 		return result.CompileUnit.Modules[0].ToCodeString()
-	
-	protected abstract def CreateCompilerPipeline() as CompilerPipeline:
-		pass
 	
 	def GetExpectedOutput([required] fname as string):
 		contents = ReadAllText(fname)

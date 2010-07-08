@@ -8,7 +8,6 @@ class EvaluatorTest:
 	
 	[Test]
 	def SimpleEvalWithNoImports():
-		
 		Assert.AreEqual(4, Evaluator.Eval(EvaluationContext(), "2 + 2"))
 		
 	[Test]

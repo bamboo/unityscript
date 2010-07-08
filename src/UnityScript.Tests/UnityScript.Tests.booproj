@@ -67,6 +67,7 @@
     <Compile Include="UsTestFixture.boo" />
     <Compile Include="MultiFileTestFixture.boo" />
     <Compile Include="Scripting\EvaluatorTest.boo" />
+    <Compile Include="AbstractCompilerTest.boo" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UnityScript\UnityScript.booproj">
