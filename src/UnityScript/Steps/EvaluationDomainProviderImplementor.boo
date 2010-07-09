@@ -6,7 +6,6 @@ import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
 import Boo.Lang.Compiler.TypeSystem
 import Boo.Lang.Compiler.TypeSystem.Services
-import Boo.Lang.Compiler.TypeSystem.Reflection
 import UnityScript.Macros
 import UnityScript.Scripting
 
@@ -59,22 +58,17 @@ class EvaluationDomainProviderImplementor(AbstractCompilerComponent):
 		my(CodeReifier).ReifyInto(node, evaluationDomainProviderImpl)
 		return evaluationDomainProviderImpl.Members["Instance"].Entity
 		
-	private def CreateAssemblyReferencesArray() as IField:
-		
-		// TODO: only actually used assemblies should be part of this array
-		// otherwise we risk bringing the kitchen sink
-		
-		result = [| (of $Assembly:,) |]
-		result.Items.Add([| System.Reflection.Assembly.GetExecutingAssembly() |])
+	private def CreateAssemblyReferencesArray() as IField:		
+		references = [| (System.Reflection.Assembly.GetExecutingAssembly(),) |]
 				
 		for assembly in ReferencedAssemblies():
 			publicType = AnyPublicTypeOf(assembly)
 			continue if publicType is null
-			result.Items.Add([| typeof($publicType).Assembly |])
+			references.Items.Add([| typeof($publicType).Assembly |])
 		
 		arrayHolder = [|
 			internal class EvalAssemblyReferences:
-				public static final Value = $result
+				public static final Value = $references
 		|]
 		my(CodeReifier).ReifyInto(CompileUnit.Modules[0], arrayHolder)
 		return arrayHolder.Members["Value"].Entity
