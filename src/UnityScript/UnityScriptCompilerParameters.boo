@@ -22,4 +22,5 @@ class UnityScriptCompilerParameters(CompilerParameters):
 	def constructor():
 		self.Ducky = true
 		self.OutputType = CompilerOutputType.Library
+		self.References.Add(typeof(UnityScript.Lang.Array).Assembly)
 		self.References.Add(GetType().Assembly)
