@@ -6,6 +6,10 @@ import NUnit.Framework
 partial class ErrorMessagesTestFixture:
 
 	
+	[Test] def array_instantiation_with_array_multiplication():
+		RunTestCase("tests/error-messages/array-instantiation-with-array-multiplication.js")
+		
+	
 	[Test] def array_struct_warning():
 		RunTestCase("tests/error-messages/array-struct-warning.js")
 		

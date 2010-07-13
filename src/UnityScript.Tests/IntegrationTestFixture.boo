@@ -111,6 +111,14 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/array-implicit-from-null.js")
 		
 	
+	[Test] def array_instantiation_with_object_argument_in_strict_mode():
+		RunTestCase("tests/integration/array-instantiation-with-object-argument-in-strict-mode.js")
+		
+	
+	[Test] def array_instantiation_with_object_argument():
+		RunTestCase("tests/integration/array-instantiation-with-object-argument.js")
+		
+	
 	[Test] def array_iterate():
 		RunTestCase("tests/integration/array-iterate.js")
 		
