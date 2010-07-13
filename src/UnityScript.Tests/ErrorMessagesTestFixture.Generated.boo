@@ -34,6 +34,10 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/error-for-final-used-as-identifier.js")
 		
 	
+	[Test] def for_variable_already_defined():
+		RunTestCase("tests/error-messages/for-variable-already-defined.js")
+		
+	
 	[Test] def function_type_name():
 		RunTestCase("tests/error-messages/function-type-name.js")
 		

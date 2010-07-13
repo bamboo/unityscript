@@ -2760,9 +2760,11 @@ class UnityScriptParser(antlr.LLkParser):
 				id = LT(1)
 				match(ID)
 				if 0 == inputState.guessing:
-					d = Declaration(ToLexicalInfo(id), Name: id.getText())
+					d = Declaration(ToLexicalInfo(id), Name: id.getText()) 
 			elif ((_givenValue == VAR)): // 1831
 				d=declaration()
+				if 0 == inputState.guessing:
+					DeclarationAnnotations.ForceNewVariable(d) 
 			else: // line 1969
 					raise NoViableAltException(LT(1), getFilename())
 			match(IN)

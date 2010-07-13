@@ -8,6 +8,7 @@ import Boo.Lang.Compiler.Steps
 
 import Boo.Lang.Environments
 
+import UnityScript.Core
 import UnityScript.Macros
 import UnityScript.TypeSystem
 
@@ -72,6 +73,12 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 			BindQuack(node);
 			return
 		super(node, ns)
+		
+	override protected def LocalToReuseFor(d as Declaration):
+		if DeclarationAnnotations.ShouldForceNewVariableFor(d):
+			AssertUniqueLocal(d)
+			return null
+		return super(d)
 			
 	override def OnModule(module as Module):           
 		Parameters.Strict = _strict = module.ContainsAnnotation("strict")

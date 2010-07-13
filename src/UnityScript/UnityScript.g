@@ -883,13 +883,8 @@ for_in [Block container] returns [Statement stmt]
 {
 }:
 	(
-		(
-			id:ID
-			{
-				d = Declaration(ToLexicalInfo(id), Name: id.getText())
-			}
-		)
-		| d=declaration
+		(id:ID { d = Declaration(ToLexicalInfo(id), Name: id.getText()) })
+		| d=declaration { DeclarationAnnotations.ForceNewVariable(d) }
 	)
 	IN iterator=expression
 	{
