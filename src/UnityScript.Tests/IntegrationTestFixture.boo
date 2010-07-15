@@ -339,6 +339,14 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/duck-implicit-bool-1.js")
 		
 	
+	[Test] def duck_implicit_bool_and_with_simple_ref():
+		RunTestCase("tests/integration/duck-implicit-bool-and-with-simple-ref.js")
+		
+	
+	[Test] def duck_implicit_bool_and():
+		RunTestCase("tests/integration/duck-implicit-bool-and.js")
+		
+	
 	[Test] def duck_implicit_bool_full():
 		RunTestCase("tests/integration/duck-implicit-bool-full.js")
 		
@@ -481,6 +489,10 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 	
 	[Test] def implicit_conversion():
 		RunTestCase("tests/integration/implicit_conversion.js")
+		
+	
+	[Test] def implict_bool_hierarchy():
+		RunTestCase("tests/integration/implict-bool-hierarchy.js")
 		
 	
 	[Test] def initializeorder():
