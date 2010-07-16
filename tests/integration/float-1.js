@@ -1,10 +1,33 @@
 /*
 System.Single
 System.Single
+System.Single
+System.Single
+System.Single
+System.Single
+System.Double
+System.Single
 */
-value = .5;
-System.Console.WriteLine(value.GetType());
+v1 = .5;
+print(v1.GetType());
 
-value = .5f;
-System.Console.WriteLine(value.GetType());
+v2 = .5f;
+print(v2.GetType());
 
+v3 = .55;
+print(v3.GetType());
+
+v4 = .55f;
+print(v4.GetType());
+
+v5 = .555;
+print(v5.GetType());
+
+v6 = .555f;
+print(v6.GetType());
+
+v7 = .5555; // infered as double
+print(v7.GetType());
+
+v8 = .5555f; // forces single precision
+print(v8.GetType());

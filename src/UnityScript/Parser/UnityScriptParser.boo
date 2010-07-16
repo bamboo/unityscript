@@ -200,9 +200,6 @@ class UnityScriptParser(antlr.LLkParser):
 		tokenLength = (0 if text is null else len(text)-1)
 		return SourceLocation(token.getLine(), token.getColumn()+tokenLength)
 	
-	static def ParseDouble(text as string):
-		return double.Parse(text, CultureInfo.InvariantCulture)
-	
 	static def ParseIntegerLiteralExpression(token as antlr.IToken,
 							s as string,
 							isLong as bool):
@@ -661,9 +658,7 @@ class UnityScriptParser(antlr.LLkParser):
 			value = LT(1)
 			match(DOUBLE)
 			if 0 == inputState.guessing:
-				rle = DoubleLiteralExpression(ToLexicalInfo(value),
-									ParseDouble(value.getText()),
-									IsSingle: true);
+				rle = CodeFactory.NewDoubleLiteralExpression(ToLexicalInfo(value), value.getText()) 
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)

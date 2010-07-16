@@ -177,9 +177,6 @@ tokens
 		tokenLength = (0 if text is null else len(text)-1)
 		return SourceLocation(token.getLine(), token.getColumn()+tokenLength)
 	
-	static def ParseDouble(text as string):
-		return double.Parse(text, CultureInfo.InvariantCulture)
-	
 	static def ParseIntegerLiteralExpression(token as antlr.IToken,
 							s as string,
 							isLong as bool):
@@ -1693,12 +1690,7 @@ re_literal returns [RELiteralExpression re]
 double_literal returns [DoubleLiteralExpression rle]
 {
 }:
-	value:DOUBLE
-	{
-		rle = DoubleLiteralExpression(ToLexicalInfo(value),
-							ParseDouble(value.getText()),
-							IsSingle: true);
-	}
+	value:DOUBLE { rle = CodeFactory.NewDoubleLiteralExpression(ToLexicalInfo(value), value.getText()) }
 ;
 
 self_literal returns [SelfLiteralExpression e]
@@ -1791,7 +1783,7 @@ INT:
 	(DIGIT)+
 	(
 		('l' | 'L') { $setType(LONG); } |
-		('f'! | 'F'!) { $setType(DOUBLE); } |
+		('f' | 'F') { $setType(DOUBLE); } |
 		('.' DOUBLE_SUFFIX) { $setType(DOUBLE); } |
 		EXPONENT { $setType(DOUBLE); } |
 	)
@@ -1800,7 +1792,7 @@ INT:
 DOT: '.' (DOUBLE_SUFFIX {$setType(DOUBLE);})?;
 
 protected
-DOUBLE_SUFFIX: (DIGIT)+ (EXPONENT)? ('f'! | 'F'!)?;
+DOUBLE_SUFFIX: (DIGIT)+ (EXPONENT)? ('f' | 'F')?;
 
 protected
 EXPONENT: ('e' | 'E') ('+' | '-')? (DIGIT)+;

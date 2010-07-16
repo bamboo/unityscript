@@ -725,13 +725,9 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 			): // 1827
 				_givenValue  = cached_LA1
 				if ((_givenValue == char('f'))): // 1831
-					_saveIndex = text.Length
 					match('f')
-					text.Length = _saveIndex
 				elif ((_givenValue == char('F'))): // 1831
-					_saveIndex = text.Length
 					match('F')
-					text.Length = _saveIndex
 				else: // line 1969
 						raise NoViableAltForCharException(cached_LA1, getFilename(), getLine(), getColumn())
 				if 0 == inputState.guessing:
@@ -817,13 +813,9 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 			pass // 947
 		_givenValue  = cached_LA1
 		if ((_givenValue == char('f'))): // 1831
-			_saveIndex = text.Length
 			match('f')
-			text.Length = _saveIndex
 		elif ((_givenValue == char('F'))): // 1831
-			_saveIndex = text.Length
 			match('F')
-			text.Length = _saveIndex
 		else: // line 1969
 				pass // 947
 		if (_createToken and (_token is null) and (_ttype != Token.SKIP)):

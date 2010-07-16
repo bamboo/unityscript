@@ -327,6 +327,10 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/crash.js")
 		
 	
+	[Test] def double_precision_can_be_used_for_literals():
+		RunTestCase("tests/integration/double-precision-can-be-used-for-literals.js")
+		
+	
 	[Test] def duck_1():
 		RunTestCase("tests/integration/duck-1.js")
 		
