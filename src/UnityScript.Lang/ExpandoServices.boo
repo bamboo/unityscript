@@ -1,12 +1,12 @@
 namespace UnityScript.Lang
 
 import System
-import System.Collections
+import System.Collections.Generic
 
 internal class Expando:
 	
 	_target as WeakReference
-	_attributes = Hashtable()
+	_attributes = Dictionary[of string, object]()
 	
 	def constructor(target):
 		_target = WeakReference(target)
@@ -14,9 +14,8 @@ internal class Expando:
 	Target:
 		get: return _target.Target
 	
-	Item[key]:
-		get:
-			return _attributes[key]
+	Item[key as string]:
+		get: return _attributes[key]
 			
 		set:
 			if value is null:
@@ -26,7 +25,7 @@ internal class Expando:
 
 static class ExpandoServices:
 	
-	_expandos = List()
+	_expandos = List[of Expando]()
 				
 	def GetExpandoProperty(target, name as string):
 		expando = GetExpandoFor(target)
