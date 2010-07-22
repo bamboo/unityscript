@@ -8,11 +8,13 @@ import Boo.Lang.Compiler.Steps
 class ExpandUnityDuckTypedExpressions(ExpandDuckTypedExpressions):
 	
 	private UnityRuntimeServices_Invoke as IMethod
+	private UnityRuntimeServices_GetProperty as IMethod
 	private _expando as bool
 	
 	override def Initialize(context as CompilerContext):
 		super(context)
 		UnityRuntimeServices_Invoke = ResolveUnityRuntimeMethod("Invoke")
+		UnityRuntimeServices_GetProperty = ResolveUnityRuntimeMethod("GetProperty")
 		
 	override def EnterModule(module as Module):
 		_expando = UnityScriptParameters.Expando or module.ContainsAnnotation("expando")
@@ -23,8 +25,7 @@ class ExpandUnityDuckTypedExpressions(ExpandDuckTypedExpressions):
 		return ResolveUnityRuntimeMethod("SetProperty")
 		
 	override def GetGetPropertyMethod():
-		if not _expando: return super()
-		return ResolveUnityRuntimeMethod("GetProperty")
+		return UnityRuntimeServices_GetProperty
 
 	override def ExpandQuackInvocation(node as MethodInvocationExpression):
 		if not IsPossibleStartCoroutineInvocation(node):

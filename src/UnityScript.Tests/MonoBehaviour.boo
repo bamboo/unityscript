@@ -96,6 +96,10 @@ class MonoBehaviour(Component):
 	def GetComponent(type as System.Type) as Component:
 		return _foo if ComponentFoo is type
 		return _bar
+		
+	[DuckTyped]
+	def GetComponents(type as System.Type) as (Component):
+		return (GetComponent(type),)
 
 	[DuckTyped]
 	def implicit_bool_test_false() as ImplicitBoolTest:

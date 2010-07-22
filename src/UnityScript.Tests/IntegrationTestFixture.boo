@@ -135,6 +135,10 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/array-length-2.js")
 		
 	
+	[Test] def array_length_duck_typed():
+		RunTestCase("tests/integration/array-length-duck-typed.js")
+		
+	
 	[Test] def array_length():
 		RunTestCase("tests/integration/array-length.js")
 		
