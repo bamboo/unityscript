@@ -543,6 +543,10 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/null-assign.js")
 		
 	
+	[Test] def null_initializer():
+		RunTestCase("tests/integration/null-initializer.js")
+		
+	
 	[Test] def operators_4():
 		RunTestCase("tests/integration/operators-4.js")
 		
@@ -645,6 +649,10 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 	
 	[Test] def valuetypes_1():
 		RunTestCase("tests/integration/valuetypes-1.js")
+		
+	
+	[Test] def var_with_no_initializer():
+		RunTestCase("tests/integration/var-with-no-initializer.js")
 		
 	
 	[Test] def variable_declaration_2():
