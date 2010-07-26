@@ -651,6 +651,10 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/types-1.js")
 		
 	
+	[Test] def uint_1():
+		RunTestCase("tests/integration/uint-1.js")
+		
+	
 	[Test] def valuetypes_1():
 		RunTestCase("tests/integration/valuetypes-1.js")
 		
