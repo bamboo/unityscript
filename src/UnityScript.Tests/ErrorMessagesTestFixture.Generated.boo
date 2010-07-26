@@ -30,6 +30,10 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/conditional-compilation-with-pragma-strict.js")
 		
 	
+	[Test] def double_array_in_float_array_var_initializer():
+		RunTestCase("tests/error-messages/double-array-in-float-array-var-initializer.js")
+		
+	
 	[Test] def error_for_final_used_as_identifier():
 		RunTestCase("tests/error-messages/error-for-final-used-as-identifier.js")
 		

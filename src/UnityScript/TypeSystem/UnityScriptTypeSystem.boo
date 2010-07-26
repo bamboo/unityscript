@@ -58,9 +58,9 @@ class UnityScriptTypeSystem(TypeSystemServices):
 		AddPrimitiveType("uint", UIntType)
 		AddPrimitiveType("long", LongType)
 		AddPrimitiveType("ulong", ULongType)
+		AddPrimitiveType("Number", DoubleType)
 		AddPrimitiveType("float", SingleType)
 		AddPrimitiveType("double", DoubleType)
-		AddPrimitiveType("Number", DoubleType)
 		AddPrimitiveType("Function", ICallableType)
 		AddPrimitiveType("Array", Map(UnityScript.Lang.Array))
 		

@@ -463,6 +463,10 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/float-2.js")
 		
 	
+	[Test] def float_array_literal():
+		RunTestCase("tests/integration/float-array-literal.js")
+		
+	
 	[Test] def for_break_1():
 		RunTestCase("tests/integration/for-break-1.js")
 		
