@@ -977,29 +977,24 @@ try_statement[Block container]
 	}
 	compound_or_single_stmt[b]
 	(
-		(
-			ct:CATCH LPAREN id:ID (COLON tr=type_reference)? RPAREN
-			{
-				tr = SimpleTypeReference(ToLexicalInfo(id), "System.Exception") if tr is null
-				handler = ExceptionHandler(
-							ToLexicalInfo(ct),
-							Declaration: Declaration(
-											ToLexicalInfo(id),
-											Name: id.getText(),
-											Type: tr))
-				s.ExceptionHandlers.Add(handler)
-				b = handler.Block
-				tr = null
-			}
-			compound_or_single_stmt[b]
-		)+
-		(
-			finally_block[s]
-		)?
-	) |
+		ct:CATCH LPAREN id:ID (COLON tr=type_reference)? RPAREN
+		{
+			tr = SimpleTypeReference(ToLexicalInfo(id), "System.Exception") if tr is null
+			handler = ExceptionHandler(
+						ToLexicalInfo(ct),
+						Declaration: Declaration(
+										ToLexicalInfo(id),
+										Name: id.getText(),
+										Type: tr))
+			s.ExceptionHandlers.Add(handler)
+			b = handler.Block
+			tr = null
+		}
+		compound_or_single_stmt[b]
+	)*
 	(
 		finally_block[s]
-	)
+	)?
 ;
 
 finally_block[TryStatement s]
