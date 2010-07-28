@@ -1,7 +1,6 @@
 /*
 */
 
-// Gives a warning about writing to a temporary but it actually works correctly.
 var arr = new UnityScript.Tests.CSharp.Vector3[5];
 
 for (var i=0;i<arr.Length;i++)
