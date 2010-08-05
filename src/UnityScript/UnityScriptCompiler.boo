@@ -44,9 +44,6 @@ class UnityScriptCompiler:
 			
 			pipeline.Replace(Boo.Lang.Parser.BooParsingStep, UnityScript.Steps.Parse())
 			
-			pipeline.Replace(Boo.Lang.Compiler.Steps.InitializeTypeSystemServices,
-						UnityScript.Steps.InitializeUnityScriptTypeSystem())
-						
 			pipeline.Replace(Boo.Lang.Compiler.Steps.IntroduceGlobalNamespaces,
 						UnityScript.Steps.IntroduceUnityGlobalNamespaces())
 						

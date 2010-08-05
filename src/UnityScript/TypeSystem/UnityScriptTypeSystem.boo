@@ -13,8 +13,7 @@ class UnityScriptTypeSystem(TypeSystemServices):
 	_ScriptBaseType as IType
 	_AbstractGenerator as IType
 	
-	def constructor(context as CompilerContext):
-		super(context)		
+	def constructor():		
 		self._ScriptBaseType = Map(UnityScriptParameters.ScriptBaseType)
 		self._AbstractGenerator = Map(Boo.Lang.AbstractGenerator)
 		
