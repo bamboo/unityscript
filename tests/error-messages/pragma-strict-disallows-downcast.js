@@ -1,5 +1,5 @@
 /*
-pragma-strict-4.js(13,15): BCE0022: Cannot convert 'Foo' to 'Bar'.
+pragma-strict-disallows-downcast.js(13,15): BCE0022: Cannot convert 'Foo' to 'Bar'.
 */
 #pragma strict
 
