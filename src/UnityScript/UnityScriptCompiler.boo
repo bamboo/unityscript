@@ -17,15 +17,10 @@ class UnityScriptCompiler:
 	static class Pipelines:
 	
 		def RawParsing():
-			pipeline = CompilerPipeline()
-			pipeline.Add(UnityScript.Steps.PreProcess())
-			pipeline.Add(UnityScript.Steps.Parse())
-			return pipeline
+			return CompilerPipeline() { UnityScript.Steps.PreProcess(), UnityScript.Steps.Parse() }
 		
 		def Parse():
-			pipeline = RawParsing()
-			pipeline.Add(UnityScript.Steps.ApplySemantics())
-			return pipeline
+			return RawParsing() { UnityScript.Steps.ApplySemantics() }
 			
 		def Compile():
 			return AdjustBooPipeline(Boo.Lang.Compiler.Pipelines.Compile())
@@ -42,7 +37,7 @@ class UnityScriptCompiler:
 		def AdjustBooPipeline(pipeline as CompilerPipeline):
 			pipeline.Insert(0, UnityScript.Steps.PreProcess())
 			
-			pipeline.Replace(Boo.Lang.Parser.BooParsingStep, UnityScript.Steps.Parse())
+			pipeline.Replace(Boo.Lang.Compiler.Steps.Parsing, UnityScript.Steps.Parse())
 			
 			pipeline.Replace(Boo.Lang.Compiler.Steps.IntroduceGlobalNamespaces,
 						UnityScript.Steps.IntroduceUnityGlobalNamespaces())
