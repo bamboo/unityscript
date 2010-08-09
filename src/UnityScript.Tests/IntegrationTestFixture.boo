@@ -467,6 +467,10 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/float-array-literal.js")
 		
 	
+	[Test] def float_overload_is_preferred_over_int_for_double_argument():
+		RunTestCase("tests/integration/float-overload-is-preferred-over-int-for-double-argument.js")
+		
+	
 	[Test] def for_break_1():
 		RunTestCase("tests/integration/for-break-1.js")
 		
@@ -593,6 +597,10 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 	
 	[Test] def raw_array_indexing():
 		RunTestCase("tests/integration/raw-array-indexing.js")
+		
+	
+	[Test] def rethrow():
+		RunTestCase("tests/integration/rethrow.js")
 		
 	
 	[Test] def script_attributes():

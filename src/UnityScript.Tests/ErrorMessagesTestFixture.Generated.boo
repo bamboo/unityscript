@@ -66,6 +66,10 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/interface-errors.js")
 		
 	
+	[Test] def invalid_generator_return_type():
+		RunTestCase("tests/error-messages/invalid-generator-return-type.js")
+		
+	
 	[Test] def iterator_warning():
 		RunTestCase("tests/error-messages/iterator-warning.js")
 		
@@ -102,12 +106,16 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/pragma-strict-3js.js")
 		
 	
-	[Test] def pragma_strict_4():
-		RunTestCase("tests/error-messages/pragma-strict-4.js")
+	[Test] def pragma_strict_disallows_downcast():
+		RunTestCase("tests/error-messages/pragma-strict-disallows-downcast.js")
 		
 	
 	[Test] def pragma_strict():
 		RunTestCase("tests/error-messages/pragma-strict.js")
+		
+	
+	[Test] def rethrow_outside_catch():
+		RunTestCase("tests/error-messages/rethrow-outside-catch.js")
 		
 	
 	[Test] def semicolon_2():
@@ -136,4 +144,8 @@ partial class ErrorMessagesTestFixture:
 	
 	[Test] def voidcomparison():
 		RunTestCase("tests/error-messages/voidcomparison.js")
+		
+	
+	[Test] def yield_from_try_catch_finally():
+		RunTestCase("tests/error-messages/yield-from-try-catch-finally.js")
 		

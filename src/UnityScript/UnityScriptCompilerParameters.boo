@@ -2,6 +2,7 @@ namespace UnityScript
 
 import Boo.Lang.Environments
 import Boo.Lang.Compiler
+import Boo.Lang.Compiler.Services
 import Boo.Lang.Compiler.TypeSystem
 import Boo.Lang.Compiler.TypeSystem.Services
 import UnityScript.TypeSystem
@@ -32,5 +33,6 @@ class UnityScriptCompilerParameters(CompilerParameters):
 			EntityFormatter: { UnityScriptEntityFormatter() },
 			TypeSystemServices: { UnityScriptTypeSystem() },
 			CallableResolutionService: { UnityCallableResolutionService() },
-			DowncastPermissions: { UnityDowncastPermissions() }
+			DowncastPermissions: { UnityDowncastPermissions() },
+			LanguageAmbiance: { UnityScriptAmbiance() }
 		}
