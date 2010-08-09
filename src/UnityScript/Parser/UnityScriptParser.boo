@@ -759,34 +759,16 @@ class UnityScriptParser(antlr.LLkParser):
 	public def reference_expression() as Expression : //throws RecognitionException, TokenStreamException
 		e as Expression 
 		
-		lbrack as IToken  = null
 		
 		try:     // for error handling
 			e=simple_reference_expression()
 			while true:
 				if ((LA(1)==DOT)):
 					match(DOT)
-					_givenValue  = LA(1)
-					if ((_givenValue == GET)
-						 or (_givenValue ==SET)
-						 or (_givenValue ==ID)
-					): // 1827
-						memberName=member()
-						if 0 == inputState.guessing:
-							e = MemberReferenceExpression(ToLexicalInfo(memberName), Target: e, Name: memberName.getText())
-					elif ((_givenValue == LESS_THAN)): // 1831
-						lbrack = LT(1)
-						match(LESS_THAN)
-						if 0 == inputState.guessing:
-							e = gre = GenericReferenceExpression(ToLexicalInfo(lbrack), Target: e)
-							genericArguments = gre.GenericArguments
-						type_reference_list(genericArguments)
-						match(GREATER_THAN)
-					else: // line 1969
-							raise NoViableAltException(LT(1), getFilename())
+					e=member_reference_expression(e)
 				else:
-					goto _loop194_breakloop
-			:_loop194_breakloop
+					goto _loop191_breakloop
+			:_loop191_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -3383,6 +3365,41 @@ class UnityScriptParser(antlr.LLkParser):
 				raise
 		return e
 	
+	public def member_reference_expression(
+		target as Expression 
+	) as Expression : //throws RecognitionException, TokenStreamException
+		e as Expression 
+		
+		lbrack as IToken  = null
+		e = target;
+		
+		try:     // for error handling
+			_givenValue  = LA(1)
+			if ((_givenValue == LESS_THAN)): // 1831
+				lbrack = LT(1)
+				match(LESS_THAN)
+				if 0 == inputState.guessing:
+					e = gre = GenericReferenceExpression(ToLexicalInfo(lbrack), Target: e)
+					genericArguments = gre.GenericArguments
+				type_reference_list(genericArguments)
+				match(GREATER_THAN)
+			elif ((_givenValue == GET)
+				 or (_givenValue ==SET)
+				 or (_givenValue ==ID)
+			): // 1827
+				memberName=member()
+				if 0 == inputState.guessing:
+					e = MemberReferenceExpression(ToLexicalInfo(memberName), Target: e, Name: memberName.getText())
+			else: // line 1969
+					raise NoViableAltException(LT(1), getFilename())
+		except ex as RecognitionException:
+			if (0 == inputState.guessing):
+				reportError(ex)
+				recover(ex,tokenSet_12_)
+			else:
+				raise
+		return e
+	
 	public def slice(
 		se as SlicingExpression 
 	) as void: //throws RecognitionException, TokenStreamException
@@ -3549,12 +3566,10 @@ class UnityScriptParser(antlr.LLkParser):
 							goto _loop225_breakloop
 					:_loop225_breakloop
 					match(RBRACK)
-				elif ((LA(1)==DOT) and (LA(2)==GET or LA(2)==SET or LA(2)==ID)): // line 2102
+				elif ((LA(1)==DOT) and (tokenSet_57_.member(cast(int, LA(2))))): // line 2102
 					match(DOT)
-					memberName=member()
-					if 0 == inputState.guessing:
-						e = MemberReferenceExpression(ToLexicalInfo(memberName), Target: e, Name: memberName.getText())
-				elif ((LA(1)==LPAREN) and (tokenSet_57_.member(cast(int, LA(2))))): // line 2102
+					e=member_reference_expression(e)
+				elif ((LA(1)==LPAREN) and (tokenSet_58_.member(cast(int, LA(2))))): // line 2102
 					lparen = LT(1)
 					match(LPAREN)
 					if 0 == inputState.guessing:
@@ -3797,7 +3812,7 @@ class UnityScriptParser(antlr.LLkParser):
 		try:     // for error handling
 			e=shift()
 			while true:
-				if ((tokenSet_58_.member(cast(int, LA(1)))) and (tokenSet_13_.member(cast(int, LA(2))))):
+				if ((tokenSet_59_.member(cast(int, LA(1)))) and (tokenSet_13_.member(cast(int, LA(2))))):
 					_givenValue  = LA(1)
 					if ((_givenValue == IN)
 						 or (_givenValue ==LESS_THAN)
@@ -3872,7 +3887,7 @@ class UnityScriptParser(antlr.LLkParser):
 		try:     // for error handling
 			e=comparison()
 			while true:
-				if ((tokenSet_59_.member(cast(int, LA(1)))) and (tokenSet_13_.member(cast(int, LA(2))))):
+				if ((tokenSet_60_.member(cast(int, LA(1)))) and (tokenSet_13_.member(cast(int, LA(2))))):
 					_givenValue  = LA(1)
 					if ((_givenValue == EQUALITY)): // 1831
 						te = LT(1)
@@ -4551,15 +4566,19 @@ class UnityScriptParser(antlr.LLkParser):
 		return data
 	public static final tokenSet_56_ = BitSet(mk_tokenSet_56_())
 	private static def mk_tokenSet_57_() as (long):
-		data = (5107084932426043392L, 523986277888L, 0L, 0L, )
+		data = (9007216434741248L, 2097152L, 0L, 0L, )
 		return data
 	public static final tokenSet_57_ = BitSet(mk_tokenSet_57_())
 	private static def mk_tokenSet_58_() as (long):
-		data = (10485760L, 106954752L, 0L, 0L, )
+		data = (5107084932426043392L, 523986277888L, 0L, 0L, )
 		return data
 	public static final tokenSet_58_ = BitSet(mk_tokenSet_58_())
 	private static def mk_tokenSet_59_() as (long):
-		data = (0L, 1671168L, 0L, 0L, )
+		data = (10485760L, 106954752L, 0L, 0L, )
 		return data
 	public static final tokenSet_59_ = BitSet(mk_tokenSet_59_())
+	private static def mk_tokenSet_60_() as (long):
+		data = (0L, 1671168L, 0L, 0L, )
+		return data
+	public static final tokenSet_60_ = BitSet(mk_tokenSet_60_())
 	
