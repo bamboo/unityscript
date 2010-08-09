@@ -467,6 +467,14 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/float-array-literal.js")
 		
 	
+	[Test] def float_overload_is_preferred_over_int_for_double_argument_2():
+		RunTestCase("tests/integration/float-overload-is-preferred-over-int-for-double-argument-2.js")
+		
+	
+	[Test] def float_overload_is_preferred_over_int_for_double_argument_strict():
+		RunTestCase("tests/integration/float-overload-is-preferred-over-int-for-double-argument-strict.js")
+		
+	
 	[Test] def float_overload_is_preferred_over_int_for_double_argument():
 		RunTestCase("tests/integration/float-overload-is-preferred-over-int-for-double-argument.js")
 		

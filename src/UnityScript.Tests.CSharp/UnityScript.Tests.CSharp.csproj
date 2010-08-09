@@ -45,6 +45,7 @@
     <Compile Include="StacktraceTest.cs" />
     <Compile Include="TestEnabled.cs" />
     <Compile Include="Vector3.cs" />
+    <Compile Include="NumericOverloads.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
