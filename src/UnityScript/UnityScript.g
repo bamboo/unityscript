@@ -1184,26 +1184,30 @@ reference_expression returns [Expression e]
 }:
 	e=simple_reference_expression
 	(
-		DOT 
-		(
-			(
-				memberName=member
-				{
-					e = MemberReferenceExpression(ToLexicalInfo(memberName), Target: e, Name: memberName.getText())
-				}
-			)
-			|
-			(
-				lbrack:LESS_THAN
-				{
-					e = gre = GenericReferenceExpression(ToLexicalInfo(lbrack), Target: e)
-					genericArguments = gre.GenericArguments
-				}
-				type_reference_list[genericArguments]
-				GREATER_THAN
-			)
-		)
+		DOT e=member_reference_expression[e]
 	)*
+;
+
+member_reference_expression[Expression target] returns [Expression e]
+{
+	e = target;
+}:
+	(
+		lbrack:LESS_THAN
+		{
+			e = gre = GenericReferenceExpression(ToLexicalInfo(lbrack), Target: e)
+			genericArguments = gre.GenericArguments
+		}
+		type_reference_list[genericArguments]
+		GREATER_THAN
+	)
+	|
+	(
+		memberName=member
+		{
+			e = MemberReferenceExpression(ToLexicalInfo(memberName), Target: e, Name: memberName.getText())
+		}
+	)
 ;
 
 paren_expression returns [Expression e]
@@ -1346,10 +1350,7 @@ slicing_expression returns [Expression e]
 		)
 		|
 		(
-			DOT memberName=member
-			{
-				e = MemberReferenceExpression(ToLexicalInfo(memberName), Target: e, Name: memberName.getText())
-			}
+			DOT e=member_reference_expression[e]
 		)
 		|
 		(

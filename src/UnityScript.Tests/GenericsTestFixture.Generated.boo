@@ -14,3 +14,7 @@ class GenericsTestFixture(AbstractIntegrationTestFixture):
 	[Test] def generic_method_1():
 		RunTestCase("tests/generics/generic-method-1.js")
 		
+	
+	[Test] def generic_method_arguments():
+		RunTestCase("tests/generics/generic-method-arguments.js")
+		
