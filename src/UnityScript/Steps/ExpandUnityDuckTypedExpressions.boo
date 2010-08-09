@@ -42,7 +42,7 @@ class ExpandUnityDuckTypedExpressions(ExpandDuckTypedExpressions):
 		get: return self.TypeSystemServices
 			
 	UnityScriptParameters as UnityScript.UnityScriptCompilerParameters:
-		get: return _context.Parameters
+		get: return self.Parameters
 			
 	UnityRuntimeServicesType:
 		get: return self.TypeSystemServices.Map(typeof(UnityScript.Lang.UnityRuntimeServices))

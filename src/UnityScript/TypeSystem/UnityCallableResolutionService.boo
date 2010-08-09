@@ -6,9 +6,6 @@ import Boo.Lang.Compiler.TypeSystem
 
 class UnityCallableResolutionService(CallableResolutionService):
 	
-	def constructor(context as CompilerContext):
-		super(context)
-
 	override def CheckVarArgsParameter(parameters as (IParameter), args as ExpressionCollection):
 		return super(parameters, args)
 		

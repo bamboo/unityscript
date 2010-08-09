@@ -1,6 +1,10 @@
 namespace UnityScript
 
+import Boo.Lang.Environments
 import Boo.Lang.Compiler
+import Boo.Lang.Compiler.TypeSystem
+import Boo.Lang.Compiler.TypeSystem.Services
+import UnityScript.TypeSystem
 
 class UnityScriptCompilerParameters(CompilerParameters):
 	
@@ -24,3 +28,9 @@ class UnityScriptCompilerParameters(CompilerParameters):
 		self.OutputType = CompilerOutputType.Library
 		self.References.Add(typeof(UnityScript.Lang.Array).Assembly)
 		self.References.Add(GetType().Assembly)
+		self.Environment = DeferredEnvironment() {
+			EntityFormatter: { UnityScriptEntityFormatter() },
+			TypeSystemServices: { UnityScriptTypeSystem() },
+			CallableResolutionService: { UnityCallableResolutionService() },
+			DowncastPermissions: { UnityDowncastPermissions() }
+		}

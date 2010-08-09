@@ -61,7 +61,6 @@
     <Compile Include="Steps\CheckBaseTypes.boo" />
     <Compile Include="Steps\EnableRawArrayIndexing.boo" />
     <Compile Include="Steps\ExpandUnityDuckTypedExpressions.boo" />
-    <Compile Include="Steps\InitializeUnityScriptTypeSystem.boo" />
     <Compile Include="Steps\IntroducePragmas.boo" />
     <Compile Include="Steps\IntroduceUnityGlobalNamespaces.boo" />
     <Compile Include="Steps\Parse.boo" />
