@@ -982,10 +982,7 @@ try_statement[Block container]
 			tr = SimpleTypeReference(ToLexicalInfo(id), "System.Exception") if tr is null
 			handler = ExceptionHandler(
 						ToLexicalInfo(ct),
-						Declaration: Declaration(
-										ToLexicalInfo(id),
-										Name: id.getText(),
-										Type: tr))
+						Declaration: Declaration(ToLexicalInfo(id), Name: id.getText(), Type: tr))
 			s.ExceptionHandlers.Add(handler)
 			b = handler.Block
 			tr = null
