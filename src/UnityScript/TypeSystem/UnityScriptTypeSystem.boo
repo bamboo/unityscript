@@ -1,6 +1,5 @@
 namespace UnityScript.TypeSystem
 
-import Boo.Lang.Compiler
 import Boo.Lang.Compiler.TypeSystem
 
 class UnityScriptTypeSystem(TypeSystemServices):	
