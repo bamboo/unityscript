@@ -126,6 +126,10 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/semicolon.js")
 		
 	
+	[Test] def static_instance_overload_resolution():
+		RunTestCase("tests/error-messages/static-instance-overload-resolution.js")
+		
+	
 	[Test] def unused_variable():
 		RunTestCase("tests/error-messages/unused-variable.js")
 		

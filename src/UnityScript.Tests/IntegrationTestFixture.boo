@@ -627,6 +627,10 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/shift-left-bitwise-or.js")
 		
 	
+	[Test] def static_instance_overload_resolution():
+		RunTestCase("tests/integration/static-instance-overload-resolution.js")
+		
+	
 	[Test] def string_append():
 		RunTestCase("tests/integration/string-append.js")
 		
