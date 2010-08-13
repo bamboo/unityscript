@@ -34,116 +34,117 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 	public static final NULL_TREE_LOOKAHEAD = 3
 	public static final AS = 4
 	public static final BREAK = 5
-	public static final CATCH = 6
-	public static final CLASS = 7
-	public static final CONTINUE = 8
-	public static final ELSE = 9
-	public static final ENUM = 10
-	public static final EXTENDS = 11
-	public static final FALSE = 12
-	public static final FINAL = 13
-	public static final FINALLY = 14
-	public static final FOR = 15
-	public static final FUNCTION = 16
-	public static final GET = 17
-	public static final IF = 18
-	public static final IMPORT = 19
-	public static final IMPLEMENTS = 20
-	public static final IN = 21
-	public static final INTERFACE = 22
-	public static final INSTANCEOF = 23
-	public static final NEW = 24
-	public static final NULL = 25
-	public static final RETURN = 26
-	public static final PUBLIC = 27
-	public static final PROTECTED = 28
-	public static final INTERNAL = 29
-	public static final OVERRIDE = 30
-	public static final PARTIAL = 31
-	public static final PRAGMA = 32
-	public static final PRIVATE = 33
-	public static final SET = 34
-	public static final STATIC = 35
-	public static final SUPER = 36
-	public static final THIS = 37
-	public static final THROW = 38
-	public static final TRUE = 39
-	public static final TRY = 40
-	public static final TYPEOF = 41
-	public static final VAR = 42
-	public static final VIRTUAL = 43
-	public static final WHILE = 44
-	public static final YIELD = 45
-	public static final SWITCH = 46
-	public static final CASE = 47
-	public static final DEFAULT = 48
-	public static final INPLACE_DIVISION = 49
-	public static final INPLACE_ADD = 50
-	public static final INPLACE_SUBTRACT = 51
-	public static final INPLACE_MULTIPLY = 52
-	public static final ID = 53
-	public static final DOUBLE_QUOTED_STRING = 54
-	public static final LBRACE = 55
-	public static final RBRACE = 56
-	public static final LPAREN = 57
-	public static final RPAREN = 58
-	public static final DOT = 59
-	public static final COLON = 60
-	public static final COMMA = 61
-	public static final LBRACK = 62
-	public static final RBRACK = 63
-	public static final BITWISE_OR = 64
-	public static final INPLACE_BITWISE_OR = 65
-	public static final BITWISE_AND = 66
-	public static final BITWISE_XOR = 67
-	public static final INPLACE_BITWISE_AND = 68
-	public static final LOGICAL_OR = 69
-	public static final LOGICAL_AND = 70
-	public static final EOS = 71
-	public static final ASSIGN = 72
-	public static final INCREMENT = 73
-	public static final DECREMENT = 74
-	public static final ADD = 75
-	public static final SUBTRACT = 76
-	public static final MODULUS = 77
-	public static final MULTIPLY = 78
-	public static final EQUALITY = 79
-	public static final INEQUALITY = 80
-	public static final QUESTION_MARK = 81
-	public static final BITWISE_NOT = 82
-	public static final REFERENCE_EQUALITY = 83
-	public static final REFERENCE_INEQUALITY = 84
-	public static final LESS_THAN = 85
-	public static final LESS_THAN_OR_EQUAL = 86
-	public static final SHIFT_LEFT = 87
-	public static final INPLACE_SHIFT_LEFT = 88
-	public static final GREATER_THAN = 89
-	public static final GREATER_THAN_OR_EQUAL = 90
-	public static final SHIFT_RIGHT = 91
-	public static final INPLACE_SHIFT_RIGHT = 92
-	public static final AT = 93
-	public static final SCRIPT_ATTRIBUTE_MARKER = 94
-	public static final HASH = 95
-	public static final INPLACE_BITWISE_XOR = 96
-	public static final NOT = 97
-	public static final DIVISION = 98
-	public static final RE_LITERAL = 99
-	public static final DOUBLE = 100
-	public static final INT = 101
-	public static final LONG = 102
-	public static final DOUBLE_SUFFIX = 103
-	public static final EXPONENT = 104
-	public static final WHITE_SPACE = 105
-	public static final DQS_ESC = 106
-	public static final SQS_ESC = 107
-	public static final SESC = 108
-	public static final ML_COMMENT = 109
-	public static final RE_CHAR = 110
-	public static final RE_ESC = 111
-	public static final NEWLINE = 112
-	public static final ID_LETTER = 113
-	public static final DIGIT = 114
-	public static final HEXDIGIT = 115
+	public static final CAST = 6
+	public static final CATCH = 7
+	public static final CLASS = 8
+	public static final CONTINUE = 9
+	public static final ELSE = 10
+	public static final ENUM = 11
+	public static final EXTENDS = 12
+	public static final FALSE = 13
+	public static final FINAL = 14
+	public static final FINALLY = 15
+	public static final FOR = 16
+	public static final FUNCTION = 17
+	public static final GET = 18
+	public static final IF = 19
+	public static final IMPORT = 20
+	public static final IMPLEMENTS = 21
+	public static final IN = 22
+	public static final INTERFACE = 23
+	public static final INSTANCEOF = 24
+	public static final NEW = 25
+	public static final NULL = 26
+	public static final RETURN = 27
+	public static final PUBLIC = 28
+	public static final PROTECTED = 29
+	public static final INTERNAL = 30
+	public static final OVERRIDE = 31
+	public static final PARTIAL = 32
+	public static final PRAGMA = 33
+	public static final PRIVATE = 34
+	public static final SET = 35
+	public static final STATIC = 36
+	public static final SUPER = 37
+	public static final THIS = 38
+	public static final THROW = 39
+	public static final TRUE = 40
+	public static final TRY = 41
+	public static final TYPEOF = 42
+	public static final VAR = 43
+	public static final VIRTUAL = 44
+	public static final WHILE = 45
+	public static final YIELD = 46
+	public static final SWITCH = 47
+	public static final CASE = 48
+	public static final DEFAULT = 49
+	public static final INPLACE_DIVISION = 50
+	public static final INPLACE_ADD = 51
+	public static final INPLACE_SUBTRACT = 52
+	public static final INPLACE_MULTIPLY = 53
+	public static final ID = 54
+	public static final DOUBLE_QUOTED_STRING = 55
+	public static final LBRACE = 56
+	public static final RBRACE = 57
+	public static final LPAREN = 58
+	public static final RPAREN = 59
+	public static final DOT = 60
+	public static final COLON = 61
+	public static final COMMA = 62
+	public static final LBRACK = 63
+	public static final RBRACK = 64
+	public static final BITWISE_OR = 65
+	public static final INPLACE_BITWISE_OR = 66
+	public static final BITWISE_AND = 67
+	public static final BITWISE_XOR = 68
+	public static final INPLACE_BITWISE_AND = 69
+	public static final LOGICAL_OR = 70
+	public static final LOGICAL_AND = 71
+	public static final EOS = 72
+	public static final ASSIGN = 73
+	public static final INCREMENT = 74
+	public static final DECREMENT = 75
+	public static final ADD = 76
+	public static final SUBTRACT = 77
+	public static final MODULUS = 78
+	public static final MULTIPLY = 79
+	public static final EQUALITY = 80
+	public static final INEQUALITY = 81
+	public static final QUESTION_MARK = 82
+	public static final BITWISE_NOT = 83
+	public static final REFERENCE_EQUALITY = 84
+	public static final REFERENCE_INEQUALITY = 85
+	public static final LESS_THAN = 86
+	public static final LESS_THAN_OR_EQUAL = 87
+	public static final SHIFT_LEFT = 88
+	public static final INPLACE_SHIFT_LEFT = 89
+	public static final GREATER_THAN = 90
+	public static final GREATER_THAN_OR_EQUAL = 91
+	public static final SHIFT_RIGHT = 92
+	public static final INPLACE_SHIFT_RIGHT = 93
+	public static final AT = 94
+	public static final SCRIPT_ATTRIBUTE_MARKER = 95
+	public static final HASH = 96
+	public static final INPLACE_BITWISE_XOR = 97
+	public static final NOT = 98
+	public static final DIVISION = 99
+	public static final RE_LITERAL = 100
+	public static final DOUBLE = 101
+	public static final INT = 102
+	public static final LONG = 103
+	public static final DOUBLE_SUFFIX = 104
+	public static final EXPONENT = 105
+	public static final WHITE_SPACE = 106
+	public static final DQS_ESC = 107
+	public static final SQS_ESC = 108
+	public static final SESC = 109
+	public static final ML_COMMENT = 110
+	public static final RE_CHAR = 111
+	public static final RE_ESC = 112
+	public static final NEWLINE = 113
+	public static final ID_LETTER = 114
+	public static final DIGIT = 115
+	public static final HEXDIGIT = 116
 	
 	
 	static def IsDigit(ch as char):
@@ -165,97 +166,98 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 		caseSensitiveLiterals = true
 		setCaseSensitive(true)
 		literals = Hashtable(100, 0.4, null, Comparer.Default)
-		literals.Add(",", 61)
-		literals.Add("public", 27)
-		literals.Add("a string", 54)
-		literals.Add("an identifier", 53)
-		literals.Add("]", 63)
-		literals.Add("case", 47)
+		literals.Add(",", 62)
+		literals.Add("public", 28)
+		literals.Add("a string", 55)
+		literals.Add("an identifier", 54)
+		literals.Add("]", 64)
+		literals.Add("case", 48)
 		literals.Add("break", 5)
-		literals.Add("while", 44)
-		literals.Add("new", 24)
-		literals.Add("||", 69)
-		literals.Add("+", 75)
-		literals.Add("instanceof", 23)
-		literals.Add("implements", 20)
-		literals.Add("*", 78)
-		literals.Add("|=", 65)
-		literals.Add("typeof", 41)
-		literals.Add("[", 62)
-		literals.Add(">>=", 92)
-		literals.Add("return", 26)
-		literals.Add("throw", 38)
-		literals.Add("var", 42)
-		literals.Add(")", 58)
-		literals.Add("==", 79)
-		literals.Add("null", 25)
-		literals.Add("protected", 28)
-		literals.Add("@script", 94)
-		literals.Add("class", 7)
-		literals.Add("(", 57)
-		literals.Add("~", 82)
-		literals.Add("function", 16)
-		literals.Add("/=", 49)
-		literals.Add("super", 36)
-		literals.Add("@", 93)
-		literals.Add("-=", 51)
-		literals.Add("set", 34)
-		literals.Add("+=", 50)
-		literals.Add("!==", 84)
-		literals.Add("}", 56)
-		literals.Add("interface", 22)
-		literals.Add("?", 81)
-		literals.Add("&", 66)
-		literals.Add("internal", 29)
-		literals.Add("final", 13)
-		literals.Add("yield", 45)
-		literals.Add("!=", 80)
-		literals.Add("===", 83)
-		literals.Add("if", 18)
-		literals.Add("|", 64)
-		literals.Add("override", 30)
-		literals.Add(">", 89)
+		literals.Add("while", 45)
+		literals.Add("new", 25)
+		literals.Add("||", 70)
+		literals.Add("+", 76)
+		literals.Add("instanceof", 24)
+		literals.Add("implements", 21)
+		literals.Add("*", 79)
+		literals.Add("|=", 66)
+		literals.Add("typeof", 42)
+		literals.Add("[", 63)
+		literals.Add(">>=", 93)
+		literals.Add("return", 27)
+		literals.Add("throw", 39)
+		literals.Add("var", 43)
+		literals.Add(")", 59)
+		literals.Add("==", 80)
+		literals.Add("null", 26)
+		literals.Add("protected", 29)
+		literals.Add("@script", 95)
+		literals.Add("class", 8)
+		literals.Add("(", 58)
+		literals.Add("~", 83)
+		literals.Add("function", 17)
+		literals.Add("/=", 50)
+		literals.Add("super", 37)
+		literals.Add("@", 94)
+		literals.Add("-=", 52)
+		literals.Add("set", 35)
+		literals.Add("+=", 51)
+		literals.Add("!==", 85)
+		literals.Add("}", 57)
+		literals.Add("interface", 23)
+		literals.Add("?", 82)
+		literals.Add("&", 67)
+		literals.Add("internal", 30)
+		literals.Add("final", 14)
+		literals.Add("yield", 46)
+		literals.Add("!=", 81)
+		literals.Add("===", 84)
+		literals.Add("if", 19)
+		literals.Add("|", 65)
+		literals.Add("override", 31)
+		literals.Add(">", 90)
 		literals.Add("as", 4)
-		literals.Add("%", 77)
-		literals.Add("pragma", 32)
-		literals.Add("catch", 6)
-		literals.Add("try", 40)
-		literals.Add("{", 55)
-		literals.Add("=", 72)
-		literals.Add("enum", 10)
-		literals.Add("for", 15)
-		literals.Add(">>", 91)
-		literals.Add("extends", 11)
-		literals.Add("private", 33)
-		literals.Add("default", 48)
-		literals.Add("--", 74)
-		literals.Add("<", 85)
-		literals.Add("false", 12)
-		literals.Add("this", 37)
-		literals.Add("static", 35)
-		literals.Add(">=", 90)
-		literals.Add("<=", 86)
-		literals.Add("partial", 31)
-		literals.Add(";", 71)
-		literals.Add("get", 17)
-		literals.Add("<<=", 88)
-		literals.Add("continue", 8)
-		literals.Add("&&", 70)
-		literals.Add("<<", 87)
-		literals.Add(".", 59)
-		literals.Add("finally", 14)
-		literals.Add("else", 9)
-		literals.Add("import", 19)
-		literals.Add("++", 73)
-		literals.Add(":", 60)
-		literals.Add("in", 21)
-		literals.Add("switch", 46)
-		literals.Add("true", 39)
-		literals.Add("-", 76)
-		literals.Add("*=", 52)
-		literals.Add("virtual", 43)
-		literals.Add("^", 67)
-		literals.Add("&=", 68)
+		literals.Add("%", 78)
+		literals.Add("pragma", 33)
+		literals.Add("catch", 7)
+		literals.Add("try", 41)
+		literals.Add("{", 56)
+		literals.Add("=", 73)
+		literals.Add("enum", 11)
+		literals.Add("for", 16)
+		literals.Add(">>", 92)
+		literals.Add("extends", 12)
+		literals.Add("private", 34)
+		literals.Add("default", 49)
+		literals.Add("--", 75)
+		literals.Add("<", 86)
+		literals.Add("false", 13)
+		literals.Add("this", 38)
+		literals.Add("static", 36)
+		literals.Add(">=", 91)
+		literals.Add("<=", 87)
+		literals.Add("partial", 32)
+		literals.Add(";", 72)
+		literals.Add("get", 18)
+		literals.Add("<<=", 89)
+		literals.Add("continue", 9)
+		literals.Add("&&", 71)
+		literals.Add("cast", 6)
+		literals.Add("<<", 88)
+		literals.Add(".", 60)
+		literals.Add("finally", 15)
+		literals.Add("else", 10)
+		literals.Add("import", 20)
+		literals.Add("++", 74)
+		literals.Add(":", 61)
+		literals.Add("in", 22)
+		literals.Add("switch", 47)
+		literals.Add("true", 40)
+		literals.Add("-", 77)
+		literals.Add("*=", 53)
+		literals.Add("virtual", 44)
+		literals.Add("^", 68)
+		literals.Add("&=", 69)
 	
 	override def nextToken() as IToken:
 		theRetToken as IToken

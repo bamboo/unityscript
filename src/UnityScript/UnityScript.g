@@ -25,6 +25,7 @@ tokens
 {
 	AS="as";
 	BREAK="break";
+	CAST="cast";
 	CATCH="catch";
 	CLASS="class";
 	CONTINUE="continue";
@@ -1384,27 +1385,29 @@ unary_expression returns [Expression e]
 	uOperator = UnaryOperatorType.None
 }: 
 	(
-		(
-			(
-				sub:SUBTRACT { op = sub; uOperator = UnaryOperatorType.UnaryNegation; } |
-				inc:INCREMENT { op = inc; uOperator = UnaryOperatorType.Increment; } |
-				dec:DECREMENT { op = dec; uOperator = UnaryOperatorType.Decrement; } |
-				nt:NOT { op = nt; uOperator = UnaryOperatorType.LogicalNot; } |
-				oc:BITWISE_NOT { op = oc; uOperator = UnaryOperatorType.OnesComplement; }
-			)
-			e=unary_expression
-			{ e = UnaryExpression(ToLexicalInfo(op), uOperator, e) if op is not null }
-		)
+		e=prefix_unary_expression
 		| e=postfix_unary_expression
 	)
 	(
-		t:AS
-		tr=type_reference
-		{
-			e = TryCastExpression(ToLexicalInfo(t), Target: e, Type: tr)
-		}
+		tc:AS tr=type_reference { e = TryCastExpression(ToLexicalInfo(tc), Target: e, Type: tr) }
+		| c:CAST tr=type_reference { e = CastExpression(ToLexicalInfo(c), Target: e, Type: tr) }
 	)?
 ;
+
+prefix_unary_expression returns [Expression e]
+{
+	uOperator = UnaryOperatorType.None
+}: 
+	(
+		sub:SUBTRACT { op = sub; uOperator = UnaryOperatorType.UnaryNegation; } |
+		inc:INCREMENT { op = inc; uOperator = UnaryOperatorType.Increment; } |
+		dec:DECREMENT { op = dec; uOperator = UnaryOperatorType.Decrement; } |
+		nt:NOT { op = nt; uOperator = UnaryOperatorType.LogicalNot; } |
+		oc:BITWISE_NOT { op = oc; uOperator = UnaryOperatorType.OnesComplement; }
+	)
+	e=unary_expression { e = UnaryExpression(ToLexicalInfo(op), uOperator, e) }
+;
+
 
 term returns [Expression e]
 {

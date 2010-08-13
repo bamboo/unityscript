@@ -275,6 +275,14 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/boolcast.js")
 		
 	
+	[Test] def cast_operator_1():
+		RunTestCase("tests/integration/cast-operator-1.js")
+		
+	
+	[Test] def cast_operator_precedence():
+		RunTestCase("tests/integration/cast-operator-precedence.js")
+		
+	
 	[Test] def chars():
 		RunTestCase("tests/integration/chars.js")
 		
