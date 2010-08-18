@@ -82,6 +82,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 			
 	override def OnModule(module as Module):           
 		Parameters.Strict = _strict = module.ContainsAnnotation("strict")
+		Parameters.Ducky = not _strict
 		_implicit = module.ContainsAnnotation("implicit")
 		my(UnityDowncastPermissions).Enabled = module.ContainsAnnotation("downcast")
 		super(module)
