@@ -722,7 +722,9 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 						raise NoViableAltForCharException(cached_LA1, getFilename(), getLine(), getColumn())
 				if 0 == inputState.guessing:
 					_ttype = LONG; 
-			elif ((_givenValue == char('F'))
+			elif ((_givenValue == char('D'))
+				 or (_givenValue ==char('F'))
+				 or (_givenValue ==char('d'))
 				 or (_givenValue ==char('f'))
 			): // 1827
 				_givenValue  = cached_LA1
@@ -730,6 +732,10 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 					match('f')
 				elif ((_givenValue == char('F'))): // 1831
 					match('F')
+				elif ((_givenValue == char('d'))): // 1831
+					match('d')
+				elif ((_givenValue == char('D'))): // 1831
+					match('D')
 				else: // line 1969
 						raise NoViableAltForCharException(cached_LA1, getFilename(), getLine(), getColumn())
 				if 0 == inputState.guessing:
@@ -818,6 +824,10 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 			match('f')
 		elif ((_givenValue == char('F'))): // 1831
 			match('F')
+		elif ((_givenValue == char('d'))): // 1831
+			match('d')
+		elif ((_givenValue == char('D'))): // 1831
+			match('D')
 		else: // line 1969
 				pass // 947
 		if (_createToken and (_token is null) and (_ttype != Token.SKIP)):

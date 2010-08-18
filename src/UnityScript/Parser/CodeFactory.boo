@@ -9,12 +9,12 @@ static class CodeFactory:
 		return [| Boo.Lang.Builtins.array[of $elementType](cast(int, $count)) |].WithLocation(location)
 		
 	def NewDoubleLiteralExpression(location as LexicalInfo, literal as string):
-		if literal.EndsWith('f') or literal.EndsWith('F'):
-			return DoubleLiteralExpression(location, ParseDouble(literal[:-1]), IsSingle: true)
+		if literal.EndsWith('d') or literal.EndsWith('D'):
+			return DoubleLiteralExpression(location, ParseDouble(literal[:-1]))
 			
+		literal = literal[:-1] if literal.EndsWith('f') or literal.EndsWith('F')
 		value = ParseDouble(literal)
-		s as single = value
-		return DoubleLiteralExpression(location, value, IsSingle:  (value - s) < single.Epsilon)
+		return DoubleLiteralExpression(location, value, IsSingle:  true)
 		
 	private def ParseDouble(text as string):
 		return double.Parse(text, CultureInfo.InvariantCulture)

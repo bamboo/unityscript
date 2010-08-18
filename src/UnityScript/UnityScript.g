@@ -1779,7 +1779,7 @@ INT:
 	(DIGIT)+
 	(
 		('l' | 'L') { $setType(LONG); } |
-		('f' | 'F') { $setType(DOUBLE); } |
+		('f' | 'F' | 'd' | 'D') { $setType(DOUBLE); } |
 		('.' DOUBLE_SUFFIX) { $setType(DOUBLE); } |
 		EXPONENT { $setType(DOUBLE); } |
 	)
@@ -1788,7 +1788,7 @@ INT:
 DOT: '.' (DOUBLE_SUFFIX {$setType(DOUBLE);})?;
 
 protected
-DOUBLE_SUFFIX: (DIGIT)+ (EXPONENT)? ('f' | 'F')?;
+DOUBLE_SUFFIX: (DIGIT)+ (EXPONENT)? ('f' | 'F' | 'd' | 'D')?;
 
 protected
 EXPONENT: ('e' | 'E') ('+' | '-')? (DIGIT)+;
