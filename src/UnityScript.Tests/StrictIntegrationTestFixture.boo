@@ -4,7 +4,13 @@ namespace UnityScript.Tests
 import NUnit.Framework
 	
 [TestFixture]
-class IntegrationTestFixture(AbstractIntegrationTestFixture):
+class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
+			
+	override def SetCompilationOptions():
+		super()
+		Parameters.Ducky = false
+		Parameters.Strict = true
+
 
 	
 	[Test] def JSCheckFloatToIntOverflow():
@@ -15,10 +21,6 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/JSChooseOverload.js")
 		
 	
-	[Test] def accessor_2_duck():
-		RunTestCase("tests/integration/accessor-2-duck.js")
-		
-	
 	[Test] def accessor_2():
 		RunTestCase("tests/integration/accessor-2.js")
 		
@@ -27,16 +29,8 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/accessor-3-duck.js")
 		
 	
-	[Test] def accessor_duck():
-		RunTestCase("tests/integration/accessor-duck.js")
-		
-	
 	[Test] def accessor():
 		RunTestCase("tests/integration/accessor.js")
-		
-	
-	[Test] def ambigous_call():
-		RunTestCase("tests/integration/ambigous-call.js")
 		
 	
 	[Test] def anonymous_function_type_1():
@@ -59,10 +53,6 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/array-Remove.js")
 		
 	
-	[Test] def array_access():
-		RunTestCase("tests/integration/array-access.js")
-		
-	
 	[Test] def array_cast_2():
 		RunTestCase("tests/integration/array-cast-2.js")
 		
@@ -77,10 +67,6 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 	
 	[Test] def array_cast_5():
 		RunTestCase("tests/integration/array-cast-5.js")
-		
-	
-	[Test] def array_cast_6():
-		RunTestCase("tests/integration/array-cast-6.js")
 		
 	
 	[Test] def array_cast():
@@ -119,10 +105,6 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/array-instantiation-with-object-argument.js")
 		
 	
-	[Test] def array_iterate():
-		RunTestCase("tests/integration/array-iterate.js")
-		
-	
 	[Test] def array_iteration_with_nulls():
 		RunTestCase("tests/integration/array-iteration-with-nulls.js")
 		
@@ -131,24 +113,12 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/array-join.js")
 		
 	
-	[Test] def array_length_2():
-		RunTestCase("tests/integration/array-length-2.js")
-		
-	
 	[Test] def array_length_duck_typed():
 		RunTestCase("tests/integration/array-length-duck-typed.js")
 		
 	
 	[Test] def array_length():
 		RunTestCase("tests/integration/array-length.js")
-		
-	
-	[Test] def array_nest_1():
-		RunTestCase("tests/integration/array-nest-1.js")
-		
-	
-	[Test] def array_nest_2():
-		RunTestCase("tests/integration/array-nest-2.js")
 		
 	
 	[Test] def array_polymorphic_foreach():
@@ -161,10 +131,6 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 	
 	[Test] def array_push_2():
 		RunTestCase("tests/integration/array-push-2.js")
-		
-	
-	[Test] def array_push_typesjs():
-		RunTestCase("tests/integration/array-push-typesjs.js")
 		
 	
 	[Test] def array_push():
@@ -203,10 +169,6 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/array-unshift.js")
 		
 	
-	[Test] def arrays_10():
-		RunTestCase("tests/integration/arrays-10.js")
-		
-	
 	[Test] def arrays_2():
 		RunTestCase("tests/integration/arrays-2.js")
 		
@@ -219,20 +181,8 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/arrays-4.js")
 		
 	
-	[Test] def arrays_5():
-		RunTestCase("tests/integration/arrays-5.js")
-		
-	
 	[Test] def arrays_6():
 		RunTestCase("tests/integration/arrays-6.js")
-		
-	
-	[Test] def arrays_7():
-		RunTestCase("tests/integration/arrays-7.js")
-		
-	
-	[Test] def arrays_9():
-		RunTestCase("tests/integration/arrays-9.js")
 		
 	
 	[Test] def arrays():
@@ -251,28 +201,12 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/attributes.js")
 		
 	
-	[Test] def auto_coroutine_2_duck():
-		RunTestCase("tests/integration/auto-coroutine-2-duck.js")
-		
-	
 	[Test] def auto_coroutine_2():
 		RunTestCase("tests/integration/auto-coroutine-2.js")
 		
 	
-	[Test] def auto_coroutine_duck():
-		RunTestCase("tests/integration/auto-coroutine-duck.js")
-		
-	
 	[Test] def auto_coroutine_return_2():
 		RunTestCase("tests/integration/auto-coroutine-return-2.js")
-		
-	
-	[Test] def auto_coroutine():
-		RunTestCase("tests/integration/auto-coroutine.js")
-		
-	
-	[Test] def boolcast():
-		RunTestCase("tests/integration/boolcast.js")
 		
 	
 	[Test] def cast_operator_1():
@@ -323,10 +257,6 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/coroutine-return-type-1.js")
 		
 	
-	[Test] def coroutine_return():
-		RunTestCase("tests/integration/coroutine-return.js")
-		
-	
 	[Test] def coroutine_try_catch():
 		RunTestCase("tests/integration/coroutine-try-catch.js")
 		
@@ -341,82 +271,6 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 	
 	[Test] def double_precision_can_be_used_for_literals():
 		RunTestCase("tests/integration/double-precision-can-be-used-for-literals.js")
-		
-	
-	[Test] def duck_1():
-		RunTestCase("tests/integration/duck-1.js")
-		
-	
-	[Test] def duck_equality_operator_1():
-		RunTestCase("tests/integration/duck-equality-operator-1.js")
-		
-	
-	[Test] def duck_implicit_bool_1():
-		RunTestCase("tests/integration/duck-implicit-bool-1.js")
-		
-	
-	[Test] def duck_implicit_bool_and_with_simple_ref():
-		RunTestCase("tests/integration/duck-implicit-bool-and-with-simple-ref.js")
-		
-	
-	[Test] def duck_implicit_bool_and():
-		RunTestCase("tests/integration/duck-implicit-bool-and.js")
-		
-	
-	[Test] def duck_implicit_bool_full():
-		RunTestCase("tests/integration/duck-implicit-bool-full.js")
-		
-	
-	[Test] def duck_implicit_bool_simple():
-		RunTestCase("tests/integration/duck-implicit-bool-simple.js")
-		
-	
-	[Test] def duck_return_property():
-		RunTestCase("tests/integration/duck-return-property.js")
-		
-	
-	[Test] def duck():
-		RunTestCase("tests/integration/duck.js")
-		
-	
-	[Test] def ducktyped_1():
-		RunTestCase("tests/integration/ducktyped-1.js")
-		
-	
-	[Test] def ducktyping_2():
-		RunTestCase("tests/integration/ducktyping-2.js")
-		
-	
-	[Test] def ducktyping_3():
-		RunTestCase("tests/integration/ducktyping-3.js")
-		
-	
-	[Test] def ducktyping():
-		RunTestCase("tests/integration/ducktyping.js")
-		
-	
-	[Test] def ducky_1():
-		RunTestCase("tests/integration/ducky-1.js")
-		
-	
-	[Test] def ducky_2():
-		RunTestCase("tests/integration/ducky_2.js")
-		
-	
-	[Test] def ducky_3():
-		RunTestCase("tests/integration/ducky_3.js")
-		
-	
-	[Test] def ducky_4():
-		RunTestCase("tests/integration/ducky_4.js")
-		
-	
-	[Test] def ducky_5():
-		RunTestCase("tests/integration/ducky_5.js")
-		
-	
-	[Test] def ducky_6():
-		RunTestCase("tests/integration/ducky_6.js")
 		
 	
 	[Test] def empty_array_literal_as_return_value():
@@ -479,6 +333,10 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/float-overload-is-preferred-over-int-for-double-argument-2.js")
 		
 	
+	[Test] def float_overload_is_preferred_over_int_for_double_argument_strict_downcast():
+		RunTestCase("tests/integration/float-overload-is-preferred-over-int-for-double-argument-strict-downcast.js")
+		
+	
 	[Test] def float_overload_is_preferred_over_int_for_double_argument_strict():
 		RunTestCase("tests/integration/float-overload-is-preferred-over-int-for-double-argument-strict.js")
 		
@@ -517,10 +375,6 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 	
 	[Test] def generator_inheritance():
 		RunTestCase("tests/integration/generator-inheritance.js")
-		
-	
-	[Test] def implicit_conversion():
-		RunTestCase("tests/integration/implicit_conversion.js")
 		
 	
 	[Test] def implict_bool_hierarchy():
@@ -563,10 +417,6 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/new-1.js")
 		
 	
-	[Test] def null_assign():
-		RunTestCase("tests/integration/null-assign.js")
-		
-	
 	[Test] def null_initializer():
 		RunTestCase("tests/integration/null-initializer.js")
 		
@@ -589,14 +439,6 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 	
 	[Test] def parse_int():
 		RunTestCase("tests/integration/parse_int.js")
-		
-	
-	[Test] def pragma_expando_1():
-		RunTestCase("tests/integration/pragma-expando-1.js")
-		
-	
-	[Test] def pragma_expando_2():
-		RunTestCase("tests/integration/pragma-expando-2.js")
 		
 	
 	[Test] def private_duck():
@@ -685,10 +527,6 @@ class IntegrationTestFixture(AbstractIntegrationTestFixture):
 	
 	[Test] def valuetypes_1():
 		RunTestCase("tests/integration/valuetypes-1.js")
-		
-	
-	[Test] def var_with_no_initializer():
-		RunTestCase("tests/integration/var-with-no-initializer.js")
 		
 	
 	[Test] def variable_declaration_2():

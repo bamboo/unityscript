@@ -26,10 +26,6 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/cannot-convert-error.js")
 		
 	
-	[Test] def conditional_compilation_with_pragma_strict():
-		RunTestCase("tests/error-messages/conditional-compilation-with-pragma-strict.js")
-		
-	
 	[Test] def double_array_in_float_array_var_initializer():
 		RunTestCase("tests/error-messages/double-array-in-float-array-var-initializer.js")
 		
@@ -98,22 +94,6 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/overeager-semicolon2.js")
 		
 	
-	[Test] def pragma_strict_2():
-		RunTestCase("tests/error-messages/pragma-strict-2.js")
-		
-	
-	[Test] def pragma_strict_3js():
-		RunTestCase("tests/error-messages/pragma-strict-3js.js")
-		
-	
-	[Test] def pragma_strict_disallows_downcast():
-		RunTestCase("tests/error-messages/pragma-strict-disallows-downcast.js")
-		
-	
-	[Test] def pragma_strict():
-		RunTestCase("tests/error-messages/pragma-strict.js")
-		
-	
 	[Test] def rethrow_outside_catch():
 		RunTestCase("tests/error-messages/rethrow-outside-catch.js")
 		
@@ -128,6 +108,30 @@ partial class ErrorMessagesTestFixture:
 	
 	[Test] def static_instance_overload_resolution():
 		RunTestCase("tests/error-messages/static-instance-overload-resolution.js")
+		
+	
+	[Test] def strict_conditional_compilation():
+		RunTestCase("tests/error-messages/strict-conditional-compilation.js")
+		
+	
+	[Test] def strict_disallows_downcast():
+		RunTestCase("tests/error-messages/strict-disallows-downcast.js")
+		
+	
+	[Test] def strict_disallows_duck_downcast():
+		RunTestCase("tests/error-messages/strict-disallows-duck-downcast.js")
+		
+	
+	[Test] def strict_disallows_dynamic_dispatching():
+		RunTestCase("tests/error-messages/strict-disallows-dynamic-dispatching.js")
+		
+	
+	[Test] def strict_disallows_implicit_variable_declaration():
+		RunTestCase("tests/error-messages/strict-disallows-implicit-variable-declaration.js")
+		
+	
+	[Test] def strict_nongeneric_GetComponent():
+		RunTestCase("tests/error-messages/strict-nongeneric-GetComponent.js")
 		
 	
 	[Test] def unused_variable():

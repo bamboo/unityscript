@@ -6,10 +6,9 @@ import NUnit.Framework
 [TestFixture]
 class ExpandoTestFixture(AbstractIntegrationTestFixture):
 	
-	override def CreateCompiler():
-		compiler = super()
-		compiler.Parameters.Expando = true
-		return compiler
+	override def SetCompilationOptions():
+		super()
+		Parameters.Expando = true
 
 	
 	[Test] def expando_1():

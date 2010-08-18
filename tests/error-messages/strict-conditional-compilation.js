@@ -1,5 +1,5 @@
 /*
-conditional-compilation-with-pragma-strict.js(11,5): BCE0019: 'Foo' is not a member of 'UnityScript.Tests.Component'.
+strict-conditional-compilation.js(11,5): BCE0019: 'Foo' is not a member of 'UnityScript.Tests.Component'.
 */
 #pragma strict
 

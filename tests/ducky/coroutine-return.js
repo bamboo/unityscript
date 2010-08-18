@@ -1,7 +1,6 @@
 /*
 test
 */
-// Duck typed objects return Coroutine instead of string
 var shipType =  "test"; 
 
 Test();

@@ -13,21 +13,10 @@ class AbstractIntegrationTestFixture(AbstractCompilerTestFixture):
 	override DisplayErrorStackTrace:
 		get: return true
 	
-	OutputAssemblyPath:
-		get: return Path.Combine(
-						Path.Combine(Path.GetTempPath(), "UnityScript"),
-						GetType().Name)
-
 	[TestFixtureSetUp]
 	override def SetUpFixture():
 		super()	
-		if Directory.Exists(OutputAssemblyPath): Directory.Delete(OutputAssemblyPath, true)
-		Directory.CreateDirectory(OutputAssemblyPath)
 		CopyReferencedAssemblies()
-		
-	override def CompileTestCase(fname as string):
-		_compiler.Parameters.OutputAssembly = Path.Combine(OutputAssemblyPath, GetType().Name.Replace("TestFixture", "") + "-" + Path.GetFileNameWithoutExtension(fname) + ".exe")
-		return super(fname)
 		
 	def CopyReferencedAssemblies():
 		CopyParentAssembly(UnityScriptCompiler)

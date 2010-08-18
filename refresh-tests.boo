@@ -16,18 +16,19 @@ import Boo.Lang.PatternMatching
 def GetTestCaseName(fname as string):
 	return Path.GetFileNameWithoutExtension(fname).Replace("-", "_")
 	
-def WriteTestCases(writer as TextWriter, baseDir as string):
-	count = 0
-	for fname in Directory.GetFiles(baseDir):
-		continue unless fname.EndsWith(".js")
-		++count
-		categoryAttribute = CategoryAttributeFor(fname)
-		writer.Write("""
+def WriteTestCases(writer as TextWriter, baseDirs as string*):
+	for baseDir in baseDirs:
+		count = 0
+		for fname in Directory.GetFiles(baseDir):
+			continue unless fname.EndsWith(".js")
+			++count
+			categoryAttribute = CategoryAttributeFor(fname)
+			writer.Write("""
 	${categoryAttribute}
 	[Test] def ${GetTestCaseName(fname)}():
 		RunTestCase("${fname.Replace('\\', '/')}")
 		""")
-	print("${count} test cases found in ${baseDir}.")
+		print("${count} test cases found in ${baseDir}.")
 	
 def CategoryAttributeFor(testFile as string):
 """
@@ -46,8 +47,8 @@ def FirstLineOf(fname as string):
 	using reader=File.OpenText(fname):
 		return reader.ReadLine()
 
-def GenerateTestFixture(srcDir as string, targetFile as string, header as string):
-	contents = GenerateTestFixtureSource(srcDir, header)
+def GenerateTestFixture(targetFile as string, header as string, *srcDirs as (string)):
+	contents = GenerateTestFixtureSource(header, srcDirs)
 	if ShouldReplaceContent(targetFile, contents):
 		WriteAllText(targetFile, contents)
 		
@@ -69,66 +70,85 @@ Normalize string.
 """
 	return s.Trim().Replace("\r\n", Environment.NewLine)
 	
-def GenerateTestFixtureSource(srcDir as string, header as string):
+def GenerateTestFixtureSource(header as string, srcDirs as (string)):
 	writer=StringWriter()
 	writer.Write(header)	
-	WriteTestCases(writer, srcDir)
+	WriteTestCases(writer, srcDirs)
 	return writer.ToString()
 
-GenerateTestFixture("tests/parser", "src/UnityScript.Tests/ParserTestFixture.Generated.boo", """
+GenerateTestFixture("src/UnityScript.Tests/ParserTestFixture.Generated.boo", """
 namespace UnityScript.Tests
 
 import NUnit.Framework
 	
 partial class ParserTestFixture:
-""")
+""", "tests/parser")
 
-GenerateTestFixture("tests/semantics", "src/UnityScript.Tests/SemanticsTestFixture.boo", """
+GenerateTestFixture("src/UnityScript.Tests/SemanticsTestFixture.boo", """
 namespace UnityScript.Tests
 
 import NUnit.Framework
 	
 [TestFixture]
 class SemanticsTestFixture(AbstractSemanticsTestFixture):
-""")
+""", "tests/semantics")
 
-GenerateTestFixture("tests/integration", "src/UnityScript.Tests/IntegrationTestFixture.boo", """
+GenerateTestFixture("src/UnityScript.Tests/StrictIntegrationTestFixture.boo", """
 namespace UnityScript.Tests
 
 import NUnit.Framework
 	
 [TestFixture]
-class IntegrationTestFixture(AbstractIntegrationTestFixture):
-""")
+class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
+			
+	override def SetCompilationOptions():
+		super()
+		Parameters.Ducky = false
+		Parameters.Strict = true
 
-GenerateTestFixture("tests/pragma", "src/UnityScript.Tests/PragmaTestFixture.boo", """
+""", "tests/integration")
+
+GenerateTestFixture("src/UnityScript.Tests/DuckyIntegrationTestFixture.boo", """
+namespace UnityScript.Tests
+
+import NUnit.Framework
+	
+[TestFixture]
+class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
+	override def SetCompilationOptions():
+		super()
+		Parameters.Ducky = true
+		Parameters.Strict = false
+""", "tests/integration", "tests/ducky")
+
+GenerateTestFixture("src/UnityScript.Tests/PragmaTestFixture.boo", """
 namespace UnityScript.Tests
 
 import NUnit.Framework
 	
 [TestFixture]
 class PragmaTestFixture(AbstractIntegrationTestFixture):
-""")
+""", "tests/pragma")
 
-GenerateTestFixture("tests/generics", "src/UnityScript.Tests/GenericsTestFixture.Generated.boo", """
+GenerateTestFixture("src/UnityScript.Tests/GenericsTestFixture.Generated.boo", """
 namespace UnityScript.Tests
 
 import NUnit.Framework
 	
 [TestFixture]
 class GenericsTestFixture(AbstractIntegrationTestFixture):
-""")
+""", "tests/generics")
 
-GenerateTestFixture("tests/eval", "src/UnityScript.Tests/EvalTestFixture.boo", """
+GenerateTestFixture("src/UnityScript.Tests/EvalTestFixture.boo", """
 namespace UnityScript.Tests
 
 import NUnit.Framework
 	
 [TestFixture]
 class EvalTestFixture(AbstractIntegrationTestFixture):
-""")
+""", "tests/eval")
 
-GenerateTestFixture("tests/expando", "src/UnityScript.Tests/ExpandoTestFixture.boo", """
+GenerateTestFixture("src/UnityScript.Tests/ExpandoTestFixture.boo", """
 namespace UnityScript.Tests
 
 import NUnit.Framework
@@ -136,26 +156,24 @@ import NUnit.Framework
 [TestFixture]
 class ExpandoTestFixture(AbstractIntegrationTestFixture):
 	
-	override def CreateCompiler():
-		compiler = super()
-		compiler.Parameters.Expando = true
-		return compiler
-""")
+	override def SetCompilationOptions():
+		super()
+		Parameters.Expando = true
+""", "tests/expando")
 
 
-
-GenerateTestFixture("tests/error-messages", "src/UnityScript.Tests/ErrorMessagesTestFixture.Generated.boo", """
+GenerateTestFixture("src/UnityScript.Tests/ErrorMessagesTestFixture.Generated.boo", """
 namespace UnityScript.Tests
 
 import NUnit.Framework
 	
 partial class ErrorMessagesTestFixture:
-""")
+""", "tests/error-messages")
 
-GenerateTestFixture("tests/stacktrace", "src/UnityScript.Tests/StackTraceTestFixture.Generated.boo", """
+GenerateTestFixture("src/UnityScript.Tests/StackTraceTestFixture.Generated.boo", """
 namespace UnityScript.Tests
 
 import NUnit.Framework	
 
 partial class StackTraceTestFixture:
-""")
+""", "tests/stacktrace")

@@ -1,7 +1,6 @@
 namespace UnityScript.Tests
 
 import System
-import System.IO
 import System.Reflection
 
 import NUnit.Framework
@@ -28,18 +27,19 @@ class EvalCompilationTest(AbstractCompilerTest):
 		
 		expected = ("Boo.Lang", "mscorlib", "UnityScript", "UnityScript.Tests")
 		code = """
-		var l: Boo.Lang.List.<String>;
+		var foo = new Boo.Lang.List.<String>();
 		eval("print(\"hello\")");
 		"""
 		AssertAssemblyReferencesForEval expected, code
 		
 	def AssertAssemblyReferencesForEval(expected as (string), code as string):
 		
-		Parameters.OutputAssembly = Path.GetTempFileName() + ".dll"
-		result = CompileTestCase(StringInput("code.js", code))
+		result = CompileTestCase(StringInput("t$(++_testId).js", code))
 		assert len(result.Errors) == 0, result.Errors.ToString()
 		
 		actual = array(assemblyName.Name for assemblyName in Assembly.LoadFrom(Parameters.OutputAssembly).GetReferencedAssemblies())
 		Array.Sort(actual)
 		Assert.AreEqual(expected, actual)
+		
+	_testId = 0
 		

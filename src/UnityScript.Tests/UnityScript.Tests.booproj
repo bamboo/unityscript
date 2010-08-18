@@ -52,7 +52,6 @@
     <Compile Include="ExpandoTestFixture.boo" />
     <Compile Include="GenericsTestFixture.Generated.boo" />
     <Compile Include="Globals.boo" />
-    <Compile Include="IntegrationTestFixture.boo" />
     <Compile Include="MonoBehaviour.boo" />
     <Compile Include="ParserTestFixture.boo" />
     <Compile Include="ParserTestFixture.Generated.boo" />
@@ -69,6 +68,8 @@
     <Compile Include="Scripting\EvaluatorTest.boo" />
     <Compile Include="EvalCompilationTest.boo" />
     <Compile Include="AbstractCompilerTest.boo" />
+    <Compile Include="DuckyIntegrationTestFixture.boo" />
+    <Compile Include="StrictIntegrationTestFixture.boo" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UnityScript\UnityScript.booproj">
