@@ -22,7 +22,14 @@
 	
 	<target name="test" depends="all">
 		<property name="excluded.test.categories" value="FailsOnMono" if="${mono}" />
-		<nunit2>       
+		
+		<exec program="nunit-console2" workingdir="${build.dir}">
+			<arg value="-noshadow" />
+			<arg value="-exclude:${excluded.test.categories}" />
+			<arg file="${build.dir}/UnityScript.Tests.dll" />
+		</exec>
+		
+		<nunit2 unless="${mono}">       
 			<formatter type="Plain" />
 			<test>
 				<assemblies basedir="${build.dir}">				
