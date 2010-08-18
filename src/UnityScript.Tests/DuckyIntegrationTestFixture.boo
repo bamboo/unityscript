@@ -395,6 +395,10 @@ class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/length-string.js")
 		
 	
+	[Test] def linq_array_ToList():
+		RunTestCase("tests/integration/linq-array-ToList.js")
+		
+	
 	[Test] def magicclass():
 		RunTestCase("tests/integration/magicclass.js")
 		
