@@ -117,10 +117,6 @@ class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/array-length-duck-typed.js")
 		
 	
-	[Test] def array_length():
-		RunTestCase("tests/integration/array-length.js")
-		
-	
 	[Test] def array_polymorphic_foreach():
 		RunTestCase("tests/integration/array-polymorphic-foreach.js")
 		
@@ -167,6 +163,10 @@ class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
 	
 	[Test] def array_unshift():
 		RunTestCase("tests/integration/array-unshift.js")
+		
+	
+	[Test] def array_with_initial_length():
+		RunTestCase("tests/integration/array-with-initial-length.js")
 		
 	
 	[Test] def arrays_2():
