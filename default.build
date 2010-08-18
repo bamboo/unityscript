@@ -6,7 +6,6 @@
 	<property name="boo.dir" value="../boo" />
 	<property name="boo.lib.dir" value="${boo.dir}/build" dynamic="true" />
 	<property name="antlr.jar" value="${boo.dir}/lib/antlr-2.7.5/antlr-2.7.5.jar" />
-	<property name="excluded.test.categories" value="" />
 	
 	<property name="debug" value="true" />
 	<property name="disallow.system.dll.references" value="false" />
@@ -21,11 +20,9 @@
 	</target>
 	
 	<target name="test" depends="all">
-		<property name="excluded.test.categories" value="FailsOnMono" if="${mono}" />
-		
-		<exec program="nunit-console2" workingdir="${build.dir}">
+		<exec program="nunit-console2" workingdir="${build.dir}" if="${mono}">
 			<arg value="-noshadow" />
-			<arg value="-exclude:${excluded.test.categories}" />
+			<arg value="-exclude:FailsOnMono" />
 			<arg file="${build.dir}/UnityScript.Tests.dll" />
 		</exec>
 		
@@ -35,9 +32,6 @@
 				<assemblies basedir="${build.dir}">				
 					<include name="UnityScript.Tests.dll" />					
 				</assemblies>
-				<categories>
-					<exclude name="${excluded.test.categories}" />
-				</categories>
 			</test>
 		</nunit2>
 	</target>
