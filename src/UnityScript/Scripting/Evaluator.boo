@@ -89,8 +89,6 @@ class Evaluator:
 		_compilationResult = compiler.Run()
 		if len(_compilationResult.Errors):
 			raise CompilationErrorsException(_compilationResult.Errors)
-		
-		#print _compilationResult.CompileUnit.ToCodeString()
 		return _compilationResult.GeneratedAssembly.GetType("script")
 		
 	private def AddEvaluationContextReferencesTo(compiler as UnityScriptCompiler):

@@ -16,9 +16,8 @@ class UnityScriptTypeSystem(TypeSystemServices):
 		self._ScriptBaseType = Map(UnityScriptParameters.ScriptBaseType)
 		self._AbstractGenerator = Map(Boo.Lang.AbstractGenerator)
 		
-	UnityScriptParameters:
-		get:
-			return cast(UnityScript.UnityScriptCompilerParameters, self.Context.Parameters)
+	UnityScriptParameters as UnityScript.UnityScriptCompilerParameters:
+		get: return self.Context.Parameters
 			
 	def IsScriptType(type as IType):
 		return type.IsSubclassOf(_ScriptBaseType)
