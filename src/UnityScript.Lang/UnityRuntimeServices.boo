@@ -55,9 +55,12 @@ class UnityRuntimeServices:
 			return true
 			
 	static def GetEnumerator(obj) as System.Collections.IEnumerator:
-		if obj is null: return (,).GetEnumerator()
-		if IsValueTypeArray(obj) or obj isa UnityScript.Lang.Array:
-			return ListUpdateableEnumerator(obj)
+		if obj is null: return EmptyEnumerator
+		if IsValueTypeArray(obj) or obj isa UnityScript.Lang.Array: return ListUpdateableEnumerator(obj)
+		#require for proper linq support as linq enumerables also implement IEnumerator
+		#but fail to enumerate if accessed as IEnumerator
+		enumerable = obj as System.Collections.IEnumerable
+		if enumerable is not null: return enumerable.GetEnumerator()
 		enumerator = obj as System.Collections.IEnumerator
 		if enumerator is not null: return enumerator
 		return Boo.Lang.Runtime.RuntimeServices.GetEnumerable(obj).GetEnumerator()
