@@ -531,6 +531,10 @@ class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/uint-1.js")
 		
 	
+	[Test] def value_types_1():
+		RunTestCase("tests/integration/value-types-1.js")
+		
+	
 	[Test] def valuetypes_1():
 		RunTestCase("tests/integration/valuetypes-1.js")
 		
