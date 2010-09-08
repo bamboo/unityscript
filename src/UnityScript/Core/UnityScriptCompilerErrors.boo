@@ -17,13 +17,13 @@ static class UnityScriptCompilerErrors:
 		return CreateError("UCE0004", location, "Property getter cannot declare any arguments.")
 		
 	def InterfaceExpected(location as LexicalInfo, typeName as string):
-		return CreateError("UCE0005", location, "'${typeName}' is not an interface. 'implements' can only be used with interfaces. Did you mean 'extends'?")
+		return CreateError("UCE0005", location, "'$typeName' is not an interface. 'implements' can only be used with interfaces. Did you mean 'extends'?")
 	
 	def ClassExpected(location as LexicalInfo, typeName as string):
-		return CreateError("UCE0006", location, "'${typeName}' is not a class. 'extends' can only be used with classes. Did you mean 'implements'?")
+		return CreateError("UCE0006", location, "'$typeName' is not a class. 'extends' can only be used with classes. Did you mean 'implements'?")
 		
 	def KeywordCannotBeUsedAsAnIdentifier(location as LexicalInfo, keyword as string):
-		return CreateError("UCE0007", location, "Reserved keyword '${keyword}' cannot be used as an identifier.")
+		return CreateError("UCE0007", location, "Reserved keyword '$keyword' cannot be used as an identifier.")
 		
 	private def CreateError(code as string, location as LexicalInfo, message as string):
 		return Boo.Lang.Compiler.CompilerError(code, location, message, null)
