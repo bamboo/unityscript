@@ -44,7 +44,7 @@ class UsTestFixture:
 			"-b:UnityScript.Tests.MonoBehaviour",
 			"-m:Awake",
 			ResolvePath("errors-1.js"), )
-		AssertErrorMessageAndExitCode(argv)
+		AssertUnknownIdentifierErrorMessageAndExitCode(argv)
 	
 	[Test]
 	def AcceptsMultipleReferences():
@@ -54,16 +54,32 @@ class UsTestFixture:
 			"-b:UnityScript.Tests.MonoBehaviour",
 			"-m:Awake",
 			ResolvePath("errors-1.js"), )
-		AssertErrorMessageAndExitCode(argv)
+		AssertUnknownIdentifierErrorMessageAndExitCode(argv)
+		
+	[Test]
+	def EvalCanBeDisabled():
+		message = "eval is not available on this platform"
+		argv = (
+			"-r:${GetAssemblyLocation()}",
+			"-b:UnityScript.Tests.MonoBehaviour",
+			"-m:Awake",
+			'"-disable-eval:' + message + '"',
+			path = ResolvePath("eval-can-be-disabled.js"))
+			
+		expected = "$path(2,2): UCE0008: $message"
+		AssertErrorMessageAndExitCode(expected, argv)
 		
 	def ResolvePath(fname as string):
 		return "${AbstractCompilerTestFixture.BasePath}/tests/us/${fname}" 
 		
-	def AssertErrorMessageAndExitCode(argv as (string)):
-		exitCode, output as string = ExecuteUs(argv)
+	def AssertUnknownIdentifierErrorMessageAndExitCode(argv as (string)):
 		expected = """
 		${ResolvePath('errors-1.js')}(2,4): BCE0005: Unknown identifier: 'undefinedNoPathNameError'.
 		"""
+		AssertErrorMessageAndExitCode(expected, argv)
+		
+	def AssertErrorMessageAndExitCode(expected as string, argv as (string)):
+		exitCode, output as string = ExecuteUs(argv)
 		Assert.AreEqual(255, exitCode)
 		Assert.AreEqual(expected.Trim(), output.Trim())
 		

@@ -82,6 +82,9 @@ class CommandLineOptions(AbstractCommandLine):
 	[Option("Enable verbose mode.", LongForm: "verbose")]
 	public Verbose = false
 	
+	[Option("Disables eval builtin.", LongForm: "disable-eval")]
+	public DisableEval as string
+	
 	[Option("Enables a comma separated {set} of #pragma directives on every module", LongForm: "pragmas", MaxOccurs: int.MaxValue)]
 	def AddPragmas(pragmas as string):
 		_pragmas.ExtendUnique(pragma.Trim() for pragma in pragmas.Split(char(',')))

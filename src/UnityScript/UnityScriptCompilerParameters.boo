@@ -23,6 +23,9 @@ class UnityScriptCompilerParameters(CompilerParameters):
 	
 	[property(GlobalVariablesBecomeFields)]
 	_globalVariablesBecomeFields = true
+	
+	[property(DisableEval)]
+	_disableEval as string
 
 	def constructor():
 		self.Ducky = true

@@ -25,6 +25,9 @@ static class UnityScriptCompilerErrors:
 	def KeywordCannotBeUsedAsAnIdentifier(location as LexicalInfo, keyword as string):
 		return CreateError("UCE0007", location, "Reserved keyword '$keyword' cannot be used as an identifier.")
 		
+	def EvalHasBeenDisabled(location as LexicalInfo, reason as string):
+		return CreateError("UCE0008", location, reason)
+		
 	private def CreateError(code as string, location as LexicalInfo, message as string):
 		return Boo.Lang.Compiler.CompilerError(code, location, message, null)
 		

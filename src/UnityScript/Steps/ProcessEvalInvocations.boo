@@ -7,6 +7,7 @@ import Boo.Lang.Compiler.Steps
 import Boo.Lang.Compiler.TypeSystem
 import Boo.Lang.Compiler.TypeSystem.Internal
 import Boo.Lang.Compiler.TypeSystem.Builders
+import UnityScript.Core
 import UnityScript.Scripting
 import UnityScript.TypeSystem
 
@@ -134,7 +135,14 @@ class ProcessEvalInvocations(AbstractVisitorCompilerStep):
 	override def LeaveMethodInvocationExpression(node as MethodInvocationExpression):
 		if not IsEvalInvocation(node): return
 		
+		if not string.IsNullOrEmpty(UnityScriptParameters.DisableEval):
+			Error(node, UnityScriptCompilerErrors.EvalHasBeenDisabled(node.Target.LexicalInfo, UnityScriptParameters.DisableEval))
+			return
+		
 		ReplaceEvalByEvaluatorEval(node)
+		
+	UnityScriptParameters as UnityScript.UnityScriptCompilerParameters:
+		get: return _context.Parameters
 		
 	def IsEvalInvocation(node as MethodInvocationExpression):
 		return node.Target.Entity is UnityScriptTypeSystem.UnityScriptEval
