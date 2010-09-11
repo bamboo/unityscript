@@ -4,6 +4,13 @@ import System.Globalization
 import Boo.Lang.Compiler.Ast
 
 static class CodeFactory:
+	
+	def NewArrayComprehension(location as LexicalInfo, projection as Expression, variable as Declaration, expression as Expression, filter as Expression):
+		ge = GeneratorExpression(location, Expression: projection, Iterator: expression)
+		ge.Declarations.Add(variable)
+		if filter is not null:
+			ge.Filter = StatementModifier(filter.LexicalInfo, Type: StatementModifierType.If, Condition: filter) 
+		return [| Boo.Lang.Builtins.array($ge) |].WithLocation(location)
 
 	def NewArrayInitializer(location as LexicalInfo, elementType as TypeReference, count as Expression):
 		return [| Boo.Lang.Builtins.array[of $elementType](cast(int, $count)) |].WithLocation(location)

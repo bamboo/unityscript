@@ -73,6 +73,10 @@ class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/array-cast.js")
 		
 	
+	[Test] def array_comprehension_1():
+		RunTestCase("tests/integration/array-comprehension-1.js")
+		
+	
 	[Test] def array_concat_1():
 		RunTestCase("tests/integration/array-concat-1.js")
 		

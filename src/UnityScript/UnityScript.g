@@ -906,9 +906,7 @@ declaration returns [Declaration d]
 }:
 	VAR id:ID (COLON tr=type_reference)?
 	{
-		d = Declaration(ToLexicalInfo(id))
-		d.Name = id.getText()
-		d.Type = tr
+		d = Declaration(ToLexicalInfo(id), Name: id.getText(), Type: tr)
 	}
 ;
 		
@@ -1639,13 +1637,22 @@ literal returns [Expression e]
 
 array_literal returns [Expression e]
 {
-	lle as ListLiteralExpression
 }:
 	lbrack:LBRACK
-		{
-			e = lle = ArrayLiteralExpression(ToLexicalInfo(lbrack))
-		}
-		expression_list[lle.Items]
+		
+	(
+		(expression FOR)=>(
+			projection=expression
+			FOR LPAREN ((id:ID | variable=declaration) IN iterator=expression) RPAREN
+			(IF filter=expression)?
+			{
+				if id is not null: variable = Declaration(ToLexicalInfo(id), Name: id.getText())
+				e = CodeFactory.NewArrayComprehension(ToLexicalInfo(lbrack), projection, variable, iterator, filter)
+			}
+		)
+		| { e = ale = ArrayLiteralExpression(ToLexicalInfo(lbrack)) } expression_list[ale.Items]
+	)
+	
 	RBRACK
 ;
 		
