@@ -134,6 +134,10 @@ partial class ParserTestFixture:
 		RunTestCase("tests/parser/interfaces-1.js")
 		
 	
+	[Test] def lambdas():
+		RunTestCase("tests/parser/lambdas.js")
+		
+	
 	[Test] def new_1():
 		RunTestCase("tests/parser/new-1.js")
 		

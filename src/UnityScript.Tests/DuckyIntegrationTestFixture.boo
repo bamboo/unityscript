@@ -403,6 +403,10 @@ class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/linq-function-inference.js")
 		
 	
+	[Test] def linq_lambda_inference():
+		RunTestCase("tests/integration/linq-lambda-inference.js")
+		
+	
 	[Test] def magicclass():
 		RunTestCase("tests/integration/magicclass.js")
 		

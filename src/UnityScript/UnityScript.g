@@ -1165,13 +1165,14 @@ function_expression returns [BlockExpression e]
 	fn:FUNCTION
 	{
 		e = BlockExpression(ToLexicalInfo(fn))
+		e.Annotate("inline");
 		body = e.Body
 	}
 	LPAREN (parameter_declaration_list[e])? RPAREN
 	(
 		COLON tr=type_reference	{ e.ReturnType = tr; }
 	)?
-	block[body]
+	(block[body] | returnValue=expression { body.Add(returnValue) })
 ;
 
 simple_reference_expression returns [Expression e]

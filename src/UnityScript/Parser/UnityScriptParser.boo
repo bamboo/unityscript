@@ -768,8 +768,8 @@ class UnityScriptParser(antlr.LLkParser):
 					match(DOT)
 					e=member_reference_expression(e)
 				else:
-					goto _loop191_breakloop
-			:_loop191_breakloop
+					goto _loop192_breakloop
+			:_loop192_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -3111,8 +3111,8 @@ class UnityScriptParser(antlr.LLkParser):
 						be.Right = r
 						e = be
 				else:
-					goto _loop243_breakloop
-			:_loop243_breakloop
+					goto _loop244_breakloop
+			:_loop244_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -3213,8 +3213,8 @@ class UnityScriptParser(antlr.LLkParser):
 						if 0 == inputState.guessing:
 							ec.Add(e); 
 					else:
-						goto _loop209_breakloop
-				:_loop209_breakloop
+						goto _loop210_breakloop
+				:_loop210_breakloop
 			elif ((_givenValue == RPAREN)
 				 or (_givenValue ==RBRACK)
 			): // 1827
@@ -3319,6 +3319,7 @@ class UnityScriptParser(antlr.LLkParser):
 			match(FUNCTION)
 			if 0 == inputState.guessing:
 				e = BlockExpression(ToLexicalInfo(fn))
+				e.Annotate("inline");
 				body = e.Body
 			match(LPAREN)
 			_givenValue  = LA(1)
@@ -3335,11 +3336,40 @@ class UnityScriptParser(antlr.LLkParser):
 				tr=type_reference()
 				if 0 == inputState.guessing:
 					e.ReturnType = tr; 
-			elif ((_givenValue == LBRACE)): // 1831
+			elif ((_givenValue == FALSE)
+				 or (_givenValue ==FUNCTION)
+				 or (_givenValue ==NEW)
+				 or (_givenValue ==NULL)
+				 or (_givenValue ==SUPER)
+				 or (_givenValue ==THIS)
+				 or (_givenValue ==TRUE)
+				 or (_givenValue ==TYPEOF)
+				 or (_givenValue ==ID)
+				 or (_givenValue ==DOUBLE_QUOTED_STRING)
+				 or (_givenValue ==LBRACE)
+				 or (_givenValue ==LPAREN)
+				 or (_givenValue ==LBRACK)
+				 or (_givenValue ==INCREMENT)
+				 or (_givenValue ==DECREMENT)
+				 or (_givenValue ==SUBTRACT)
+				 or (_givenValue ==BITWISE_NOT)
+				 or (_givenValue ==NOT)
+				 or (_givenValue ==RE_LITERAL)
+				 or (_givenValue ==DOUBLE)
+				 or (_givenValue ==INT)
+				 or (_givenValue ==LONG)
+			): // 1827
 				pass // 947
 			else: // line 1969
 					raise NoViableAltException(LT(1), getFilename())
-			block(body)
+			if ((LA(1)==LBRACE) and (tokenSet_49_.member(cast(int, LA(2))))):
+				block(body)
+			elif ((tokenSet_13_.member(cast(int, LA(1)))) and (tokenSet_12_.member(cast(int, LA(2))))): // line 2102
+				returnValue=expression()
+				if 0 == inputState.guessing:
+					body.Add(returnValue) 
+			else:
+				raise NoViableAltException(LT(1), getFilename())
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -3564,8 +3594,8 @@ class UnityScriptParser(antlr.LLkParser):
 							match(COMMA)
 							slice(se)
 						else:
-							goto _loop225_breakloop
-					:_loop225_breakloop
+							goto _loop226_breakloop
+					:_loop226_breakloop
 					match(RBRACK)
 				elif ((LA(1)==DOT) and (tokenSet_57_.member(cast(int, LA(2))))): // line 2102
 					match(DOT)
@@ -3581,8 +3611,8 @@ class UnityScriptParser(antlr.LLkParser):
 					expression_list(args)
 					match(RPAREN)
 				else:
-					goto _loop228_breakloop
-			:_loop228_breakloop
+					goto _loop229_breakloop
+			:_loop229_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -3772,8 +3802,8 @@ class UnityScriptParser(antlr.LLkParser):
 						be.Right = r
 						e = be
 				else:
-					goto _loop239_breakloop
-			:_loop239_breakloop
+					goto _loop240_breakloop
+			:_loop240_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -3809,8 +3839,8 @@ class UnityScriptParser(antlr.LLkParser):
 					if 0 == inputState.guessing:
 						e = BinaryExpression(ToLexicalInfo(token), Operator: op, Left: e, Right: r)
 				else:
-					goto _loop247_breakloop
-			:_loop247_breakloop
+					goto _loop248_breakloop
+			:_loop248_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -3889,8 +3919,8 @@ class UnityScriptParser(antlr.LLkParser):
 						be.Right = r
 						e = be
 				else:
-					goto _loop259_breakloop
-			:_loop259_breakloop
+					goto _loop260_breakloop
+			:_loop260_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -3938,8 +3968,8 @@ class UnityScriptParser(antlr.LLkParser):
 					if 0 == inputState.guessing:
 						e = BinaryExpression(ToLexicalInfo(token), op, e, r) 
 				else:
-					goto _loop267_breakloop
-			:_loop267_breakloop
+					goto _loop268_breakloop
+			:_loop268_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -3965,8 +3995,8 @@ class UnityScriptParser(antlr.LLkParser):
 					if 0 == inputState.guessing:
 						e = BinaryExpression(ToLexicalInfo(token), Operator: op, Left: e, Right: r)
 				else:
-					goto _loop270_breakloop
-			:_loop270_breakloop
+					goto _loop271_breakloop
+			:_loop271_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -3992,8 +4022,8 @@ class UnityScriptParser(antlr.LLkParser):
 					if 0 == inputState.guessing:
 						e = BinaryExpression(ToLexicalInfo(token), Operator: op, Left: e, Right: r)
 				else:
-					goto _loop273_breakloop
-			:_loop273_breakloop
+					goto _loop274_breakloop
+			:_loop274_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -4019,8 +4049,8 @@ class UnityScriptParser(antlr.LLkParser):
 					if 0 == inputState.guessing:
 						e = BinaryExpression(ToLexicalInfo(token), Operator: op, Left: e, Right: r)
 				else:
-					goto _loop276_breakloop
-			:_loop276_breakloop
+					goto _loop277_breakloop
+			:_loop277_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -4047,8 +4077,8 @@ class UnityScriptParser(antlr.LLkParser):
 									Left: e,
 									Right: rhs)
 				else:
-					goto _loop279_breakloop
-			:_loop279_breakloop
+					goto _loop280_breakloop
+			:_loop280_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -4075,8 +4105,8 @@ class UnityScriptParser(antlr.LLkParser):
 									Left: e,
 									Right: rhs)
 				else:
-					goto _loop282_breakloop
-			:_loop282_breakloop
+					goto _loop283_breakloop
+			:_loop283_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -4151,8 +4181,8 @@ class UnityScriptParser(antlr.LLkParser):
 						if 0 == inputState.guessing:
 							dle.Items.Add(pair); 
 					else:
-						goto _loop291_breakloop
-				:_loop291_breakloop
+						goto _loop292_breakloop
+				:_loop292_breakloop
 			elif ((_givenValue == RBRACE)): // 1831
 				pass // 947
 			else: // line 1969
