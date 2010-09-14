@@ -10,7 +10,23 @@ class CommandLineOptionsTestFixture:
 	def Defines():
 		options = us.CommandLineOptions("-d:FOO", "--define:BAR")
 		Assert.AreEqual(("FOO", "BAR"), options.Defines.ToArray())
-	
+		
+	[Test]
+	def ResponseFilesWithQuotedArgumentsContainingSpacesAreCorrectlyParsed():
+		
+		sourceFile = "/foo/with space/src.boo"
+		reference = "/foo/with space/bar.dll"
+		
+		rsp = Path.GetTempFileName()
+		File.WriteAllText(rsp, """
+#this is only a comment
+-r:"$reference"
+"$sourceFile"
+		""")
+		
+		options = us.CommandLineOptions("@$rsp")
+		Assert.AreEqual((reference,), options.References.ToArray())
+		Assert.AreEqual((sourceFile,), options.SourceFiles.ToArray())
 			
 	[Test]
 	def SourceDirectoriesAreRecursivelyScanned():

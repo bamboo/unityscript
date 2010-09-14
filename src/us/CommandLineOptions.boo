@@ -91,15 +91,15 @@ class CommandLineOptions(AbstractCommandLine):
 
 	[Option("References the specified {assembly}", ShortForm: 'r', LongForm: "reference", MaxOccurs: int.MaxValue)]
 	def AddReference(reference as string):
-		_references.AddUnique(reference)
+		_references.AddUnique(Unquote(reference))
 		
 	[Option("Includes all *.js files from {srcdir}", LongForm: "srcdir", MaxOccurs: int.MaxValue)]
 	def AddSourceDir(srcDir as string):
-		_srcDirs.AddUnique(Path.GetFullPath(srcDir))
+		_srcDirs.AddUnique(Path.GetFullPath(Unquote(srcDir)))
 		
 	[Option("Embed a managed resource {file}", LongForm: "resource", MaxOccurs: int.MaxValue)]
 	def AddResource(resource as string):
-		_resources.AddUnique(resource)
+		_resources.AddUnique(Unquote(resource))
 		
 	[Option("Suppress the warning {code}", LongForm: "nowarn", MaxOccurs: int.MaxValue)]
 	def SuppressWarning(code as string):
@@ -129,7 +129,12 @@ class CommandLineOptions(AbstractCommandLine):
 		
 	[Argument]
 	def AddSourceFile([required] sourceFile as string):
-		self.SourceFiles.Add(sourceFile)
+		self.SourceFiles.Add(Unquote(sourceFile))
 		
 	private def InvalidOption(msg as string):
 		raise msg
+		
+def Unquote(path as string):
+	if path.StartsWith('"') or path.StartsWith("'"):
+		return path[1:-1]
+	return path
