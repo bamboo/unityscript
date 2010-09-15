@@ -14,14 +14,17 @@ class CommandLineOptionsTestFixture:
 	[Test]
 	def ResponseFilesWithQuotedArgumentsContainingSpacesAreCorrectlyParsed():
 		
-		sourceFile = "/foo/with space/src.boo"
-		reference = "/foo/with space/bar.dll"
+		sourceFile = "foo/with space/src.boo"
+		reference = "foo/with space/bar.dll"
 		
 		rsp = Path.GetTempFileName()
 		File.WriteAllText(rsp, """
 #this is only a comment
+
 -r:"$reference"
+
 "$sourceFile"
+
 		""")
 		
 		options = us.CommandLineOptions("@$rsp")

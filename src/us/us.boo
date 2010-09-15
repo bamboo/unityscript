@@ -63,25 +63,8 @@ def run(argv as (string)):
 	return 255
 	
 def parseCommandLineOptions(argv as (string)):
-	if len(argv) == 1 and argv[0].StartsWith("@"):
-		return CommandLineOptions(*parseResponseFile(argv[0][1:]))
 	return CommandLineOptions(*argv)
 	
-def parseResponseFile(responseFile as string):
-	args = List of string()
-	
-	using reader = File.OpenText(responseFile):
-		for line in reader:
-			for arg in /\s+/.Split(line):
-				continue if len(arg) == 0
-				args.Add(unquote(arg))
-				
-	return args.ToArray()
-	
-def unquote(s as string):
-	if s.StartsWith('"'): return s[1:-1]
-	return s
-
 def usage(options as CommandLineOptions):
 	banner()
 	options.PrintOptions()
