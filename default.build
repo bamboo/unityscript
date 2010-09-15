@@ -39,7 +39,7 @@
 	<target name="all" depends="UnityScript.Tests, prevent-system-references, verify-assemblies">
 	</target>
 	
-	<target name="verify-assemblies" if="${mono}">
+	<target name="verify-assemblies" if="${mono}" unless="${skip.verification}">
 		<foreach item="File" property="filename">
 		<in>
 			<items>
