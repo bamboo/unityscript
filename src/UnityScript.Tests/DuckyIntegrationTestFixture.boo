@@ -119,6 +119,10 @@ class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/array-length-duck-typed.js")
 		
 	
+	[Test] def array_nesting():
+		RunTestCase("tests/integration/array-nesting.js")
+		
+	
 	[Test] def array_polymorphic_foreach():
 		RunTestCase("tests/integration/array-polymorphic-foreach.js")
 		

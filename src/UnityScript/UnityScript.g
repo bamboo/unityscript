@@ -1650,7 +1650,7 @@ array_literal returns [Expression e]
 				e = CodeFactory.NewArrayComprehension(ToLexicalInfo(lbrack), projection, variable, iterator, filter)
 			}
 		)
-		| { e = ale = ArrayLiteralExpression(ToLexicalInfo(lbrack)) } expression_list[ale.Items]
+		| { e = ale = ArrayLiteralExpression(ToLexicalInfo(lbrack)); items = ale.Items; } expression_list[items]
 	)
 	
 	RBRACK

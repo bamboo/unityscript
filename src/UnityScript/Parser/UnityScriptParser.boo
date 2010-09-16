@@ -4162,8 +4162,8 @@ class UnityScriptParser(antlr.LLkParser):
 					e = CodeFactory.NewArrayComprehension(ToLexicalInfo(lbrack), projection, variable, iterator, filter)
 			elif ((tokenSet_62_.member(cast(int, LA(1)))) and (tokenSet_12_.member(cast(int, LA(2))))): // line 2102
 				if 0 == inputState.guessing:
-					e = ale = ArrayLiteralExpression(ToLexicalInfo(lbrack)) 
-				expression_list(ale.Items)
+					e = ale = ArrayLiteralExpression(ToLexicalInfo(lbrack)); items = ale.Items; 
+				expression_list(items)
 			else:
 				raise NoViableAltException(LT(1), getFilename())
 			match(RBRACK)
