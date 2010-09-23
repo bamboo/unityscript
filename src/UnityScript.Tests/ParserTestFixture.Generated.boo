@@ -194,6 +194,10 @@ partial class ParserTestFixture:
 		RunTestCase("tests/parser/shift-left-bitwise-or.js")
 		
 	
+	[Test] def strings():
+		RunTestCase("tests/parser/strings.js")
+		
+	
 	[Test] def try_1():
 		RunTestCase("tests/parser/try-1.js")
 		

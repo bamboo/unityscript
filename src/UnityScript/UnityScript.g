@@ -1152,7 +1152,6 @@ atom returns [Expression e]
 		e=simple_reference_expression |
 		e=paren_expression  |
 		e=new_expression |
-		//e=cast_expression |
 		e=typeof_expression
 	)
 ;
@@ -1625,7 +1624,6 @@ literal returns [Expression e]
 		e=string_literal |
 		e=array_literal |
 		e=hash_literal |
-		//e=closure_expression |
 		e=re_literal |
 		e=bool_literal |
 		e=null_literal |
@@ -1755,10 +1753,8 @@ integer_literal returns [IntegerLiteralExpression e]
 string_literal returns [Expression e]
 {
 }:	
-	dqs:DOUBLE_QUOTED_STRING
-	{
-		e = StringLiteralExpression(ToLexicalInfo(dqs), dqs.getText())
-	}
+	(dqs:DOUBLE_QUOTED_STRING { s = dqs; } | sqs:SINGLE_QUOTED_STRING { s = sqs; })
+	{ e = StringLiteralExpression(ToLexicalInfo(s), s.getText()) }
 ;
 
 
@@ -1917,8 +1913,18 @@ DOUBLE_QUOTED_STRING:
 	'"'!
 ;
 
+SINGLE_QUOTED_STRING:
+	'\''!
+	(
+		SQS_ESC |
+		~('\'' | '\\' | '\r' | '\n')
+	)*
+	'\''!
+;
+
+
 protected
-DQS_ESC: '\\'! ( SESC | '"' | '$') ;	
+DQS_ESC: '\\'! ( SESC | '"' ) ;	
 	
 protected
 SQS_ESC: '\\'! ( SESC | '\'' );
