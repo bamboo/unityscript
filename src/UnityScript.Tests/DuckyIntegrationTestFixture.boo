@@ -99,6 +99,10 @@ class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/array-implicit-from-null.js")
 		
 	
+	[Test] def array_initializer_in_static_field():
+		RunTestCase("tests/integration/array-initializer-in-static-field.js")
+		
+	
 	[Test] def array_instantiation_with_object_argument_in_strict_mode():
 		RunTestCase("tests/integration/array-instantiation-with-object-argument-in-strict-mode.js")
 		
@@ -117,6 +121,10 @@ class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 	
 	[Test] def array_length_duck_typed():
 		RunTestCase("tests/integration/array-length-duck-typed.js")
+		
+	
+	[Test] def array_nesting():
+		RunTestCase("tests/integration/array-nesting.js")
 		
 	
 	[Test] def array_polymorphic_foreach():
