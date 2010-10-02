@@ -2,7 +2,6 @@ namespace us
 
 import System
 import System.Reflection
-import System.IO
 import Boo.Lang.Compiler
 
 def Main([required] argv as (string)) as int:
