@@ -22,8 +22,16 @@ partial class ParserTestFixture:
 		RunTestCase("tests/parser/class-2.js")
 		
 	
+	[Test] def class_modifiers():
+		RunTestCase("tests/parser/class-modifiers.js")
+		
+	
 	[Test] def commentbug():
 		RunTestCase("tests/parser/commentbug.js")
+		
+	
+	[Test] def enums():
+		RunTestCase("tests/parser/enums.js")
 		
 	
 	[Test] def final_1():
@@ -136,6 +144,10 @@ partial class ParserTestFixture:
 	
 	[Test] def lambdas():
 		RunTestCase("tests/parser/lambdas.js")
+		
+	
+	[Test] def nested_enums():
+		RunTestCase("tests/parser/nested-enums.js")
 		
 	
 	[Test] def new_1():

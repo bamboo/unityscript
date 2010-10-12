@@ -339,14 +339,37 @@ attribute_constructor returns [Boo.Lang.Compiler.Ast.Attribute attr]
 	)?
 ;
 
-module_member[Module m]
+module_member[Module module]
+{
+	globals = module.Globals
+}:
+	
+	{GlobalVariablesBecomeFields()}? (module_member_modifiers VAR) => module_field[module]
+	| (declaration_statement[globals] eos)
+	| script_attribute[module]
+	|
+	(
+		mod=module_member_modifiers
+		(
+			mm=class_declaration[module]
+			| mm=interface_declaration[module]
+			| mm=enum_declaration[module]
+			| mm=module_function[module]
+		)
+		{ mm.Modifiers |= mod if mm is not null }
+	)
+;
+
+module_function[TypeDefinition parent] returns [TypeMember member]
 {
 }:
-	class_declaration[m]
-	| interface_declaration[m]
-	| enum_declaration[m]
-	| module_function_or_field[m]
-	| script_attribute[m]
+	FUNCTION name:ID
+	{
+		member = method = Method(ToLexicalInfo(name), Name: name.getText())
+		FlushAttributes(method)
+		parent.Members.Add(method)
+	}
+	function_body[method]
 ;
 
 script_attribute[Module m]
@@ -355,16 +378,6 @@ script_attribute[Module m]
 	SCRIPT_ATTRIBUTE_MARKER
 	attr=attribute_constructor
 	{ m.Attributes.Add(attr); }
-;
-
-module_function_or_field[Module m]
-{
-	globals = m.Globals
-}:
-	
-	{GlobalVariablesBecomeFields()}? (module_member_modifiers VAR) => module_field[m]
-	| declaration_statement[globals] eos
-	| module_function[m]		
 ;
 
 module_field[Module m]
@@ -483,12 +496,12 @@ member_modifiers returns [TypeMemberModifiers m]
 	)*
 ;
 
-class_declaration[TypeDefinition parent]
+class_declaration[TypeDefinition parent] returns [TypeMember member]
 {
 }:
 	(p:PARTIAL)? CLASS name:ID (EXTENDS baseType=type_reference)?
 	{
-		cd = ClassDefinition(ToLexicalInfo(name), Name: name.getText())
+		member = cd = ClassDefinition(ToLexicalInfo(name), Name: name.getText())
 		baseTypes = cd.BaseTypes
 		
 		if baseType is not null:
@@ -515,22 +528,21 @@ class_declaration[TypeDefinition parent]
 		(mod=member_modifiers)?
 		(
 			m=function_member[cd] |
-			m=field_member[cd]
+			m=field_member[cd] |
+			m=enum_declaration[cd]
 		)
-		{
-			m.Modifiers |= mod if m is not null
-		}
+		{ m.Modifiers |= mod if m is not null }
 	)*
 	rbrace:RBRACE { SetEndSourceLocation(cd, rbrace) }
 	(EOS)*
 ;
 
-interface_declaration[TypeDefinition parent]
+interface_declaration[TypeDefinition parent] returns [TypeMember member]
 {
 }:
 	INTERFACE name:ID
 	{
-		td = InterfaceDefinition(ToLexicalInfo(name), Name: name.getText())
+		member = td = InterfaceDefinition(ToLexicalInfo(name), Name: name.getText())
 		baseTypes = td.BaseTypes
 		FlushAttributes(td)
 		parent.Members.Add(td)
@@ -561,12 +573,13 @@ interface_member[TypeDefinition parent]
 	(EOS)*
 ;
 
-enum_declaration [TypeDefinition container]
+enum_declaration [TypeDefinition container] returns [TypeMember member]
 {
 }:
 	ENUM name:ID
 	{
-		ed = EnumDefinition(ToLexicalInfo(name), Name: name.getText())
+		member = ed = EnumDefinition(ToLexicalInfo(name), Name: name.getText())
+		FlushAttributes(member);
 		container.Members.Add(ed)
 	}
 	LBRACE
@@ -585,11 +598,11 @@ enum_declaration [TypeDefinition container]
 enum_member [EnumDefinition container]
 {			
 }: 
+	(attributes)?
 	name:ID (ASSIGN initializer=integer_literal)?
 	{
-		em = EnumMember(ToLexicalInfo(name),
-				Name: name.getText(),
-				Initializer: initializer)
+		em = EnumMember(ToLexicalInfo(name), Name: name.getText(), Initializer: initializer)
+		FlushAttributes(em)
 		container.Members.Add(em)
 	}	
 ;
@@ -655,20 +668,6 @@ function_member[ClassDefinition cd] returns [TypeMember member]
 			if method.Parameters.Count > 0:
 				ReportError(UnityScriptCompilerErrors.InvalidPropertySetter(ToLexicalInfo(memberName)))
 	}
-;
-
-module_function[TypeDefinition parent]
-{
-}:
-	mod=module_member_modifiers
-	FUNCTION name:ID
-	{
-		method = Method(ToLexicalInfo(name), Name: name.getText())
-		method.Modifiers = mod
-		FlushAttributes(method)
-		parent.Members.Add(method)
-	}
-	function_body[method]
 ;
 
 function_body[Method method]
