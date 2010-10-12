@@ -179,8 +179,10 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 	override def ProcessStaticallyTypedAssignment(node as BinaryExpression):
 		TryToResolveAmbiguousAssignment(node)		
 		ApplyImplicitArrayConversion(node)
-		ValidateAssignment(node)
-		BindExpressionType(node, GetExpressionType(node.Right))
+		if ValidateAssignment(node):
+			BindExpressionType(node, GetExpressionType(node.Right))
+		else:
+			Error(node)
 		
 	def ApplyImplicitArrayConversion(node as BinaryExpression):
 		left = GetExpressionType(node.Left)
