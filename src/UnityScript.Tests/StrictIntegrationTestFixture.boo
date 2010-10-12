@@ -433,6 +433,10 @@ class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/nested-class-1.js")
 		
 	
+	[Test] def nested_classes():
+		RunTestCase("tests/integration/nested-classes.js")
+		
+	
 	[Test] def new_1():
 		RunTestCase("tests/integration/new-1.js")
 		

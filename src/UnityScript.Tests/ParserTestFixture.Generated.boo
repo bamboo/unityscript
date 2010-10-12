@@ -146,8 +146,16 @@ partial class ParserTestFixture:
 		RunTestCase("tests/parser/lambdas.js")
 		
 	
+	[Test] def nested_classes():
+		RunTestCase("tests/parser/nested-classes.js")
+		
+	
 	[Test] def nested_enums():
 		RunTestCase("tests/parser/nested-enums.js")
+		
+	
+	[Test] def nested_interfaces():
+		RunTestCase("tests/parser/nested-interfaces.js")
 		
 	
 	[Test] def new_1():

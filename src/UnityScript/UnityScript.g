@@ -527,9 +527,11 @@ class_declaration[TypeDefinition parent] returns [TypeMember member]
 		(attributes)?
 		(mod=member_modifiers)?
 		(
-			m=function_member[cd] |
-			m=field_member[cd] |
-			m=enum_declaration[cd]
+			m=function_member[cd]
+			| m=field_member[cd]
+			| m=enum_declaration[cd]
+			| m=class_declaration[cd]
+			| m=interface_declaration[cd]
 		)
 		{ m.Modifiers |= mod if m is not null }
 	)*
