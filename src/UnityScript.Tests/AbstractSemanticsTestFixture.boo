@@ -1,6 +1,5 @@
 namespace UnityScript.Tests
 
-import Boo.Lang.Compiler
 import NUnit.Framework
 
 class AbstractSemanticsTestFixture(AbstractCompilerTestFixture):
@@ -11,8 +10,4 @@ class AbstractSemanticsTestFixture(AbstractCompilerTestFixture):
 		_compiler.Parameters.Imports.Add("UnityScript.Tests")
 		
 	override protected def CreateCompilerPipeline():
-		pipeline = CompilerPipeline()
-		pipeline.Add(UnityScript.Steps.Parse())
-		pipeline.Add(Boo.Lang.Compiler.Steps.PreErrorChecking())
-		pipeline.Add(UnityScript.Steps.ApplySemantics())
-		return pipeline
+		return UnityScript.UnityScriptCompiler.Pipelines.Parse()

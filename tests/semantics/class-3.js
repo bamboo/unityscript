@@ -1,7 +1,7 @@
 /*
 import UnityScript.Tests
 
-class Person:
+public class Person:
 
 	public _name as string
 
@@ -25,7 +25,7 @@ class Person:
 	public static def StaticFunction():
 		pass
 
-partial class class-3(UnityScript.Tests.MonoBehaviour):
+partial public class class-3(UnityScript.Tests.MonoBehaviour):
 
 	public p as Person = Person('Eric Idle', 42)
 

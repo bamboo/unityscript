@@ -1,13 +1,13 @@
 /*
 import UnityScript.Tests
 
-class Fields:
+public class Fields:
 
 	public FirstName as string
 
 	public LastName as string
 
-partial class fields-1(UnityScript.Tests.MonoBehaviour):
+partial public class fields-1(UnityScript.Tests.MonoBehaviour):
 
 	public virtual def Awake():
 		pass

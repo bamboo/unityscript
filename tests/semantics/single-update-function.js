@@ -1,7 +1,7 @@
 /*
 import UnityScript.Tests
 
-partial class single-update-function(UnityScript.Tests.MonoBehaviour):
+partial public class single-update-function(UnityScript.Tests.MonoBehaviour):
 
 	public virtual def Update():
 		pass

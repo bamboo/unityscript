@@ -20,7 +20,7 @@ class UnityScriptCompiler:
 			return CompilerPipeline() { UnityScript.Steps.PreProcess(), UnityScript.Steps.Parse() }
 		
 		def Parse():
-			return RawParsing() { UnityScript.Steps.ApplySemantics() }
+			return RawParsing() { UnityScript.Steps.ApplySemantics(), UnityScript.Steps.ApplyDefaultVisibility() }
 			
 		def Compile():
 			return AdjustBooPipeline(Boo.Lang.Compiler.Pipelines.Compile())
@@ -43,7 +43,9 @@ class UnityScriptCompiler:
 						UnityScript.Steps.IntroduceUnityGlobalNamespaces())
 						
 			pipeline.InsertAfter(Boo.Lang.Compiler.Steps.PreErrorChecking,
-								UnityScript.Steps.ApplySemantics())
+				UnityScript.Steps.ApplySemantics())
+			pipeline.InsertAfter(UnityScript.Steps.ApplySemantics,
+				UnityScript.Steps.ApplyDefaultVisibility())
 								
 			pipeline.InsertBefore(Boo.Lang.Compiler.Steps.ExpandDuckTypedExpressions,
 						UnityScript.Steps.ProcessAssignmentToDuckMembers())

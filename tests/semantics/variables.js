@@ -1,7 +1,7 @@
 /*
 import UnityScript.Tests
 
-partial class variables(UnityScript.Tests.MonoBehaviour):
+partial public class variables(UnityScript.Tests.MonoBehaviour):
 
 	public value = 5
 

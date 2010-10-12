@@ -1,7 +1,7 @@
 /*
 import UnityScript.Tests
 
-partial class magic-members(UnityScript.Tests.MonoBehaviour):
+partial public class magic-members(UnityScript.Tests.MonoBehaviour):
 
 	public value = 5
 

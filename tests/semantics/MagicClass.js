@@ -1,7 +1,7 @@
 /*
 import UnityScript.Tests
 
-partial class MagicClass(AnotherMagicClass):
+partial public class MagicClass(AnotherMagicClass):
 
 	public virtual def foo():
 		pass

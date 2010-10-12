@@ -41,7 +41,7 @@ class ApplySemantics(AbstractVisitorCompilerStep):
 		SetUpDefaultImports(module)
 
 		script = FindOrCreateScriptClass(module)
-		SetUpScriptClass(script)
+		MakeItPartial(script)
 		MoveMembers(module, script)
 		SetUpMainMethod(module, script)
 		MoveAttributes(module, script)
@@ -75,9 +75,8 @@ class ApplySemantics(AbstractVisitorCompilerStep):
 				and len(method.Parameters) == 0
 			return method if isMainMethod
 		
-	def SetUpScriptClass(global as ClassDefinition):
-		global.Modifiers |= TypeMemberModifiers.Partial		
-		SetMembersPublicByDefault(global)
+	def MakeItPartial(global as ClassDefinition):
+		global.Modifiers |= TypeMemberModifiers.Partial
 		
 	def SetUpDefaultImports(module as Module):
 		for ns as string in self.UnityScriptParameters.Imports:
@@ -120,20 +119,6 @@ class ApplySemantics(AbstractVisitorCompilerStep):
 			LexicalInfo: method.LexicalInfo,
 			EndSourceLocation: method.EndSourceLocation)
 		
-	override def OnField(node as Field):
-		SetPublicByDefault(node)
-		
-	override def OnConstructor(node as Constructor):
-		SetPublicByDefault(node)
-		
-	override def OnMethod(node as Method):
-		if node.IsPrivate: return
-		
-		SetPublicByDefault(node)
-		if node.IsFinal: return
-		if node.IsStatic: return
-		node.Modifiers |= TypeMemberModifiers.Virtual
-
 	def FindOrCreateScriptClass(module as Module):
 		for existing as ClassDefinition in module.Members.Select(NodeType.ClassDefinition):
 			if existing.Name == module.Name:
@@ -148,12 +133,6 @@ class ApplySemantics(AbstractVisitorCompilerStep):
 		
 	def AddScriptBaseType(klass as ClassDefinition):
 		klass.BaseTypes.Add(CodeBuilder.CreateTypeReference(UnityScriptParameters.ScriptBaseType))
-		
-	def SetMembersPublicByDefault(node as ClassDefinition):
-		for member in node.Members: Visit(member)
-		
-	def SetPublicByDefault(node as TypeMember):
-		node.Modifiers |= TypeMemberModifiers.Public unless node.IsVisibilitySet
 		
 	ScriptMainMethod:
 		get: return self.UnityScriptParameters.ScriptMainMethod

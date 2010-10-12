@@ -1,7 +1,7 @@
 /*
 import UnityScript.Tests
 
-partial class coroutine(UnityScript.Tests.MonoBehaviour):
+partial public class coroutine(UnityScript.Tests.MonoBehaviour):
 
 	private def spam():
 		yield 

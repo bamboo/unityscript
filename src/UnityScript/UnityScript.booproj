@@ -82,6 +82,7 @@
     <Compile Include="Macros\PerNodeMacro.boo" />
     <Compile Include="Core\DeclarationAnnotations.boo" />
     <Compile Include="TypeSystem\UnityScriptAmbiance.boo" />
+    <Compile Include="Steps\ApplyDefaultVisibility.boo" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UnityScript.Lang\UnityScript.Lang.booproj">
