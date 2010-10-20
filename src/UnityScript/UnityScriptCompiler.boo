@@ -35,18 +35,21 @@ class UnityScriptCompiler:
 			return AdjustBooPipeline(Boo.Lang.Compiler.Pipelines.CompileToBoo())
 			
 		def AdjustBooPipeline(pipeline as CompilerPipeline):
-			pipeline.Insert(0, UnityScript.Steps.PreProcess())
+			pipeline.Insert(0,
+						UnityScript.Steps.PreProcess())
 			
-			pipeline.Replace(Boo.Lang.Compiler.Steps.Parsing, UnityScript.Steps.Parse())
+			pipeline.Replace(Boo.Lang.Compiler.Steps.Parsing,
+						UnityScript.Steps.Parse())
 			
 			pipeline.Replace(Boo.Lang.Compiler.Steps.IntroduceGlobalNamespaces,
 						UnityScript.Steps.IntroduceUnityGlobalNamespaces())
 						
 			pipeline.InsertAfter(Boo.Lang.Compiler.Steps.PreErrorChecking,
-				UnityScript.Steps.ApplySemantics())
+						UnityScript.Steps.ApplySemantics())
+			
 			pipeline.InsertAfter(UnityScript.Steps.ApplySemantics,
-				UnityScript.Steps.ApplyDefaultVisibility())
-								
+						UnityScript.Steps.ApplyDefaultVisibility())
+			
 			pipeline.InsertBefore(Boo.Lang.Compiler.Steps.ExpandDuckTypedExpressions,
 						UnityScript.Steps.ProcessAssignmentToDuckMembers())
 						
@@ -54,13 +57,13 @@ class UnityScriptCompiler:
 						UnityScript.Steps.ProcessUnityScriptMethods())
 						
 			pipeline.InsertAfter(UnityScript.Steps.ProcessUnityScriptMethods,
+						UnityScript.Steps.AutoExplodeVarArgsInvocations())
+						
+			pipeline.InsertAfter(UnityScript.Steps.ProcessUnityScriptMethods,
 						UnityScript.Steps.ProcessEvalInvocations())
 						
 			pipeline.ReplaceOptional(Boo.Lang.Compiler.Steps.ExpandDuckTypedExpressions,
 						UnityScript.Steps.ExpandUnityDuckTypedExpressions())
-						
-			pipeline.ReplaceOptional(Boo.Lang.Compiler.Steps.ExpandVarArgsMethodInvocations,
-						UnityScript.Steps.UnityExpandVarArgsMethodInvocations())
 						
 			pipeline.InsertBefore(Boo.Lang.Compiler.Steps.EmitAssembly,
 						UnityScript.Steps.EnableRawArrayIndexing())

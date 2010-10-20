@@ -69,7 +69,6 @@
     <Compile Include="Steps\ProcessEvalInvocations.boo" />
     <Compile Include="Steps\ProcessUnityScriptMethods.boo" />
     <Compile Include="Steps\SuppressWarnings.boo" />
-    <Compile Include="Steps\UnityExpandVarArgsMethodInvocations.boo" />
     <Compile Include="Steps\Utilities.boo" />
     <Compile Include="Scripting\SimpleEvaluationDomainProvider.boo" />
     <Compile Include="TypeSystem\UnityScriptTypeSystem.boo" />
@@ -83,6 +82,7 @@
     <Compile Include="Core\DeclarationAnnotations.boo" />
     <Compile Include="TypeSystem\UnityScriptAmbiance.boo" />
     <Compile Include="Steps\ApplyDefaultVisibility.boo" />
+    <Compile Include="Steps\AutoExplodeVarArgsInvocation.boo" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UnityScript.Lang\UnityScript.Lang.booproj">

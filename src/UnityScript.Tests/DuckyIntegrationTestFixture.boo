@@ -559,6 +559,14 @@ class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/valuetypes-1.js")
 		
 	
+	[Test] def varargs_in_constructor_with_vector3():
+		RunTestCase("tests/integration/varargs-in-constructor-with-vector3.js")
+		
+	
+	[Test] def varargs_with_vector3():
+		RunTestCase("tests/integration/varargs-with-vector3.js")
+		
+	
 	[Test] def variable_declaration_2():
 		RunTestCase("tests/integration/variable-declaration-2.js")
 		
