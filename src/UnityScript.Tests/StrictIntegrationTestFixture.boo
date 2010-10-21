@@ -433,6 +433,10 @@ class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/magicconstructor_2.js")
 		
 	
+	[Test] def multidimensional_arrays_1():
+		RunTestCase("tests/integration/multidimensional-arrays-1.js")
+		
+	
 	[Test] def nested_class_1():
 		RunTestCase("tests/integration/nested-class-1.js")
 		
