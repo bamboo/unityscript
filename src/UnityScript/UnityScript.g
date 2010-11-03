@@ -222,8 +222,6 @@ tokens
 	
 	static def CreateModuleName(fname as string):
 		return System.IO.Path.GetFileNameWithoutExtension(fname)
-		
-	static final ValidPragmas = ("strict", "expando", "implicit", "downcast")
 
 }
 
@@ -438,12 +436,17 @@ qname returns [Token id]
 pragma_directive[Module container]
 {
 }:
-	HASH PRAGMA id:ID
+	HASH PRAGMA id:ID (option:ID)?
 	{
 		pragma = id.getText()
-		if pragma not in ValidPragmas:
+		pragmaOption = (option.getText() if option is not null else "on")
+		if Pragmas.IsValid(pragma):
+			if pragmaOption == "on":
+				Pragmas.TryToEnableOn(container, pragma)
+			else:
+				Pragmas.DisableOn(container, pragma)
+		else:
 			ReportError(UnityScriptCompilerErrors.UnknownPragma(ToLexicalInfo(id), pragma))
-		container.Annotate(pragma)
 	}
 ;
 

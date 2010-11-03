@@ -83,6 +83,7 @@
     <Compile Include="TypeSystem\UnityScriptAmbiance.boo" />
     <Compile Include="Steps\ApplyDefaultVisibility.boo" />
     <Compile Include="Steps\AutoExplodeVarArgsInvocation.boo" />
+    <Compile Include="Core\Pragmas.boo" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UnityScript.Lang\UnityScript.Lang.booproj">
