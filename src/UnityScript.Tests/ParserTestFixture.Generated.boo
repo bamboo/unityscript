@@ -14,6 +14,10 @@ partial class ParserTestFixture:
 		RunTestCase("tests/parser/attributes-1.js")
 		
 	
+	[Test] def attributes_for_script_and_assembly():
+		RunTestCase("tests/parser/attributes-for-script-and-assembly.js")
+		
+	
 	[Test] def class_1():
 		RunTestCase("tests/parser/class-1.js")
 		

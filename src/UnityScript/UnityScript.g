@@ -120,6 +120,7 @@ tokens
 	INPLACE_SHIFT_RIGHT=">>=";
 	AT="@";
 	SCRIPT_ATTRIBUTE_MARKER="@script";
+	ASSEMBLY_ATTRIBUTE_MARKER="@assembly";
 }
 {
 	[property(CompilerContext)]
@@ -207,6 +208,9 @@ tokens
 	protected def VirtualKeywordHasNoEffect(token as antlr.IToken):
 		_context.Warnings.Add(UnityScriptWarnings.VirtualKeywordHasNoEffect(ToLexicalInfo(token)))
 		
+	protected def UnexpectedToken(token as antlr.IToken):
+		ReportError(CompilerErrorFactory.UnexpectedToken(ToLexicalInfo(token), null, token.getText()))
+		
 	protected def KeywordCannotBeUsedAsAnIdentifier(token as antlr.IToken):
 		ReportError(UnityScriptCompilerErrors.KeywordCannotBeUsedAsAnIdentifier(ToLexicalInfo(token), token.getText()))
 		
@@ -236,6 +240,8 @@ start[CompileUnit cu]
 		| pragma_directive[module]
 	)*
 	(
+		(AT ID ID)=> script_or_assembly_attribute[module]
+		|
 		(
 			attributes
 			module_member[module]
@@ -306,10 +312,9 @@ module_member[Module module]
 {
 	globals = module.Globals
 }:
-	
+
 	{GlobalVariablesBecomeFields()}? (module_member_modifiers VAR) => module_field[module]
 	| (declaration_statement[globals] eos)
-	| script_attribute[module]
 	|
 	(
 		mod=module_member_modifiers
@@ -335,12 +340,19 @@ module_function[TypeDefinition parent] returns [TypeMember member]
 	function_body[method]
 ;
 
-script_attribute[Module m]
+script_or_assembly_attribute[Module m]
 {
 }:
-	SCRIPT_ATTRIBUTE_MARKER
-	attr=attribute_constructor
-	{ m.Attributes.Add(attr); }
+	AT attributeKindToken:ID attr=attribute_constructor
+	{
+		attributeKind = attributeKindToken.getText()
+		if attributeKind == "assembly":
+			m.AssemblyAttributes.Add(attr)
+		elif attributeKind == "script":
+			m.Attributes.Add(attr)
+		else:
+			UnexpectedToken(attributeKindToken)
+	}
 ;
 
 module_field[Module m]
@@ -1853,7 +1865,7 @@ SHIFT_RIGHT: ">>";
 
 INPLACE_SHIFT_RIGHT: ">>=";
 
-AT: '@' ("script" { $setType(SCRIPT_ATTRIBUTE_MARKER); })?;
+AT: '@';
 
 DIVISION: 
 	("/*")=> ML_COMMENT { $setType(Token.SKIP); } |
