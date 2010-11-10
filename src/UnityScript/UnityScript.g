@@ -249,52 +249,17 @@ start[CompileUnit cu]
 	}
 ;
 
-attribute_parameter_value returns [Expression e]
-{
-}:
-	e=integer_literal
-	| e=string_literal
-	//| e=array_literal
-	| e=bool_literal
-	| e=null_literal
-	| e=double_literal
-	| e=attribute_parameter_value_bitwise_expression
-	| e=typeof_expression
-;
-
-attribute_parameter_value_bitwise_expression returns [Expression e]
-{
-}:
-	e=attribute_parameter_value_reference_expression
-	(
-		op:BITWISE_OR
-		rhs=attribute_parameter_value_reference_expression
-		{
-			e = BinaryExpression(ToLexicalInfo(op),
-						Operator: BinaryOperatorType.BitwiseOr,
-						Left: e,
-						Right: rhs)
-		}
-	)*
-;
-
-attribute_parameter_value_reference_expression returns [Expression e]
-{
-}:
-	e=reference_expression
-;
-
 attribute_parameter[Ast.Attribute attr]
 {
 }:
 	(ID ASSIGN)=>(
-		name=reference_expression ASSIGN value=attribute_parameter_value
+		name=reference_expression ASSIGN value=expression
 		{
 			attr.NamedArguments.Add(ExpressionPair(name, value))
 		}
 	) |
 	(
-		value=attribute_parameter_value
+		value=expression
 		{
 			attr.Arguments.Add(value)
 		}
@@ -699,10 +664,11 @@ parameter_declaration_list[INodeWithParameters m]
 parameter_declaration[INodeWithParameters m]
 {
 }:
-	id:ID (COLON tr=type_reference)?
+	(attributes)? id:ID (COLON tr=type_reference)?
 	{
 		parameter = ParameterDeclaration(ToLexicalInfo(id), Name: id.getText(), Type: tr)
 		m.Parameters.Add(parameter)
+		FlushAttributes(parameter)
 	}
 ;
 
