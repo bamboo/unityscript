@@ -90,9 +90,7 @@ class UsTestFixture:
 		
 	def ExecuteUs(argv as (string)):
 		if PlatformInformation.IsMono:
-			monoexe = System.Environment.GetEnvironmentVariable ("MONO_EXECUTABLE")
-			if (monoexe == null):
-				monoexe = "mono"
+			monoexe = System.Environment.GetEnvironmentVariable ("MONO_EXECUTABLE") or "mono"
 			p = shellp(monoexe, UsExePath + " ${join(argv)}")
 		else:
 			p = shellp(UsExePath, join(argv))
