@@ -1,5 +1,7 @@
 namespace UnityScript.Steps
 
+import UnityScript.Core
+
 import Boo.Lang.Compiler.Steps
 
 class IntroducePragmas(AbstractCompilerStep):
@@ -12,5 +14,5 @@ class IntroducePragmas(AbstractCompilerStep):
 	override def Run():
 		for module in CompileUnit.Modules:
 			for pragma in _pragmas:
-				module.Annotate(pragma) unless module.ContainsAnnotation(pragma)
-	
+				Pragmas.TryToEnableOn(module, pragma)
+

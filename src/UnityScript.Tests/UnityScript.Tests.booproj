@@ -70,6 +70,8 @@
     <Compile Include="AbstractCompilerTest.boo" />
     <Compile Include="DuckyIntegrationTestFixture.boo" />
     <Compile Include="StrictIntegrationTestFixture.boo" />
+    <Compile Include="PragmaEnablementTest.boo" />
+    <Compile Include="Core\PragmasTest.boo" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UnityScript\UnityScript.booproj">
@@ -91,5 +93,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripting\" />
+    <Folder Include="Core\" />
   </ItemGroup>
 </Project>

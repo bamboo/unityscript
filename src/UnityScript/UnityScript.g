@@ -120,6 +120,7 @@ tokens
 	INPLACE_SHIFT_RIGHT=">>=";
 	AT="@";
 	SCRIPT_ATTRIBUTE_MARKER="@script";
+	ASSEMBLY_ATTRIBUTE_MARKER="@assembly";
 }
 {
 	[property(CompilerContext)]
@@ -207,6 +208,9 @@ tokens
 	protected def VirtualKeywordHasNoEffect(token as antlr.IToken):
 		_context.Warnings.Add(UnityScriptWarnings.VirtualKeywordHasNoEffect(ToLexicalInfo(token)))
 		
+	protected def UnexpectedToken(token as antlr.IToken):
+		ReportError(CompilerErrorFactory.UnexpectedToken(ToLexicalInfo(token), null, token.getText()))
+		
 	protected def KeywordCannotBeUsedAsAnIdentifier(token as antlr.IToken):
 		ReportError(UnityScriptCompilerErrors.KeywordCannotBeUsedAsAnIdentifier(ToLexicalInfo(token), token.getText()))
 		
@@ -222,8 +226,6 @@ tokens
 	
 	static def CreateModuleName(fname as string):
 		return System.IO.Path.GetFileNameWithoutExtension(fname)
-		
-	static final ValidPragmas = ("strict", "expando", "implicit", "downcast")
 
 }
 
@@ -238,6 +240,8 @@ start[CompileUnit cu]
 		| pragma_directive[module]
 	)*
 	(
+		(AT ID ID)=> script_or_assembly_attribute[module]
+		|
 		(
 			attributes
 			module_member[module]
@@ -251,52 +255,17 @@ start[CompileUnit cu]
 	}
 ;
 
-attribute_parameter_value returns [Expression e]
-{
-}:
-	e=integer_literal
-	| e=string_literal
-	//| e=array_literal
-	| e=bool_literal
-	| e=null_literal
-	| e=double_literal
-	| e=attribute_parameter_value_bitwise_expression
-	| e=typeof_expression
-;
-
-attribute_parameter_value_bitwise_expression returns [Expression e]
-{
-}:
-	e=attribute_parameter_value_reference_expression
-	(
-		op:BITWISE_OR
-		rhs=attribute_parameter_value_reference_expression
-		{
-			e = BinaryExpression(ToLexicalInfo(op),
-						Operator: BinaryOperatorType.BitwiseOr,
-						Left: e,
-						Right: rhs)
-		}
-	)*
-;
-
-attribute_parameter_value_reference_expression returns [Expression e]
-{
-}:
-	e=reference_expression
-;
-
 attribute_parameter[Ast.Attribute attr]
 {
 }:
 	(ID ASSIGN)=>(
-		name=reference_expression ASSIGN value=attribute_parameter_value
+		name=reference_expression ASSIGN value=expression
 		{
 			attr.NamedArguments.Add(ExpressionPair(name, value))
 		}
 	) |
 	(
-		value=attribute_parameter_value
+		value=expression
 		{
 			attr.Arguments.Add(value)
 		}
@@ -343,10 +312,9 @@ module_member[Module module]
 {
 	globals = module.Globals
 }:
-	
+
 	{GlobalVariablesBecomeFields()}? (module_member_modifiers VAR) => module_field[module]
 	| (declaration_statement[globals] eos)
-	| script_attribute[module]
 	|
 	(
 		mod=module_member_modifiers
@@ -372,12 +340,19 @@ module_function[TypeDefinition parent] returns [TypeMember member]
 	function_body[method]
 ;
 
-script_attribute[Module m]
+script_or_assembly_attribute[Module m]
 {
 }:
-	SCRIPT_ATTRIBUTE_MARKER
-	attr=attribute_constructor
-	{ m.Attributes.Add(attr); }
+	AT attributeKindToken:ID attr=attribute_constructor
+	{
+		attributeKind = attributeKindToken.getText()
+		if attributeKind == "assembly":
+			m.AssemblyAttributes.Add(attr)
+		elif attributeKind == "script":
+			m.Attributes.Add(attr)
+		else:
+			UnexpectedToken(attributeKindToken)
+	}
 ;
 
 module_field[Module m]
@@ -438,12 +413,17 @@ qname returns [Token id]
 pragma_directive[Module container]
 {
 }:
-	HASH PRAGMA id:ID
+	HASH PRAGMA id:ID (option:ID)?
 	{
 		pragma = id.getText()
-		if pragma not in ValidPragmas:
+		pragmaOption = (option.getText() if option is not null else "on")
+		if Pragmas.IsValid(pragma):
+			if pragmaOption == "on":
+				Pragmas.TryToEnableOn(container, pragma)
+			else:
+				Pragmas.DisableOn(container, pragma)
+		else:
 			ReportError(UnityScriptCompilerErrors.UnknownPragma(ToLexicalInfo(id), pragma))
-		container.Annotate(pragma)
 	}
 ;
 
@@ -696,10 +676,11 @@ parameter_declaration_list[INodeWithParameters m]
 parameter_declaration[INodeWithParameters m]
 {
 }:
-	id:ID (COLON tr=type_reference)?
+	(attributes)? id:ID (COLON tr=type_reference)?
 	{
 		parameter = ParameterDeclaration(ToLexicalInfo(id), Name: id.getText(), Type: tr)
 		m.Parameters.Add(parameter)
+		FlushAttributes(parameter)
 	}
 ;
 
@@ -1884,7 +1865,7 @@ SHIFT_RIGHT: ">>";
 
 INPLACE_SHIFT_RIGHT: ">>=";
 
-AT: '@' ("script" { $setType(SCRIPT_ATTRIBUTE_MARKER); })?;
+AT: '@';
 
 DIVISION: 
 	("/*")=> ML_COMMENT { $setType(Token.SKIP); } |

@@ -62,6 +62,10 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/interface-errors.js")
 		
 	
+	[Test] def invalid_attribute_sequence():
+		RunTestCase("tests/error-messages/invalid-attribute-sequence.js")
+		
+	
 	[Test] def invalid_generator_return_type():
 		RunTestCase("tests/error-messages/invalid-generator-return-type.js")
 		

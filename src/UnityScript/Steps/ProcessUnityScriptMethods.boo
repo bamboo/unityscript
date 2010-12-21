@@ -81,10 +81,10 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		return super(d)
 			
 	override def OnModule(module as Module):           
-		Parameters.Strict = _strict = module.ContainsAnnotation("strict")
+		Parameters.Strict = _strict = Pragmas.IsEnabledOn(module, Pragmas.Strict)
 		Parameters.Ducky = not _strict
-		_implicit = module.ContainsAnnotation("implicit")
-		my(UnityDowncastPermissions).Enabled = module.ContainsAnnotation("downcast")
+		_implicit = Pragmas.IsEnabledOn(module, Pragmas.Implicit)
+		my(UnityDowncastPermissions).Enabled = Pragmas.IsEnabledOn(module, Pragmas.Downcast)
 		super(module)
 		
 	override def OnMethod(node as Method):

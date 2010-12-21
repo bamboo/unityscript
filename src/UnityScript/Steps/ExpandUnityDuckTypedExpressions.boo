@@ -1,5 +1,7 @@
 namespace UnityScript.Steps
 
+import UnityScript.Core
+
 import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
 import Boo.Lang.Compiler.TypeSystem
@@ -17,7 +19,7 @@ class ExpandUnityDuckTypedExpressions(ExpandDuckTypedExpressions):
 		UnityRuntimeServices_GetProperty = ResolveUnityRuntimeMethod("GetProperty")
 		
 	override def EnterModule(module as Module):
-		_expando = UnityScriptParameters.Expando or module.ContainsAnnotation("expando")
+		_expando = UnityScriptParameters.Expando or Pragmas.IsEnabledOn(module, Pragmas.Expando)
 		return super(module)
 			
 	override def GetSetPropertyMethod():

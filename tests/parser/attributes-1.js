@@ -4,7 +4,10 @@
 class Foo:
 
 	[AnotherOne(true, Name: 'foo')]
-	def bar():
+	def bar([NotNull] arg1):
+		pass
+
+	def baz(arg1, [Required((arg2 > 0))] arg2 as int):
 		pass
 
 	[AttributeForField(Foo.Bar)]
@@ -15,7 +18,10 @@ class Foo:
 class Foo {
 
 	@AnotherOne(true, Name="foo")
-	function bar() {
+	function bar(@NotNull arg1) {
+	}
+	
+	function baz(arg1, @Required(arg2 > 0) arg2: int) {
 	}
 	
 	@AttributeForField(Foo.Bar)

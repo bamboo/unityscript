@@ -431,6 +431,10 @@ class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/magicconstructor_2.js")
 		
 	
+	[Test] def multidimensional_arrays_1():
+		RunTestCase("tests/integration/multidimensional-arrays-1.js")
+		
+	
 	[Test] def nested_class_1():
 		RunTestCase("tests/integration/nested-class-1.js")
 		
@@ -557,6 +561,14 @@ class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 	
 	[Test] def valuetypes_1():
 		RunTestCase("tests/integration/valuetypes-1.js")
+		
+	
+	[Test] def varargs_in_constructor_with_vector3():
+		RunTestCase("tests/integration/varargs-in-constructor-with-vector3.js")
+		
+	
+	[Test] def varargs_with_vector3():
+		RunTestCase("tests/integration/varargs-with-vector3.js")
 		
 	
 	[Test] def variable_declaration_2():
