@@ -181,6 +181,10 @@ class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/array-with-initial-length.js")
 		
 	
+	[Test] def array_with_two_dimensions():
+		RunTestCase("tests/integration/array-with-two-dimensions.js")
+		
+	
 	[Test] def arrays_2():
 		RunTestCase("tests/integration/arrays-2.js")
 		

@@ -12,8 +12,13 @@ static class CodeFactory:
 			ge.Filter = StatementModifier(filter.LexicalInfo, Type: StatementModifierType.If, Condition: filter) 
 		return [| Boo.Lang.Builtins.array($ge) |].WithLocation(location)
 
-	def NewArrayInitializer(location as LexicalInfo, elementType as TypeReference, count as Expression):
-		return [| Boo.Lang.Builtins.array[of $elementType](cast(int, $count)) |].WithLocation(location)
+	def NewArrayInitializer(location as LexicalInfo, elementType as TypeReference, dimensions as List of Expression):
+		if len(dimensions) == 1:
+			size = dimensions[0]
+			return [| Boo.Lang.Builtins.array[of $elementType](cast(int, $size)) |].WithLocation(location)
+		initializer = [| Boo.Lang.Builtins.matrix[of $elementType]() |].WithLocation(location)
+		initializer.Arguments.Extend(dimensions)
+		return initializer
 		
 	def NewDoubleLiteralExpression(location as LexicalInfo, literal as string):
 		if literal.EndsWith('d') or literal.EndsWith('D'):

@@ -10,6 +10,10 @@ partial class ParserTestFixture:
 		RunTestCase("tests/parser/OperationInsideAParam.js")
 		
 	
+	[Test] def array_types():
+		RunTestCase("tests/parser/array-types.js")
+		
+	
 	[Test] def attributes_1():
 		RunTestCase("tests/parser/attributes-1.js")
 		

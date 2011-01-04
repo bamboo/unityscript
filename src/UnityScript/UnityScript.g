@@ -1017,14 +1017,16 @@ member returns [Token name]
 
 type_reference returns [TypeReference tr]
 {
+	rank = 1
 }: 
 	(
 		(tr=simple_type_reference | tr=anonymous_function_type)
 		(
-			LBRACK
+			lbrack:LBRACK
+			(COMMA { ++rank })*
 			RBRACK
 			{
-				tr = ArrayTypeReference(tr.LexicalInfo, tr);
+				tr = ArrayTypeReference(tr.LexicalInfo, tr, IntegerLiteralExpression(ToLexicalInfo(lbrack), rank))
 			}
 		)?
 	)
@@ -1061,10 +1063,15 @@ function_type_parameters[ParameterDeclarationCollection parameters]
 
 array_initializer returns [Expression e]
 {
+	dimensions = List of Expression(1)
 }:
-	tr=simple_type_reference LBRACK count=sum RBRACK
+	tr=simple_type_reference
+	LBRACK
+	size=sum { dimensions.Add(size) }
+	(COMMA size=sum { dimensions.Add(size) })*
+	RBRACK
 	{
-		e = CodeFactory.NewArrayInitializer(tr.LexicalInfo, tr, count)
+		e = CodeFactory.NewArrayInitializer(tr.LexicalInfo, tr, dimensions)
 	}
 ;
 
