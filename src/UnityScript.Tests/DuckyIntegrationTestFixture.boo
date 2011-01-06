@@ -483,6 +483,10 @@ class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/properties.js")
 		
 	
+	[Test] def quack_fu():
+		RunTestCase("tests/integration/quack-fu.js")
+		
+	
 	[Test] def question_mark():
 		RunTestCase("tests/integration/question_mark.js")
 		
