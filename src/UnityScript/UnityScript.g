@@ -235,6 +235,7 @@ start[CompileUnit cu]
 	module = Module(LexicalInfo(getFilename(), 1, 1))
 	module.Name = CreateModuleName(getFilename())
 	cu.Modules.Add(module)
+	globals = module.Globals
 }:
 	(
 		import_directive[module]
@@ -248,7 +249,7 @@ start[CompileUnit cu]
 			module_member[module]
 		)
 		| module_member[module]
-		| global_statement[module]
+		| statement[globals]
 	)*
 	eof:EOF
 	{
@@ -362,32 +363,6 @@ module_field[Module m]
 	mod=module_member_modifiers
 	f=field_member[m]
 	{ f.Modifiers |= mod }
-;
-
-global_statement[Module m]
-{
-	b = m.Globals
-}:
-	(
-		do_while_statement[b] |
-		while_statement[b] |
-		for_statement[b] |
-		if_statement[b] |
-		try_statement[b] |
-		switch_statement[b]
-	) |
-	(
-		(
-			expression_statement[b] |
-			yield_statement[b] |
-			return_statement[b] |
-			break_statement[b] |
-			continue_statement[b] |
-			throw_statement[b] |
-			declaration_statement[b]
-		)
-		eos
-	)
 ;
 
 qname returns [Token id]
