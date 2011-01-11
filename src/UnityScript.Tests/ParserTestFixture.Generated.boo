@@ -38,6 +38,10 @@ partial class ParserTestFixture:
 		RunTestCase("tests/parser/commentbug.js")
 		
 	
+	[Test] def do_while_1():
+		RunTestCase("tests/parser/do-while-1.js")
+		
+	
 	[Test] def enums():
 		RunTestCase("tests/parser/enums.js")
 		

@@ -36,115 +36,116 @@ class UnityScriptParser(antlr.LLkParser):
 	public static final CATCH = 7
 	public static final CLASS = 8
 	public static final CONTINUE = 9
-	public static final ELSE = 10
-	public static final ENUM = 11
-	public static final EXTENDS = 12
-	public static final FALSE = 13
-	public static final FINAL = 14
-	public static final FINALLY = 15
-	public static final FOR = 16
-	public static final FUNCTION = 17
-	public static final GET = 18
-	public static final IF = 19
-	public static final IMPORT = 20
-	public static final IMPLEMENTS = 21
-	public static final IN = 22
-	public static final INTERFACE = 23
-	public static final INSTANCEOF = 24
-	public static final NEW = 25
-	public static final NULL = 26
-	public static final RETURN = 27
-	public static final PUBLIC = 28
-	public static final PROTECTED = 29
-	public static final INTERNAL = 30
-	public static final OVERRIDE = 31
-	public static final PARTIAL = 32
-	public static final PRAGMA = 33
-	public static final PRIVATE = 34
-	public static final SET = 35
-	public static final STATIC = 36
-	public static final SUPER = 37
-	public static final THIS = 38
-	public static final THROW = 39
-	public static final TRUE = 40
-	public static final TRY = 41
-	public static final TYPEOF = 42
-	public static final VAR = 43
-	public static final VIRTUAL = 44
-	public static final WHILE = 45
-	public static final YIELD = 46
-	public static final SWITCH = 47
-	public static final CASE = 48
-	public static final DEFAULT = 49
-	public static final INPLACE_DIVISION = 50
-	public static final INPLACE_ADD = 51
-	public static final INPLACE_SUBTRACT = 52
-	public static final INPLACE_MULTIPLY = 53
-	public static final ID = 54
-	public static final DOUBLE_QUOTED_STRING = 55
-	public static final LBRACE = 56
-	public static final RBRACE = 57
-	public static final LPAREN = 58
-	public static final RPAREN = 59
-	public static final DOT = 60
-	public static final COLON = 61
-	public static final COMMA = 62
-	public static final LBRACK = 63
-	public static final RBRACK = 64
-	public static final BITWISE_OR = 65
-	public static final INPLACE_BITWISE_OR = 66
-	public static final BITWISE_AND = 67
-	public static final BITWISE_XOR = 68
-	public static final INPLACE_BITWISE_AND = 69
-	public static final LOGICAL_OR = 70
-	public static final LOGICAL_AND = 71
-	public static final EOS = 72
-	public static final ASSIGN = 73
-	public static final INCREMENT = 74
-	public static final DECREMENT = 75
-	public static final ADD = 76
-	public static final SUBTRACT = 77
-	public static final MODULUS = 78
-	public static final MULTIPLY = 79
-	public static final EQUALITY = 80
-	public static final INEQUALITY = 81
-	public static final QUESTION_MARK = 82
-	public static final BITWISE_NOT = 83
-	public static final REFERENCE_EQUALITY = 84
-	public static final REFERENCE_INEQUALITY = 85
-	public static final LESS_THAN = 86
-	public static final LESS_THAN_OR_EQUAL = 87
-	public static final SHIFT_LEFT = 88
-	public static final INPLACE_SHIFT_LEFT = 89
-	public static final GREATER_THAN = 90
-	public static final GREATER_THAN_OR_EQUAL = 91
-	public static final SHIFT_RIGHT = 92
-	public static final INPLACE_SHIFT_RIGHT = 93
-	public static final AT = 94
-	public static final SCRIPT_ATTRIBUTE_MARKER = 95
-	public static final ASSEMBLY_ATTRIBUTE_MARKER = 96
-	public static final HASH = 97
-	public static final INPLACE_BITWISE_XOR = 98
-	public static final NOT = 99
-	public static final DIVISION = 100
-	public static final RE_LITERAL = 101
-	public static final DOUBLE = 102
-	public static final INT = 103
-	public static final LONG = 104
-	public static final SINGLE_QUOTED_STRING = 105
-	public static final DOUBLE_SUFFIX = 106
-	public static final EXPONENT = 107
-	public static final WHITE_SPACE = 108
-	public static final DQS_ESC = 109
-	public static final SQS_ESC = 110
-	public static final SESC = 111
-	public static final ML_COMMENT = 112
-	public static final RE_CHAR = 113
-	public static final RE_ESC = 114
-	public static final NEWLINE = 115
-	public static final ID_LETTER = 116
-	public static final DIGIT = 117
-	public static final HEXDIGIT = 118
+	public static final DO = 10
+	public static final ELSE = 11
+	public static final ENUM = 12
+	public static final EXTENDS = 13
+	public static final FALSE = 14
+	public static final FINAL = 15
+	public static final FINALLY = 16
+	public static final FOR = 17
+	public static final FUNCTION = 18
+	public static final GET = 19
+	public static final IF = 20
+	public static final IMPORT = 21
+	public static final IMPLEMENTS = 22
+	public static final IN = 23
+	public static final INTERFACE = 24
+	public static final INSTANCEOF = 25
+	public static final NEW = 26
+	public static final NULL = 27
+	public static final RETURN = 28
+	public static final PUBLIC = 29
+	public static final PROTECTED = 30
+	public static final INTERNAL = 31
+	public static final OVERRIDE = 32
+	public static final PARTIAL = 33
+	public static final PRAGMA = 34
+	public static final PRIVATE = 35
+	public static final SET = 36
+	public static final STATIC = 37
+	public static final SUPER = 38
+	public static final THIS = 39
+	public static final THROW = 40
+	public static final TRUE = 41
+	public static final TRY = 42
+	public static final TYPEOF = 43
+	public static final VAR = 44
+	public static final VIRTUAL = 45
+	public static final WHILE = 46
+	public static final YIELD = 47
+	public static final SWITCH = 48
+	public static final CASE = 49
+	public static final DEFAULT = 50
+	public static final INPLACE_DIVISION = 51
+	public static final INPLACE_ADD = 52
+	public static final INPLACE_SUBTRACT = 53
+	public static final INPLACE_MULTIPLY = 54
+	public static final ID = 55
+	public static final DOUBLE_QUOTED_STRING = 56
+	public static final LBRACE = 57
+	public static final RBRACE = 58
+	public static final LPAREN = 59
+	public static final RPAREN = 60
+	public static final DOT = 61
+	public static final COLON = 62
+	public static final COMMA = 63
+	public static final LBRACK = 64
+	public static final RBRACK = 65
+	public static final BITWISE_OR = 66
+	public static final INPLACE_BITWISE_OR = 67
+	public static final BITWISE_AND = 68
+	public static final BITWISE_XOR = 69
+	public static final INPLACE_BITWISE_AND = 70
+	public static final LOGICAL_OR = 71
+	public static final LOGICAL_AND = 72
+	public static final EOS = 73
+	public static final ASSIGN = 74
+	public static final INCREMENT = 75
+	public static final DECREMENT = 76
+	public static final ADD = 77
+	public static final SUBTRACT = 78
+	public static final MODULUS = 79
+	public static final MULTIPLY = 80
+	public static final EQUALITY = 81
+	public static final INEQUALITY = 82
+	public static final QUESTION_MARK = 83
+	public static final BITWISE_NOT = 84
+	public static final REFERENCE_EQUALITY = 85
+	public static final REFERENCE_INEQUALITY = 86
+	public static final LESS_THAN = 87
+	public static final LESS_THAN_OR_EQUAL = 88
+	public static final SHIFT_LEFT = 89
+	public static final INPLACE_SHIFT_LEFT = 90
+	public static final GREATER_THAN = 91
+	public static final GREATER_THAN_OR_EQUAL = 92
+	public static final SHIFT_RIGHT = 93
+	public static final INPLACE_SHIFT_RIGHT = 94
+	public static final AT = 95
+	public static final SCRIPT_ATTRIBUTE_MARKER = 96
+	public static final ASSEMBLY_ATTRIBUTE_MARKER = 97
+	public static final HASH = 98
+	public static final INPLACE_BITWISE_XOR = 99
+	public static final NOT = 100
+	public static final DIVISION = 101
+	public static final RE_LITERAL = 102
+	public static final DOUBLE = 103
+	public static final INT = 104
+	public static final LONG = 105
+	public static final SINGLE_QUOTED_STRING = 106
+	public static final DOUBLE_SUFFIX = 107
+	public static final EXPONENT = 108
+	public static final WHITE_SPACE = 109
+	public static final DQS_ESC = 110
+	public static final SQS_ESC = 111
+	public static final SESC = 112
+	public static final ML_COMMENT = 113
+	public static final RE_CHAR = 114
+	public static final RE_ESC = 115
+	public static final NEWLINE = 116
+	public static final ID_LETTER = 117
+	public static final DIGIT = 118
+	public static final HEXDIGIT = 119
 	
 	
 	[property(CompilerContext)]
@@ -492,14 +493,17 @@ class UnityScriptParser(antlr.LLkParser):
 		
 		try:     // for error handling
 			_givenValue  = LA(1)
-			if ((_givenValue == FOR)
+			if ((_givenValue == DO)
+				 or (_givenValue ==FOR)
 				 or (_givenValue ==IF)
 				 or (_givenValue ==TRY)
 				 or (_givenValue ==WHILE)
 				 or (_givenValue ==SWITCH)
 			): // 1827
 				_givenValue  = LA(1)
-				if ((_givenValue == WHILE)): // 1831
+				if ((_givenValue == DO)): // 1831
+					do_while_statement(b)
+				elif ((_givenValue == WHILE)): // 1831
 					while_statement(b)
 				elif ((_givenValue == FOR)): // 1831
 					for_statement(b)
@@ -639,8 +643,8 @@ class UnityScriptParser(antlr.LLkParser):
 					match(DOT)
 					e=member_reference_expression(e)
 				else:
-					goto _loop198_breakloop
-			:_loop198_breakloop
+					goto _loop199_breakloop
+			:_loop199_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -854,6 +858,7 @@ class UnityScriptParser(antlr.LLkParser):
 				 or (_givenValue ==CATCH)
 				 or (_givenValue ==CLASS)
 				 or (_givenValue ==CONTINUE)
+				 or (_givenValue ==DO)
 				 or (_givenValue ==ELSE)
 				 or (_givenValue ==ENUM)
 				 or (_givenValue ==FALSE)
@@ -1262,6 +1267,7 @@ class UnityScriptParser(antlr.LLkParser):
 				 or (_givenValue ==BREAK)
 				 or (_givenValue ==CLASS)
 				 or (_givenValue ==CONTINUE)
+				 or (_givenValue ==DO)
 				 or (_givenValue ==ENUM)
 				 or (_givenValue ==FALSE)
 				 or (_givenValue ==FINAL)
@@ -1321,6 +1327,7 @@ class UnityScriptParser(antlr.LLkParser):
 				 or (_givenValue ==BREAK)
 				 or (_givenValue ==CLASS)
 				 or (_givenValue ==CONTINUE)
+				 or (_givenValue ==DO)
 				 or (_givenValue ==ENUM)
 				 or (_givenValue ==FALSE)
 				 or (_givenValue ==FINAL)
@@ -1386,6 +1393,36 @@ class UnityScriptParser(antlr.LLkParser):
 			else:
 				raise
 		return member
+	
+	public def do_while_statement(
+		container as Block 
+	) as void: //throws RecognitionException, TokenStreamException
+		
+		d as IToken  = null
+		w as IToken  = null
+		
+		try:     // for error handling
+			d = LT(1)
+			match(DO)
+			if 0 == inputState.guessing:
+				ws = WhileStatement(ToLexicalInfo(d), Condition: BoolLiteralExpression(true))
+				b = ws.Block
+				container.Add(ws)
+				EnterLoop(ws)
+			block(b)
+			w = LT(1)
+			match(WHILE)
+			e=paren_expression()
+			eos()
+			if 0 == inputState.guessing:
+				b.Add(BreakStatement(ToLexicalInfo(w), Modifier: StatementModifier(StatementModifierType.If, e)))
+				LeaveLoop(ws)
+		except ex as RecognitionException:
+			if (0 == inputState.guessing):
+				reportError(ex)
+				recover(ex,tokenSet_24_)
+			else:
+				raise
 	
 	public def while_statement(
 		container as Block 
@@ -1530,8 +1567,8 @@ class UnityScriptParser(antlr.LLkParser):
 						tr = null
 					compound_or_single_stmt(b)
 				else:
-					goto _loop155_breakloop
-			:_loop155_breakloop
+					goto _loop156_breakloop
+			:_loop156_breakloop
 			if ((LA(1)==FINALLY) and (tokenSet_34_.member(cast(int, LA(2))))):
 				finally_block(s)
 			elif ((tokenSet_24_.member(cast(int, LA(1)))) and (tokenSet_17_.member(cast(int, LA(2))))): // line 2102
@@ -1584,22 +1621,22 @@ class UnityScriptParser(antlr.LLkParser):
 							if 0 == inputState.guessing:
 								item.Arguments.Add(e); 
 						else:
-							goto _loop143_breakloop
-					:_loop143_breakloop
-					_cnt145 as int = 0
+							goto _loop144_breakloop
+					:_loop144_breakloop
+					_cnt146 as int = 0
 					while true:
 						if ((tokenSet_34_.member(cast(int, LA(1))))):
 							statement(itemBlock)
 						else:
-							if (_cnt145 >= 1):
-								goto _loop145_breakloop
+							if (_cnt146 >= 1):
+								goto _loop146_breakloop
 							else:
 								raise NoViableAltException(LT(1), getFilename())
-						++_cnt145
-					:_loop145_breakloop
+						++_cnt146
+					:_loop146_breakloop
 				else:
-					goto _loop146_breakloop
-			:_loop146_breakloop
+					goto _loop147_breakloop
+			:_loop147_breakloop
 			_givenValue  = LA(1)
 			if ((_givenValue == DEFAULT)): // 1831
 				d = LT(1)
@@ -1609,17 +1646,17 @@ class UnityScriptParser(antlr.LLkParser):
 					item = MacroStatement(ToLexicalInfo(d), Name: d.getText())
 					itemBlock = item.Body
 					switchBlock.Add(item)
-				_cnt149 as int = 0
+				_cnt150 as int = 0
 				while true:
 					if ((tokenSet_34_.member(cast(int, LA(1))))):
 						statement(itemBlock)
 					else:
-						if (_cnt149 >= 1):
-							goto _loop149_breakloop
+						if (_cnt150 >= 1):
+							goto _loop150_breakloop
 						else:
 							raise NoViableAltException(LT(1), getFilename())
-					++_cnt149
-				:_loop149_breakloop
+					++_cnt150
+				:_loop150_breakloop
 			elif ((_givenValue == RBRACE)): // 1831
 				pass // 947
 			else: // line 1969
@@ -1629,8 +1666,8 @@ class UnityScriptParser(antlr.LLkParser):
 				if ((LA(1)==EOS) and (tokenSet_24_.member(cast(int, LA(2))))):
 					match(EOS)
 				else:
-					goto _loop151_breakloop
-			:_loop151_breakloop
+					goto _loop152_breakloop
+			:_loop152_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -1847,8 +1884,8 @@ class UnityScriptParser(antlr.LLkParser):
 						if 0 == inputState.guessing:
 							++rank 
 					else:
-						goto _loop167_breakloop
-				:_loop167_breakloop
+						goto _loop168_breakloop
+				:_loop168_breakloop
 				match(RBRACK)
 				if 0 == inputState.guessing:
 					tr = ArrayTypeReference(tr.LexicalInfo, tr, IntegerLiteralExpression(ToLexicalInfo(lbrack), rank))
@@ -1880,8 +1917,8 @@ class UnityScriptParser(antlr.LLkParser):
 					if 0 == inputState.guessing:
 						typeReferences.Add(tr) 
 				else:
-					goto _loop183_breakloop
-			:_loop183_breakloop
+					goto _loop184_breakloop
+			:_loop184_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -2202,14 +2239,17 @@ class UnityScriptParser(antlr.LLkParser):
 		
 		try:     // for error handling
 			_givenValue  = LA(1)
-			if ((_givenValue == FOR)
+			if ((_givenValue == DO)
+				 or (_givenValue ==FOR)
 				 or (_givenValue ==IF)
 				 or (_givenValue ==TRY)
 				 or (_givenValue ==WHILE)
 				 or (_givenValue ==SWITCH)
 			): // 1827
 				_givenValue  = LA(1)
-				if ((_givenValue == WHILE)): // 1831
+				if ((_givenValue == DO)): // 1831
+					do_while_statement(b)
+				elif ((_givenValue == WHILE)): // 1831
 					while_statement(b)
 				elif ((_givenValue == FOR)): // 1831
 					for_statement(b)
@@ -2356,6 +2396,7 @@ class UnityScriptParser(antlr.LLkParser):
 				 or (_givenValue ==CATCH)
 				 or (_givenValue ==CLASS)
 				 or (_givenValue ==CONTINUE)
+				 or (_givenValue ==DO)
 				 or (_givenValue ==ELSE)
 				 or (_givenValue ==ENUM)
 				 or (_givenValue ==FALSE)
@@ -2514,6 +2555,7 @@ class UnityScriptParser(antlr.LLkParser):
 				 or (_givenValue ==CATCH)
 				 or (_givenValue ==CLASS)
 				 or (_givenValue ==CONTINUE)
+				 or (_givenValue ==DO)
 				 or (_givenValue ==ELSE)
 				 or (_givenValue ==ENUM)
 				 or (_givenValue ==FALSE)
@@ -2922,8 +2964,8 @@ class UnityScriptParser(antlr.LLkParser):
 						if 0 == inputState.guessing:
 							parameters.Add(ParameterDeclaration(Type: parameterType, Name: "arg" + len(parameters))) 
 					else:
-						goto _loop173_breakloop
-				:_loop173_breakloop
+						goto _loop174_breakloop
+				:_loop174_breakloop
 			elif ((_givenValue == RPAREN)): // 1831
 				pass // 947
 			else: // line 1969
@@ -2954,8 +2996,8 @@ class UnityScriptParser(antlr.LLkParser):
 					if 0 == inputState.guessing:
 						dimensions.Add(size) 
 				else:
-					goto _loop176_breakloop
-			:_loop176_breakloop
+					goto _loop177_breakloop
+			:_loop177_breakloop
 			match(RBRACK)
 			if 0 == inputState.guessing:
 				e = CodeFactory.NewArrayInitializer(tr.LexicalInfo, tr, dimensions)
@@ -2999,8 +3041,8 @@ class UnityScriptParser(antlr.LLkParser):
 						be.Right = r
 						e = be
 				else:
-					goto _loop250_breakloop
-			:_loop250_breakloop
+					goto _loop251_breakloop
+			:_loop251_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -3029,18 +3071,18 @@ class UnityScriptParser(antlr.LLkParser):
 		
 		
 		try:     // for error handling
-			synPredMatched187 as bool = false
+			synPredMatched188 as bool = false
 			if ((LA(1)==NEW) and (LA(2)==ID)):
-				_m187 as int = mark()
-				synPredMatched187 = true
+				_m188 as int = mark()
+				synPredMatched188 = true
 				++inputState.guessing
 				try:
 					new_array_expression()
 				except x as RecognitionException:
-					synPredMatched187 = false
-				rewind(_m187)
+					synPredMatched188 = false
+				rewind(_m188)
 				--inputState.guessing
-			if synPredMatched187:
+			if synPredMatched188:
 				e=new_array_expression()
 			elif ((LA(1)==NEW) and (LA(2)==ID)): // line 2102
 				match(NEW)
@@ -3102,8 +3144,8 @@ class UnityScriptParser(antlr.LLkParser):
 						if 0 == inputState.guessing:
 							ec.Add(e); 
 					else:
-						goto _loop216_breakloop
-				:_loop216_breakloop
+						goto _loop217_breakloop
+				:_loop217_breakloop
 			elif ((_givenValue == RPAREN)
 				 or (_givenValue ==RBRACK)
 			): // 1827
@@ -3542,8 +3584,8 @@ class UnityScriptParser(antlr.LLkParser):
 							match(COMMA)
 							slice(se)
 						else:
-							goto _loop232_breakloop
-					:_loop232_breakloop
+							goto _loop233_breakloop
+					:_loop233_breakloop
 					match(RBRACK)
 				elif ((LA(1)==DOT) and (tokenSet_54_.member(cast(int, LA(2))))): // line 2102
 					match(DOT)
@@ -3559,8 +3601,8 @@ class UnityScriptParser(antlr.LLkParser):
 					expression_list(args)
 					match(RPAREN)
 				else:
-					goto _loop235_breakloop
-			:_loop235_breakloop
+					goto _loop236_breakloop
+			:_loop236_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -3751,8 +3793,8 @@ class UnityScriptParser(antlr.LLkParser):
 						be.Right = r
 						e = be
 				else:
-					goto _loop246_breakloop
-			:_loop246_breakloop
+					goto _loop247_breakloop
+			:_loop247_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -3788,8 +3830,8 @@ class UnityScriptParser(antlr.LLkParser):
 					if 0 == inputState.guessing:
 						e = BinaryExpression(ToLexicalInfo(token), Operator: op, Left: e, Right: r)
 				else:
-					goto _loop254_breakloop
-			:_loop254_breakloop
+					goto _loop255_breakloop
+			:_loop255_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -3868,8 +3910,8 @@ class UnityScriptParser(antlr.LLkParser):
 						be.Right = r
 						e = be
 				else:
-					goto _loop266_breakloop
-			:_loop266_breakloop
+					goto _loop267_breakloop
+			:_loop267_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -3917,8 +3959,8 @@ class UnityScriptParser(antlr.LLkParser):
 					if 0 == inputState.guessing:
 						e = BinaryExpression(ToLexicalInfo(token), op, e, r) 
 				else:
-					goto _loop274_breakloop
-			:_loop274_breakloop
+					goto _loop275_breakloop
+			:_loop275_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -3944,8 +3986,8 @@ class UnityScriptParser(antlr.LLkParser):
 					if 0 == inputState.guessing:
 						e = BinaryExpression(ToLexicalInfo(token), Operator: op, Left: e, Right: r)
 				else:
-					goto _loop277_breakloop
-			:_loop277_breakloop
+					goto _loop278_breakloop
+			:_loop278_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -3971,8 +4013,8 @@ class UnityScriptParser(antlr.LLkParser):
 					if 0 == inputState.guessing:
 						e = BinaryExpression(ToLexicalInfo(token), Operator: op, Left: e, Right: r)
 				else:
-					goto _loop280_breakloop
-			:_loop280_breakloop
+					goto _loop281_breakloop
+			:_loop281_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -3998,8 +4040,8 @@ class UnityScriptParser(antlr.LLkParser):
 					if 0 == inputState.guessing:
 						e = BinaryExpression(ToLexicalInfo(token), Operator: op, Left: e, Right: r)
 				else:
-					goto _loop283_breakloop
-			:_loop283_breakloop
+					goto _loop284_breakloop
+			:_loop284_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -4026,8 +4068,8 @@ class UnityScriptParser(antlr.LLkParser):
 									Left: e,
 									Right: rhs)
 				else:
-					goto _loop286_breakloop
-			:_loop286_breakloop
+					goto _loop287_breakloop
+			:_loop287_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -4054,8 +4096,8 @@ class UnityScriptParser(antlr.LLkParser):
 									Left: e,
 									Right: rhs)
 				else:
-					goto _loop289_breakloop
-			:_loop289_breakloop
+					goto _loop290_breakloop
+			:_loop290_breakloop
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -4103,19 +4145,19 @@ class UnityScriptParser(antlr.LLkParser):
 		try:     // for error handling
 			lbrack = LT(1)
 			match(LBRACK)
-			synPredMatched297 as bool = false
+			synPredMatched298 as bool = false
 			if ((tokenSet_13_.member(cast(int, LA(1)))) and (tokenSet_57_.member(cast(int, LA(2))))):
-				_m297 as int = mark()
-				synPredMatched297 = true
+				_m298 as int = mark()
+				synPredMatched298 = true
 				++inputState.guessing
 				try:
 					expression()
 					match(FOR)
 				except x as RecognitionException:
-					synPredMatched297 = false
-				rewind(_m297)
+					synPredMatched298 = false
+				rewind(_m298)
 				--inputState.guessing
-			if synPredMatched297:
+			if synPredMatched298:
 				projection=expression()
 				match(FOR)
 				match(LPAREN)
@@ -4202,8 +4244,8 @@ class UnityScriptParser(antlr.LLkParser):
 						if 0 == inputState.guessing:
 							dle.Items.Add(pair); 
 					else:
-						goto _loop305_breakloop
-				:_loop305_breakloop
+						goto _loop306_breakloop
+				:_loop306_breakloop
 			elif ((_givenValue == RBRACE)): // 1831
 				pass // 947
 			else: // line 1969
@@ -4367,6 +4409,7 @@ class UnityScriptParser(antlr.LLkParser):
 		'catch',
 		'class',
 		'continue',
+		'do',
 		'else',
 		'enum',
 		'extends',
@@ -4479,19 +4522,19 @@ class UnityScriptParser(antlr.LLkParser):
 	)
 	
 	private static def mk_tokenSet_0_() as (long):
-		data = (26480360966400L, 0L, )
+		data = (52960721932544L, 0L, )
 		return data
 	public static final tokenSet_0_ = BitSet(mk_tokenSet_0_())
 	private static def mk_tokenSet_1_() as (long):
-		data = (18040878870448384L, 0L, )
+		data = (36081757740896512L, 0L, )
 		return data
 	public static final tokenSet_1_ = BitSet(mk_tokenSet_1_())
 	private static def mk_tokenSet_2_() as (long):
-		data = (-8808777125549366752L, 4294967831552L, 0L, 0L, )
+		data = (829189822610818592L, 8589935663105L, 0L, 0L, )
 		return data
 	public static final tokenSet_2_ = BitSet(mk_tokenSet_2_())
 	private static def mk_tokenSet_3_() as (long):
-		data = (-7494834249975239822L, 4383014125567L, 0L, 0L, )
+		data = (3457075573759072114L, 8766028251135L, 0L, 0L, )
 		return data
 	public static final tokenSet_3_ = BitSet(mk_tokenSet_3_())
 	private static def mk_tokenSet_4_() as (long):
@@ -4499,219 +4542,219 @@ class UnityScriptParser(antlr.LLkParser):
 		return data
 	public static final tokenSet_4_ = BitSet(mk_tokenSet_4_())
 	private static def mk_tokenSet_5_() as (long):
-		data = (-8808759441280505054L, 4304631507968L, 0L, 0L, )
+		data = (829225191148541730L, 8609263015937L, 0L, 0L, )
 		return data
 	public static final tokenSet_5_ = BitSet(mk_tokenSet_5_())
 	private static def mk_tokenSet_6_() as (long):
-		data = (-7494834241385305230L, 4383014125567L, 0L, 0L, )
+		data = (3457075590938941298L, 8766028251135L, 0L, 0L, )
 		return data
 	public static final tokenSet_6_ = BitSet(mk_tokenSet_6_())
 	private static def mk_tokenSet_7_() as (long):
-		data = (-8808759441281553630L, 4296041573376L, 0L, 0L, )
+		data = (829225191146444578L, 8592083146753L, 0L, 0L, )
 		return data
 	public static final tokenSet_7_ = BitSet(mk_tokenSet_7_())
 	private static def mk_tokenSet_8_() as (long):
-		data = (18040881051486464L, 0L, )
+		data = (36081762102972672L, 0L, )
 		return data
 	public static final tokenSet_8_ = BitSet(mk_tokenSet_8_())
 	private static def mk_tokenSet_9_() as (long):
-		data = (26476057477120L, 0L, )
+		data = (52952114954240L, 0L, )
 		return data
 	public static final tokenSet_9_ = BitSet(mk_tokenSet_9_())
 	private static def mk_tokenSet_10_() as (long):
-		data = (18040874566959104L, 0L, )
+		data = (36081749133918208L, 0L, )
 		return data
 	public static final tokenSet_10_ = BitSet(mk_tokenSet_10_())
 	private static def mk_tokenSet_11_() as (long):
-		data = (17684267944192L, 0L, )
+		data = (35368535888128L, 0L, )
 		return data
 	public static final tokenSet_11_ = BitSet(mk_tokenSet_11_())
 	private static def mk_tokenSet_12_() as (long):
-		data = (18032082777426176L, 0L, )
+		data = (36064165554852096L, 0L, )
 		return data
 	public static final tokenSet_12_ = BitSet(mk_tokenSet_12_())
 	private static def mk_tokenSet_13_() as (long):
-		data = (-8809034961160888320L, 4294967831552L, 0L, 0L, )
+		data = (828674151387774976L, 8589935663105L, 0L, 0L, )
 		return data
 	public static final tokenSet_13_ = BitSet(mk_tokenSet_13_())
 	private static def mk_tokenSet_14_() as (long):
-		data = (-2323851497726402480L, 4364190088411L, 0L, 0L, )
+		data = (-4647702995452805040L, 8728380176823L, 0L, 0L, )
 		return data
 	public static final tokenSet_14_ = BitSet(mk_tokenSet_14_())
 	private static def mk_tokenSet_15_() as (long):
-		data = (5188146770730811392L, 0L, )
+		data = (-8070450532247928832L, 0L, )
 		return data
 	public static final tokenSet_15_ = BitSet(mk_tokenSet_15_())
 	private static def mk_tokenSet_16_() as (long):
-		data = (288230376151711744L, 512L, 0L, 0L, )
+		data = (576460752303423488L, 1024L, 0L, 0L, )
 		return data
 	public static final tokenSet_16_ = BitSet(mk_tokenSet_16_())
 	private static def mk_tokenSet_17_() as (long):
-		data = (-42953084942L, 4383014125567L, 0L, 0L, )
+		data = (-85906169870L, 8766028251135L, 0L, 0L, )
 		return data
 	public static final tokenSet_17_ = BitSet(mk_tokenSet_17_())
 	private static def mk_tokenSet_18_() as (long):
-		data = (18040881051486464L, 1073741824L, 0L, 0L, )
+		data = (36081762102972672L, 2147483648L, 0L, 0L, )
 		return data
 	public static final tokenSet_18_ = BitSet(mk_tokenSet_18_())
 	private static def mk_tokenSet_19_() as (long):
-		data = (-8232574208857464832L, 4294967831552L, 0L, 0L, )
+		data = (1981595655994621952L, 8589935663105L, 0L, 0L, )
 		return data
 	public static final tokenSet_19_ = BitSet(mk_tokenSet_19_())
 	private static def mk_tokenSet_20_() as (long):
-		data = (-8808759439134069982L, 4296041573376L, 0L, 0L, )
+		data = (829225195441411874L, 8592083146753L, 0L, 0L, )
 		return data
 	public static final tokenSet_20_ = BitSet(mk_tokenSet_20_())
 	private static def mk_tokenSet_21_() as (long):
-		data = (-844433523250318L, 4383014125567L, 0L, 0L, )
+		data = (-1688867046500494L, 8766028251135L, 0L, 0L, )
 		return data
 	public static final tokenSet_21_ = BitSet(mk_tokenSet_21_())
 	private static def mk_tokenSet_22_() as (long):
-		data = (-42949939214L, 4391604060159L, 0L, 0L, )
+		data = (-85899878414L, 8783208120319L, 0L, 0L, )
 		return data
 	public static final tokenSet_22_ = BitSet(mk_tokenSet_22_())
 	private static def mk_tokenSet_23_() as (long):
-		data = (8800396511488L, 0L, )
+		data = (17600793022720L, 0L, )
 		return data
 	public static final tokenSet_23_ = BitSet(mk_tokenSet_23_())
 	private static def mk_tokenSet_24_() as (long):
-		data = (-8663799828275531870L, 4296041573632L, 0L, 0L, )
+		data = (1119144417158487970L, 8592083147265L, 0L, 0L, )
 		return data
 	public static final tokenSet_24_ = BitSet(mk_tokenSet_24_())
 	private static def mk_tokenSet_25_() as (long):
-		data = (-8663799826126999646L, 4304631508224L, 0L, 0L, )
+		data = (1119144421455552418L, 8609263016449L, 0L, 0L, )
 		return data
 	public static final tokenSet_25_ = BitSet(mk_tokenSet_25_())
 	private static def mk_tokenSet_26_() as (long):
-		data = (-3149838L, 4383014125567L, 0L, 0L, )
+		data = (-6299662L, 8766028251135L, 0L, 0L, )
 		return data
 	public static final tokenSet_26_ = BitSet(mk_tokenSet_26_())
 	private static def mk_tokenSet_27_() as (long):
-		data = (26482542004480L, 1073741824L, 0L, 0L, )
+		data = (52965084008704L, 2147483648L, 0L, 0L, )
 		return data
 	public static final tokenSet_27_ = BitSet(mk_tokenSet_27_())
 	private static def mk_tokenSet_28_() as (long):
-		data = (26482542004480L, 0L, )
+		data = (52965084008704L, 0L, )
 		return data
 	public static final tokenSet_28_ = BitSet(mk_tokenSet_28_())
 	private static def mk_tokenSet_29_() as (long):
-		data = (18040915411486976L, 0L, )
+		data = (36081830822973696L, 0L, )
 		return data
 	public static final tokenSet_29_ = BitSet(mk_tokenSet_29_())
 	private static def mk_tokenSet_30_() as (long):
-		data = (18014432869499136L, 0L, )
+		data = (36028865738998016L, 0L, )
 		return data
 	public static final tokenSet_30_ = BitSet(mk_tokenSet_30_())
 	private static def mk_tokenSet_31_() as (long):
-		data = (-8664644251058214110L, 4296041573376L, 0L, 0L, )
+		data = (1117455571593123618L, 8592083146753L, 0L, 0L, )
 		return data
 	public static final tokenSet_31_ = BitSet(mk_tokenSet_31_())
 	private static def mk_tokenSet_32_() as (long):
-		data = (-8809026165067866112L, 4294967831808L, 0L, 0L, )
+		data = (828691743573819392L, 8589935663617L, 0L, 0L, )
 		return data
 	public static final tokenSet_32_ = BitSet(mk_tokenSet_32_())
 	private static def mk_tokenSet_33_() as (long):
-		data = (-7495109769854574512L, 4381940383743L, 0L, 0L, )
+		data = (3456524534000402512L, 8763880767487L, 0L, 0L, )
 		return data
 	public static final tokenSet_33_ = BitSet(mk_tokenSet_33_())
 	private static def mk_tokenSet_34_() as (long):
-		data = (-8808777125549366752L, 4294967831808L, 0L, 0L, )
+		data = (829189822610818592L, 8589935663617L, 0L, 0L, )
 		return data
 	public static final tokenSet_34_ = BitSet(mk_tokenSet_34_())
 	private static def mk_tokenSet_35_() as (long):
-		data = (-7510878323647713294L, 4365263830491L, 0L, 0L, )
+		data = (3424987426414125042L, 8730527660983L, 0L, 0L, )
 		return data
 	public static final tokenSet_35_ = BitSet(mk_tokenSet_35_())
 	private static def mk_tokenSet_36_() as (long):
-		data = (-42950987790L, 4383014125567L, 0L, 0L, )
+		data = (-85901975566L, 8766028251135L, 0L, 0L, )
 		return data
 	public static final tokenSet_36_ = BitSet(mk_tokenSet_36_())
 	private static def mk_tokenSet_37_() as (long):
-		data = (-8590987278L, 4383014125567L, 0L, 0L, )
+		data = (-17181974542L, 8766028251135L, 0L, 0L, )
 		return data
 	public static final tokenSet_37_ = BitSet(mk_tokenSet_37_())
 	private static def mk_tokenSet_38_() as (long):
-		data = (72057594037927936L, 67108864L, 0L, 0L, )
+		data = (144115188075855872L, 134217728L, 0L, 0L, )
 		return data
 	public static final tokenSet_38_ = BitSet(mk_tokenSet_38_())
 	private static def mk_tokenSet_39_() as (long):
-		data = (144141670617860352L, 1073741824L, 0L, 0L, )
+		data = (288283341235720448L, 2147483648L, 0L, 0L, )
 		return data
 	public static final tokenSet_39_ = BitSet(mk_tokenSet_39_())
 	private static def mk_tokenSet_40_() as (long):
-		data = (144115188075986944L, 1073741824L, 0L, 0L, )
+		data = (288230376151973888L, 2147483648L, 0L, 0L, )
 		return data
 	public static final tokenSet_40_ = BitSet(mk_tokenSet_40_())
 	private static def mk_tokenSet_41_() as (long):
-		data = (576460752303423488L, 0L, )
+		data = (1152921504606846976L, 0L, )
 		return data
 	public static final tokenSet_41_ = BitSet(mk_tokenSet_41_())
 	private static def mk_tokenSet_42_() as (long):
-		data = (4755801206503243776L, 0L, )
+		data = (-8935141660703064064L, 0L, )
 		return data
 	public static final tokenSet_42_ = BitSet(mk_tokenSet_42_())
 	private static def mk_tokenSet_43_() as (long):
-		data = (-6358801241844520158L, 4296041574144L, 0L, 0L, )
+		data = (5729141590020511522L, 8592083148289L, 0L, 0L, )
 		return data
 	public static final tokenSet_43_ = BitSet(mk_tokenSet_43_())
 	private static def mk_tokenSet_44_() as (long):
-		data = (-8663799826128048222L, 4296041573632L, 0L, 0L, )
+		data = (1119144421453455266L, 8592083147265L, 0L, 0L, )
 		return data
 	public static final tokenSet_44_ = BitSet(mk_tokenSet_44_())
 	private static def mk_tokenSet_45_() as (long):
-		data = (-8664661937473510880L, 4294967831808L, 0L, 0L, )
+		data = (1117420198762530336L, 8589935663617L, 0L, 0L, )
 		return data
 	public static final tokenSet_45_ = BitSet(mk_tokenSet_45_())
 	private static def mk_tokenSet_46_() as (long):
-		data = (-7493989825045073934L, 4383014125567L, 0L, 0L, )
+		data = (3458764423619403762L, 8766028251135L, 0L, 0L, )
 		return data
 	public static final tokenSet_46_ = BitSet(mk_tokenSet_46_())
 	private static def mk_tokenSet_47_() as (long):
-		data = (-8663799828271337566L, 4296041574144L, 0L, 0L, )
+		data = (1119144417166876578L, 8592083148289L, 0L, 0L, )
 		return data
 	public static final tokenSet_47_ = BitSet(mk_tokenSet_47_())
 	private static def mk_tokenSet_48_() as (long):
-		data = (-8087339075972108382L, 4296041573632L, 0L, 0L, )
+		data = (2272065921765334946L, 8592083147265L, 0L, 0L, )
 		return data
 	public static final tokenSet_48_ = BitSet(mk_tokenSet_48_())
 	private static def mk_tokenSet_49_() as (long):
-		data = (-8593084430L, 4383014125567L, 0L, 0L, )
+		data = (-17186168846L, 8766028251135L, 0L, 0L, )
 		return data
 	public static final tokenSet_49_ = BitSet(mk_tokenSet_49_())
 	private static def mk_tokenSet_50_() as (long):
-		data = (576460752303423488L, 1L, 0L, 0L, )
+		data = (1152921504606846976L, 2L, 0L, 0L, )
 		return data
 	public static final tokenSet_50_ = BitSet(mk_tokenSet_50_())
 	private static def mk_tokenSet_51_() as (long):
-		data = (306249172707835904L, 0L, )
+		data = (612498345415671808L, 0L, )
 		return data
 	public static final tokenSet_51_ = BitSet(mk_tokenSet_51_())
 	private static def mk_tokenSet_52_() as (long):
-		data = (4611686018427387904L, 1L, 0L, 0L, )
+		data = (-9223372036854775808L, 2L, 0L, 0L, )
 		return data
 	public static final tokenSet_52_ = BitSet(mk_tokenSet_52_())
 	private static def mk_tokenSet_53_() as (long):
-		data = (-6503191951947194368L, 4294967831552L, 0L, 0L, )
+		data = (5440360169815162880L, 8589935663105L, 0L, 0L, )
 		return data
 	public static final tokenSet_53_ = BitSet(mk_tokenSet_53_())
 	private static def mk_tokenSet_54_() as (long):
-		data = (18014432869482496L, 4194304L, 0L, 0L, )
+		data = (36028865738964992L, 8388608L, 0L, 0L, )
 		return data
 	public static final tokenSet_54_ = BitSet(mk_tokenSet_54_())
 	private static def mk_tokenSet_55_() as (long):
-		data = (20971520L, 213909504L, 0L, 0L, )
+		data = (41943040L, 427819008L, 0L, 0L, )
 		return data
 	public static final tokenSet_55_ = BitSet(mk_tokenSet_55_())
 	private static def mk_tokenSet_56_() as (long):
-		data = (0L, 3342336L, 0L, 0L, )
+		data = (0L, 6684672L, 0L, 0L, )
 		return data
 	public static final tokenSet_56_ = BitSet(mk_tokenSet_56_())
 	private static def mk_tokenSet_57_() as (long):
-		data = (-7511998268457148336L, 4364190088411L, 0L, 0L, )
+		data = (3422747536795254864L, 8728380176823L, 0L, 0L, )
 		return data
 	public static final tokenSet_57_ = BitSet(mk_tokenSet_57_())
 	private static def mk_tokenSet_58_() as (long):
-		data = (-8809034961160888320L, 4294967831553L, 0L, 0L, )
+		data = (828674151387774976L, 8589935663107L, 0L, 0L, )
 		return data
 	public static final tokenSet_58_ = BitSet(mk_tokenSet_58_())
 	

@@ -26,6 +26,10 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/cannot-convert-error.js")
 		
 	
+	[Test] def do_while_const_condition():
+		RunTestCase("tests/error-messages/do-while-const-condition.js")
+		
+	
 	[Test] def double_array_in_float_array_var_initializer():
 		RunTestCase("tests/error-messages/double-array-in-float-array-var-initializer.js")
 		

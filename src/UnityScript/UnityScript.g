@@ -29,6 +29,7 @@ tokens
 	CATCH="catch";
 	CLASS="class";
 	CONTINUE="continue";
+	DO="do";
 	ELSE="else";
 	ENUM="enum";
 	EXTENDS="extends";
@@ -368,6 +369,7 @@ global_statement[Module m]
 	b = m.Globals
 }:
 	(
+		do_while_statement[b] |
 		while_statement[b] |
 		for_statement[b] |
 		if_statement[b] |
@@ -710,7 +712,7 @@ statement[Block b]
 {
 }:
 	(
-
+		do_while_statement[b] |
 		while_statement[b] |
 		for_statement[b] |
 		if_statement[b] |
@@ -904,6 +906,24 @@ while_statement[Block container]
 	}
 	compound_or_single_stmt[b]
 	{
+		LeaveLoop(ws)
+	}
+;
+
+do_while_statement[Block container]
+{
+}:
+	d:DO
+	{
+		ws = WhileStatement(ToLexicalInfo(d), Condition: BoolLiteralExpression(true))
+		b = ws.Block
+		container.Add(ws)
+		EnterLoop(ws)
+	}
+	block[b]
+	w:WHILE e=paren_expression eos
+	{
+		b.Add(BreakStatement(ToLexicalInfo(w), Modifier: StatementModifier(StatementModifierType.If, e)))
 		LeaveLoop(ws)
 	}
 ;
