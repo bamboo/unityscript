@@ -29,6 +29,7 @@ tokens
 	CATCH="catch";
 	CLASS="class";
 	CONTINUE="continue";
+	DO="do";
 	ELSE="else";
 	ENUM="enum";
 	EXTENDS="extends";
@@ -234,6 +235,7 @@ start[CompileUnit cu]
 	module = Module(LexicalInfo(getFilename(), 1, 1))
 	module.Name = CreateModuleName(getFilename())
 	cu.Modules.Add(module)
+	globals = module.Globals
 }:
 	(
 		import_directive[module]
@@ -247,7 +249,7 @@ start[CompileUnit cu]
 			module_member[module]
 		)
 		| module_member[module]
-		| global_statement[module]
+		| statement[globals]
 	)*
 	eof:EOF
 	{
@@ -361,31 +363,6 @@ module_field[Module m]
 	mod=module_member_modifiers
 	f=field_member[m]
 	{ f.Modifiers |= mod }
-;
-
-global_statement[Module m]
-{
-	b = m.Globals
-}:
-	(
-		while_statement[b] |
-		for_statement[b] |
-		if_statement[b] |
-		try_statement[b] |
-		switch_statement[b]
-	) |
-	(
-		(
-			expression_statement[b] |
-			yield_statement[b] |
-			return_statement[b] |
-			break_statement[b] |
-			continue_statement[b] |
-			throw_statement[b] |
-			declaration_statement[b]
-		)
-		eos
-	)
 ;
 
 qname returns [Token id]
@@ -710,7 +687,7 @@ statement[Block b]
 {
 }:
 	(
-
+		do_while_statement[b] |
 		while_statement[b] |
 		for_statement[b] |
 		if_statement[b] |
@@ -908,6 +885,24 @@ while_statement[Block container]
 	}
 ;
 
+do_while_statement[Block container]
+{
+}:
+	d:DO
+	{
+		ws = WhileStatement(ToLexicalInfo(d), Condition: BoolLiteralExpression(true))
+		b = ws.Block
+		container.Add(ws)
+		EnterLoop(ws)
+	}
+	block[b]
+	w:WHILE e=paren_expression eos
+	{
+		b.Add(BreakStatement(ToLexicalInfo(w), Modifier: StatementModifier(StatementModifierType.If, e)))
+		LeaveLoop(ws)
+	}
+;
+
 switch_statement[Block container]
 {
 }:
@@ -1017,14 +1012,16 @@ member returns [Token name]
 
 type_reference returns [TypeReference tr]
 {
+	rank = 1
 }: 
 	(
 		(tr=simple_type_reference | tr=anonymous_function_type)
 		(
-			LBRACK
+			lbrack:LBRACK
+			(COMMA { ++rank })*
 			RBRACK
 			{
-				tr = ArrayTypeReference(tr.LexicalInfo, tr);
+				tr = ArrayTypeReference(tr.LexicalInfo, tr, IntegerLiteralExpression(ToLexicalInfo(lbrack), rank))
 			}
 		)?
 	)
@@ -1061,10 +1058,15 @@ function_type_parameters[ParameterDeclarationCollection parameters]
 
 array_initializer returns [Expression e]
 {
+	dimensions = List of Expression(1)
 }:
-	tr=simple_type_reference LBRACK count=sum RBRACK
+	tr=simple_type_reference
+	LBRACK
+	size=sum { dimensions.Add(size) }
+	(COMMA size=sum { dimensions.Add(size) })*
+	RBRACK
 	{
-		e = CodeFactory.NewArrayInitializer(tr.LexicalInfo, tr, count)
+		e = CodeFactory.NewArrayInitializer(tr.LexicalInfo, tr, dimensions)
 	}
 ;
 

@@ -10,6 +10,10 @@ partial class ParserTestFixture:
 		RunTestCase("tests/parser/OperationInsideAParam.js")
 		
 	
+	[Test] def array_types():
+		RunTestCase("tests/parser/array-types.js")
+		
+	
 	[Test] def attributes_1():
 		RunTestCase("tests/parser/attributes-1.js")
 		
@@ -32,6 +36,10 @@ partial class ParserTestFixture:
 	
 	[Test] def commentbug():
 		RunTestCase("tests/parser/commentbug.js")
+		
+	
+	[Test] def do_while_1():
+		RunTestCase("tests/parser/do-while-1.js")
 		
 	
 	[Test] def enums():

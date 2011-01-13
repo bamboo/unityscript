@@ -1,8 +1,6 @@
 namespace UnityScript.Macros
 
-import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
-import Boo.Lang.PatternMatching
 
 macro deferred:
 	case [| deferred $(ReferenceExpression(Name: name)) = $initializer |]:
