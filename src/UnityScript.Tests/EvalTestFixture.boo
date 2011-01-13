@@ -34,7 +34,7 @@ class EvalTestFixture(AbstractIntegrationTestFixture):
 	[Test] def eval_in_static_function_1():
 		RunTestCase("tests/eval/eval-in-static-function-1.js")
 		
-	
+	[Category("FailsOnMono")]
 	[Test] def eval_in_static_function_2():
 		RunTestCase("tests/eval/eval-in-static-function-2.js")
 		
