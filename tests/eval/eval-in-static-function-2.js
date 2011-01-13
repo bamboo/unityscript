@@ -1,3 +1,4 @@
+// category FailsOnMono
 /*
 script(1,7): BCE0020: An instance of type 'eval-in-static-function-2' is required to access non static member 'a'.
 script(1,11): BCE0020: An instance of type 'eval-in-static-function-2' is required to access non static member 'bar'.
