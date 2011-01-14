@@ -21,7 +21,7 @@
 	</target>
 	
 	<target name="test" depends="all">
-		<exec program="nunit-console2" workingdir="${build.dir}" if="${mono}">
+		<exec program="nunit-console" workingdir="${build.dir}" if="${mono}">
 			<environment>
 				<variable name="MONO_ENV_OPTIONS" value="--debug" />
 			</environment>
