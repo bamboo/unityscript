@@ -13,7 +13,7 @@
 	
 	<property name="mono" value="${'mono' == framework::get-family(framework::get-runtime-framework())}" />
 	
-	<include buildfile="nunit.inc" />
+	<include buildfile="${boo.dir}/tests/nunit.inc" />
 	<include buildfile="build.properties" if="${file::exists('build.properties')}" />
 		
 	<target name="set-release-configuration">
