@@ -23,7 +23,7 @@ static class UnityScriptCompilerErrors:
 		return CreateError("UCE0006", location, "'$typeName' is not a class. 'extends' can only be used with classes. Did you mean 'implements'?")
 		
 	def KeywordCannotBeUsedAsAnIdentifier(location as LexicalInfo, keyword as string):
-		return CreateError("UCE0007", location, "Reserved keyword '$keyword' cannot be used as an identifier.")
+		return CreateError("UCE0007", location, "'$keyword' keyword cannot be used as an identifier.")
 		
 	def EvalHasBeenDisabled(location as LexicalInfo, reason as string):
 		return CreateError("UCE0008", location, reason)
