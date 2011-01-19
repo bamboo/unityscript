@@ -566,17 +566,18 @@ enum_member [EnumDefinition container]
 	}	
 ;
 
-member_name returns [antlr.IToken token]
+identifier returns [antlr.IToken token]
 {
 }:
 	name:ID { token = name; }
 	| f:FINAL { token = f; KeywordCannotBeUsedAsAnIdentifier(token); }
+	| i:INTERNAL { token = i; KeywordCannotBeUsedAsAnIdentifier(token); }
 ;
 
 field_member[TypeDefinition cd] returns [TypeMember member]
 {
 }:
-	VAR name=member_name (COLON tr=type_reference)? (ASSIGN initializer=expression)? eos
+	VAR name=identifier (COLON tr=type_reference)? (ASSIGN initializer=expression)? eos
 	{
 		member = Field(ToLexicalInfo(name),
 				Name: name.getText(),
@@ -590,7 +591,7 @@ field_member[TypeDefinition cd] returns [TypeMember member]
 function_member[ClassDefinition cd] returns [TypeMember member]
 {
 }:
-	FUNCTION (getter:GET | setter:SET)? memberName=member_name 
+	FUNCTION (getter:GET | setter:SET)? memberName=identifier 
 	{
 		method as Method
 		if memberName.getText() == cd.Name:
@@ -653,7 +654,7 @@ parameter_declaration_list[INodeWithParameters m]
 parameter_declaration[INodeWithParameters m]
 {
 }:
-	(attributes)? id:ID (COLON tr=type_reference)?
+	(attributes)? id=identifier (COLON tr=type_reference)?
 	{
 		parameter = ParameterDeclaration(ToLexicalInfo(id), Name: id.getText(), Type: tr)
 		m.Parameters.Add(parameter)
@@ -789,7 +790,7 @@ for_statement [Block container]
 	f:FOR
 	LPAREN
 	(
-		((ID | declaration) IN)=>stmt=for_in[container]
+		((identifier | declaration) IN)=>stmt=for_in[container]
 		| stmt=for_c[container]
 	)
 	{
@@ -840,7 +841,7 @@ for_in [Block container] returns [Statement stmt]
 {
 }:
 	(
-		(id:ID { d = Declaration(ToLexicalInfo(id), Name: id.getText()) })
+		(id=identifier { d = Declaration(ToLexicalInfo(id), Name: id.getText()) })
 		| d=declaration { DeclarationAnnotations.ForceNewVariable(d) }
 	)
 	IN iterator=expression
@@ -863,7 +864,7 @@ for_in [Block container] returns [Statement stmt]
 declaration returns [Declaration d]
 {
 }:
-	VAR id:ID (COLON tr=type_reference)?
+	VAR id=identifier (COLON tr=type_reference)?
 	{
 		d = Declaration(ToLexicalInfo(id), Name: id.getText(), Type: tr)
 	}
@@ -1625,7 +1626,7 @@ array_literal returns [Expression e]
 	(
 		(expression FOR)=>(
 			projection=expression
-			FOR LPAREN ((id:ID | variable=declaration) IN iterator=expression) RPAREN
+			FOR LPAREN ((id=identifier | variable=declaration) IN iterator=expression) RPAREN
 			(IF filter=expression)?
 			{
 				if id is not null: variable = Declaration(ToLexicalInfo(id), Name: id.getText())
