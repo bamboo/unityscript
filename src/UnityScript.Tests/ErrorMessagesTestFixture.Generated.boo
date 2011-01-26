@@ -6,6 +6,10 @@ import NUnit.Framework
 partial class ErrorMessagesTestFixture:
 
 	
+	[Test] def Boo_Lang_List_is_not_visible_by_default():
+		RunTestCase("tests/error-messages/Boo.Lang.List-is-not-visible-by-default.js")
+		
+	
 	[Test] def array_instantiation_with_array_multiplication():
 		RunTestCase("tests/error-messages/array-instantiation-with-array-multiplication.js")
 		
