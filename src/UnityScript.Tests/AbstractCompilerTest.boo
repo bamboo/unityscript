@@ -27,7 +27,6 @@ abstract class AbstractCompilerTest:
 		compiler.Parameters.ScriptMainMethod = "Awake"
 		compiler.Parameters.Pipeline = CreateCompilerPipeline()
 		compiler.Parameters.References.Add(typeof(AbstractCompilerTestFixture).Assembly)
-		compiler.Parameters.References.Add(typeof(Assert).Assembly)
 		compiler.Parameters.References.Add(typeof(UnityScript.Tests.CSharp.FooBarEnum).Assembly)
 		return compiler
 		
