@@ -14,7 +14,7 @@ import Boo.Lang.PatternMatching
 //	return Path.Combine(Project.BaseDirectory, path) 
 
 def GetTestCaseName(fname as string):
-	return Path.GetFileNameWithoutExtension(fname).Replace("-", "_")
+	return Path.GetFileNameWithoutExtension(fname).Replace("-", "_").Replace(".", "_")
 	
 def WriteTestCases(writer as TextWriter, baseDirs as string*):
 	for baseDir in baseDirs:
