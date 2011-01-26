@@ -1,6 +1,5 @@
 /*
 */
-import NUnit.Framework;
 import System.Reflection;
 
 var a = "foo";
@@ -12,17 +11,25 @@ var type = GetType();
 
 function AssertField(name:String) {
 	field = type.GetField(name, flags);
-	Assert.IsNotNull(field, name);
+	if (field == null) throw name;
 	return field;
+}
+
+function AssertIsTrue(condition:boolean, description:String) {
+	if (!condition) throw description;
+}
+
+function AssertIsFalse(condition:boolean, description:String) {
+	if (condition) throw description;
 }
 
 fa = AssertField("a");
 fb = AssertField("b");
 fc = AssertField("c");
 
-Assert.IsTrue(fa.IsPublic, "public a");
-Assert.IsFalse(fa.IsStatic, "instance a");
-Assert.IsTrue(fb.IsPrivate, "private b");
-Assert.IsFalse(fb.IsStatic, "instance b");
-Assert.IsTrue(fc.IsPublic, "public c");
-Assert.IsTrue(fc.IsStatic, "static c");
+AssertIsTrue(fa.IsPublic, "public a");
+AssertIsFalse(fa.IsStatic, "instance a");
+AssertIsTrue(fb.IsPrivate, "private b");
+AssertIsFalse(fb.IsStatic, "instance b");
+AssertIsTrue(fc.IsPublic, "public c");
+AssertIsTrue(fc.IsStatic, "static c");
