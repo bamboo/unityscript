@@ -557,6 +557,10 @@ class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/typeof-1.js")
 		
 	
+	[Test] def typeof_2():
+		RunTestCase("tests/integration/typeof-2.js")
+		
+	
 	[Test] def types_1():
 		RunTestCase("tests/integration/types-1.js")
 		

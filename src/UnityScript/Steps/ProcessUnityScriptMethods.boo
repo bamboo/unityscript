@@ -142,8 +142,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 			return
 			
 		node.Target = CodeBuilder.CreateReference(_UnityRuntimeServices_GetTypeOf)
-		BindExpressionType(node, TypeSystemServices.TypeType)
-				
+		BindExpressionType(node, TypeSystemServices.TypeType)		
 		
 	override protected def ProcessMethodInvocation(node as MethodInvocationExpression, targetEntity as IEntity):
 	"""
