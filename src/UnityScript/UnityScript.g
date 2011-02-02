@@ -1203,30 +1203,42 @@ paren_expression returns [Expression e]
 typeof_expression returns [Expression e]
 {
 }:
-	t:TYPEOF
-	
-	((LPAREN)? expression)=>(
-		(
-			(LPAREN arg=expression RPAREN)
-			| arg=expression
-		)
-		{
-			mie = MethodInvocationExpression(ToLexicalInfo(t));
-			mie.Target = ReferenceExpression(ToLexicalInfo(t), Name: t.getText())
-			mie.Arguments.Add(arg)
+	(TYPEOF LPAREN expression RPAREN)=>e=typeof_with_expression
+	| e=typeof_expression_alt // workaround antlr boo backend bug that only allows a single predicate per rule
+;
+
+protected
+typeof_expression_alt returns [Expression e]
+{
+}:
+	(TYPEOF LPAREN type_reference RPAREN)=>e=typeof_with_typeref
+	| e=typeof_with_expression
+;
+
+protected
+typeof_with_expression returns [Expression e]
+{
+}:
+	t:TYPEOF	
+	(
+		(LPAREN arg=expression RPAREN)
+		| arg=expression
+	)
+	{
+		mie = MethodInvocationExpression(ToLexicalInfo(t));
+		mie.Target = ReferenceExpression(ToLexicalInfo(t), Name: t.getText())
+		mie.Arguments.Add(arg)
 			
-			e = mie
-		}
-	)
-	|(
-		(
-			(LPAREN tr=type_reference RPAREN)
-			| tr=type_reference
-		)
-		{
-			e = TypeofExpression(ToLexicalInfo(t), tr);
-		}
-	)
+		e = mie
+	}
+;
+
+protected
+typeof_with_typeref returns [Expression e]
+{
+}:
+	t:TYPEOF LPAREN tr=type_reference RPAREN
+	{ e = TypeofExpression(ToLexicalInfo(t), tr); }
 ;
 
 expression_list[ExpressionCollection ec]
