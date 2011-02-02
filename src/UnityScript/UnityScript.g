@@ -1219,7 +1219,11 @@ protected
 typeof_with_expression returns [Expression e]
 {
 }:
-	t:TYPEOF arg=expression
+	t:TYPEOF	
+	(
+		(LPAREN arg=expression RPAREN)
+		| arg=expression
+	)
 	{
 		mie = MethodInvocationExpression(ToLexicalInfo(t));
 		mie.Target = ReferenceExpression(ToLexicalInfo(t), Name: t.getText())

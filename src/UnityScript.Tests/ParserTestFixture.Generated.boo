@@ -238,6 +238,10 @@ partial class ParserTestFixture:
 		RunTestCase("tests/parser/try-finally.js")
 		
 	
+	[Test] def typeof_1():
+		RunTestCase("tests/parser/typeof-1.js")
+		
+	
 	[Test] def var_1():
 		RunTestCase("tests/parser/var-1.js")
 		
