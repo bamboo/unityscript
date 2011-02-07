@@ -53,7 +53,6 @@ tokens
 	INTERNAL="internal";
 	OVERRIDE="override";
 	PARTIAL="partial";
-	PRAGMA="pragma";
 	PRIVATE="private";
 	SET="set";
 	STATIC="static";
@@ -77,6 +76,9 @@ tokens
 	INPLACE_ADD="+=";
 	INPLACE_SUBTRACT="-=";
 	INPLACE_MULTIPLY="*=";
+	
+	PRAGMA_ON="pragma on";
+	PRAGMA_OFF="pragma off";
 	
 	/* lexer token definitions */
 	ID="an identifier";
@@ -390,12 +392,11 @@ qname returns [Token id]
 pragma_directive[Module container]
 {
 }:
-	HASH PRAGMA id:ID (option:ID)?
+	(on:PRAGMA_ON { id=on } | off:PRAGMA_OFF { id=off })
 	{
 		pragma = id.getText()
-		pragmaOption = (option.getText() if option is not null else "on")
 		if Pragmas.IsValid(pragma):
-			if pragmaOption == "on":
+			if on is not null:
 				Pragmas.TryToEnableOn(container, pragma)
 			else:
 				Pragmas.DisableOn(container, pragma)
@@ -1836,7 +1837,11 @@ DECREMENT: "--";
 
 ADD: '+';
 
-HASH: '#';
+PRAGMA_ON:
+	"#pragma"! (' '!)+ id:ID
+	((' '!) ("off"! { $setType(PRAGMA_OFF); } | "on"!))?
+	(' '!)*
+	NEWLINE!;
 
 INPLACE_ADD: "+=";
 

@@ -218,6 +218,10 @@ partial class ParserTestFixture:
 		RunTestCase("tests/parser/plusplus-minusminus.js")
 		
 	
+	[Test] def pragma_strict_followed_by_identifier():
+		RunTestCase("tests/parser/pragma-strict-followed-by-identifier.js")
+		
+	
 	[Test] def scientific_notation():
 		RunTestCase("tests/parser/scientific-notation.js")
 		
