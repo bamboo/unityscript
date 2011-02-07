@@ -14,6 +14,7 @@
 	<property name="mono" value="${'mono' == framework::get-family(framework::get-runtime-framework())}" />
 	
 	<include buildfile="${boo.dir}/tests/nunit.inc" />
+	<property name="nunit-console" value="nunit-console" />
 	<include buildfile="build.properties" if="${file::exists('build.properties')}" />
 		
 	<target name="set-release-configuration">
@@ -21,7 +22,7 @@
 	</target>
 	
 	<target name="test" depends="all">
-		<exec program="nunit-console" workingdir="${build.dir}" if="${mono}">
+		<exec program="${nunit-console}" workingdir="${build.dir}" if="${mono}">
 			<environment>
 				<variable name="MONO_ENV_OPTIONS" value="--debug" />
 			</environment>
