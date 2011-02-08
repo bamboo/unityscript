@@ -20,6 +20,7 @@
     <ducky>false</ducky>
     <culture />
     <genwarnings>false</genwarnings>
+    <nostdlib>false</nostdlib>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -28,6 +29,7 @@
     <ducky>false</ducky>
     <culture />
     <genwarnings>false</genwarnings>
+    <nostdlib>false</nostdlib>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -42,7 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractCompilerTestFixture.boo" />
-    <Compile Include="AbstractIntegrationTestFixture.boo" />
     <Compile Include="AbstractSemanticsTestFixture.boo" />
     <Compile Include="AssemblyInfo.boo" />
     <Compile Include="CommandLineOptionsTestFixture.boo" />
@@ -72,6 +73,9 @@
     <Compile Include="StrictIntegrationTestFixture.boo" />
     <Compile Include="PragmaEnablementTest.boo" />
     <Compile Include="Core\PragmasTest.boo" />
+    <Compile Include="AbstractIntegrationTestFixture.boo" />
+    <Compile Include="ProjectIntegrationTestFixture.boo" />
+    <Compile Include="ProjectIntegrationTestFixture.Generated.boo" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UnityScript\UnityScript.booproj">

@@ -127,7 +127,7 @@ class ApplySemantics(AbstractVisitorCompilerStep):
 				existing.Annotate("UserDefined")
 				return existing
 						
-		klass = ClassDefinition(module.LexicalInfo, Name: module.Name, EndSourceLocation: module.EndSourceLocation)
+		klass = ClassDefinition(module.LexicalInfo, Name: module.Name, EndSourceLocation: module.EndSourceLocation, IsSynthetic: true)
 		AddScriptBaseType(klass)
 		return klass
 		
