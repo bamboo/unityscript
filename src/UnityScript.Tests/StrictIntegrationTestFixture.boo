@@ -8,7 +8,6 @@ class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
 			
 	override def SetCompilationOptions():
 		super()
-		Parameters.Ducky = false
 		Parameters.Strict = true
 
 

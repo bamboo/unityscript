@@ -7,7 +7,6 @@ import NUnit.Framework
 class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 	override def SetCompilationOptions():
 		super()
-		Parameters.Ducky = true
 		Parameters.Strict = false
 
 	

@@ -66,9 +66,6 @@ class CommandLineOptions(AbstractCommandLine):
 	
 	[Option("Execute resulting main method.", ShortForm: 'x', LongForm: 'execute')]
 	public Execute = false
-
-	[Option("Enable duck typing.", LongForm: "ducky")]
-	public Ducky = false
 	
 	[Option("Enable expando mode.", LongForm: "expando")]
 	public Expando = false

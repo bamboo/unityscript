@@ -28,8 +28,6 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 	
 	deferred _UnityRuntimeServices_GetTypeOf = ResolveUnityRuntimeMethod("GetTypeOf")
 	
-	_strict = false
-	
 	_implicit = false
 	
 	override def Initialize(context as CompilerContext):
@@ -61,15 +59,15 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		return TypeSystemServices.IEnumeratorType
 			
 	override def IsDuckTyped(e as Expression):
-		if _strict: return false
+		if Strict: return false
 		return super(e)
 		
 	override def IsDuckTyped(member as IMember):
-		if _strict: return false
+		if Strict: return false
 		return super(member)
 		
 	override protected def MemberNotFound(node as MemberReferenceExpression, ns as INamespace):
-		if (not _strict) and (UnityScriptParameters.Expando or super.IsDuckTyped(node.Target)):
+		if (not Strict) and (UnityScriptParameters.Expando or super.IsDuckTyped(node.Target)):
 			BindQuack(node);
 			return
 		super(node, ns)
@@ -79,13 +77,36 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 			AssertUniqueLocal(d)
 			return null
 		return super(d)
+				
+	override def OnModule(module as Module):  
+		downcastPermissions = my(UnityDowncastPermissions)
+		
+		preserving _activeModule, Parameters.Strict, _implicit, downcastPermissions.Enabled:
+			_activeModule = module
+			Parameters.Strict = Pragmas.IsEnabledOn(module, Pragmas.Strict)
+			_implicit = Pragmas.IsEnabledOn(module, Pragmas.Implicit)
+			downcastPermissions.Enabled = Pragmas.IsEnabledOn(module, Pragmas.Downcast)
+			super(module)
 			
-	override def OnModule(module as Module):           
-		Parameters.Strict = _strict = Pragmas.IsEnabledOn(module, Pragmas.Strict)
-		Parameters.Ducky = not _strict
-		_implicit = Pragmas.IsEnabledOn(module, Pragmas.Implicit)
-		my(UnityDowncastPermissions).Enabled = Pragmas.IsEnabledOn(module, Pragmas.Downcast)
-		super(module)
+	override def VisitMemberPreservingContext(node as TypeMember):
+		downcastPermissions = my(UnityDowncastPermissions)
+		
+		module = node.EnclosingModule
+		if module is _activeModule:
+			super(node)
+			return
+			
+		preserving _activeModule, Parameters.Strict, _implicit, downcastPermissions.Enabled:
+			_activeModule = module
+			Parameters.Strict = Pragmas.IsEnabledOn(module, Pragmas.Strict)
+			_implicit = Pragmas.IsEnabledOn(module, Pragmas.Implicit)
+			downcastPermissions.Enabled = Pragmas.IsEnabledOn(module, Pragmas.Downcast)
+			super(node)
+
+	_activeModule as Module
+	
+	Strict:
+		get: return Parameters.Strict
 		
 	override def OnMethod(node as Method):
 		super(node)
@@ -113,7 +134,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		ContextAnnotations.SetEntryPoint(_context, node)
 		
 	override def ProcessAutoLocalDeclaration(node as BinaryExpression, reference as ReferenceExpression):
-		if (_strict and not _implicit) and not IsCompilerGenerated(reference):
+		if (Strict and not _implicit) and not IsCompilerGenerated(reference):
 			EmitUnknownIdentifierError(reference, reference.Name)
 		else:
 			super(node, reference)
