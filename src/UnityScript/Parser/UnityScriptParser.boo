@@ -3541,7 +3541,6 @@ class UnityScriptParser(antlr.LLkParser):
 		se as SlicingExpression
 		mce as MethodInvocationExpression
 		args as ExpressionCollection
-		memberName as IToken
 		
 		try:     // for error handling
 			e=atom()
@@ -3623,7 +3622,6 @@ class UnityScriptParser(antlr.LLkParser):
 		
 		tc as IToken  = null
 		c as IToken  = null
-		uOperator = UnaryOperatorType.None
 		
 		try:     // for error handling
 			_givenValue  = LA(1)

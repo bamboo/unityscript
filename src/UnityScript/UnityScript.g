@@ -1331,7 +1331,6 @@ slicing_expression returns [Expression e]
 	se as SlicingExpression
 	mce as MethodInvocationExpression
 	args as ExpressionCollection
-	memberName as IToken
 }:
 	e=atom
 	( options { greedy=true; }:
@@ -1378,7 +1377,6 @@ postfix_unary_expression returns [Expression e]
 
 unary_expression returns [Expression e]
 {
-	uOperator = UnaryOperatorType.None
 }: 
 	(
 		e=prefix_unary_expression
@@ -1839,7 +1837,7 @@ ADD: '+';
 
 PRAGMA_ON:
 	"#pragma"! (' '!)+ id:ID
-	((' '!) ("off"! { $setType(PRAGMA_OFF); } | "on"!))?
+	((' '!)+ ("off"! { $setType(PRAGMA_OFF); } | "on"!))?
 	(' '!)*
 	NEWLINE!;
 
