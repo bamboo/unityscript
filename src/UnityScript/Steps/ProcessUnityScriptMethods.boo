@@ -142,7 +142,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 	def IsCompilerGenerated(reference as ReferenceExpression):
 		return reference.Name.Contains('$')
 		
-	override protected def ProcessBuiltinInvocation(function as BuiltinFunction, node as MethodInvocationExpression):
+	override protected def ProcessBuiltinInvocation(node as MethodInvocationExpression, function as BuiltinFunction):
 		if function is UnityScriptTypeSystem.UnityScriptEval:
 			EvalAnnotation.Mark(_currentMethod.Method)
 			BindExpressionType(node, TypeSystemServices.ObjectType)
@@ -150,7 +150,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		if function is UnityScriptTypeSystem.UnityScriptTypeof:
 			ProcessTypeofBuiltin(node);
 			return
-		super(function, node)
+		super(node, function)
 		
 	private def ProcessTypeofBuiltin(node as MethodInvocationExpression):
 		if node.Arguments.Count != 1:
@@ -165,18 +165,17 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		node.Target = CodeBuilder.CreateReference(_UnityRuntimeServices_GetTypeOf)
 		BindExpressionType(node, TypeSystemServices.TypeType)		
 		
-	override protected def ProcessMethodInvocation(node as MethodInvocationExpression, targetEntity as IEntity):
+	override protected def ProcessMethodInvocation(node as MethodInvocationExpression, method as IMethod):
 	"""
 	Automatically detects coroutine invocations in assignments and as standalone
 	expressions and generates StartCoroutine invocations.
 	"""
-		super(node, targetEntity)
+		super(node, method)
 		
 		if not IsPossibleStartCoroutineInvocation(node):
 			return		
 
-		method as IMethod = targetEntity
-		if method is null or method.IsStatic: return		
+		if method.IsStatic: return		
 		
 		tss = self.UnityScriptTypeSystem
 		if not tss.IsScriptType(method.DeclaringType): return		
