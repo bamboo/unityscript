@@ -698,6 +698,10 @@ class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/ducky/duck-implicit-bool-simple.js")
 		
 	
+	[Test] def duck_negation():
+		RunTestCase("tests/ducky/duck-negation.js")
+		
+	
 	[Test] def duck_return_property():
 		RunTestCase("tests/ducky/duck-return-property.js")
 		
