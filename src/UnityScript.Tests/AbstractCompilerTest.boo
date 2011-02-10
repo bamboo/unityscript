@@ -39,7 +39,6 @@ abstract class AbstractCompilerTest:
 	virtual def SetCompilationOptions():
 		Parameters.Input.Clear()
 		Parameters.Strict = false
-		Parameters.Expando = false
 		
 	protected abstract def CreateCompilerPipeline() as CompilerPipeline:
 		pass

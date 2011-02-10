@@ -67,10 +67,10 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		return super(member)
 		
 	override protected def MemberNotFound(node as MemberReferenceExpression, ns as INamespace):
-		if (not Strict) and (UnityScriptParameters.Expando or super.IsDuckTyped(node.Target)):
-			BindQuack(node);
-			return
-		super(node, ns)
+		if Strict:			
+			super(node, ns)
+		else:
+			BindQuack(node)
 		
 	override protected def LocalToReuseFor(d as Declaration):
 		if DeclarationAnnotations.ShouldForceNewVariableFor(d):

@@ -92,7 +92,6 @@ class MonoBehaviour(Component):
 		routine.MoveNext()
 		return routine.Current
 
-	[DuckTyped]
 	def GetComponent(type as System.Type) as Component:
 		return _foo if ComponentFoo is type
 		return _bar
