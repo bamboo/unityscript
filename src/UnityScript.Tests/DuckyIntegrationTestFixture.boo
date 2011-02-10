@@ -7,7 +7,6 @@ import NUnit.Framework
 class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 	override def SetCompilationOptions():
 		super()
-		Parameters.Ducky = true
 		Parameters.Strict = false
 
 	
@@ -395,6 +394,10 @@ class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/implict-bool-hierarchy.js")
 		
 	
+	[Test] def inferred_GetComponent():
+		RunTestCase("tests/integration/inferred-GetComponent.js")
+		
+	
 	[Test] def initializeorder():
 		RunTestCase("tests/integration/initializeorder.js")
 		
@@ -697,6 +700,10 @@ class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 	
 	[Test] def duck_implicit_bool_simple():
 		RunTestCase("tests/ducky/duck-implicit-bool-simple.js")
+		
+	
+	[Test] def duck_negation():
+		RunTestCase("tests/ducky/duck-negation.js")
 		
 	
 	[Test] def duck_return_property():

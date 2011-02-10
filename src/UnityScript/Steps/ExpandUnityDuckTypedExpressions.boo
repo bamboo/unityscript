@@ -18,9 +18,11 @@ class ExpandUnityDuckTypedExpressions(ExpandDuckTypedExpressions):
 		UnityRuntimeServices_Invoke = ResolveUnityRuntimeMethod("Invoke")
 		UnityRuntimeServices_GetProperty = ResolveUnityRuntimeMethod("GetProperty")
 		
-	override def EnterModule(module as Module):
+	override def OnModule(module as Module):
 		_expando = UnityScriptParameters.Expando or Pragmas.IsEnabledOn(module, Pragmas.Expando)
-		return super(module)
+		preserving Parameters.Strict:
+			Parameters.Strict = Pragmas.IsEnabledOn(module, Pragmas.Strict)
+			super(module)
 			
 	override def GetSetPropertyMethod():
 		if not _expando: return super()

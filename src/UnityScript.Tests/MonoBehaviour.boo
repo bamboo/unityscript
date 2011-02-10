@@ -92,12 +92,14 @@ class MonoBehaviour(Component):
 		routine.MoveNext()
 		return routine.Current
 
-	[DuckTyped]
+	[TypeInferenceRule("TypeReferencedByFirstArgument")]
+	def InferredGetComponent(type as System.Type) as Component:
+		return GetComponent(type)
+		
 	def GetComponent(type as System.Type) as Component:
 		return _foo if ComponentFoo is type
 		return _bar
 		
-	[DuckTyped]
 	def GetComponents(type as System.Type) as (Component):
 		return (GetComponent(type),)
 

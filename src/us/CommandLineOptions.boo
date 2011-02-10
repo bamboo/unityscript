@@ -51,6 +51,10 @@ class CommandLineOptions(AbstractCommandLine):
 					and len(self.MainMethod) > 0
 					and	(len(self.SourceFiles) > 0
 						or len(self.SourceDirs) > 0))
+						
+	[Option("Option has been deprecated", LongForm: "ducky")]
+	def DuckyHasBeenDeprecated(value):
+		Console.Error.WriteLine("WARNING: -ducky command line option has been deprecated and has no effect")
 		
 	[Option("Specifies the output {file} name", ShortForm: "o", LongForm: "out")]
 	public Output  = ""
@@ -66,9 +70,6 @@ class CommandLineOptions(AbstractCommandLine):
 	
 	[Option("Execute resulting main method.", ShortForm: 'x', LongForm: 'execute')]
 	public Execute = false
-
-	[Option("Enable duck typing.", LongForm: "ducky")]
-	public Ducky = false
 	
 	[Option("Enable expando mode.", LongForm: "expando")]
 	public Expando = false

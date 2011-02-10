@@ -8,7 +8,6 @@ class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
 			
 	override def SetCompilationOptions():
 		super()
-		Parameters.Ducky = false
 		Parameters.Strict = true
 
 
@@ -395,6 +394,10 @@ class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
 	
 	[Test] def implict_bool_hierarchy():
 		RunTestCase("tests/integration/implict-bool-hierarchy.js")
+		
+	
+	[Test] def inferred_GetComponent():
+		RunTestCase("tests/integration/inferred-GetComponent.js")
 		
 	
 	[Test] def initializeorder():

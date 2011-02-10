@@ -14,21 +14,7 @@ import Boo.Lang.PatternMatching
 //	return Path.Combine(Project.BaseDirectory, path) 
 
 def GetTestCaseName(fname as string):
-	return Path.GetFileNameWithoutExtension(fname).Replace("-", "_").Replace(".", "_")
-	
-def WriteTestCases(writer as TextWriter, baseDirs as string*):
-	for baseDir in baseDirs:
-		count = 0
-		for fname in Directory.GetFiles(baseDir):
-			continue unless fname.EndsWith(".js")
-			++count
-			categoryAttribute = CategoryAttributeFor(fname)
-			writer.Write("""
-	${categoryAttribute}
-	[Test] def ${GetTestCaseName(fname)}():
-		RunTestCase("${fname.Replace('\\', '/')}")
-		""")
-		print("${count} test cases found in ${baseDir}.")
+	return Path.GetFileNameWithoutExtension(fname).Replace("-", "_").Replace(".", "_")	
 	
 def CategoryAttributeFor(testFile as string):
 """
@@ -48,21 +34,20 @@ def FirstLineOf(fname as string):
 		return reader.ReadLine()
 
 def GenerateTestFixture(targetFile as string, header as string, *srcDirs as (string)):
-	contents = GenerateTestFixtureSource(header, srcDirs)
+	contents = GenerateTestFixtureSource(header, srcDirs, JavascriptFilesIn, CategoryAttributeFor)
+	WriteFileIfChanged(targetFile, contents)
+	
+def GenerateProjectTestFixture(targetFile as string, header as string, *srcDirs as (string)):
+	contents = GenerateTestFixtureSource(header, srcDirs, { dir | Directory.GetDirectories(dir) }, { dir | "" })
+	WriteFileIfChanged(targetFile, contents)
+	
+def WriteFileIfChanged(targetFile as string, contents as string):
 	if ShouldReplaceContent(targetFile, contents):
-		WriteAllText(targetFile, contents)
+		File.WriteAllText(targetFile, contents)
 		
 def ShouldReplaceContent(fname as string, contents as string):
 	if not File.Exists(fname): return true
-	return ns(ReadAllText(fname)) != ns(contents)
-	
-def ReadAllText(fname as string):
-	using reader=File.OpenText(fname):
-		return reader.ReadToEnd()
-		
-def WriteAllText(fname as string, contents as string):
-	using writer=StreamWriter(fname):
-		writer.Write(contents)
+	return ns(File.ReadAllText(fname)) != ns(contents)
 	
 def ns(s as string):
 """
@@ -70,11 +55,37 @@ Normalize string.
 """
 	return s.Trim().Replace("\r\n", Environment.NewLine)
 	
-def GenerateTestFixtureSource(header as string, srcDirs as (string)):
+def GenerateTestFixtureSource(
+	header as string,
+	srcDirs as (string),
+	testCaseProducer as callable(string) as string*,
+	categoryProducer as callable(string) as string):
+		
 	writer=StringWriter()
 	writer.Write(header)	
-	WriteTestCases(writer, srcDirs)
+	for srcDir in srcDirs:
+		count = 0
+		for testCase in testCaseProducer(srcDir):
+			++count
+			categoryAttribute = categoryProducer(testCase)
+			writer.Write("""
+	${categoryAttribute}
+	[Test] def ${GetTestCaseName(testCase)}():
+		RunTestCase("${testCase.Replace('\\', '/')}")
+		""")
+		print "\t${count} test cases found in ${srcDir}."
 	return writer.ToString()
+	
+def JavascriptFilesIn(dir as string):
+	return fname for fname in Directory.GetFiles(dir) if fname.EndsWith(".js")
+	
+GenerateProjectTestFixture("src/UnityScript.Tests/ProjectIntegrationTestFixture.Generated.boo", """
+namespace UnityScript.Tests
+
+import NUnit.Framework
+
+partial class ProjectIntegrationTestFixture:
+""", "tests/projects")
 
 GenerateTestFixture("src/UnityScript.Tests/ParserTestFixture.Generated.boo", """
 namespace UnityScript.Tests
@@ -103,7 +114,6 @@ class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
 			
 	override def SetCompilationOptions():
 		super()
-		Parameters.Ducky = false
 		Parameters.Strict = true
 
 """, "tests/integration")
@@ -117,7 +127,6 @@ import NUnit.Framework
 class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 	override def SetCompilationOptions():
 		super()
-		Parameters.Ducky = true
 		Parameters.Strict = false
 """, "tests/integration", "tests/ducky")
 

@@ -30,17 +30,15 @@ abstract class AbstractCompilerTest:
 		compiler.Parameters.References.Add(typeof(UnityScript.Tests.CSharp.FooBarEnum).Assembly)
 		return compiler
 		
-	virtual def CompileTestCase([required] input as ICompilerInput):
+	virtual def CompileTestCase(*inputs as (ICompilerInput)):
 		SetCompilationOptions()
-		Parameters.OutputAssembly = Path.Combine(OutputAssemblyPath, GetType().Name + "-" + Path.GetFileNameWithoutExtension(input.Name) + ".exe")
-		Parameters.Input.Add(input)
+		for input in inputs: Parameters.Input.Add(input)
+		Parameters.OutputAssembly = Path.Combine(OutputAssemblyPath, GetType().Name + "-" + Path.GetFileNameWithoutExtension(Parameters.Input[0].Name) + ".exe")
 		return _compiler.Run()
 		
 	virtual def SetCompilationOptions():
 		Parameters.Input.Clear()
-		Parameters.Ducky = true
 		Parameters.Strict = false
-		Parameters.Expando = false
 		
 	protected abstract def CreateCompilerPipeline() as CompilerPipeline:
 		pass

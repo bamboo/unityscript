@@ -28,8 +28,6 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 	
 	deferred _UnityRuntimeServices_GetTypeOf = ResolveUnityRuntimeMethod("GetTypeOf")
 	
-	_strict = false
-	
 	_implicit = false
 	
 	override def Initialize(context as CompilerContext):
@@ -61,31 +59,51 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		return TypeSystemServices.IEnumeratorType
 			
 	override def IsDuckTyped(e as Expression):
-		if _strict: return false
+		if Strict: return false
 		return super(e)
 		
 	override def IsDuckTyped(member as IMember):
-		if _strict: return false
+		if Strict: return false
 		return super(member)
 		
 	override protected def MemberNotFound(node as MemberReferenceExpression, ns as INamespace):
-		if (not _strict) and (UnityScriptParameters.Expando or super.IsDuckTyped(node.Target)):
-			BindQuack(node);
-			return
-		super(node, ns)
+		if Strict:			
+			super(node, ns)
+		else:
+			BindQuack(node)
 		
 	override protected def LocalToReuseFor(d as Declaration):
 		if DeclarationAnnotations.ShouldForceNewVariableFor(d):
 			AssertUniqueLocal(d)
 			return null
 		return super(d)
+				
+	override def OnModule(module as Module):  
+		preserving _activeModule, Parameters.Strict, _implicit, my(UnityDowncastPermissions).Enabled:
+			EnterModuleContext(module)
+			super(module)
 			
-	override def OnModule(module as Module):           
-		Parameters.Strict = _strict = Pragmas.IsEnabledOn(module, Pragmas.Strict)
-		Parameters.Ducky = not _strict
+	override def VisitMemberPreservingContext(node as TypeMember):
+		
+		module = node.EnclosingModule
+		if module is _activeModule:
+			super(node)
+			return
+			
+		preserving _activeModule, Parameters.Strict, _implicit, my(UnityDowncastPermissions).Enabled:
+			EnterModuleContext(module)
+			super(node)
+			
+	private def EnterModuleContext(module as Module):
+		_activeModule = module
+		Parameters.Strict = Pragmas.IsEnabledOn(module, Pragmas.Strict)
 		_implicit = Pragmas.IsEnabledOn(module, Pragmas.Implicit)
 		my(UnityDowncastPermissions).Enabled = Pragmas.IsEnabledOn(module, Pragmas.Downcast)
-		super(module)
+
+	_activeModule as Module
+	
+	Strict:
+		get: return Parameters.Strict
 		
 	override def OnMethod(node as Method):
 		super(node)
@@ -113,7 +131,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		ContextAnnotations.SetEntryPoint(_context, node)
 		
 	override def ProcessAutoLocalDeclaration(node as BinaryExpression, reference as ReferenceExpression):
-		if (_strict and not _implicit) and not IsCompilerGenerated(reference):
+		if (Strict and not _implicit) and not IsCompilerGenerated(reference):
 			EmitUnknownIdentifierError(reference, reference.Name)
 		else:
 			super(node, reference)
@@ -121,7 +139,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 	def IsCompilerGenerated(reference as ReferenceExpression):
 		return reference.Name.Contains('$')
 		
-	override protected def ProcessBuiltinInvocation(function as BuiltinFunction, node as MethodInvocationExpression):
+	override protected def ProcessBuiltinInvocation(node as MethodInvocationExpression, function as BuiltinFunction):
 		if function is UnityScriptTypeSystem.UnityScriptEval:
 			EvalAnnotation.Mark(_currentMethod.Method)
 			BindExpressionType(node, TypeSystemServices.ObjectType)
@@ -129,7 +147,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		if function is UnityScriptTypeSystem.UnityScriptTypeof:
 			ProcessTypeofBuiltin(node);
 			return
-		super(function, node)
+		super(node, function)
 		
 	private def ProcessTypeofBuiltin(node as MethodInvocationExpression):
 		if node.Arguments.Count != 1:
@@ -144,18 +162,17 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		node.Target = CodeBuilder.CreateReference(_UnityRuntimeServices_GetTypeOf)
 		BindExpressionType(node, TypeSystemServices.TypeType)		
 		
-	override protected def ProcessMethodInvocation(node as MethodInvocationExpression, targetEntity as IEntity):
+	override protected def ProcessMethodInvocation(node as MethodInvocationExpression, method as IMethod):
 	"""
 	Automatically detects coroutine invocations in assignments and as standalone
 	expressions and generates StartCoroutine invocations.
 	"""
-		super(node, targetEntity)
+		super(node, method)
 		
 		if not IsPossibleStartCoroutineInvocation(node):
 			return		
 
-		method as IMethod = targetEntity
-		if method is null or method.IsStatic: return		
+		if method.IsStatic: return		
 		
 		tss = self.UnityScriptTypeSystem
 		if not tss.IsScriptType(method.DeclaringType): return		

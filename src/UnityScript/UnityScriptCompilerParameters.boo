@@ -28,7 +28,6 @@ class UnityScriptCompilerParameters(CompilerParameters):
 	_disableEval as string
 
 	def constructor():
-		self.Ducky = true
 		self.OutputType = CompilerOutputType.Library
 		self.References.Add(typeof(UnityScript.Lang.Array).Assembly)
 		self.References.Add(GetType().Assembly)
@@ -39,3 +38,7 @@ class UnityScriptCompilerParameters(CompilerParameters):
 			DowncastPermissions: { UnityDowncastPermissions() },
 			LanguageAmbiance: { UnityScriptAmbiance() }
 		}
+		
+	override Ducky:
+		get: return not Strict
+		set: raise "Ducky is always equals not Strict. Set Strict instead."

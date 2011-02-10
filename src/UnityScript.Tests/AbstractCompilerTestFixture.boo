@@ -53,7 +53,7 @@ abstract class AbstractCompilerTestFixture(AbstractCompilerTest):
 	protected virtual def GetActualOutput(result as CompilerContext) as string:
 		return result.CompileUnit.Modules[0].ToCodeString()
 	
-	def GetExpectedOutput([required] fname as string):
+	protected virtual def GetExpectedOutput([required] fname as string):
 		contents = ReadAllText(fname)
 		start = contents.IndexOf("/*")
 		end = contents.IndexOf("*/", start + 2)

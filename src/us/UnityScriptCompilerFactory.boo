@@ -58,7 +58,6 @@ class UnityScriptCompilerFactory:
 		baseType = resolveType(assemblies, options.BaseClass)	  
 		compiler.Parameters.ScriptBaseType = baseType
 		compiler.Parameters.ScriptMainMethod = options.MainMethod
-		compiler.Parameters.Ducky = options.Ducky
 		compiler.Parameters.Debug = options.Debug
 		compiler.Parameters.Expando = options.Expando
 		compiler.Parameters.DisableEval = options.DisableEval
