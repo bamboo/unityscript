@@ -5,27 +5,22 @@ import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Services
 import Boo.Lang.Compiler.TypeSystem
 import Boo.Lang.Compiler.TypeSystem.Services
+
 import UnityScript.TypeSystem
 
 class UnityScriptCompilerParameters(CompilerParameters):
 	
-	[property(ScriptBaseType)]
-	_baseType as System.Type
+	property ScriptBaseType as System.Type
 	
-	[property(ScriptMainMethod)]
-	_mainMethod as string
+	property ScriptMainMethod as string
 	
-	[property(Imports)]
-	_imports = []
+	property Imports = List of string()
 	
-	[property(Expando)]
-	_expando = false
+	property Expando = false
 	
-	[property(GlobalVariablesBecomeFields)]
-	_globalVariablesBecomeFields = true
+	property GlobalVariablesBecomeFields = true
 	
-	[property(DisableEval)]
-	_disableEval as string
+	property DisableEval as string
 
 	def constructor():
 		self.OutputType = CompilerOutputType.Library
