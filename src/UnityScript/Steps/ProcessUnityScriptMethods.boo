@@ -79,8 +79,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		return super(d)
 				
 	override def OnModule(module as Module):  
-		downcastPermissions = my(UnityDowncastPermissions)
-		preserving _activeModule, Parameters.Strict, _implicit, downcastPermissions.Enabled:
+		preserving _activeModule, Parameters.Strict, _implicit, my(UnityDowncastPermissions).Enabled:
 			EnterModuleContext(module)
 			super(module)
 			
@@ -91,8 +90,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 			super(node)
 			return
 			
-		downcastPermissions = my(UnityDowncastPermissions)
-		preserving _activeModule, Parameters.Strict, _implicit, downcastPermissions.Enabled:
+		preserving _activeModule, Parameters.Strict, _implicit, my(UnityDowncastPermissions).Enabled:
 			EnterModuleContext(module)
 			super(node)
 			
@@ -100,7 +98,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		_activeModule = module
 		Parameters.Strict = Pragmas.IsEnabledOn(module, Pragmas.Strict)
 		_implicit = Pragmas.IsEnabledOn(module, Pragmas.Implicit)
-		downcastPermissions.Enabled = Pragmas.IsEnabledOn(module, Pragmas.Downcast)
+		my(UnityDowncastPermissions).Enabled = Pragmas.IsEnabledOn(module, Pragmas.Downcast)
 
 	_activeModule as Module
 	
