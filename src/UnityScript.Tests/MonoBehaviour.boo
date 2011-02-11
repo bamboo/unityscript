@@ -92,7 +92,7 @@ class MonoBehaviour(Component):
 		routine.MoveNext()
 		return routine.Current
 
-	[TypeInferenceRule("TypeReferencedByFirstArgument")]
+	[TypeInferenceRule(TypeInferenceRules.TypeReferencedByFirstArgument)]
 	def InferredGetComponent(type as System.Type) as Component:
 		return GetComponent(type)
 		
