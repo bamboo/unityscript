@@ -5,6 +5,8 @@ import Boo.Lang.Compiler
 import Boo.Lang.Compiler.IO
 import Boo.Lang.Compiler.Resources
 
+import Boo.Lang.Compiler.TypeSystem.Services
+
 import System.IO
 
 import System.Diagnostics
@@ -62,6 +64,11 @@ class UnityScriptCompilerFactory:
 		compiler.Parameters.Expando = options.Expando
 		compiler.Parameters.DisableEval = options.DisableEval
 		compiler.Parameters.Imports.Extend(options.Imports)
+		
+		if options.TypeInferenceRuleAttribute:
+			compiler.Parameters.AddToEnvironment(
+				TypeInferenceRuleProvider,
+				{ CustomTypeInferenceRuleProvider(options.TypeInferenceRuleAttribute) })
 		
 		if options.DebugCompiler:
 			compiler.Parameters.Pipeline.BeforeStep += do(sender, args as CompilerStepEventArgs):
