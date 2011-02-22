@@ -39,6 +39,9 @@ class UnityScriptCompilerParameters(CompilerParameters):
 			LanguageAmbiance: { UnityScriptAmbiance() }
 		}
 		
+	def AddToEnvironment(serviceType as System.Type, factory as ObjectFactory):
+		(Environment as DeferredEnvironment).Add(serviceType, factory)
+		
 	override Ducky:
 		get: return not Strict
 		set: raise "Ducky is always equals not Strict. Set Strict instead."

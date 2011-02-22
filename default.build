@@ -93,7 +93,6 @@
 				<include name="UnityScript.dll" />
 				<include name="UnityScript.Lang.dll" />
 				<include name="UnityScript.Tests.CSharp.dll" />
-				<include name="Boo.Lang.Compiler.dll" />
 				<include name="Boo.Lang.Useful.dll" />
 				<include name="nunit.framework.dll" />
 			</references>
