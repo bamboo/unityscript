@@ -22,3 +22,7 @@ class GenericsTestFixture(AbstractIntegrationTestFixture):
 	[Test] def generic_method_arguments():
 		RunTestCase("tests/generics/generic-method-arguments.js")
 		
+	
+	[Test] def generic_method_overload_in_base_class():
+		RunTestCase("tests/generics/generic-method-overload-in-base-class.js")
+		
