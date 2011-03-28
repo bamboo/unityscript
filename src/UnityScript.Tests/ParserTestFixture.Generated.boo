@@ -42,6 +42,10 @@ partial class ParserTestFixture:
 		RunTestCase("tests/parser/do-while-1.js")
 		
 	
+	[Test] def do_while_false():
+		RunTestCase("tests/parser/do-while-false.js")
+		
+	
 	[Test] def enums():
 		RunTestCase("tests/parser/enums.js")
 		

@@ -284,6 +284,10 @@ class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/crash.js")
 		
 	
+	[Test] def do_while():
+		RunTestCase("tests/integration/do-while.js")
+		
+	
 	[Test] def double_precision_can_be_used_for_literals():
 		RunTestCase("tests/integration/double-precision-can-be-used-for-literals.js")
 		

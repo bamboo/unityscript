@@ -1895,7 +1895,7 @@ class UnityScriptParser(antlr.LLkParser):
 			e=paren_expression()
 			eos()
 			if 0 == inputState.guessing:
-				b.Add(BreakStatement(ToLexicalInfo(w), Modifier: StatementModifier(StatementModifierType.If, e)))
+				b.Add(BreakStatement(ToLexicalInfo(w), Modifier: StatementModifier(StatementModifierType.Unless, e)))
 				LeaveLoop(ws)
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
