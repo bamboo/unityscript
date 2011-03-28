@@ -7,6 +7,10 @@ import NUnit.Framework
 class GenericsTestFixture(AbstractIntegrationTestFixture):
 
 	
+	[Test] def generic_dictionary_of_string_to_function():
+		RunTestCase("tests/generics/generic-dictionary-of-string-to-function.js")
+		
+	
 	[Test] def generic_list_instantiation_1():
 		RunTestCase("tests/generics/generic-list-instantiation-1.js")
 		
