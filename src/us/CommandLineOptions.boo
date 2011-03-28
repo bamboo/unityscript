@@ -127,6 +127,9 @@ class CommandLineOptions(AbstractCommandLine):
 	
 	[Option("display this help and exit", LongForm: "help")]
 	public DoHelp = false
+	
+	[Option("Enables custom type inference rules to be specified through the attribute {type}", LongForm: "x-type-inference-rule-attribute")]
+	public TypeInferenceRuleAttribute as string
 		
 	[Argument]
 	def AddSourceFile([required] sourceFile as string):

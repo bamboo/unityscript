@@ -396,6 +396,10 @@ class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/implict-bool-hierarchy.js")
 		
 	
+	[Test] def inferred_GetComponent():
+		RunTestCase("tests/integration/inferred-GetComponent.js")
+		
+	
 	[Test] def initializeorder():
 		RunTestCase("tests/integration/initializeorder.js")
 		

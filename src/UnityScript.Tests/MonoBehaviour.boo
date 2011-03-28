@@ -14,7 +14,11 @@ struct Vector3:
 		z = z_
 
 class Component:
-	pass
+	def GetComponentsInChildren[of T]() as T:
+		return typeof(T)()
+		
+	def GetComponentsInChildren[of T](instantiate as bool) as T:
+		if instantiate: return typeof(T)()
 	
 struct Bounds:
 	def IntersectRay(ray as Ray, ref result as single):
@@ -92,12 +96,14 @@ class MonoBehaviour(Component):
 		routine.MoveNext()
 		return routine.Current
 
-	[DuckTyped]
+	[TypeInferenceRule(TypeInferenceRules.TypeReferencedByFirstArgument)]
+	def InferredGetComponent(type as System.Type) as Component:
+		return GetComponent(type)
+		
 	def GetComponent(type as System.Type) as Component:
 		return _foo if ComponentFoo is type
 		return _bar
 		
-	[DuckTyped]
 	def GetComponents(type as System.Type) as (Component):
 		return (GetComponent(type),)
 

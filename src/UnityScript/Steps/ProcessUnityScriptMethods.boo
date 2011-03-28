@@ -67,10 +67,10 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		return super(member)
 		
 	override protected def MemberNotFound(node as MemberReferenceExpression, ns as INamespace):
-		if (not Strict) and (UnityScriptParameters.Expando or super.IsDuckTyped(node.Target)):
-			BindQuack(node);
-			return
-		super(node, ns)
+		if Strict:			
+			super(node, ns)
+		else:
+			BindQuack(node)
 		
 	override protected def LocalToReuseFor(d as Declaration):
 		if DeclarationAnnotations.ShouldForceNewVariableFor(d):
@@ -79,12 +79,8 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		return super(d)
 				
 	override def OnModule(module as Module):  
-		downcastPermissions = my(UnityDowncastPermissions)
-		preserving _activeModule, Parameters.Strict, _implicit, downcastPermissions.Enabled:
-			_activeModule = module
-			Parameters.Strict = Pragmas.IsEnabledOn(module, Pragmas.Strict)
-			_implicit = Pragmas.IsEnabledOn(module, Pragmas.Implicit)
-			downcastPermissions.Enabled = Pragmas.IsEnabledOn(module, Pragmas.Downcast)
+		preserving _activeModule, Parameters.Strict, _implicit, my(UnityDowncastPermissions).Enabled:
+			EnterModuleContext(module)
 			super(module)
 			
 	override def VisitMemberPreservingContext(node as TypeMember):
@@ -94,13 +90,15 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 			super(node)
 			return
 			
-		downcastPermissions = my(UnityDowncastPermissions)
-		preserving _activeModule, Parameters.Strict, _implicit, downcastPermissions.Enabled:
-			_activeModule = module
-			Parameters.Strict = Pragmas.IsEnabledOn(module, Pragmas.Strict)
-			_implicit = Pragmas.IsEnabledOn(module, Pragmas.Implicit)
-			downcastPermissions.Enabled = Pragmas.IsEnabledOn(module, Pragmas.Downcast)
+		preserving _activeModule, Parameters.Strict, _implicit, my(UnityDowncastPermissions).Enabled:
+			EnterModuleContext(module)
 			super(node)
+			
+	private def EnterModuleContext(module as Module):
+		_activeModule = module
+		Parameters.Strict = Pragmas.IsEnabledOn(module, Pragmas.Strict)
+		_implicit = Pragmas.IsEnabledOn(module, Pragmas.Implicit)
+		my(UnityDowncastPermissions).Enabled = Pragmas.IsEnabledOn(module, Pragmas.Downcast)
 
 	_activeModule as Module
 	
