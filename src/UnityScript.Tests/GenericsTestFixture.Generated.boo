@@ -7,6 +7,10 @@ import NUnit.Framework
 class GenericsTestFixture(AbstractIntegrationTestFixture):
 
 	
+	[Test] def generic_dictionary_of_string_to_function():
+		RunTestCase("tests/generics/generic-dictionary-of-string-to-function.js")
+		
+	
 	[Test] def generic_list_instantiation_1():
 		RunTestCase("tests/generics/generic-list-instantiation-1.js")
 		
@@ -21,4 +25,8 @@ class GenericsTestFixture(AbstractIntegrationTestFixture):
 	
 	[Test] def generic_method_arguments():
 		RunTestCase("tests/generics/generic-method-arguments.js")
+		
+	
+	[Test] def generic_method_overload_in_base_class():
+		RunTestCase("tests/generics/generic-method-overload-in-base-class.js")
 		

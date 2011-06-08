@@ -14,7 +14,11 @@ struct Vector3:
 		z = z_
 
 class Component:
-	pass
+	def GetComponentsInChildren[of T]() as T:
+		return typeof(T)()
+		
+	def GetComponentsInChildren[of T](instantiate as bool) as T:
+		if instantiate: return typeof(T)()
 	
 struct Bounds:
 	def IntersectRay(ray as Ray, ref result as single):

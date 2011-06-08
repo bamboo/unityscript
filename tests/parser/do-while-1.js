@@ -3,7 +3,7 @@ i = 0
 
 while true:
 	print(i)
-	break  if ((++i) < 2)
+	break  unless ((++i) < 2)
 */
 var i = 0;
 do {

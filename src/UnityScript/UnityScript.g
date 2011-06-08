@@ -900,7 +900,7 @@ do_while_statement[Block container]
 	block[b]
 	w:WHILE e=paren_expression eos
 	{
-		b.Add(BreakStatement(ToLexicalInfo(w), Modifier: StatementModifier(StatementModifierType.If, e)))
+		b.Add(BreakStatement(ToLexicalInfo(w), Modifier: StatementModifier(StatementModifierType.Unless, e)))
 		LeaveLoop(ws)
 	}
 ;
