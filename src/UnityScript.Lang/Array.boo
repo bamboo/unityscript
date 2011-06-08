@@ -119,10 +119,12 @@ class Array(CollectionBase, Boo.Lang.Runtime.ICoercible):
 
 	# Returns array with elements removed
 	def Slice(start as int, end as int):
-		return Array(InnerList.GetRange(start, end - start));
+		normalStart = NormalizeIndex(start)
+		normalEnd = NormalizeIndex(end)
+		return Array(InnerList.GetRange(normalStart, normalEnd - normalStart))
 		
 	def Slice(start as int):
-		return self.Slice(start, self.InnerList.Count - start);
+		return self.Slice(start, self.InnerList.Count)
 
 	def slice(start as int, end as int):
 		return self.Slice(start, end)

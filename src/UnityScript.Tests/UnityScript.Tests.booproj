@@ -76,6 +76,7 @@
     <Compile Include="AbstractIntegrationTestFixture.boo" />
     <Compile Include="ProjectIntegrationTestFixture.boo" />
     <Compile Include="ProjectIntegrationTestFixture.Generated.boo" />
+    <Compile Include="Lang\ArrayTest.boo" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UnityScript\UnityScript.booproj">
@@ -98,5 +99,6 @@
   <ItemGroup>
     <Folder Include="Scripting\" />
     <Folder Include="Core\" />
+    <Folder Include="Lang\" />
   </ItemGroup>
 </Project>
