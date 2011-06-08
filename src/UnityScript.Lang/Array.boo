@@ -84,11 +84,11 @@ class Array(CollectionBase, Boo.Lang.Runtime.ICoercible):
 
 	# How do i allow the vararg only for ICollections?
 	def Concat(value as ICollection, *items):
-		return ConcatImpl(value, items);
-
+		return ConcatImpl(value, items)
+		
 	# How do i allow the vararg only for ICollections?
 	def concat(value as ICollection, *items):
-		return ConcatImpl(value, items);
+		return ConcatImpl(value, items)
 
 	# Pop last and return
 	def Pop():
@@ -119,10 +119,12 @@ class Array(CollectionBase, Boo.Lang.Runtime.ICoercible):
 
 	# Returns array with elements removed
 	def Slice(start as int, end as int):
-		return Array(InnerList.GetRange(start, end - start));
+		normalStart = NormalizeIndex(start)
+		normalEnd = NormalizeIndex(end)
+		return Array(InnerList.GetRange(normalStart, normalEnd - normalStart))
 		
 	def Slice(start as int):
-		return self.Slice(start, self.InnerList.Count - start);
+		return self.Slice(start, self.InnerList.Count)
 
 	def slice(start as int, end as int):
 		return self.Slice(start, end)
@@ -132,7 +134,7 @@ class Array(CollectionBase, Boo.Lang.Runtime.ICoercible):
 
 	# Revert
 	def Reverse() as Array:
-		self.InnerList.Reverse();
+		self.InnerList.Reverse()
 		return self
 
 	def reverse() as Array:
@@ -209,8 +211,8 @@ class Array(CollectionBase, Boo.Lang.Runtime.ICoercible):
 		self.InnerList.InsertRange(index, items)
 
 	private def ConcatImpl(value as ICollection, [required] items as IEnumerable):
-		arr = Array (self.InnerList);
-		arr.InnerList.AddRange(value);
+		arr = Array (self.InnerList)
+		arr.InnerList.AddRange(value)
 
 		for item as ICollection in items:
 			arr.InnerList.AddRange(item)
@@ -221,3 +223,7 @@ class Array(CollectionBase, Boo.Lang.Runtime.ICoercible):
 		return if capacity < Count
 		for i in range(capacity-self.Count):
 			InnerList.Add(null)		
+			
+	private def NormalizeIndex(index as int):
+		return index if index >= 0
+		return index + InnerList.Count

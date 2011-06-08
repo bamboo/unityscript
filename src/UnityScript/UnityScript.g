@@ -1836,10 +1836,13 @@ DECREMENT: "--";
 ADD: '+';
 
 PRAGMA_ON:
-	"#pragma"! (' '!)+ id:ID
-	((' '!)+ ("off"! { $setType(PRAGMA_OFF); } | "on"!))?
-	(' '!)*
+	"#pragma"! (PRAGMA_WHITE_SPACE)+ id:ID
+	((PRAGMA_WHITE_SPACE)+ ("off"! { $setType(PRAGMA_OFF); } | "on"!))?
+	(PRAGMA_WHITE_SPACE)*
 	NEWLINE!;
+
+protected
+PRAGMA_WHITE_SPACE: (' '! | '\t'!);
 
 INPLACE_ADD: "+=";
 

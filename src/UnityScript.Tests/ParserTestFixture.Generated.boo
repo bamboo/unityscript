@@ -226,6 +226,10 @@ partial class ParserTestFixture:
 		RunTestCase("tests/parser/pragma-strict-followed-by-identifier.js")
 		
 	
+	[Test] def pragma_strict_followed_by_tab():
+		RunTestCase("tests/parser/pragma-strict-followed-by-tab.js")
+		
+	
 	[Test] def scientific_notation():
 		RunTestCase("tests/parser/scientific-notation.js")
 		

@@ -135,17 +135,18 @@ class UnityScriptParser(antlr.LLkParser):
 	public static final SINGLE_QUOTED_STRING = 106
 	public static final DOUBLE_SUFFIX = 107
 	public static final EXPONENT = 108
-	public static final WHITE_SPACE = 109
-	public static final DQS_ESC = 110
-	public static final SQS_ESC = 111
-	public static final SESC = 112
-	public static final ML_COMMENT = 113
-	public static final RE_CHAR = 114
-	public static final RE_ESC = 115
-	public static final NEWLINE = 116
-	public static final ID_LETTER = 117
-	public static final DIGIT = 118
-	public static final HEXDIGIT = 119
+	public static final PRAGMA_WHITE_SPACE = 109
+	public static final WHITE_SPACE = 110
+	public static final DQS_ESC = 111
+	public static final SQS_ESC = 112
+	public static final SESC = 113
+	public static final ML_COMMENT = 114
+	public static final RE_CHAR = 115
+	public static final RE_ESC = 116
+	public static final NEWLINE = 117
+	public static final ID_LETTER = 118
+	public static final DIGIT = 119
+	public static final HEXDIGIT = 120
 	
 	
 	[property(CompilerContext)]
@@ -4482,6 +4483,7 @@ class UnityScriptParser(antlr.LLkParser):
 		'SINGLE_QUOTED_STRING',
 		'DOUBLE_SUFFIX',
 		'EXPONENT',
+		'PRAGMA_WHITE_SPACE',
 		'WHITE_SPACE',
 		'DQS_ESC',
 		'SQS_ESC',
