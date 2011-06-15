@@ -1,24 +1,30 @@
 namespace UnityScript.Lang
 
-class UnityBuiltins:
+static class UnityBuiltins:
 	
-	static def eval(code as string):
-		return null
+	def eval(code as string) as object:
+		raise System.NotImplementedException()
 
-	static def parseInt (value as System.String) as int:
+	def parseInt (value as System.String) as int:
 		return int.Parse(value)
 			
-	static def parseInt (value as single) as int:
+	def parseInt (value as single) as int:
+		return value
+		
+	def parseInt (value as double) as int:
 		return value
 	
-	static def parseInt (value as int) as int:
+	def parseInt (value as int) as int:
 		return value
 	
-	static def parseFloat (value as System.String) as single:
+	def parseFloat (value as System.String) as single:
 		return single.Parse(value)
 		
-	static def parseFloat (value as single) as single:
+	def parseFloat (value as single) as single:
+		return value
+		
+	def parseFloat (value as double) as single:
 		return value
 	
-	static def parseFloat (value as int) as single:
+	def parseFloat (value as int) as single:
 		return value
