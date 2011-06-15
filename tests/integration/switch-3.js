@@ -2,12 +2,11 @@
 True
 */
 var journalList = Array ("TT");
-
-for (var N : String in journalList)
-{ 
-	switch(N){ 
-		case "TT": 
-		print ("True"); 
-		break;           
-	} 
+for (var N in journalList) { 
+  var selector = N as String;
+  switch (selector) {
+  case "TT": 
+	print ("True"); 
+	break;           
+  } 
 } 
