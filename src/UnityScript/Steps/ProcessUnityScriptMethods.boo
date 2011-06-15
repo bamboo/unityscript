@@ -57,14 +57,6 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		
 	override def GetGeneratorReturnType(generator as InternalMethod):
 		return TypeSystemServices.IEnumeratorType
-			
-	override def IsDuckTyped(e as Expression):
-		if Strict: return false
-		return super(e)
-		
-	override def IsDuckTyped(member as IMember):
-		if Strict: return false
-		return super(member)
 		
 	override protected def MemberNotFound(node as MemberReferenceExpression, ns as INamespace):
 		if Strict:			
