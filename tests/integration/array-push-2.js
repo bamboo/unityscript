@@ -12,8 +12,7 @@ array.push(1);
 print (array[0]);
 print (array[1]);
 
-pushed = array.push("bird", "fish");
-print (pushed );
+print (array.push("bird", "fish"));
 
 print (array[2]);
 print (array[3]);

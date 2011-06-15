@@ -57,14 +57,6 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		
 	override def GetGeneratorReturnType(generator as InternalMethod):
 		return TypeSystemServices.IEnumeratorType
-			
-	override def IsDuckTyped(e as Expression):
-		if Strict: return false
-		return super(e)
-		
-	override def IsDuckTyped(member as IMember):
-		if Strict: return false
-		return super(member)
 		
 	override protected def MemberNotFound(node as MemberReferenceExpression, ns as INamespace):
 		if Strict:			
@@ -226,10 +218,11 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		VisitForStatementBlock(node)
 		
 	def ProcessUpdateableIteration(node as ForStatement):
+		originalIterator = node.Iterator
 		newIterator = CodeBuilder.CreateMethodInvocation(_UnityRuntimeServices_GetEnumerator, node.Iterator)
 		newIterator.LexicalInfo = LexicalInfo(node.Iterator.LexicalInfo)
 		node.Iterator = newIterator
-		ProcessDeclarationForIterator(node.Declarations[0], TypeSystemServices.ObjectType)
+		ProcessDeclarationForIterator(node.Declarations[0], GetEnumeratorItemType(GetExpressionType(originalIterator)))
 		VisitForStatementBlock(node)
 		TransformIteration(node)
 

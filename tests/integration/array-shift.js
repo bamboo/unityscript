@@ -6,7 +6,7 @@ fish
 */
 var array = new Array("cat", "dog", "bird", "fish");
 
-shifted = array.shift();
+var shifted = array.shift();
 print ( shifted );
 
 print ( array[0] );

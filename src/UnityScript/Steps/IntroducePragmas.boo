@@ -6,9 +6,9 @@ import Boo.Lang.Compiler.Steps
 
 class IntroducePragmas(AbstractCompilerStep):
 
-	_pragmas as List of string
+	_pragmas as string*
 	
-	def constructor(pragmas as List of string):
+	def constructor(pragmas as string*):
 		_pragmas = pragmas
 		
 	override def Run():

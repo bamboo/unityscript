@@ -8,6 +8,6 @@ import UnityScript.Tests;
 function bar() {
 }
 
-var attr : AttributeWithMask = GetType().GetMethod ("bar").GetCustomAttributes(AttributeWithMask, false)[0];
+var attr = GetType().GetMethod ("bar").GetCustomAttributes(AttributeWithMask, false)[0] as AttributeWithMask;
 if (attr.mask == (AttributeMaskEnum.Foo | AttributeMaskEnum.Bar))
 	print ("yes");

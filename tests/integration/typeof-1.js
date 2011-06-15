@@ -11,7 +11,7 @@ class Foo {
 }
 
 print(typeof(1));
-test = new Foo();
+var test = new Foo();
 print(typeof(test));
 print(typeof(Foo));
 print(typeof(Foo[]));
