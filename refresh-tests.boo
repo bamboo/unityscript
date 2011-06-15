@@ -10,9 +10,6 @@ import System
 import System.IO
 import Boo.Lang.PatternMatching
 
-//def MapPath(path):
-//	return Path.Combine(Project.BaseDirectory, path) 
-
 def GetTestCaseName(fname as string):
 	return Path.GetFileNameWithoutExtension(fname).Replace("-", "_").Replace(".", "_")	
 	
@@ -104,17 +101,13 @@ import NUnit.Framework
 class SemanticsTestFixture(AbstractSemanticsTestFixture):
 """, "tests/semantics")
 
-GenerateTestFixture("src/UnityScript.Tests/StrictIntegrationTestFixture.boo", """
+GenerateTestFixture("src/UnityScript.Tests/StrictIntegrationTestFixture.Generated.boo", """
 namespace UnityScript.Tests
 
 import NUnit.Framework
 	
 [TestFixture]
-class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
-			
-	override def SetCompilationOptions():
-		super()
-		Parameters.Strict = true
+partial class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
 
 """, "tests/integration")
 
