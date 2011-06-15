@@ -12,11 +12,11 @@ array.push(1);
 print (array[0]);
 print (array[1]);
 
+var pushed;
 pushed = array.push("bird");
 
 array.push("fish");
 print (array[2]);
 print (array[3]);
-
 
 print (pushed );

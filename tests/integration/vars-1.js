@@ -10,7 +10,7 @@ var flags = BindingFlags.Public|BindingFlags.NonPublic|BindingFlags.Instance|Bin
 var type = GetType();
 
 function AssertField(name:String) {
-	field = type.GetField(name, flags);
+	var field = type.GetField(name, flags);
 	if (field == null) throw name;
 	return field;
 }
@@ -23,9 +23,9 @@ function AssertIsFalse(condition:boolean, description:String) {
 	if (condition) throw description;
 }
 
-fa = AssertField("a");
-fb = AssertField("b");
-fc = AssertField("c");
+var fa = AssertField("a");
+var fb = AssertField("b");
+var fc = AssertField("c");
 
 AssertIsTrue(fa.IsPublic, "public a");
 AssertIsFalse(fa.IsStatic, "instance a");

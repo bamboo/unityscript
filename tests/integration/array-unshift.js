@@ -17,8 +17,7 @@ print ( array[0] );
 print ( array[1] );
 print ( array[2] );
 
-n = array.unshift("ferrets", "gophers", "engineers");
-print ( n );
+print (array.unshift("ferrets", "gophers", "engineers"));
 
 print ( array[0] );
 print ( array[1] );

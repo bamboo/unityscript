@@ -8,7 +8,7 @@ canary
 parrot
 */
 var pets_array = new Array("cat", "dog", "fish", "canary", "parrot");
-fourLeggedPets_array = pets_array.slice(0, 2);
+var fourLeggedPets_array = pets_array.slice(0, 2);
 
 print ( fourLeggedPets_array[0] );
 print ( fourLeggedPets_array[1] );
