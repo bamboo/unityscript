@@ -218,10 +218,11 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		VisitForStatementBlock(node)
 		
 	def ProcessUpdateableIteration(node as ForStatement):
+		originalIterator = node.Iterator
 		newIterator = CodeBuilder.CreateMethodInvocation(_UnityRuntimeServices_GetEnumerator, node.Iterator)
 		newIterator.LexicalInfo = LexicalInfo(node.Iterator.LexicalInfo)
 		node.Iterator = newIterator
-		ProcessDeclarationForIterator(node.Declarations[0], TypeSystemServices.ObjectType)
+		ProcessDeclarationForIterator(node.Declarations[0], GetEnumeratorItemType(GetExpressionType(originalIterator)))
 		VisitForStatementBlock(node)
 		TransformIteration(node)
 
