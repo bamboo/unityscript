@@ -20,7 +20,7 @@ class Test1 extends BaseTest {
 		print("Test1 " + p);
 	}
 	
-	// implicit shadowing, gives a warning
+	// implicit shadowing, gives a warning in non strict mode
 	function DoStuffNotVirtual (p : float) {
 		print("Test1");
 	}

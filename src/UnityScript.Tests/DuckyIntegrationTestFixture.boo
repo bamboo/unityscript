@@ -50,22 +50,6 @@ class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/array-Remove.js")
 		
 	
-	[Test] def array_cast_2():
-		RunTestCase("tests/integration/array-cast-2.js")
-		
-	
-	[Test] def array_cast_3():
-		RunTestCase("tests/integration/array-cast-3.js")
-		
-	
-	[Test] def array_cast_4():
-		RunTestCase("tests/integration/array-cast-4.js")
-		
-	
-	[Test] def array_cast_5():
-		RunTestCase("tests/integration/array-cast-5.js")
-		
-	
 	[Test] def array_cast():
 		RunTestCase("tests/integration/array-cast.js")
 		
@@ -124,10 +108,6 @@ class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 	
 	[Test] def array_nesting():
 		RunTestCase("tests/integration/array-nesting.js")
-		
-	
-	[Test] def array_polymorphic_foreach():
-		RunTestCase("tests/integration/array-polymorphic-foreach.js")
 		
 	
 	[Test] def array_pop():
@@ -394,6 +374,10 @@ class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/generator-inheritance.js")
 		
 	
+	[Test] def implicit_array_to_native_array_cast():
+		RunTestCase("tests/integration/implicit-array-to-native-array-cast.js")
+		
+	
 	[Test] def implict_bool_hierarchy():
 		RunTestCase("tests/integration/implict-bool-hierarchy.js")
 		
@@ -606,10 +590,6 @@ class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/vars-1.js")
 		
 	
-	[Test] def virtual_test():
-		RunTestCase("tests/integration/virtual-test.js")
-		
-	
 	[Test] def Array_cast_to_native_array_of_struct():
 		RunTestCase("tests/ducky/Array-cast-to-native-array-of-struct.js")
 		
@@ -642,6 +622,22 @@ class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/ducky/array-access.js")
 		
 	
+	[Test] def array_cast_2():
+		RunTestCase("tests/ducky/array-cast-2.js")
+		
+	
+	[Test] def array_cast_3():
+		RunTestCase("tests/ducky/array-cast-3.js")
+		
+	
+	[Test] def array_cast_4():
+		RunTestCase("tests/ducky/array-cast-4.js")
+		
+	
+	[Test] def array_cast_5():
+		RunTestCase("tests/ducky/array-cast-5.js")
+		
+	
 	[Test] def array_iterate():
 		RunTestCase("tests/ducky/array-iterate.js")
 		
@@ -652,6 +648,10 @@ class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 	
 	[Test] def array_nest_2():
 		RunTestCase("tests/ducky/array-nest-2.js")
+		
+	
+	[Test] def array_polymorphic_foreach():
+		RunTestCase("tests/ducky/array-polymorphic-foreach.js")
 		
 	
 	[Test] def array_push_typesjs():
@@ -776,4 +776,8 @@ class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 	
 	[Test] def var_with_no_initializer():
 		RunTestCase("tests/ducky/var-with-no-initializer.js")
+		
+	
+	[Test] def virtual_test():
+		RunTestCase("tests/ducky/virtual-test.js")
 		
