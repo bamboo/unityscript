@@ -394,6 +394,10 @@ class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/interfaces-1.js")
 		
 	
+	[Test] def internal_field():
+		RunTestCase("tests/integration/internal-field.js")
+		
+	
 	[Test] def invalidil():
 		RunTestCase("tests/integration/invalidil.js")
 		
