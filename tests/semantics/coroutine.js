@@ -18,16 +18,16 @@ partial public class coroutine(UnityScript.Tests.MonoBehaviour):
 		super()
 
 	[System.Runtime.CompilerServices.CompilerGeneratedAttribute]
-	internal final class $spam$2(Boo.Lang.GenericGenerator):
+	internal final class $spam$2(Boo.Lang.GenericGenerator[of int]):
 
-		public virtual def GetEnumerator() as System.Collections.Generic.IEnumerator:
+		public virtual def GetEnumerator() as System.Collections.Generic.IEnumerator[of int]:
 			return coroutine.$spam$2.$()
 
 		public def constructor():
 			super()
 
 		[System.Runtime.CompilerServices.CompilerGeneratedAttribute]
-		final class $(Boo.Lang.GenericGeneratorEnumerator, System.Collections.IEnumerator):
+		final class $(Boo.Lang.GenericGeneratorEnumerator[of int], System.Collections.IEnumerator):
 
 			public def constructor():
 				super()
