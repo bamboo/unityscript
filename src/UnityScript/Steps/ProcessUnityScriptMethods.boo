@@ -71,7 +71,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		return super(d)
 				
 	override def OnModule(module as Module):  
-		preserving _activeModule, Parameters.Strict, _implicit, my(UnityDowncastPermissions).Enabled:
+		preserving _activeModule, Parameters.Strict, _implicit:
 			EnterModuleContext(module)
 			super(module)
 			
@@ -82,7 +82,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 			super(node)
 			return
 			
-		preserving _activeModule, Parameters.Strict, _implicit, my(UnityDowncastPermissions).Enabled:
+		preserving _activeModule, Parameters.Strict, _implicit:
 			EnterModuleContext(module)
 			super(node)
 			
@@ -90,7 +90,13 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		_activeModule = module
 		Parameters.Strict = Pragmas.IsEnabledOn(module, Pragmas.Strict)
 		_implicit = Pragmas.IsEnabledOn(module, Pragmas.Implicit)
-		my(UnityDowncastPermissions).Enabled = Pragmas.IsEnabledOn(module, Pragmas.Downcast)
+		if Pragmas.IsDisabledOn(module, Pragmas.Downcast):
+			Parameters.DisableWarning(ImplicitDowncast)
+		else:
+			Parameters.EnableWarning(ImplicitDowncast)
+			
+	ImplicitDowncast:
+		get: return Boo.Lang.Compiler.CompilerWarningFactory.Codes.ImplicitDowncast
 
 	_activeModule as Module
 	
