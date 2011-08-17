@@ -1,18 +1,24 @@
 /*
 import UnityScript.Tests
 
-public class Fields:
+public class Fields(Object):
 
-	public FirstName as string
+	public FirstName as String
 
-	public LastName as string
+	public LastName as String
+
+	public def constructor():
+		super()
 
 partial public class fields-1(UnityScript.Tests.MonoBehaviour):
 
-	public virtual def Awake():
+	public virtual def Awake() as void:
 		pass
+
+	public def constructor():
+		super()
 */
 class Fields {
-	var FirstName:string;
-	var LastName:string;
+	var FirstName:String;
+	var LastName:String;
 }

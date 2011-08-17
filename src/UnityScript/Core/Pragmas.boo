@@ -27,6 +27,9 @@ static class Pragmas:
 	def IsEnabledOn(module as Module, pragma as string):
 		return module[pragma] is Enabled
 		
+	def IsDisabledOn(module as Module, pragma as string):
+		return module[pragma] is Disabled
+		
 	def TryToEnableOn(module as Module, pragma as string):
 		if module.ContainsAnnotation(pragma):
 			return false

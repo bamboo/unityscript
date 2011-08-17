@@ -1,43 +1,48 @@
 /*
 import UnityScript.Tests
 
-public class Person:
+public class Person(Object):
 
-	public _name as string
+	public _name as String
 
 	private _age as int
 
-	public def constructor(name as string, age as int):
-		_name = name
-		_age = age
+	public def constructor(name as String, age as int):
+		super()
+		self._name = name
+		self._age = age
 
-	Name:
+	public Name as String:
 		public virtual get:
-			return _name
+			return self._name
 
-	Age:
+	public Age as int:
 		public virtual get:
-			return _age
+			return self._age
 
-	public virtual def ToString() as string:
-		return ((_name + ', ') + _age)
+	public override def ToString() as String:
+		return Boo.Lang.Runtime.RuntimeServices.op_Addition(Boo.Lang.Runtime.RuntimeServices.op_Addition(self._name, ', '), self._age)
 
-	public static def StaticFunction():
+	public static def StaticFunction() as void:
 		pass
 
 partial public class class-3(UnityScript.Tests.MonoBehaviour):
 
-	public p as Person = Person('Eric Idle', 42)
+	public p as Person
 
-	public virtual def Awake():
-		print(p.ToString())
+	public virtual def Awake() as void:
+		Boo.Lang.Builtins.print(self.p.ToString())
+
+	public def constructor():
+		super()
+		self.p = Person('Eric Idle', 42)
 */
 
 class Person {
-	var _name:string;
+	var _name:String;
 	private var _age:int;
 	
-	function Person(name:string, age:int) {
+	function Person(name:String, age:int) {
 		_name = name;
 		_age = age;
 	}
@@ -50,7 +55,7 @@ class Person {
 		return _age;
 	}
 	
-	function ToString() : string {
+	function ToString() : String {
 		return _name + ", " + _age;
 	}
 	

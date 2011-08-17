@@ -6,14 +6,17 @@ import Boo.Lang.PatternMatching
 
 class UnityScriptEntityFormatter(EntityFormatter):
 	
-	def FormatType(type as IType) as string:
+	override def FormatType(type as IType) as string:
 		match type:
 			case IArrayType(ElementType, Rank):
 				return "$(FormatType(ElementType))[$(',' * (Rank - 1))]"
 			case ICallableType():
 				return FormatCallableType(type)
 			otherwise:
-				return type.FullName
+				return super(type)
+				
+	override def FormatGenericArguments(genericArgs as string*):
+		return ".<$(join(genericArgs, ', '))>"
 				
 	def FormatCallableType(type as ICallableType):
 		signature = type.GetSignature()

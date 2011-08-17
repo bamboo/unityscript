@@ -76,6 +76,7 @@ tokens
 	INPLACE_ADD="+=";
 	INPLACE_SUBTRACT="-=";
 	INPLACE_MULTIPLY="*=";
+	SL_COMMENT="//";
 	
 	PRAGMA_ON="pragma on";
 	PRAGMA_OFF="pragma off";
@@ -1768,6 +1769,8 @@ options
 }
 
 {
+	property PreserveComments = false
+	
 	static def IsDigit(ch as char):
 		return ch >= char('0') and ch <= char('9')
 }
@@ -1889,10 +1892,20 @@ INPLACE_SHIFT_RIGHT: ">>=";
 AT: '@';
 
 DIVISION: 
-	("/*")=> ML_COMMENT { $setType(Token.SKIP); } |
+	("/*")=> ML_COMMENT
+	{
+		if not PreserveComments:
+			$setType(Token.SKIP)
+	} |
 //	(RE_LITERAL)=> RE_LITERAL { $setType(RE_LITERAL); } |	
 	'/' (
-		('/' (~('\r'|'\n'))* { $setType(Token.SKIP); }) |			
+			('/' (~('\r'|'\n'))*
+			{
+				if PreserveComments:
+					$setType(SL_COMMENT)
+				else:
+					$setType(Token.SKIP);
+			}) |
 			('=' { $setType(INPLACE_DIVISION); }) |
 		)
 ;
@@ -1953,7 +1966,6 @@ ML_COMMENT:
 		{ LA(2) != char('/') }? '*'
     )*
     "*/"
-    { $setType(Token.SKIP); }
 ;
 
 protected

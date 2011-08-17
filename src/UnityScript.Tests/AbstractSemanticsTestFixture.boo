@@ -10,4 +10,4 @@ class AbstractSemanticsTestFixture(AbstractCompilerTestFixture):
 		_compiler.Parameters.Imports.Add("UnityScript.Tests")
 		
 	override protected def CreateCompilerPipeline():
-		return UnityScript.UnityScriptCompiler.Pipelines.Parse()
+		return UnityScript.UnityScriptCompiler.Pipelines.Compile()

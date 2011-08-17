@@ -3,6 +3,7 @@ namespace UnityScript.Steps
 import Boo.Lang.Compiler.Ast
 import Boo.Lang.Compiler.Steps
 import Boo.Lang.Compiler.TypeSystem
+import Boo.Lang.Compiler.TypeSystem.IEntityExtensions
 
 import UnityScript.Core
 
@@ -25,13 +26,13 @@ class CheckBaseTypes(AbstractVisitorCompilerStep):
 		type = TypeEntityFor(baseType)
 		if type.IsClass:
 			return
-		Errors.Add(UnityScriptCompilerErrors.ClassExpected(baseType.LexicalInfo, type.FullName))
+		Errors.Add(UnityScriptCompilerErrors.ClassExpected(baseType.LexicalInfo, type.DisplayName()))
 			
 	def CheckIsInterface(baseType as TypeReference):
 		type = TypeEntityFor(baseType)
 		if type.IsInterface:
 			return
-		Errors.Add(UnityScriptCompilerErrors.InterfaceExpected(baseType.LexicalInfo, type.FullName))
+		Errors.Add(UnityScriptCompilerErrors.InterfaceExpected(baseType.LexicalInfo, type.DisplayName()))
 			
 	def TypeEntityFor(baseType as TypeReference) as IType:
 		return GetEntity(baseType)

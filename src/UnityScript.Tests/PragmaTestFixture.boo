@@ -15,6 +15,10 @@ class PragmaTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/pragma/downcast-plus-strict-for-arrays.js")
 		
 	
+	[Test] def downcast_plus_strict_for_each_in_arrays():
+		RunTestCase("tests/pragma/downcast-plus-strict-for-each-in-arrays.js")
+		
+	
 	[Test] def implicit_1():
 		RunTestCase("tests/pragma/implicit-1.js")
 		

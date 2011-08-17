@@ -30,7 +30,7 @@ they point to EvaluationContext provided members.
 
 		if not ValidateContext(entity):
 			member = entity.Delegate
-			Errors.Add(CompilerErrorFactory.InstanceRequired(node, member.DeclaringType.ToString(), member.Name))
+			Errors.Add(CompilerErrorFactory.InstanceRequired(node, member))
 
 		node.ParentNode.Replace(
 			node,

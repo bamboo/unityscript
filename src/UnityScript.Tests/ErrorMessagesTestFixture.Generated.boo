@@ -130,14 +130,6 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/strict-conditional-compilation.js")
 		
 	
-	[Test] def strict_disallows_downcast():
-		RunTestCase("tests/error-messages/strict-disallows-downcast.js")
-		
-	
-	[Test] def strict_disallows_duck_downcast():
-		RunTestCase("tests/error-messages/strict-disallows-duck-downcast.js")
-		
-	
 	[Test] def strict_disallows_dynamic_dispatching():
 		RunTestCase("tests/error-messages/strict-disallows-dynamic-dispatching.js")
 		
@@ -148,6 +140,22 @@ partial class ErrorMessagesTestFixture:
 	
 	[Test] def strict_nongeneric_GetComponent():
 		RunTestCase("tests/error-messages/strict-nongeneric-GetComponent.js")
+		
+	
+	[Test] def strict_warns_about_downcast():
+		RunTestCase("tests/error-messages/strict-warns-about-downcast.js")
+		
+	
+	[Test] def strict_warns_about_duck_downcast():
+		RunTestCase("tests/error-messages/strict-warns-about-duck-downcast.js")
+		
+	
+	[Test] def strict_with_downcast_off_disallows_downcast():
+		RunTestCase("tests/error-messages/strict-with-downcast-off-disallows-downcast.js")
+		
+	
+	[Test] def strict_with_downcast_off_disallows_duck_downcast():
+		RunTestCase("tests/error-messages/strict-with-downcast-off-disallows-duck-downcast.js")
 		
 	
 	[Test] def unused_variable():
