@@ -71,9 +71,8 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		return super(d)
 				
 	override def OnModule(module as Module):  
-		preserving _activeModule, Parameters.Strict, _implicit:
-			EnterModuleContext(module)
-			super(module)
+		EnterModuleContext(module)
+		super(module)
 			
 	override def VisitMemberPreservingContext(node as TypeMember):
 		
@@ -82,23 +81,31 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 			super(node)
 			return
 			
-		preserving _activeModule, Parameters.Strict, _implicit:
+		preserving Parameters.Strict, _implicit, ActiveModule:
 			EnterModuleContext(module)
 			super(node)
 			
 	private def EnterModuleContext(module as Module):
-		_activeModule = module
 		Parameters.Strict = Pragmas.IsEnabledOn(module, Pragmas.Strict)
-		_implicit = Pragmas.IsEnabledOn(module, Pragmas.Implicit)
-		if Pragmas.IsDisabledOn(module, Pragmas.Downcast):
-			Parameters.DisableWarning(ImplicitDowncast)
-		else:
-			Parameters.EnableWarning(ImplicitDowncast)
+		_implicit = Pragmas.IsEnabledOn(module, Pragmas.Implicit)		
+		ActiveModule = module
 			
 	ImplicitDowncast:
 		get: return Boo.Lang.Compiler.CompilerWarningFactory.Codes.ImplicitDowncast
+		
+	ActiveModule:
+		get: return _activeModule
+		set:
+			_activeModule = value			
+			UpdateWarningSettingsForActiveModule()
+			
+	def UpdateWarningSettingsForActiveModule():
+		if Pragmas.IsDisabledOn(_activeModule, Pragmas.Downcast):
+			Parameters.DisableWarning(ImplicitDowncast)
+		else:
+			Parameters.EnableWarning(ImplicitDowncast)			
 
-	_activeModule as Module
+	_activeModule as Module	
 	
 	Strict:
 		get: return Parameters.Strict
