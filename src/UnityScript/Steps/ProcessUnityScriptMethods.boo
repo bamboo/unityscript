@@ -71,9 +71,8 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		return super(d)
 				
 	override def OnModule(module as Module):  
-		preserving _activeModule, Parameters.Strict, _implicit:
-			EnterModuleContext(module)
-			super(module)
+		EnterModuleContext(module)
+		super(module)
 			
 	override def VisitMemberPreservingContext(node as TypeMember):
 		
@@ -82,23 +81,31 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 			super(node)
 			return
 			
-		preserving _activeModule, Parameters.Strict, _implicit:
+		preserving Parameters.Strict, _implicit, ActiveModule:
 			EnterModuleContext(module)
 			super(node)
 			
 	private def EnterModuleContext(module as Module):
-		_activeModule = module
 		Parameters.Strict = Pragmas.IsEnabledOn(module, Pragmas.Strict)
-		_implicit = Pragmas.IsEnabledOn(module, Pragmas.Implicit)
-		if Pragmas.IsDisabledOn(module, Pragmas.Downcast):
-			Parameters.DisableWarning(ImplicitDowncast)
-		else:
-			Parameters.EnableWarning(ImplicitDowncast)
+		_implicit = Pragmas.IsEnabledOn(module, Pragmas.Implicit)		
+		ActiveModule = module
 			
 	ImplicitDowncast:
 		get: return Boo.Lang.Compiler.CompilerWarningFactory.Codes.ImplicitDowncast
+		
+	ActiveModule:
+		get: return _activeModule
+		set:
+			_activeModule = value			
+			UpdateWarningSettingsForActiveModule()
+			
+	def UpdateWarningSettingsForActiveModule():
+		if Pragmas.IsDisabledOn(_activeModule, Pragmas.Downcast):
+			Parameters.DisableWarning(ImplicitDowncast)
+		else:
+			Parameters.EnableWarning(ImplicitDowncast)			
 
-	_activeModule as Module
+	_activeModule as Module	
 	
 	Strict:
 		get: return Parameters.Strict
@@ -199,17 +206,20 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 			Error(node)
 		
 	def ApplyImplicitArrayConversion(node as BinaryExpression):
-		left = GetExpressionType(node.Left)
-		if not left.IsArray: return
+		leftType = GetExpressionType(node.Left)
+		return unless leftType.IsArray
 				
-		right = GetExpressionType(node.Right)
-		if right is not TypeSystemServices.Map(UnityScript.Lang.Array): return
+		rightType = GetExpressionType(node.Right)
+		return unless rightType is UnityScriptLangArray()
 
-		node.Right = CodeBuilder.CreateCast(left, 
+		node.Right = CodeBuilder.CreateCast(leftType, 
 						CodeBuilder.CreateMethodInvocation(
 							node.Right,
-							ResolveMethod(right, "ToBuiltin"),
-							CodeBuilder.CreateTypeofExpression(left.ElementType)))
+							ResolveMethod(rightType, "ToBuiltin"),
+							CodeBuilder.CreateTypeofExpression(leftType.ElementType)))
+							
+	def UnityScriptLangArray():
+		return TypeSystemServices.Map(UnityScript.Lang.Array)
 				
 	override def OnForStatement(node as ForStatement):
 		assert 1 == len(node.Declarations)

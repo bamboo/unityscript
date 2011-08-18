@@ -26,15 +26,16 @@ def getAssemblyAttribute(type as System.Type):
 def compile(options as CommandLineOptions):
 	compiler = UnityScriptCompilerFactory.FromCommandLineOptions(options)
 	results = compiler.Run()
+	
 	if len(results.Errors):
 		print results.Errors.ToString(options.Verbose)
 		return 255
+		
+	if options.Execute:
+		execute(results, options.MainMethod)
 	else:
-		if options.Execute:
-			execute(results, options.MainMethod)
-		else:
-			print results.Warnings.ToString() if len(results.Warnings)
-			print "Successfully compiled '${len(compiler.Parameters.Input)}' file(s) to '${results.GeneratedAssemblyFileName}'."
+		print results.Warnings.ToString() if len(results.Warnings)
+		print "Successfully compiled '${len(compiler.Parameters.Input)}' file(s) to '${results.GeneratedAssemblyFileName}'."
 	return 0
 	
 def execute(result as CompilerContext, mainMethod as string):
