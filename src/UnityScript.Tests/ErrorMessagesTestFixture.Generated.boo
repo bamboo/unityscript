@@ -142,6 +142,10 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/strict-nongeneric-GetComponent.js")
 		
 	
+	[Test] def strict_warns_about_array_downcast():
+		RunTestCase("tests/error-messages/strict-warns-about-array-downcast.js")
+		
+	
 	[Test] def strict_warns_about_downcast():
 		RunTestCase("tests/error-messages/strict-warns-about-downcast.js")
 		
