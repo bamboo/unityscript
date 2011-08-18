@@ -199,17 +199,20 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 			Error(node)
 		
 	def ApplyImplicitArrayConversion(node as BinaryExpression):
-		left = GetExpressionType(node.Left)
-		if not left.IsArray: return
+		leftType = GetExpressionType(node.Left)
+		return unless leftType.IsArray
 				
-		right = GetExpressionType(node.Right)
-		if right is not TypeSystemServices.Map(UnityScript.Lang.Array): return
+		rightType = GetExpressionType(node.Right)
+		return unless rightType is UnityScriptLangArray()
 
-		node.Right = CodeBuilder.CreateCast(left, 
+		node.Right = CodeBuilder.CreateCast(leftType, 
 						CodeBuilder.CreateMethodInvocation(
 							node.Right,
-							ResolveMethod(right, "ToBuiltin"),
-							CodeBuilder.CreateTypeofExpression(left.ElementType)))
+							ResolveMethod(rightType, "ToBuiltin"),
+							CodeBuilder.CreateTypeofExpression(leftType.ElementType)))
+							
+	def UnityScriptLangArray():
+		return TypeSystemServices.Map(UnityScript.Lang.Array)
 				
 	override def OnForStatement(node as ForStatement):
 		assert 1 == len(node.Declarations)
