@@ -94,6 +94,10 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/nolinenumber.js")
 		
 	
+	[Test] def non_strict_does_not_warn_about_downcast():
+		RunTestCase("tests/error-messages/non-strict-does-not-warn-about-downcast.js")
+		
+	
 	[Test] def obsolete_2():
 		RunTestCase("tests/error-messages/obsolete-2.js")
 		
@@ -160,6 +164,10 @@ partial class ErrorMessagesTestFixture:
 	
 	[Test] def strict_with_downcast_off_disallows_duck_downcast():
 		RunTestCase("tests/error-messages/strict-with-downcast-off-disallows-duck-downcast.js")
+		
+	
+	[Test] def strict_with_pragma_downcast_does_not_warn_about_downcast():
+		RunTestCase("tests/error-messages/strict-with-pragma-downcast-does-not-warn-about-downcast.js")
 		
 	
 	[Test] def unused_variable():
