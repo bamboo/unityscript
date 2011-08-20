@@ -1,22 +1,30 @@
-UnityScript
-========
+# UnityScript #
 
 A JavaScript implementation based on the Boo programming language.
 
-Building the MonoDevelop addin
-=======================
+## Building ##
 
-Create a build.properties file and configure the md.bin.dir property to
-point to the directory containing the MonoDevelop binaries. For instance:
+Checkout boo side-by-side with unityscript. 
 
-	<?xml version="1.0"?>
-	<project>
-		<property name="md.bin.dir" value="/Applications/MonoDevelop.app/Contents/MacOS/lib/monodevelop/bin" /> 
+Build boo:
+
+	pushd ../boo
+	nant
+	popd
+
+Build unityscript (and run the tests):
+
+	nant test
+	
+If the build script can't automatically detect the location of nunit.framework.dll
+create a build.properties file in the boo directory with something like:
+
+	```xml
+	<project name="build properties">
+		<property name="nunit.framework.dll" value="/usr/lib/cli/nunit.framework-2.4/nunit.framework.dll" />
 	</project>
+	'''
 
-And then:
 
-	nant md
 
-This will build and copy the required assemblies to ~/.config/MonoDevelop/addins/UnityScript.
 
