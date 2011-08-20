@@ -100,7 +100,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 			UpdateWarningSettingsForActiveModule()
 			
 	def UpdateWarningSettingsForActiveModule():
-		if Pragmas.IsDisabledOn(_activeModule, Pragmas.Downcast):
+		if not Parameters.Strict or Pragmas.IsDisabledOn(_activeModule, Pragmas.Downcast):
 			Parameters.DisableWarning(ImplicitDowncast)
 		else:
 			Parameters.EnableWarning(ImplicitDowncast)			

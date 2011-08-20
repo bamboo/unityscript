@@ -94,6 +94,10 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/nolinenumber.js")
 		
 	
+	[Test] def non_strict_does_not_warn_about_downcast():
+		RunTestCase("tests/error-messages/non-strict-does-not-warn-about-downcast.js")
+		
+	
 	[Test] def obsolete_2():
 		RunTestCase("tests/error-messages/obsolete-2.js")
 		
