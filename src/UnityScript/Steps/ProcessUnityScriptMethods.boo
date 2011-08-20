@@ -71,42 +71,43 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		return super(d)
 				
 	override def OnModule(module as Module):  
-		EnterModuleContext(module)
+		ActiveModule = module
 		super(module)
 			
 	override def VisitMemberPreservingContext(node as TypeMember):
 		
 		module = node.EnclosingModule
-		if module is _activeModule:
+		if module is ActiveModule:
 			super(node)
 			return
 			
-		preserving Parameters.Strict, _implicit, ActiveModule:
-			EnterModuleContext(module)
+		preserving ActiveModule:
+			ActiveModule = module
 			super(node)
 			
-	private def EnterModuleContext(module as Module):
-		Parameters.Strict = Pragmas.IsEnabledOn(module, Pragmas.Strict)
-		_implicit = Pragmas.IsEnabledOn(module, Pragmas.Implicit)		
-		ActiveModule = module
+	ActiveModule:
+		get: return _activeModule
+		set:
+			_activeModule = value
+			UpdateSettingsForActiveModule()
+			
+	_activeModule as Module
+	
+	def UpdateSettingsForActiveModule():
+		Parameters.Strict = Pragmas.IsEnabledOn(ActiveModule, Pragmas.Strict)
+		_implicit = Pragmas.IsEnabledOn(ActiveModule, Pragmas.Implicit)
+		my(UnityDowncastPermissions).Enabled = Pragmas.IsEnabledOn(ActiveModule, Pragmas.Downcast)
+		if ShouldDisableImplicitDowncastWarning():
+			Parameters.DisableWarning(ImplicitDowncast)
+		else:
+			Parameters.EnableWarning(ImplicitDowncast)
+			
+	def ShouldDisableImplicitDowncastWarning():
+		return not Parameters.Strict or ActiveModule.ContainsAnnotation(Pragmas.Downcast)
 			
 	ImplicitDowncast:
 		get: return Boo.Lang.Compiler.CompilerWarningFactory.Codes.ImplicitDowncast
 		
-	ActiveModule:
-		get: return _activeModule
-		set:
-			_activeModule = value			
-			UpdateWarningSettingsForActiveModule()
-			
-	def UpdateWarningSettingsForActiveModule():
-		if not Parameters.Strict or Pragmas.IsDisabledOn(_activeModule, Pragmas.Downcast):
-			Parameters.DisableWarning(ImplicitDowncast)
-		else:
-			Parameters.EnableWarning(ImplicitDowncast)			
-
-	_activeModule as Module	
-	
 	Strict:
 		get: return Parameters.Strict
 		

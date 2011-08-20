@@ -166,6 +166,10 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/strict-with-downcast-off-disallows-duck-downcast.js")
 		
 	
+	[Test] def strict_with_pragma_downcast_does_not_warn_about_downcast():
+		RunTestCase("tests/error-messages/strict-with-pragma-downcast-does-not-warn-about-downcast.js")
+		
+	
 	[Test] def unused_variable():
 		RunTestCase("tests/error-messages/unused-variable.js")
 		
