@@ -45,7 +45,7 @@ class EvaluationDomainProviderImplementor(AbstractCompilerComponent):
 		
 	private def CreateStaticEvaluationDomainProviderReferenceOn(node as ClassDefinition):
 		evaluationDomainProviderImpl = [|
-			internal class StaticEvaluationDomainProvider($SimpleEvaluationDomainProvider):
+			public class StaticEvaluationDomainProvider($SimpleEvaluationDomainProvider):
 				
 				public static final Instance = StaticEvaluationDomainProvider()
 				
