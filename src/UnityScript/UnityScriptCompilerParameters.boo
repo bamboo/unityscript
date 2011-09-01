@@ -23,6 +23,7 @@ class UnityScriptCompilerParameters(CompilerParameters):
 	property DisableEval as string
 
 	def constructor():
+		super(Boo.Lang.Compiler.TypeSystem.Reflection.ReflectionTypeSystemProvider())
 		self.OutputType = CompilerOutputType.Library
 		self.References.Add(typeof(UnityScript.Lang.Array).Assembly)
 		self.References.Add(GetType().Assembly)
