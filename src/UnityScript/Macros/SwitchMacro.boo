@@ -13,7 +13,14 @@ class DefaultStatement(CustomStatement):
 	
 macro switch:
 	
-	assert len(switch.Arguments) == 1
+	if len(switch.Arguments) != 1:
+		Errors.Add(CompilerErrorFactory.CustomError(switch, "switch requires an expression."))
+		return null
+		
+	statements = switch.Body.Statements
+	if len(statements) == 0:
+		Warnings.Add(CompilerWarningFactory.CustomWarning(switch, "switch statement has no cases."))
+		return null
 	
 	macro case:
 		return CaseStatement(Expressions: case.Arguments, Body: case.Body)
@@ -36,8 +43,8 @@ macro switch:
 			
 	passThrough as LabelStatement
 	
-	lastItem = switch.Body.Statements[-1]
-	for item in switch.Body.Statements:
+	lastItem = statements[-1]
+	for item in statements:
 		match item:
 			
 			case CaseStatement(Expressions: expressions, Body: body):

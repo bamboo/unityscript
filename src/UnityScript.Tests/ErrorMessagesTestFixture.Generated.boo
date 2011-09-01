@@ -170,6 +170,10 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/strict-with-pragma-downcast-does-not-warn-about-downcast.js")
 		
 	
+	[Test] def switch_has_no_cases():
+		RunTestCase("tests/error-messages/switch-has-no-cases.js")
+		
+	
 	[Test] def unused_variable():
 		RunTestCase("tests/error-messages/unused-variable.js")
 		
