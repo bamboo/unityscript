@@ -40,7 +40,7 @@ class CommandLineOptionsTestFixture:
 		
 		options = us.CommandLineOptions("-srcdir:${dir}")
 		
-		actualFiles = List of string()
+		actualFiles = Boo.Lang.List of string()
 		options.ForEachSourceFile(actualFiles.Add)
 		
 		Assert.AreEqual(
