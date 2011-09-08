@@ -27,7 +27,7 @@ partial public class coroutine(UnityScript.Tests.MonoBehaviour):
 			super()
 
 		[System.Runtime.CompilerServices.CompilerGeneratedAttribute]
-		final class $(Boo.Lang.GenericGeneratorEnumerator[of int], System.Collections.IEnumerator):
+		internal final class $(Boo.Lang.GenericGeneratorEnumerator[of int], System.Collections.IEnumerator):
 
 			public def constructor():
 				super()
