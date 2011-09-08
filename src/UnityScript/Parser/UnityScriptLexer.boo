@@ -82,74 +82,77 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 	public static final INPLACE_ADD = 51
 	public static final INPLACE_SUBTRACT = 52
 	public static final INPLACE_MULTIPLY = 53
-	public static final PRAGMA_ON = 54
-	public static final PRAGMA_OFF = 55
-	public static final ID = 56
-	public static final DOUBLE_QUOTED_STRING = 57
-	public static final LBRACE = 58
-	public static final RBRACE = 59
-	public static final LPAREN = 60
-	public static final RPAREN = 61
-	public static final DOT = 62
-	public static final COLON = 63
-	public static final COMMA = 64
-	public static final LBRACK = 65
-	public static final RBRACK = 66
-	public static final BITWISE_OR = 67
-	public static final INPLACE_BITWISE_OR = 68
-	public static final BITWISE_AND = 69
-	public static final BITWISE_XOR = 70
-	public static final INPLACE_BITWISE_AND = 71
-	public static final LOGICAL_OR = 72
-	public static final LOGICAL_AND = 73
-	public static final EOS = 74
-	public static final ASSIGN = 75
-	public static final INCREMENT = 76
-	public static final DECREMENT = 77
-	public static final ADD = 78
-	public static final SUBTRACT = 79
-	public static final MODULUS = 80
-	public static final MULTIPLY = 81
-	public static final EQUALITY = 82
-	public static final INEQUALITY = 83
-	public static final QUESTION_MARK = 84
-	public static final BITWISE_NOT = 85
-	public static final REFERENCE_EQUALITY = 86
-	public static final REFERENCE_INEQUALITY = 87
-	public static final LESS_THAN = 88
-	public static final LESS_THAN_OR_EQUAL = 89
-	public static final SHIFT_LEFT = 90
-	public static final INPLACE_SHIFT_LEFT = 91
-	public static final GREATER_THAN = 92
-	public static final GREATER_THAN_OR_EQUAL = 93
-	public static final SHIFT_RIGHT = 94
-	public static final INPLACE_SHIFT_RIGHT = 95
-	public static final AT = 96
-	public static final SCRIPT_ATTRIBUTE_MARKER = 97
-	public static final ASSEMBLY_ATTRIBUTE_MARKER = 98
-	public static final INPLACE_BITWISE_XOR = 99
-	public static final NOT = 100
-	public static final DIVISION = 101
-	public static final RE_LITERAL = 102
-	public static final DOUBLE = 103
-	public static final INT = 104
-	public static final LONG = 105
-	public static final SINGLE_QUOTED_STRING = 106
-	public static final DOUBLE_SUFFIX = 107
-	public static final EXPONENT = 108
-	public static final PRAGMA_WHITE_SPACE = 109
-	public static final WHITE_SPACE = 110
-	public static final DQS_ESC = 111
-	public static final SQS_ESC = 112
-	public static final SESC = 113
-	public static final ML_COMMENT = 114
-	public static final RE_CHAR = 115
-	public static final RE_ESC = 116
-	public static final NEWLINE = 117
-	public static final ID_LETTER = 118
-	public static final DIGIT = 119
-	public static final HEXDIGIT = 120
+	public static final SL_COMMENT = 54
+	public static final PRAGMA_ON = 55
+	public static final PRAGMA_OFF = 56
+	public static final ID = 57
+	public static final DOUBLE_QUOTED_STRING = 58
+	public static final LBRACE = 59
+	public static final RBRACE = 60
+	public static final LPAREN = 61
+	public static final RPAREN = 62
+	public static final DOT = 63
+	public static final COLON = 64
+	public static final COMMA = 65
+	public static final LBRACK = 66
+	public static final RBRACK = 67
+	public static final BITWISE_OR = 68
+	public static final INPLACE_BITWISE_OR = 69
+	public static final BITWISE_AND = 70
+	public static final BITWISE_XOR = 71
+	public static final INPLACE_BITWISE_AND = 72
+	public static final LOGICAL_OR = 73
+	public static final LOGICAL_AND = 74
+	public static final EOS = 75
+	public static final ASSIGN = 76
+	public static final INCREMENT = 77
+	public static final DECREMENT = 78
+	public static final ADD = 79
+	public static final SUBTRACT = 80
+	public static final MODULUS = 81
+	public static final MULTIPLY = 82
+	public static final EQUALITY = 83
+	public static final INEQUALITY = 84
+	public static final QUESTION_MARK = 85
+	public static final BITWISE_NOT = 86
+	public static final REFERENCE_EQUALITY = 87
+	public static final REFERENCE_INEQUALITY = 88
+	public static final LESS_THAN = 89
+	public static final LESS_THAN_OR_EQUAL = 90
+	public static final SHIFT_LEFT = 91
+	public static final INPLACE_SHIFT_LEFT = 92
+	public static final GREATER_THAN = 93
+	public static final GREATER_THAN_OR_EQUAL = 94
+	public static final SHIFT_RIGHT = 95
+	public static final INPLACE_SHIFT_RIGHT = 96
+	public static final AT = 97
+	public static final SCRIPT_ATTRIBUTE_MARKER = 98
+	public static final ASSEMBLY_ATTRIBUTE_MARKER = 99
+	public static final INPLACE_BITWISE_XOR = 100
+	public static final NOT = 101
+	public static final DIVISION = 102
+	public static final RE_LITERAL = 103
+	public static final DOUBLE = 104
+	public static final INT = 105
+	public static final LONG = 106
+	public static final SINGLE_QUOTED_STRING = 107
+	public static final DOUBLE_SUFFIX = 108
+	public static final EXPONENT = 109
+	public static final PRAGMA_WHITE_SPACE = 110
+	public static final WHITE_SPACE = 111
+	public static final DQS_ESC = 112
+	public static final SQS_ESC = 113
+	public static final SESC = 114
+	public static final ML_COMMENT = 115
+	public static final RE_CHAR = 116
+	public static final RE_ESC = 117
+	public static final NEWLINE = 118
+	public static final ID_LETTER = 119
+	public static final DIGIT = 120
+	public static final HEXDIGIT = 121
 	
+	
+	property PreserveComments = false
 	
 	static def IsDigit(ch as char):
 		return ch >= char('0') and ch <= char('9')
@@ -170,101 +173,102 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 		caseSensitiveLiterals = true
 		setCaseSensitive(true)
 		literals = Hashtable(100, 0.4, null, Comparer.Default)
-		literals.Add(",", 64)
+		literals.Add(",", 65)
 		literals.Add("public", 29)
-		literals.Add("a string", 57)
-		literals.Add("an identifier", 56)
-		literals.Add("]", 66)
+		literals.Add("a string", 58)
+		literals.Add("an identifier", 57)
+		literals.Add("]", 67)
 		literals.Add("case", 48)
 		literals.Add("break", 5)
 		literals.Add("while", 45)
 		literals.Add("new", 26)
-		literals.Add("||", 72)
-		literals.Add("+", 78)
+		literals.Add("||", 73)
+		literals.Add("+", 79)
 		literals.Add("instanceof", 25)
 		literals.Add("implements", 22)
-		literals.Add("*", 81)
-		literals.Add("|=", 68)
+		literals.Add("*", 82)
+		literals.Add("|=", 69)
 		literals.Add("typeof", 42)
-		literals.Add("@assembly", 98)
-		literals.Add("[", 65)
-		literals.Add(">>=", 95)
+		literals.Add("@assembly", 99)
+		literals.Add("[", 66)
+		literals.Add(">>=", 96)
 		literals.Add("return", 28)
 		literals.Add("throw", 39)
 		literals.Add("var", 43)
-		literals.Add(")", 61)
-		literals.Add("==", 82)
+		literals.Add(")", 62)
+		literals.Add("==", 83)
 		literals.Add("null", 27)
 		literals.Add("protected", 30)
-		literals.Add("pragma off", 55)
-		literals.Add("@script", 97)
+		literals.Add("pragma off", 56)
+		literals.Add("@script", 98)
 		literals.Add("class", 8)
-		literals.Add("(", 60)
+		literals.Add("(", 61)
 		literals.Add("do", 10)
-		literals.Add("~", 85)
+		literals.Add("~", 86)
 		literals.Add("function", 18)
 		literals.Add("/=", 50)
 		literals.Add("super", 37)
-		literals.Add("@", 96)
+		literals.Add("@", 97)
 		literals.Add("-=", 52)
 		literals.Add("set", 35)
 		literals.Add("+=", 51)
-		literals.Add("!==", 87)
-		literals.Add("}", 59)
+		literals.Add("!==", 88)
+		literals.Add("}", 60)
 		literals.Add("interface", 24)
-		literals.Add("?", 84)
-		literals.Add("&", 69)
+		literals.Add("?", 85)
+		literals.Add("&", 70)
 		literals.Add("internal", 31)
 		literals.Add("final", 15)
 		literals.Add("yield", 46)
-		literals.Add("!=", 83)
-		literals.Add("===", 86)
+		literals.Add("!=", 84)
+		literals.Add("//", 54)
+		literals.Add("===", 87)
 		literals.Add("if", 20)
-		literals.Add("|", 67)
+		literals.Add("|", 68)
 		literals.Add("override", 32)
-		literals.Add(">", 92)
+		literals.Add(">", 93)
 		literals.Add("as", 4)
-		literals.Add("%", 80)
+		literals.Add("%", 81)
 		literals.Add("catch", 7)
 		literals.Add("try", 41)
-		literals.Add("{", 58)
-		literals.Add("=", 75)
+		literals.Add("{", 59)
+		literals.Add("=", 76)
 		literals.Add("enum", 12)
 		literals.Add("for", 17)
-		literals.Add(">>", 94)
+		literals.Add(">>", 95)
 		literals.Add("extends", 13)
 		literals.Add("private", 34)
 		literals.Add("default", 49)
-		literals.Add("--", 77)
-		literals.Add("<", 88)
+		literals.Add("--", 78)
+		literals.Add("<", 89)
 		literals.Add("false", 14)
 		literals.Add("this", 38)
 		literals.Add("static", 36)
-		literals.Add(">=", 93)
-		literals.Add("<=", 89)
+		literals.Add(">=", 94)
+		literals.Add("<=", 90)
 		literals.Add("partial", 33)
-		literals.Add(";", 74)
+		literals.Add(";", 75)
 		literals.Add("get", 19)
-		literals.Add("<<=", 91)
+		literals.Add("<<=", 92)
 		literals.Add("continue", 9)
-		literals.Add("&&", 73)
+		literals.Add("&&", 74)
 		literals.Add("cast", 6)
-		literals.Add("<<", 90)
-		literals.Add("pragma on", 54)
-		literals.Add(".", 62)
+		literals.Add("<<", 91)
+		literals.Add("pragma on", 55)
+		literals.Add(".", 63)
 		literals.Add("finally", 16)
 		literals.Add("else", 11)
 		literals.Add("import", 21)
-		literals.Add("++", 76)
-		literals.Add(":", 63)
+		literals.Add("++", 77)
+		literals.Add(":", 64)
 		literals.Add("in", 23)
 		literals.Add("switch", 47)
 		literals.Add("true", 40)
-		literals.Add("-", 79)
+		literals.Add("-", 80)
 		literals.Add("*=", 53)
 		literals.Add("virtual", 44)
-		literals.Add("^", 70)
-		literals.Add("&=", 71)
+		literals.Add("^", 71)
+		literals.Add("&=", 72)
 	
 	override def nextToken() as IToken:
 		theRetToken as IToken
@@ -1460,7 +1464,8 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 		if synPredMatched396:
 			mML_COMMENT(false)
 			if 0 == inputState.guessing:
-				_ttype = Token.SKIP; 
+				if not PreserveComments:
+					_ttype = Token.SKIP
 		elif ((cached_LA1==char('/')) and (true)): // line 2102
 			match('/')
 			_givenValue  = cached_LA1
@@ -1473,7 +1478,10 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 						goto _loop401_breakloop
 				:_loop401_breakloop
 				if 0 == inputState.guessing:
-					_ttype = Token.SKIP; 
+					if PreserveComments:
+						_ttype = SL_COMMENT
+					else:
+						_ttype = Token.SKIP;
 			elif ((_givenValue == char('='))): // 1831
 				match('=')
 				if 0 == inputState.guessing:
@@ -1503,8 +1511,6 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 				goto _loop430_breakloop
 		:_loop430_breakloop
 		match("*/")
-		if 0 == inputState.guessing:
-			_ttype = Token.SKIP; 
 		if (_createToken and (_token is null) and (_ttype != Token.SKIP)):
 			_token = makeToken(_ttype)
 			_token.setText(text.ToString(_begin, text.Length-_begin))

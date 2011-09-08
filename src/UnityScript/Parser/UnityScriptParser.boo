@@ -80,73 +80,74 @@ class UnityScriptParser(antlr.LLkParser):
 	public static final INPLACE_ADD = 51
 	public static final INPLACE_SUBTRACT = 52
 	public static final INPLACE_MULTIPLY = 53
-	public static final PRAGMA_ON = 54
-	public static final PRAGMA_OFF = 55
-	public static final ID = 56
-	public static final DOUBLE_QUOTED_STRING = 57
-	public static final LBRACE = 58
-	public static final RBRACE = 59
-	public static final LPAREN = 60
-	public static final RPAREN = 61
-	public static final DOT = 62
-	public static final COLON = 63
-	public static final COMMA = 64
-	public static final LBRACK = 65
-	public static final RBRACK = 66
-	public static final BITWISE_OR = 67
-	public static final INPLACE_BITWISE_OR = 68
-	public static final BITWISE_AND = 69
-	public static final BITWISE_XOR = 70
-	public static final INPLACE_BITWISE_AND = 71
-	public static final LOGICAL_OR = 72
-	public static final LOGICAL_AND = 73
-	public static final EOS = 74
-	public static final ASSIGN = 75
-	public static final INCREMENT = 76
-	public static final DECREMENT = 77
-	public static final ADD = 78
-	public static final SUBTRACT = 79
-	public static final MODULUS = 80
-	public static final MULTIPLY = 81
-	public static final EQUALITY = 82
-	public static final INEQUALITY = 83
-	public static final QUESTION_MARK = 84
-	public static final BITWISE_NOT = 85
-	public static final REFERENCE_EQUALITY = 86
-	public static final REFERENCE_INEQUALITY = 87
-	public static final LESS_THAN = 88
-	public static final LESS_THAN_OR_EQUAL = 89
-	public static final SHIFT_LEFT = 90
-	public static final INPLACE_SHIFT_LEFT = 91
-	public static final GREATER_THAN = 92
-	public static final GREATER_THAN_OR_EQUAL = 93
-	public static final SHIFT_RIGHT = 94
-	public static final INPLACE_SHIFT_RIGHT = 95
-	public static final AT = 96
-	public static final SCRIPT_ATTRIBUTE_MARKER = 97
-	public static final ASSEMBLY_ATTRIBUTE_MARKER = 98
-	public static final INPLACE_BITWISE_XOR = 99
-	public static final NOT = 100
-	public static final DIVISION = 101
-	public static final RE_LITERAL = 102
-	public static final DOUBLE = 103
-	public static final INT = 104
-	public static final LONG = 105
-	public static final SINGLE_QUOTED_STRING = 106
-	public static final DOUBLE_SUFFIX = 107
-	public static final EXPONENT = 108
-	public static final PRAGMA_WHITE_SPACE = 109
-	public static final WHITE_SPACE = 110
-	public static final DQS_ESC = 111
-	public static final SQS_ESC = 112
-	public static final SESC = 113
-	public static final ML_COMMENT = 114
-	public static final RE_CHAR = 115
-	public static final RE_ESC = 116
-	public static final NEWLINE = 117
-	public static final ID_LETTER = 118
-	public static final DIGIT = 119
-	public static final HEXDIGIT = 120
+	public static final SL_COMMENT = 54
+	public static final PRAGMA_ON = 55
+	public static final PRAGMA_OFF = 56
+	public static final ID = 57
+	public static final DOUBLE_QUOTED_STRING = 58
+	public static final LBRACE = 59
+	public static final RBRACE = 60
+	public static final LPAREN = 61
+	public static final RPAREN = 62
+	public static final DOT = 63
+	public static final COLON = 64
+	public static final COMMA = 65
+	public static final LBRACK = 66
+	public static final RBRACK = 67
+	public static final BITWISE_OR = 68
+	public static final INPLACE_BITWISE_OR = 69
+	public static final BITWISE_AND = 70
+	public static final BITWISE_XOR = 71
+	public static final INPLACE_BITWISE_AND = 72
+	public static final LOGICAL_OR = 73
+	public static final LOGICAL_AND = 74
+	public static final EOS = 75
+	public static final ASSIGN = 76
+	public static final INCREMENT = 77
+	public static final DECREMENT = 78
+	public static final ADD = 79
+	public static final SUBTRACT = 80
+	public static final MODULUS = 81
+	public static final MULTIPLY = 82
+	public static final EQUALITY = 83
+	public static final INEQUALITY = 84
+	public static final QUESTION_MARK = 85
+	public static final BITWISE_NOT = 86
+	public static final REFERENCE_EQUALITY = 87
+	public static final REFERENCE_INEQUALITY = 88
+	public static final LESS_THAN = 89
+	public static final LESS_THAN_OR_EQUAL = 90
+	public static final SHIFT_LEFT = 91
+	public static final INPLACE_SHIFT_LEFT = 92
+	public static final GREATER_THAN = 93
+	public static final GREATER_THAN_OR_EQUAL = 94
+	public static final SHIFT_RIGHT = 95
+	public static final INPLACE_SHIFT_RIGHT = 96
+	public static final AT = 97
+	public static final SCRIPT_ATTRIBUTE_MARKER = 98
+	public static final ASSEMBLY_ATTRIBUTE_MARKER = 99
+	public static final INPLACE_BITWISE_XOR = 100
+	public static final NOT = 101
+	public static final DIVISION = 102
+	public static final RE_LITERAL = 103
+	public static final DOUBLE = 104
+	public static final INT = 105
+	public static final LONG = 106
+	public static final SINGLE_QUOTED_STRING = 107
+	public static final DOUBLE_SUFFIX = 108
+	public static final EXPONENT = 109
+	public static final PRAGMA_WHITE_SPACE = 110
+	public static final WHITE_SPACE = 111
+	public static final DQS_ESC = 112
+	public static final SQS_ESC = 113
+	public static final SESC = 114
+	public static final ML_COMMENT = 115
+	public static final RE_CHAR = 116
+	public static final RE_ESC = 117
+	public static final NEWLINE = 118
+	public static final ID_LETTER = 119
+	public static final DIGIT = 120
+	public static final HEXDIGIT = 121
 	
 	
 	[property(CompilerContext)]
@@ -4428,6 +4429,7 @@ class UnityScriptParser(antlr.LLkParser):
 		'+=',
 		'-=',
 		'*=',
+		'//',
 		'pragma on',
 		'pragma off',
 		'an identifier',
@@ -4502,15 +4504,15 @@ class UnityScriptParser(antlr.LLkParser):
 		return data
 	public static final tokenSet_0_ = BitSet(mk_tokenSet_0_())
 	private static def mk_tokenSet_1_() as (long):
-		data = (72084080581447936L, 0L, )
+		data = (144141674619375872L, 0L, )
 		return data
 	public static final tokenSet_1_ = BitSet(mk_tokenSet_1_())
 	private static def mk_tokenSet_2_() as (long):
-		data = (1657588408695277088L, 8589936735234L, 0L, 0L, )
+		data = (3314913071567619616L, 17179873470468L, 0L, 0L, )
 		return data
 	public static final tokenSet_2_ = BitSet(mk_tokenSet_2_())
 	private static def mk_tokenSet_3_() as (long):
-		data = (6862641368520906610L, 8770323218430L, 0L, 0L, )
+		data = (-4738631271585491086L, 17540646436860L, 0L, 0L, )
 		return data
 	public static final tokenSet_3_ = BitSet(mk_tokenSet_3_())
 	private static def mk_tokenSet_4_() as (long):
@@ -4518,15 +4520,15 @@ class UnityScriptParser(antlr.LLkParser):
 		return data
 	public static final tokenSet_4_ = BitSet(mk_tokenSet_4_())
 	private static def mk_tokenSet_5_() as (long):
-		data = (1711649294676055842L, 8594231702530L, 0L, 0L, )
+		data = (3423017153076844322L, 17188463405060L, 0L, 0L, )
 		return data
 	public static final tokenSet_5_ = BitSet(mk_tokenSet_5_())
 	private static def mk_tokenSet_6_() as (long):
-		data = (1657606099145512738L, 8594231702530L, 0L, 0L, )
+		data = (3314930762017855266L, 17188463405060L, 0L, 0L, )
 		return data
 	public static final tokenSet_6_ = BitSet(mk_tokenSet_6_())
 	private static def mk_tokenSet_7_() as (long):
-		data = (72084084943524096L, 0L, )
+		data = (144141678981452032L, 0L, )
 		return data
 	public static final tokenSet_7_ = BitSet(mk_tokenSet_7_())
 	private static def mk_tokenSet_8_() as (long):
@@ -4534,7 +4536,7 @@ class UnityScriptParser(antlr.LLkParser):
 		return data
 	public static final tokenSet_8_ = BitSet(mk_tokenSet_8_())
 	private static def mk_tokenSet_9_() as (long):
-		data = (72084071974469632L, 0L, )
+		data = (144141666012397568L, 0L, )
 		return data
 	public static final tokenSet_9_ = BitSet(mk_tokenSet_9_())
 	private static def mk_tokenSet_10_() as (long):
@@ -4542,51 +4544,51 @@ class UnityScriptParser(antlr.LLkParser):
 		return data
 	public static final tokenSet_10_ = BitSet(mk_tokenSet_10_())
 	private static def mk_tokenSet_11_() as (long):
-		data = (72075284488425728L, 0L, )
+		data = (144132878526353664L, 0L, )
 		return data
 	public static final tokenSet_11_ = BitSet(mk_tokenSet_11_())
 	private static def mk_tokenSet_12_() as (long):
-		data = (2234911276379135906L, 8594231702530L, 0L, 0L, )
+		data = (4468696691554901922L, 17188463405060L, 0L, 0L, )
 		return data
 	public static final tokenSet_12_ = BitSet(mk_tokenSet_12_())
 	private static def mk_tokenSet_13_() as (long):
-		data = (1657330572948946944L, 8589936734210L, 0L, 0L, )
+		data = (3314655235821289472L, 17179873468420L, 0L, 0L, )
 		return data
 	public static final tokenSet_13_ = BitSet(mk_tokenSet_13_())
 	private static def mk_tokenSet_14_() as (long):
-		data = (9151320352935395408L, 8729386808175L, 0L, 0L, )
+		data = (-144109277957308336L, 17458773616350L, 0L, 0L, )
 		return data
 	public static final tokenSet_14_ = BitSet(mk_tokenSet_14_())
 	private static def mk_tokenSet_15_() as (long):
-		data = (2305843009213693952L, 1L, 0L, 0L, )
+		data = (4611686018427387904L, 2L, 0L, 0L, )
 		return data
 	public static final tokenSet_15_ = BitSet(mk_tokenSet_15_())
 	private static def mk_tokenSet_16_() as (long):
-		data = (1152921504606846976L, 2048L, 0L, 0L, )
+		data = (2305843009213693952L, 4096L, 0L, 0L, )
 		return data
 	public static final tokenSet_16_ = BitSet(mk_tokenSet_16_())
 	private static def mk_tokenSet_17_() as (long):
-		data = (-54043229895008270L, 8770323218431L, 0L, 0L, )
+		data = (-126100823932936206L, 17540646436863L, 0L, 0L, )
 		return data
 	public static final tokenSet_17_ = BitSet(mk_tokenSet_17_())
 	private static def mk_tokenSet_18_() as (long):
-		data = (72084084943524096L, 4294967296L, 0L, 0L, )
+		data = (144141678981452032L, 8589934592L, 0L, 0L, )
 		return data
 	public static final tokenSet_18_ = BitSet(mk_tokenSet_18_())
 	private static def mk_tokenSet_19_() as (long):
-		data = (3963173582162640896L, 8589936734210L, 0L, 0L, )
+		data = (7926341254248677376L, 17179873468420L, 0L, 0L, )
 		return data
 	public static final tokenSet_19_ = BitSet(mk_tokenSet_19_())
 	private static def mk_tokenSet_20_() as (long):
-		data = (1657606103440480034L, 8594231702530L, 0L, 0L, )
+		data = (3314930766312822562L, 17188463405060L, 0L, 0L, )
 		return data
 	public static final tokenSet_20_ = BitSet(mk_tokenSet_20_())
 	private static def mk_tokenSet_21_() as (long):
-		data = (-54887620464945294L, 8770323218431L, 0L, 0L, )
+		data = (-126945214502873230L, 17540646436863L, 0L, 0L, )
 		return data
 	public static final tokenSet_21_ = BitSet(mk_tokenSet_21_())
 	private static def mk_tokenSet_22_() as (long):
-		data = (-34360270862L, 8770323218431L, 0L, 0L, )
+		data = (-18014432869752846L, 17540646436863L, 0L, 0L, )
 		return data
 	public static final tokenSet_22_ = BitSet(mk_tokenSet_22_())
 	private static def mk_tokenSet_23_() as (long):
@@ -4594,15 +4596,15 @@ class UnityScriptParser(antlr.LLkParser):
 		return data
 	public static final tokenSet_23_ = BitSet(mk_tokenSet_23_())
 	private static def mk_tokenSet_24_() as (long):
-		data = (2288954476204646306L, 8594231702530L, 0L, 0L, )
+		data = (4576783086908858274L, 17188463405060L, 0L, 0L, )
 		return data
 	public static final tokenSet_24_ = BitSet(mk_tokenSet_24_())
 	private static def mk_tokenSet_25_() as (long):
-		data = (-4202510L, 8770323218431L, 0L, 0L, )
+		data = (-18014398513684494L, 17540646436863L, 0L, 0L, )
 		return data
 	public static final tokenSet_25_ = BitSet(mk_tokenSet_25_())
 	private static def mk_tokenSet_26_() as (long):
-		data = (26490905596160L, 4294967296L, 0L, 0L, )
+		data = (26490905596160L, 8589934592L, 0L, 0L, )
 		return data
 	public static final tokenSet_26_ = BitSet(mk_tokenSet_26_())
 	private static def mk_tokenSet_27_() as (long):
@@ -4610,123 +4612,123 @@ class UnityScriptParser(antlr.LLkParser):
 		return data
 	public static final tokenSet_27_ = BitSet(mk_tokenSet_27_())
 	private static def mk_tokenSet_28_() as (long):
-		data = (72084119303786752L, 0L, )
+		data = (144141713341714688L, 0L, )
 		return data
 	public static final tokenSet_28_ = BitSet(mk_tokenSet_28_())
 	private static def mk_tokenSet_29_() as (long):
-		data = (72057630545707264L, 0L, )
+		data = (144115224583635200L, 0L, )
 		return data
 	public static final tokenSet_29_ = BitSet(mk_tokenSet_29_())
 	private static def mk_tokenSet_30_() as (long):
-		data = (2234066855743903522L, 8594231702530L, 0L, 0L, )
+		data = (4467852270919669538L, 17188463405060L, 0L, 0L, )
 		return data
 	public static final tokenSet_30_ = BitSet(mk_tokenSet_30_())
 	private static def mk_tokenSet_31_() as (long):
-		data = (-54043229890813966L, 8770323218431L, 0L, 0L, )
+		data = (-126100823928741902L, 17540646436863L, 0L, 0L, )
 		return data
 	public static final tokenSet_31_ = BitSet(mk_tokenSet_31_())
 	private static def mk_tokenSet_32_() as (long):
-		data = (-54043195530551310L, 8770323218431L, 0L, 0L, )
+		data = (-126100789568479246L, 17540646436863L, 0L, 0L, )
 		return data
 	public static final tokenSet_32_ = BitSet(mk_tokenSet_32_())
 	private static def mk_tokenSet_33_() as (long):
-		data = (288230376151711744L, 268435456L, 0L, 0L, )
+		data = (576460752303423488L, 536870912L, 0L, 0L, )
 		return data
 	public static final tokenSet_33_ = BitSet(mk_tokenSet_33_())
 	private static def mk_tokenSet_34_() as (long):
-		data = (576487243209019648L, 4294967296L, 0L, 0L, )
+		data = (1152947995512443136L, 8589934592L, 0L, 0L, )
 		return data
 	public static final tokenSet_34_ = BitSet(mk_tokenSet_34_())
 	private static def mk_tokenSet_35_() as (long):
-		data = (576460752303685632L, 4294967296L, 0L, 0L, )
+		data = (1152921504607109120L, 8589934592L, 0L, 0L, )
 		return data
 	public static final tokenSet_35_ = BitSet(mk_tokenSet_35_())
 	private static def mk_tokenSet_36_() as (long):
-		data = (2305843009213693952L, 0L, )
+		data = (4611686018427387904L, 0L, )
 		return data
 	public static final tokenSet_36_ = BitSet(mk_tokenSet_36_())
 	private static def mk_tokenSet_37_() as (long):
-		data = (576460752303423488L, 1L, 0L, 0L, )
+		data = (1152921504606846976L, 2L, 0L, 0L, )
 		return data
 	public static final tokenSet_37_ = BitSet(mk_tokenSet_37_())
 	private static def mk_tokenSet_38_() as (long):
-		data = (-4682617746958590046L, 8594231704579L, 0L, 0L, )
+		data = (9080382714285645730L, 17188463409159L, 0L, 0L, )
 		return data
 	public static final tokenSet_38_ = BitSet(mk_tokenSet_38_())
 	private static def mk_tokenSet_39_() as (long):
-		data = (2234911280674103202L, 8594231702530L, 0L, 0L, )
+		data = (4468696695849869218L, 17188463405060L, 0L, 0L, )
 		return data
 	public static final tokenSet_39_ = BitSet(mk_tokenSet_39_())
 	private static def mk_tokenSet_40_() as (long):
-		data = (2234049160998700576L, 8589936735234L, 0L, 0L, )
+		data = (4467834576174466592L, 17179873470468L, 0L, 0L, )
 		return data
 	public static final tokenSet_40_ = BitSet(mk_tokenSet_40_())
 	private static def mk_tokenSet_41_() as (long):
-		data = (6863485793451106290L, 8770323218430L, 0L, 0L, )
+		data = (-4737786846655291406L, 17540646436860L, 0L, 0L, )
 		return data
 	public static final tokenSet_41_ = BitSet(mk_tokenSet_41_())
 	private static def mk_tokenSet_42_() as (long):
-		data = (72066392278466560L, 0L, )
+		data = (144123986316394496L, 0L, )
 		return data
 	public static final tokenSet_42_ = BitSet(mk_tokenSet_42_())
 	private static def mk_tokenSet_43_() as (long):
-		data = (72057596193832960L, 0L, )
+		data = (144115190231760896L, 0L, )
 		return data
 	public static final tokenSet_43_ = BitSet(mk_tokenSet_43_())
 	private static def mk_tokenSet_44_() as (long):
-		data = (1657339369041969152L, 8589936735234L, 0L, 0L, )
+		data = (3314664031914311680L, 17179873470468L, 0L, 0L, )
 		return data
 	public static final tokenSet_44_ = BitSet(mk_tokenSet_44_())
 	private static def mk_tokenSet_45_() as (long):
-		data = (6862365844471857232L, 8766028251134L, 0L, 0L, )
+		data = (-4738906795634540464L, 17532056502268L, 0L, 0L, )
 		return data
 	public static final tokenSet_45_ = BitSet(mk_tokenSet_45_())
 	private static def mk_tokenSet_46_() as (long):
-		data = (6846597294848466930L, 8733681776494L, 0L, 0L, )
+		data = (-4754675345257930766L, 17467363552988L, 0L, 0L, )
 		return data
 	public static final tokenSet_46_ = BitSet(mk_tokenSet_46_())
 	private static def mk_tokenSet_47_() as (long):
-		data = (2234911276387524514L, 8594231704578L, 0L, 0L, )
+		data = (4468696691563290530L, 17188463409156L, 0L, 0L, )
 		return data
 	public static final tokenSet_47_ = BitSet(mk_tokenSet_47_())
 	private static def mk_tokenSet_48_() as (long):
-		data = (4540754285592829858L, 8594231702530L, 0L, 0L, )
+		data = (9080382709982289826L, 17188463405060L, 0L, 0L, )
 		return data
 	public static final tokenSet_48_ = BitSet(mk_tokenSet_48_())
 	private static def mk_tokenSet_49_() as (long):
-		data = (-54043195534745614L, 8770323218431L, 0L, 0L, )
+		data = (-126100789572673550L, 17540646436863L, 0L, 0L, )
 		return data
 	public static final tokenSet_49_ = BitSet(mk_tokenSet_49_())
 	private static def mk_tokenSet_50_() as (long):
-		data = (2305843009213693952L, 4L, 0L, 0L, )
+		data = (4611686018427387904L, 8L, 0L, 0L, )
 		return data
 	public static final tokenSet_50_ = BitSet(mk_tokenSet_50_())
 	private static def mk_tokenSet_51_() as (long):
-		data = (0L, 5L, 0L, 0L, )
+		data = (0L, 10L, 0L, 0L, )
 		return data
 	public static final tokenSet_51_ = BitSet(mk_tokenSet_51_())
 	private static def mk_tokenSet_52_() as (long):
-		data = (-7566041463905828864L, 8589936734210L, 0L, 0L, )
+		data = (3314655235821289472L, 17179873468421L, 0L, 0L, )
 		return data
 	public static final tokenSet_52_ = BitSet(mk_tokenSet_52_())
 	private static def mk_tokenSet_53_() as (long):
-		data = (72057628398190592L, 16777216L, 0L, 0L, )
+		data = (144115222436118528L, 33554432L, 0L, 0L, )
 		return data
 	public static final tokenSet_53_ = BitSet(mk_tokenSet_53_())
 	private static def mk_tokenSet_54_() as (long):
-		data = (41943040L, 855638016L, 0L, 0L, )
+		data = (41943040L, 1711276032L, 0L, 0L, )
 		return data
 	public static final tokenSet_54_ = BitSet(mk_tokenSet_54_())
 	private static def mk_tokenSet_55_() as (long):
-		data = (0L, 13369344L, 0L, 0L, )
+		data = (0L, 26738688L, 0L, 0L, )
 		return data
 	public static final tokenSet_55_ = BitSet(mk_tokenSet_55_())
 	private static def mk_tokenSet_56_() as (long):
-		data = (6845477343721832528L, 8729386808174L, 0L, 0L, )
+		data = (-4755795296384565168L, 17458773616348L, 0L, 0L, )
 		return data
 	public static final tokenSet_56_ = BitSet(mk_tokenSet_56_())
 	private static def mk_tokenSet_57_() as (long):
-		data = (1657330572948946944L, 8589936734214L, 0L, 0L, )
+		data = (3314655235821289472L, 17179873468428L, 0L, 0L, )
 		return data
 	public static final tokenSet_57_ = BitSet(mk_tokenSet_57_())
 	
