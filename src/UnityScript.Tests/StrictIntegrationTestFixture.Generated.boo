@@ -356,6 +356,10 @@ partial class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/for-over-null.js")
 		
 	
+	[Test] def for_var_reuse():
+		RunTestCase("tests/integration/for-var-reuse.js")
+		
+	
 	[Test] def functions_1():
 		RunTestCase("tests/integration/functions-1.js")
 		
