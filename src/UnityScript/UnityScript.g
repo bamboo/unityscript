@@ -409,10 +409,10 @@ pragma_directive[Module container]
 import_directive[Module container]
 {
 }: 
-	IMPORT ns=qname	eos
+	imp:IMPORT ns=qname	eos
 	{
 		container.Imports.Add(
-			Import(ToLexicalInfo(ns), Namespace: ns.getText()))
+			Import(ToLexicalInfo(imp), ReferenceExpression(ToLexicalInfo(ns), ns.getText())))
 	}
 ;
 
