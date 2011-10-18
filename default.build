@@ -16,7 +16,6 @@
 	<include buildfile="${boo.dir}/tests/nunit.inc" />
 	<property name="nunit-console" value="nunit-console" />
 	<include buildfile="build.properties" if="${file::exists('build.properties')}" />
-	<property name="keyfile.path" value="${boo.dir}/src/boo.snk" overwrite="false" />
 		
 	<target name="set-release-configuration">
 		<property name="debug" value="false" />
@@ -142,7 +141,6 @@
 			<sources basedir="src/UnityScript.Lang">
 				<include name="**/*.boo" />
 			</sources>
-			<arg line="-keyfile:${keyfile.path}" unless="${keyfile.path == ''}" />
 		</booc>
 		
 		<booc
@@ -157,7 +155,6 @@
 				<include name="Boo.Lang.PatternMatching.dll" />
 				<include name="UnityScript.Lang.dll" />
 			</references>
-			<arg line="-keyfile:${keyfile.path}" unless="${keyfile.path == ''}" />
 		</booc>
 	</target>
 	
