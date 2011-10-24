@@ -939,15 +939,20 @@ class UnityScriptParser(antlr.LLkParser):
 			else:
 				raise
 	
-	public def eos() as void: //throws RecognitionException, TokenStreamException
+	public def eos() as antlr.IToken : //throws RecognitionException, TokenStreamException
+		firstEOS as antlr.IToken 
 		
+		t as IToken  = null
 		
 		try:     // for error handling
 			if ((LA(1)==EOS) and (tokenSet_24_.member(cast(int, LA(2))))):
 				_cnt41 as int = 0
 				while true:
 					if ((LA(1)==EOS) and (tokenSet_24_.member(cast(int, LA(2))))):
+						t = LT(1)
 						match(EOS)
+						if 0 == inputState.guessing:
+							if firstEOS is null: firstEOS = t 
 					else:
 						if (_cnt41 >= 1):
 							goto _loop41_breakloop
@@ -966,6 +971,7 @@ class UnityScriptParser(antlr.LLkParser):
 				recover(ex,tokenSet_24_)
 			else:
 				raise
+		return firstEOS
 	
 	public def class_declaration(
 		parent as TypeDefinition 
@@ -1397,12 +1403,13 @@ class UnityScriptParser(antlr.LLkParser):
 				pass // 947
 			else: // line 1969
 					raise NoViableAltException(LT(1), getFilename())
-			eos()
+			finalToken=eos()
 			if 0 == inputState.guessing:
 				member = Field(ToLexicalInfo(name),
 						Name: name.getText(),
 						Type: tr,
 						Initializer: initializer)
+				if finalToken is not null: SetEndSourceLocation(member, finalToken)
 				FlushAttributes(member)
 				cd.Members.Add(member)
 		except ex as RecognitionException:

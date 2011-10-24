@@ -18,6 +18,6 @@ class IntroduceImports(AbstractCompilerStep):
 	def AddImports(imports as (string)):
 		for m in CompileUnit.Modules:
 			for i in imports:
-				m.Imports.Add(Import(Namespace: i))
+				m.Imports.Add(Import(i))
 			
 		

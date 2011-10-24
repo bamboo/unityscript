@@ -80,8 +80,7 @@ class ApplySemantics(AbstractVisitorCompilerStep):
 		
 	def SetUpDefaultImports(module as Module):
 		for ns as string in self.UnityScriptParameters.Imports:
-			module.Imports.Add(
-				Import(LexicalInfo: module.LexicalInfo, Namespace: ns))
+			module.Imports.Add(Import(ns))
 					
 	def MoveAttributes(fromType as TypeDefinition, toType as TypeDefinition):
 		toType.Attributes.Extend(fromType.Attributes)
