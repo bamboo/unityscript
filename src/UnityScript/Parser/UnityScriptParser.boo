@@ -340,14 +340,16 @@ class UnityScriptParser(antlr.LLkParser):
 		container as Module 
 	) as void: //throws RecognitionException, TokenStreamException
 		
+		imp as IToken  = null
 		
 		try:     // for error handling
+			imp = LT(1)
 			match(IMPORT)
 			ns=qname()
 			eos()
 			if 0 == inputState.guessing:
 				container.Imports.Add(
-					Import(ToLexicalInfo(ns), Namespace: ns.getText()))
+					Import(ToLexicalInfo(imp), ReferenceExpression(ToLexicalInfo(ns), ns.getText())))
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
