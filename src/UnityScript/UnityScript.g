@@ -409,17 +409,19 @@ pragma_directive[Module container]
 import_directive[Module container]
 {
 }: 
-	IMPORT ns=qname	eos
+	imp:IMPORT ns=qname	eos
 	{
 		container.Imports.Add(
-			Import(ToLexicalInfo(ns), Namespace: ns.getText()))
+			Import(ToLexicalInfo(imp), ReferenceExpression(ToLexicalInfo(ns), ns.getText())))
 	}
 ;
 
-eos:
+eos returns [antlr.IToken firstEOS]:
 	(
-		(options { greedy = true; }: EOS)+ |
-		{ SemicolonExpected() }
+		(options { greedy = true; }:
+			t:EOS { if firstEOS is null: firstEOS = t }
+		)+
+		| { SemicolonExpected() }
 	)
 ;
 
@@ -579,12 +581,13 @@ identifier returns [antlr.IToken token]
 field_member[TypeDefinition cd] returns [TypeMember member]
 {
 }:
-	VAR name=identifier (COLON tr=type_reference)? (ASSIGN initializer=expression)? eos
+	VAR name=identifier (COLON tr=type_reference)? (ASSIGN initializer=expression)? finalToken=eos
 	{
 		member = Field(ToLexicalInfo(name),
 				Name: name.getText(),
 				Type: tr,
 				Initializer: initializer)
+		if finalToken is not null: SetEndSourceLocation(member, finalToken)
 		FlushAttributes(member)
 		cd.Members.Add(member)
 	}
