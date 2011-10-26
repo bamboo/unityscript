@@ -25,12 +25,8 @@ class UnityScriptTypeSystem(TypeSystemServices):
 	def IsGenerator(method as IMethod):
 		rt = method.ReturnType
 		if rt is IEnumeratorType: return true
-		
 		// for backwards compatibility
 		return rt.IsSubclassOf(self._AbstractGenerator)
-		
-	override def IsModule(type as System.Type):
-		return false
 		
 	override def CanBeReachedByPromotion(expected as IType, actual as IType):
 		result = super(expected, actual)
