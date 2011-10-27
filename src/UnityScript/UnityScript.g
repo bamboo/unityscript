@@ -243,6 +243,7 @@ start[CompileUnit cu]
 	(
 		import_directive[module]
 		| pragma_directive[module]
+		| (AT ID ID)=> script_or_assembly_attribute[module]
 	)*
 	(
 		(AT ID ID)=> script_or_assembly_attribute[module]
