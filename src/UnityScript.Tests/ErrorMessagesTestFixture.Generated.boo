@@ -22,6 +22,10 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/array-type-name.js")
 		
 	
+	[Test] def bitwise_with_bool_operands_warning():
+		RunTestCase("tests/error-messages/bitwise-with-bool-operands-warning.js")
+		
+	
 	[Test] def builtins():
 		RunTestCase("tests/error-messages/builtins.js")
 		
