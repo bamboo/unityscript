@@ -66,6 +66,9 @@ class UnityScriptCompiler:
 						UnityScript.Steps.ExpandUnityDuckTypedExpressions())
 						
 			pipeline.InsertBefore(Boo.Lang.Compiler.Steps.EmitAssembly,
+						UnityScript.Steps.Lint())
+						
+			pipeline.InsertBefore(Boo.Lang.Compiler.Steps.EmitAssembly,
 						UnityScript.Steps.EnableRawArrayIndexing())
 						
 			pipeline.InsertAfter(Boo.Lang.Compiler.Steps.BindBaseTypes,

@@ -434,6 +434,10 @@ class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/magicconstructor_2.js")
 		
 	
+	[Test] def multidimensional_array_of_struct():
+		RunTestCase("tests/integration/multidimensional-array-of-struct.js")
+		
+	
 	[Test] def multidimensional_arrays_1():
 		RunTestCase("tests/integration/multidimensional-arrays-1.js")
 		
