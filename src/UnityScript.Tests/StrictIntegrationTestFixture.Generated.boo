@@ -392,6 +392,10 @@ partial class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/initializeorder.js")
 		
 	
+	[Test] def interface_properties():
+		RunTestCase("tests/integration/interface-properties.js")
+		
+	
 	[Test] def interfaces_1():
 		RunTestCase("tests/integration/interfaces-1.js")
 		
