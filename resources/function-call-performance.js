@@ -2,12 +2,12 @@ import System;
 
 class Foo {
 	public var counter = 0;
-	function Bar() { ++counter; }
+	final function Bar() { ++counter; }
 }
 
 class VirtualFoo {
 	public var counter = 0;
-	virtual function Bar() { ++counter; }
+	function Bar() { ++counter; }
 }
 
 class VirtualFoo2 extends VirtualFoo {

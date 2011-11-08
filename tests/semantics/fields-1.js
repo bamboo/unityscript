@@ -9,14 +9,6 @@ public class Fields(Object):
 
 	public def constructor():
 		super()
-
-partial public class fields-1(UnityScript.Tests.MonoBehaviour):
-
-	public virtual def Awake() as void:
-		pass
-
-	public def constructor():
-		super()
 */
 class Fields {
 	var FirstName:String;

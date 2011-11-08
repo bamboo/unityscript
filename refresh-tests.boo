@@ -54,7 +54,7 @@ Normalize string.
 	
 def GenerateTestFixtureSource(
 	header as string,
-	srcDirs as (string),
+	srcDirs as string*,
 	testCaseProducer as callable(string) as string*,
 	categoryProducer as callable(string) as string):
 		

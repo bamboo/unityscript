@@ -54,6 +54,10 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/for-variable-already-defined.js")
 		
 	
+	[Test] def for_with_unreachable_update():
+		RunTestCase("tests/error-messages/for-with-unreachable-update.js")
+		
+	
 	[Test] def function_type_name():
 		RunTestCase("tests/error-messages/function-type-name.js")
 		
@@ -88,6 +92,10 @@ partial class ErrorMessagesTestFixture:
 	
 	[Test] def iterator_warning():
 		RunTestCase("tests/error-messages/iterator-warning.js")
+		
+	
+	[Test] def loop_with_no_unreacheable_code_shouldnt_cause_warning():
+		RunTestCase("tests/error-messages/loop-with-no-unreacheable-code-shouldnt-cause-warning.js")
 		
 	
 	[Test] def missing_brace():
