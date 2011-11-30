@@ -694,6 +694,14 @@ block[Block b]
 statement[Block b]
 {
 }:
+	(macro_application_test) => macro_application_block[b]
+	| builtin_statement[b]
+	| (EOS)+
+;
+
+builtin_statement[Block b]
+{
+}:
 	(
 		do_while_statement[b] |
 		while_statement[b] |
@@ -713,9 +721,6 @@ statement[Block b]
 			declaration_statement[b]
 		)
 		eos
-	) |
-	(
-		(EOS)+
 	)
 ;
 
@@ -863,6 +868,31 @@ declaration returns [Declaration d]
 	VAR id=identifier (COLON tr=type_reference)?
 	{
 		d = Declaration(ToLexicalInfo(id), Name: id.getText(), Type: tr)
+	}
+;
+
+macro_application_test
+{
+}:
+	(member LBRACE)
+	| (member expression_list[null] LBRACE)
+;
+		
+macro_application_block[Block container]
+{
+	m = MacroStatement()
+	args = m.Arguments
+	b = m.Body
+}:
+	macroName=member
+	(
+		(LBRACE) => compound_statement[b]
+		| (expression_list[args] compound_statement[b])
+	)
+	{
+		m.LexicalInfo = ToLexicalInfo(macroName)
+		m.Name = macroName.getText()
+		container.Add(m)
 	}
 ;
 		

@@ -166,6 +166,10 @@ partial class ParserTestFixture:
 		RunTestCase("tests/parser/lambdas.js")
 		
 	
+	[Test] def macro_application_blocks():
+		RunTestCase("tests/parser/macro-application-blocks.js")
+		
+	
 	[Test] def nested_classes():
 		RunTestCase("tests/parser/nested-classes.js")
 		
