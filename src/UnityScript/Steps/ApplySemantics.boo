@@ -4,6 +4,7 @@ import UnityScript.Core
 
 import Boo.Lang.Compiler.Ast
 import Boo.Lang.Compiler.Steps
+import System.Linq
 
 class ApplySemantics(AbstractVisitorCompilerStep):
 	
@@ -39,6 +40,8 @@ class ApplySemantics(AbstractVisitorCompilerStep):
 	override def OnModule(module as Module):
 		
 		SetUpDefaultImports(module)
+		if ModuleContainsOnlyTypeDefinitions(module):
+			return
 
 		script = FindOrCreateScriptClass(module)
 		MakeItPartial(script)
@@ -47,6 +50,9 @@ class ApplySemantics(AbstractVisitorCompilerStep):
 		MoveAttributes(module, script)
 		module.Members.Add(script)
 		SetScriptClass(Context, script)
+		
+	def ModuleContainsOnlyTypeDefinitions(module as Module):
+		return module.Globals.IsEmpty and module.Attributes.IsEmpty and module.Members.All({ m | m isa TypeDefinition })
 		
 	def SetUpMainMethod(module as Module, script as TypeDefinition):
 		

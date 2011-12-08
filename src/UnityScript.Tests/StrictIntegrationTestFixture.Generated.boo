@@ -392,6 +392,10 @@ partial class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/initializeorder.js")
 		
 	
+	[Test] def interface_properties():
+		RunTestCase("tests/integration/interface-properties.js")
+		
+	
 	[Test] def interfaces_1():
 		RunTestCase("tests/integration/interfaces-1.js")
 		
@@ -430,6 +434,10 @@ partial class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
 	
 	[Test] def magicconstructor_2():
 		RunTestCase("tests/integration/magicconstructor_2.js")
+		
+	
+	[Test] def multidimensional_array_of_struct():
+		RunTestCase("tests/integration/multidimensional-array-of-struct.js")
 		
 	
 	[Test] def multidimensional_arrays_1():
