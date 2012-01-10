@@ -14,11 +14,11 @@ import UnityScript.TypeSystem
 
 class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 	
-	deferred IEnumerable_GetEnumerator = Types.IEnumerable.GetMethod("GetEnumerator");
+	deferred IEnumerable_GetEnumerator = typeof(System.Collections.IEnumerable).GetMethod("GetEnumerator");
 		
-	deferred IEnumerator_MoveNext = Types.IEnumerator.GetMethod("MoveNext");
+	deferred IEnumerator_MoveNext = typeof(System.Collections.IEnumerator).GetMethod("MoveNext");
 		
-	deferred IEnumerator_get_Current = Types.IEnumerator.GetProperty("Current").GetGetMethod();
+	deferred IEnumerator_get_Current = typeof(System.Collections.IEnumerator).GetProperty("Current").GetGetMethod();
 	
 	deferred _StartCoroutine = NameResolutionService.ResolveMethod(UnityScriptTypeSystem.ScriptBaseType, "StartCoroutine_Auto")		
 	

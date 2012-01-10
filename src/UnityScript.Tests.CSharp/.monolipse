@@ -2,9 +2,9 @@
   <language>cs</language>
   <outputType>library</outputType>
   <references>
-    <monolipse.core.internal.LocalAssemblyReference-Remembrance>
-      <path>/UnityScript/lib/net-2.0/bin/Boo.Lang.dll</path>
-    </monolipse.core.internal.LocalAssemblyReference-Remembrance>
+    <monolipse.core.internal.BooAssemblyReference>
+      <assemblyName>Boo.Lang</assemblyName>
+    </monolipse.core.internal.BooAssemblyReference>
   </references>
   <outputFolder>/UnityScript/bin</outputFolder>
   <additionalOptions></additionalOptions>

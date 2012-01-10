@@ -172,9 +172,6 @@ tokens
 	UnityScriptParameters as UnityScriptCompilerParameters:
 		get: return _context.Parameters
 	
-	static def ToLexicalInfo(token as antlr.IToken):
-		return LexicalInfo(token.getFilename(), token.getLine(), token.getColumn())
-								
 	static def SetEndSourceLocation(node as Node, token as antlr.IToken):
 		node.EndSourceLocation = ToSourceLocation(token)
 	
@@ -182,6 +179,9 @@ tokens
 		text = token.getText()
 		tokenLength = (0 if text is null else len(text)-1)
 		return SourceLocation(token.getLine(), token.getColumn()+tokenLength)
+			
+	static def ToLexicalInfo(token as antlr.IToken):
+		return LexicalInfo(token.getFilename(), token.getLine(), token.getColumn())
 	
 	static def ParseIntegerLiteralExpression(token as antlr.IToken,
 							s as string,
@@ -230,7 +230,42 @@ tokens
 	
 	static def CreateModuleName(fname as string):
 		return System.IO.Path.GetFileNameWithoutExtension(fname)
-
+		
+	def AddFunctionTo(type as TypeDefinition, nameToken as IToken, getter as IToken, setter as IToken):
+		
+		name = nameToken.getText()
+		location = ToLexicalInfo(nameToken)
+			
+		function as Method = (Constructor(location) if name == type.Name else Method(location, Name: name))
+		if getter is not null or setter is not null:
+			p = type.Members[name] as Property
+			if p is null:
+				p = Property(location, Name: name)
+				type.Members.Add(p)
+			if getter is not null:
+				assert p.Getter is null
+				p.Getter = function
+			else:
+				assert p.Setter is null
+				p.Setter = function
+			FlushAttributes(p)
+		else:
+			type.Members.Add(function)
+			FlushAttributes(function)
+		return function
+	
+	def ValidateFunctionDeclaration(function as Method, getter as IToken, setter as IToken):
+		// TODO: move this error checking to a compiler step
+		// as well as properly checking the type of the accessors
+		// against the type of the property
+		if setter is not null:
+			if function.Parameters.Count != 1 or function.Parameters[0].Name != "value":
+				ReportError(UnityScriptCompilerErrors.InvalidPropertySetter(function.LexicalInfo))
+			function.Parameters.Clear()
+			return
+		if getter is not null:
+			if function.Parameters.Count > 0:
+				ReportError(UnityScriptCompilerErrors.InvalidPropertySetter(function.LexicalInfo))
 }
 
 start[CompileUnit cu]
@@ -243,6 +278,7 @@ start[CompileUnit cu]
 	(
 		import_directive[module]
 		| pragma_directive[module]
+		| (AT ID ID)=> script_or_assembly_attribute[module]
 	)*
 	(
 		(AT ID ID)=> script_or_assembly_attribute[module]
@@ -523,15 +559,14 @@ interface_declaration[TypeDefinition parent] returns [TypeMember member]
 interface_member[TypeDefinition parent]
 {
 }:
-	FUNCTION name:ID
+	FUNCTION (getter:GET | setter:SET)? memberName=identifier 
 	{
-		method = Method(ToLexicalInfo(name), Name: name.getText())
-		FlushAttributes(method)
-		parent.Members.Add(method)
+		function = AddFunctionTo(parent, memberName, getter, setter) 
 	}
-	LPAREN (parameter_declaration_list[method])? RPAREN
+	LPAREN (parameter_declaration_list[function])? RPAREN
+	{ ValidateFunctionDeclaration(function, getter, setter) }
 	(
-		COLON tr=type_reference	{ method.ReturnType = tr; }
+		COLON tr=type_reference	{ function.ReturnType = tr; }
 	)?
 	(EOS)*
 ;
@@ -597,42 +632,9 @@ function_member[ClassDefinition cd] returns [TypeMember member]
 {
 }:
 	FUNCTION (getter:GET | setter:SET)? memberName=identifier 
-	{
-		method as Method
-		if memberName.getText() == cd.Name:
-			member = method = Constructor(ToLexicalInfo(memberName))
-		else:
-			member = method = Method(ToLexicalInfo(memberName), Name: memberName.getText())
-		
-		if getter is not null or setter is not null:
-			p = cd.Members[memberName.getText()] as Property
-			if p is null:
-				p = Property(ToLexicalInfo(memberName), Name: memberName.getText())
-				cd.Members.Add(p)
-			if getter is not null:
-				p.Getter = method
-			else:
-				p.Setter = method
-			FlushAttributes(p)
-		else:
-			cd.Members.Add(method)
-			FlushAttributes(method)
-	}
-	
-	function_body[method]
-	
-	{
-		// TODO: move this error checking to a compiler step
-		// as well as properly checking the type of the accessors
-		// against the type of the property
-		if setter is not null:
-			if method.Parameters.Count != 1 or method.Parameters[0].Name != "value":
-				ReportError(UnityScriptCompilerErrors.InvalidPropertySetter(ToLexicalInfo(memberName)))
-			method.Parameters.Clear()
-		if getter is not null:
-			if method.Parameters.Count > 0:
-				ReportError(UnityScriptCompilerErrors.InvalidPropertySetter(ToLexicalInfo(memberName)))
-	}
+	{ member = function = AddFunctionTo(cd, memberName, getter, setter) }	
+	function_body[function]
+	{ ValidateFunctionDeclaration(function, getter, setter) }
 ;
 
 function_body[Method method]
