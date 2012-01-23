@@ -694,6 +694,14 @@ block[Block b]
 statement[Block b]
 {
 }:
+	(macro_application_test) => macro_application_block[b]
+	| builtin_statement[b]
+	| (EOS)+
+;
+
+builtin_statement[Block b]
+{
+}:
 	(
 		do_while_statement[b] |
 		while_statement[b] |
@@ -713,9 +721,6 @@ statement[Block b]
 			declaration_statement[b]
 		)
 		eos
-	) |
-	(
-		(EOS)+
 	)
 ;
 
@@ -733,29 +738,22 @@ yield_statement[Block b]
 {
 }:
 	yt:YIELD (e=expression)?
-	{
-		b.Add(YieldStatement(ToLexicalInfo(yt), Expression: e))
-	}
+	{ b.Add(YieldStatement(ToLexicalInfo(yt), Expression: e)) }
 ;
 
 return_statement[Block b]
 {
 }:
 	ret:RETURN (e=expression)?
-	{
-		b.Add(ReturnStatement(ToLexicalInfo(ret), Expression: e))
-	}
+	{ b.Add(ReturnStatement(ToLexicalInfo(ret), Expression: e)) }
 ;
 
 break_statement[Block b]
 {
 }:
 	t:BREAK
-	{
-		b.Add(BreakStatement(ToLexicalInfo(t)))
-	}
+	{ b.Add(BreakStatement(ToLexicalInfo(t))) }
 ;
-
 
 continue_statement[Block b]
 {
@@ -776,9 +774,7 @@ throw_statement[Block b]
 {
 }:
 	t:THROW (e=expression)?
-	{
-		b.Add(RaiseStatement(ToLexicalInfo(t), Exception: e))
-	}
+	{ b.Add(RaiseStatement(ToLexicalInfo(t), Exception: e)) }
 ;
 
 
@@ -786,9 +782,7 @@ expression_statement[Block b]
 {
 }:
 	e=assignment_expression
-	{
-		b.Add(ExpressionStatement(e))
-	}
+	{ b.Add(ExpressionStatement(e)) }
 ;
 
 for_statement [Block container]
@@ -874,6 +868,31 @@ declaration returns [Declaration d]
 	VAR id=identifier (COLON tr=type_reference)?
 	{
 		d = Declaration(ToLexicalInfo(id), Name: id.getText(), Type: tr)
+	}
+;
+
+macro_application_test
+{
+}:
+	(member LBRACE)
+	| (member expression_list[null] LBRACE)
+;
+		
+macro_application_block[Block container]
+{
+	m = MacroStatement()
+	args = m.Arguments
+	b = m.Body
+}:
+	macroName=member
+	(
+		(LBRACE) => compound_statement[b]
+		| (expression_list[args] compound_statement[b])
+	)
+	{
+		m.LexicalInfo = ToLexicalInfo(macroName)
+		m.Name = macroName.getText()
+		container.Add(m)
 	}
 ;
 		

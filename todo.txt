@@ -1,12 +1,10 @@
-*** Eval ***
+* unchecked expression support: unchecked(1 << 31)
+* pragma unchecked to enable unchecked arithmetic for the whole module
 
-*) current imports should be effective inside eval code
-*) cache eval assemblies used in static methods
-*) for-loop variables should be visible to eval
-*) propagate strict mode?
+* current imports should be effective inside eval code
+* cache eval assemblies used in static methods
+* for-loop variables should be visible to eval
+* propagate strict mode to eval?
 
-************
 
-print usage information for bin/us
-
-->* lexical scopes for 'for' statements
+* lexical scopes for 'for' statements

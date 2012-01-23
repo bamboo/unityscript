@@ -594,8 +594,8 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 			): // 1827
 				mDIGIT(false)
 			else: // line 1969
-					goto _loop318_breakloop
-		:_loop318_breakloop
+					goto _loop328_breakloop
+		:_loop328_breakloop
 		_ttype = testLiteralsTable(_ttype)
 		if (_createToken and (_token is null) and (_ttype != Token.SKIP)):
 			_token = makeToken(_ttype)
@@ -688,17 +688,17 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 		
 		if ((cached_LA1==char('0')) and (cached_LA2==char('x'))):
 			match("0x")
-			_cnt322 as int = 0
+			_cnt332 as int = 0
 			while true:
 				if ((tokenSet_0_.member(cast(int, cached_LA1)))):
 					mHEXDIGIT(false)
 				else:
-					if (_cnt322 >= 1):
-						goto _loop322_breakloop
+					if (_cnt332 >= 1):
+						goto _loop332_breakloop
 					else:
 						raise NoViableAltForCharException(cached_LA1, getFilename(), getLine(), getColumn())
-				++_cnt322
-			:_loop322_breakloop
+				++_cnt332
+			:_loop332_breakloop
 			if ((cached_LA1==char('L') or cached_LA1==char('l'))):
 				_givenValue  = cached_LA1
 				if ((_givenValue == char('l'))): // 1831
@@ -712,17 +712,17 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 			else: // line 2053
 				pass // 947
 		elif ((((cached_LA1 >= char('0')) and (cached_LA1 <= char('9')))) and (true)): // line 2102
-			_cnt326 as int = 0
+			_cnt336 as int = 0
 			while true:
 				if ((((cached_LA1 >= char('0')) and (cached_LA1 <= char('9'))))):
 					mDIGIT(false)
 				else:
-					if (_cnt326 >= 1):
-						goto _loop326_breakloop
+					if (_cnt336 >= 1):
+						goto _loop336_breakloop
 					else:
 						raise NoViableAltForCharException(cached_LA1, getFilename(), getLine(), getColumn())
-				++_cnt326
-			:_loop326_breakloop
+				++_cnt336
+			:_loop336_breakloop
 			_givenValue  = cached_LA1
 			if ((_givenValue == char('L'))
 				 or (_givenValue ==char('l'))
@@ -818,17 +818,17 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 		_ttype as int; _token as IToken; _begin = text.Length;
 		_ttype = DOUBLE_SUFFIX
 		
-		_cnt335 as int = 0
+		_cnt345 as int = 0
 		while true:
 			if ((((cached_LA1 >= char('0')) and (cached_LA1 <= char('9'))))):
 				mDIGIT(false)
 			else:
-				if (_cnt335 >= 1):
-					goto _loop335_breakloop
+				if (_cnt345 >= 1):
+					goto _loop345_breakloop
 				else:
 					raise NoViableAltForCharException(cached_LA1, getFilename(), getLine(), getColumn())
-			++_cnt335
-		:_loop335_breakloop
+			++_cnt345
+		:_loop345_breakloop
 		if ((cached_LA1==char('E') or cached_LA1==char('e'))):
 			mEXPONENT(false)
 		else: // line 2053
@@ -879,17 +879,17 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 			pass // 947
 		else: // line 1969
 				raise NoViableAltForCharException(cached_LA1, getFilename(), getLine(), getColumn())
-		_cnt342 as int = 0
+		_cnt352 as int = 0
 		while true:
 			if ((((cached_LA1 >= char('0')) and (cached_LA1 <= char('9'))))):
 				mDIGIT(false)
 			else:
-				if (_cnt342 >= 1):
-					goto _loop342_breakloop
+				if (_cnt352 >= 1):
+					goto _loop352_breakloop
 				else:
 					raise NoViableAltForCharException(cached_LA1, getFilename(), getLine(), getColumn())
-			++_cnt342
-		:_loop342_breakloop
+			++_cnt352
+		:_loop352_breakloop
 		if (_createToken and (_token is null) and (_ttype != Token.SKIP)):
 			_token = makeToken(_ttype)
 			_token.setText(text.ToString(_begin, text.Length-_begin))
@@ -1129,31 +1129,31 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 		_saveIndex = text.Length
 		match("#pragma")
 		text.Length = _saveIndex
-		_cnt366 as int = 0
+		_cnt376 as int = 0
 		while true:
 			if ((cached_LA1==char('\t') or cached_LA1==char(' '))):
 				mPRAGMA_WHITE_SPACE(false)
 			else:
-				if (_cnt366 >= 1):
-					goto _loop366_breakloop
+				if (_cnt376 >= 1):
+					goto _loop376_breakloop
 				else:
 					raise NoViableAltForCharException(cached_LA1, getFilename(), getLine(), getColumn())
-			++_cnt366
-		:_loop366_breakloop
+			++_cnt376
+		:_loop376_breakloop
 		mID(true)
 		id = returnToken_
 		if ((cached_LA1==char('\t') or cached_LA1==char(' ')) and (cached_LA2==char('\t') or cached_LA2==char(' ') or cached_LA2==char('o')) and (LA(3)==char('\t') or LA(3)==char(' ') or LA(3)==char('f') or LA(3)==char('n') or LA(3)==char('o'))):
-			_cnt369 as int = 0
+			_cnt379 as int = 0
 			while true:
 				if ((cached_LA1==char('\t') or cached_LA1==char(' '))):
 					mPRAGMA_WHITE_SPACE(false)
 				else:
-					if (_cnt369 >= 1):
-						goto _loop369_breakloop
+					if (_cnt379 >= 1):
+						goto _loop379_breakloop
 					else:
 						raise NoViableAltForCharException(cached_LA1, getFilename(), getLine(), getColumn())
-				++_cnt369
-			:_loop369_breakloop
+				++_cnt379
+			:_loop379_breakloop
 			if ((cached_LA1==char('o')) and (cached_LA2==char('f'))):
 				_saveIndex = text.Length
 				match("off")
@@ -1174,8 +1174,8 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 			if ((cached_LA1==char('\t') or cached_LA1==char(' '))):
 				mPRAGMA_WHITE_SPACE(false)
 			else:
-				goto _loop372_breakloop
-		:_loop372_breakloop
+				goto _loop382_breakloop
+		:_loop382_breakloop
 		_saveIndex = text.Length
 		mNEWLINE(false)
 		text.Length = _saveIndex
@@ -1450,18 +1450,18 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 		_ttype as int; _token as IToken; _begin = text.Length;
 		_ttype = DIVISION
 		
-		synPredMatched399 as bool = false
+		synPredMatched409 as bool = false
 		if ((cached_LA1==char('/')) and (cached_LA2==char('*'))):
-			_m399 as int = mark()
-			synPredMatched399 = true
+			_m409 as int = mark()
+			synPredMatched409 = true
 			++inputState.guessing
 			try:
 				match("/*")
 			except x as RecognitionException:
-				synPredMatched399 = false
-			rewind(_m399)
+				synPredMatched409 = false
+			rewind(_m409)
 			--inputState.guessing
-		if synPredMatched399:
+		if synPredMatched409:
 			mML_COMMENT(false)
 			if 0 == inputState.guessing:
 				if not PreserveComments:
@@ -1475,8 +1475,8 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 					if ((tokenSet_1_.member(cast(int, cached_LA1)))):
 						match(tokenSet_1_)
 					else:
-						goto _loop404_breakloop
-				:_loop404_breakloop
+						goto _loop414_breakloop
+				:_loop414_breakloop
 				if 0 == inputState.guessing:
 					if PreserveComments:
 						_ttype = SL_COMMENT
@@ -1508,8 +1508,8 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 			elif ((tokenSet_2_.member(cast(int, cached_LA1)))): // line 2102
 				match(tokenSet_2_)
 			else:
-				goto _loop433_breakloop
-		:_loop433_breakloop
+				goto _loop443_breakloop
+		:_loop443_breakloop
 		match("*/")
 		if (_createToken and (_token is null) and (_ttype != Token.SKIP)):
 			_token = makeToken(_ttype)
@@ -1520,7 +1520,7 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 		_ttype as int; _token as IToken; _begin = text.Length;
 		_ttype = WHITE_SPACE
 		
-		_cnt408 as int = 0
+		_cnt418 as int = 0
 		while true:
 			_givenValue  = cached_LA1
 			if ((_givenValue == char(' '))): // 1831
@@ -1534,12 +1534,12 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 			): // 1827
 				mNEWLINE(false)
 			else: // line 1969
-					if (_cnt408 >= 1):
-						goto _loop408_breakloop
+					if (_cnt418 >= 1):
+						goto _loop418_breakloop
 					else:
 						raise NoViableAltForCharException(cached_LA1, getFilename(), getLine(), getColumn())
-			++_cnt408
-		:_loop408_breakloop
+			++_cnt418
+		:_loop418_breakloop
 		if 0 == inputState.guessing:
 			_ttype = Token.SKIP;	
 		if (_createToken and (_token is null) and (_ttype != Token.SKIP)):
@@ -1560,8 +1560,8 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 			elif ((tokenSet_3_.member(cast(int, cached_LA1)))): // line 2102
 				match(tokenSet_3_)
 			else:
-				goto _loop412_breakloop
-		:_loop412_breakloop
+				goto _loop422_breakloop
+		:_loop422_breakloop
 		_saveIndex = text.Length
 		match('"')
 		text.Length = _saveIndex
@@ -1610,8 +1610,8 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 			elif ((tokenSet_4_.member(cast(int, cached_LA1)))): // line 2102
 				match(tokenSet_4_)
 			else:
-				goto _loop416_breakloop
-		:_loop416_breakloop
+				goto _loop426_breakloop
+		:_loop426_breakloop
 		_saveIndex = text.Length
 		match('\'')
 		text.Length = _saveIndex
@@ -1712,17 +1712,17 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 		_ttype = RE_LITERAL
 		
 		match('/')
-		_cnt436 as int = 0
+		_cnt446 as int = 0
 		while true:
 			if ((tokenSet_5_.member(cast(int, cached_LA1)))):
 				mRE_CHAR(false)
 			else:
-				if (_cnt436 >= 1):
-					goto _loop436_breakloop
+				if (_cnt446 >= 1):
+					goto _loop446_breakloop
 				else:
 					raise NoViableAltForCharException(cached_LA1, getFilename(), getLine(), getColumn())
-			++_cnt436
-		:_loop436_breakloop
+			++_cnt446
+		:_loop446_breakloop
 		match('/')
 		if (_createToken and (_token is null) and (_ttype != Token.SKIP)):
 			_token = makeToken(_ttype)
@@ -1780,17 +1780,17 @@ class UnityScriptLexer(antlr.CharScanner, TokenStream):
 			 or (_givenValue ==char('8'))
 			 or (_givenValue ==char('9'))
 		): // 1827
-			_cnt442 as int = 0
+			_cnt452 as int = 0
 			while true:
 				if ((((cached_LA1 >= char('0')) and (cached_LA1 <= char('9')))) and (tokenSet_7_.member(cast(int, cached_LA2))) and (true)):
 					mDIGIT(false)
 				else:
-					if (_cnt442 >= 1):
-						goto _loop442_breakloop
+					if (_cnt452 >= 1):
+						goto _loop452_breakloop
 					else:
 						raise NoViableAltForCharException(cached_LA1, getFilename(), getLine(), getColumn())
-				++_cnt442
-			:_loop442_breakloop
+				++_cnt452
+			:_loop452_breakloop
 		elif ((_givenValue == char('x'))): // 1831
 			match('x')
 			mDIGIT(false)
