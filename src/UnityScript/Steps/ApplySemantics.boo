@@ -52,15 +52,18 @@ class ApplySemantics(AbstractVisitorCompilerStep):
 		SetScriptClass(Context, script)
 		
 	def ModuleContainsOnlyTypeDefinitions(module as Module):
-		return module.Globals.IsEmpty and module.Attributes.IsEmpty and module.Members.All({ m | m isa TypeDefinition })
+		return not module.Members.IsEmpty and module.Members.All({ m | m isa TypeDefinition }) and module.Globals.IsEmpty and module.Attributes.IsEmpty
 		
-	def SetUpMainMethod(module as Module, script as TypeDefinition):
-		
+	def SetUpMainMethod(module as Module, script as TypeDefinition):		
 		TransformGlobalVariablesIntoFields(module, script)
+		MoveGlobalStatementsToMainMethodOf(script, module)
+		
+	def MoveGlobalStatementsToMainMethodOf(script as TypeDefinition, module as Module):
 		
 		main = ExistingMainMethodOn(script)
+		
 		if main is null:
-			main = CreateMainMethod(module)
+			main = NewMainMethodFor(module)
 			script.Members.Add(main)
 		else:
 			Warnings.Add(UnityScriptWarnings.ScriptMainMethodIsImplicitlyDefined(main.LexicalInfo, main.Name))
@@ -142,15 +145,12 @@ class ApplySemantics(AbstractVisitorCompilerStep):
 	ScriptMainMethod:
 		get: return self.UnityScriptParameters.ScriptMainMethod
 	
-	def CreateMainMethod(module as Module):
-		method = Method(module.LexicalInfo, Name: ScriptMainMethod)
-		method.Modifiers = TypeMemberModifiers.Public | TypeMemberModifiers.Virtual
-		
-		stmts = module.Globals.Statements
-		if len(stmts) > 0: method.LexicalInfo = Copy(stmts[0].LexicalInfo)
-		method.EndSourceLocation = module.EndSourceLocation
-		
-		return method
+	def NewMainMethodFor(module as Module):
+		return Method(
+			LexicalInfo: (Copy(module.Globals.Statements[0].LexicalInfo) if not module.Globals.IsEmpty else module.LexicalInfo),
+			Name: ScriptMainMethod,
+			Modifiers: TypeMemberModifiers.Public | TypeMemberModifiers.Virtual,
+			EndSourceLocation: module.EndSourceLocation)
 		
 def Copy(li as LexicalInfo):
 	return LexicalInfo(li.FileName, li.Line, li.Column)
