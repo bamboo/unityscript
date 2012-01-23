@@ -572,6 +572,10 @@ partial class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/uint-1.js")
 		
 	
+	[Test] def ulong_bitshift_1():
+		RunTestCase("tests/integration/ulong-bitshift-1.js")
+		
+	
 	[Test] def value_types_1():
 		RunTestCase("tests/integration/value-types-1.js")
 		
