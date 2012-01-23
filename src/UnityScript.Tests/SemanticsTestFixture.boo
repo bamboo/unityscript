@@ -7,6 +7,10 @@ import NUnit.Framework
 class SemanticsTestFixture(AbstractSemanticsTestFixture):
 
 	
+	[Test] def EmptyFileBegetsEmptyBehaviour():
+		RunTestCase("tests/semantics/EmptyFileBegetsEmptyBehaviour.js")
+		
+	
 	[Test] def Magic2Class():
 		RunTestCase("tests/semantics/Magic2Class.js")
 		
