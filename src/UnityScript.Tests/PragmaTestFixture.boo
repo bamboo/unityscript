@@ -27,6 +27,10 @@ class PragmaTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/pragma/implicit-plus-strict.js")
 		
 	
+	[Test] def pragma_checked_1():
+		RunTestCase("tests/pragma/pragma-checked-1.js")
+		
+	
 	[Test] def pragma_expando_1():
 		RunTestCase("tests/pragma/pragma-expando-1.js")
 		
