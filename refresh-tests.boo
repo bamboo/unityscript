@@ -10,6 +10,111 @@ import System
 import System.IO
 import Boo.Lang.PatternMatching
 
+def Main():
+	GenerateProjectTestFixture("src/UnityScript.Tests/ProjectIntegrationTestFixture.Generated.boo", """
+namespace UnityScript.Tests
+
+import NUnit.Framework
+
+partial class ProjectIntegrationTestFixture:
+""", "tests/projects")
+
+	GenerateTestFixture("src/UnityScript.Tests/ParserTestFixture.Generated.boo", """
+namespace UnityScript.Tests
+
+import NUnit.Framework
+	
+partial class ParserTestFixture:
+""", "tests/parser")
+
+	GenerateTestFixture("src/UnityScript.Tests/SemanticsTestFixture.boo", """
+namespace UnityScript.Tests
+
+import NUnit.Framework
+	
+[TestFixture]
+class SemanticsTestFixture(AbstractSemanticsTestFixture):
+""", "tests/semantics")
+
+	GenerateTestFixture("src/UnityScript.Tests/StrictIntegrationTestFixture.Generated.boo", """
+namespace UnityScript.Tests
+
+import NUnit.Framework
+	
+[TestFixture]
+partial class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
+
+""", "tests/integration")
+
+	GenerateTestFixture("src/UnityScript.Tests/DuckyIntegrationTestFixture.boo", """
+namespace UnityScript.Tests
+
+import NUnit.Framework
+	
+[TestFixture]
+class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
+	override def SetCompilationOptions():
+		super()
+		Parameters.Strict = false
+""", "tests/integration", "tests/ducky")
+
+	GenerateTestFixture("src/UnityScript.Tests/PragmaTestFixture.boo", """
+namespace UnityScript.Tests
+
+import NUnit.Framework
+	
+[TestFixture]
+class PragmaTestFixture(AbstractIntegrationTestFixture):
+""", "tests/pragma")
+
+	GenerateTestFixture("src/UnityScript.Tests/GenericsTestFixture.Generated.boo", """
+namespace UnityScript.Tests
+
+import NUnit.Framework
+	
+[TestFixture]
+class GenericsTestFixture(AbstractIntegrationTestFixture):
+""", "tests/generics")
+
+	GenerateTestFixture("src/UnityScript.Tests/EvalTestFixture.boo", """
+namespace UnityScript.Tests
+
+import NUnit.Framework
+	
+[TestFixture]
+class EvalTestFixture(AbstractIntegrationTestFixture):
+""", "tests/eval")
+
+	GenerateTestFixture("src/UnityScript.Tests/ExpandoTestFixture.boo", """
+namespace UnityScript.Tests
+
+import NUnit.Framework
+	
+[TestFixture]
+class ExpandoTestFixture(AbstractIntegrationTestFixture):
+	
+	override def SetCompilationOptions():
+		super()
+		Parameters.Expando = true
+""", "tests/expando")
+
+
+	GenerateTestFixture("src/UnityScript.Tests/ErrorMessagesTestFixture.Generated.boo", """
+namespace UnityScript.Tests
+
+import NUnit.Framework
+	
+partial class ErrorMessagesTestFixture:
+""", "tests/error-messages")
+
+	GenerateTestFixture("src/UnityScript.Tests/StackTraceTestFixture.Generated.boo", """
+namespace UnityScript.Tests
+
+import NUnit.Framework	
+
+partial class StackTraceTestFixture:
+""", "tests/stacktrace")
+
 def GetTestCaseName(fname as string):
 	return Path.GetFileNameWithoutExtension(fname).Replace("-", "_").Replace(".", "_")	
 	
@@ -66,116 +171,12 @@ def GenerateTestFixtureSource(
 			++count
 			categoryAttribute = categoryProducer(testCase)
 			writer.Write("""
-	${categoryAttribute}
+	$categoryAttribute
 	[Test] def ${GetTestCaseName(testCase)}():
 		RunTestCase("${testCase.Replace('\\', '/')}")
 		""")
-		print "\t${count} test cases found in ${srcDir}."
+		print "\t$count test cases found in $srcDir."
 	return writer.ToString()
 	
 def JavascriptFilesIn(dir as string):
-	return fname for fname in Directory.GetFiles(dir) if fname.EndsWith(".js")
-	
-GenerateProjectTestFixture("src/UnityScript.Tests/ProjectIntegrationTestFixture.Generated.boo", """
-namespace UnityScript.Tests
-
-import NUnit.Framework
-
-partial class ProjectIntegrationTestFixture:
-""", "tests/projects")
-
-GenerateTestFixture("src/UnityScript.Tests/ParserTestFixture.Generated.boo", """
-namespace UnityScript.Tests
-
-import NUnit.Framework
-	
-partial class ParserTestFixture:
-""", "tests/parser")
-
-GenerateTestFixture("src/UnityScript.Tests/SemanticsTestFixture.boo", """
-namespace UnityScript.Tests
-
-import NUnit.Framework
-	
-[TestFixture]
-class SemanticsTestFixture(AbstractSemanticsTestFixture):
-""", "tests/semantics")
-
-GenerateTestFixture("src/UnityScript.Tests/StrictIntegrationTestFixture.Generated.boo", """
-namespace UnityScript.Tests
-
-import NUnit.Framework
-	
-[TestFixture]
-partial class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
-
-""", "tests/integration")
-
-GenerateTestFixture("src/UnityScript.Tests/DuckyIntegrationTestFixture.boo", """
-namespace UnityScript.Tests
-
-import NUnit.Framework
-	
-[TestFixture]
-class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
-	override def SetCompilationOptions():
-		super()
-		Parameters.Strict = false
-""", "tests/integration", "tests/ducky")
-
-GenerateTestFixture("src/UnityScript.Tests/PragmaTestFixture.boo", """
-namespace UnityScript.Tests
-
-import NUnit.Framework
-	
-[TestFixture]
-class PragmaTestFixture(AbstractIntegrationTestFixture):
-""", "tests/pragma")
-
-GenerateTestFixture("src/UnityScript.Tests/GenericsTestFixture.Generated.boo", """
-namespace UnityScript.Tests
-
-import NUnit.Framework
-	
-[TestFixture]
-class GenericsTestFixture(AbstractIntegrationTestFixture):
-""", "tests/generics")
-
-GenerateTestFixture("src/UnityScript.Tests/EvalTestFixture.boo", """
-namespace UnityScript.Tests
-
-import NUnit.Framework
-	
-[TestFixture]
-class EvalTestFixture(AbstractIntegrationTestFixture):
-""", "tests/eval")
-
-GenerateTestFixture("src/UnityScript.Tests/ExpandoTestFixture.boo", """
-namespace UnityScript.Tests
-
-import NUnit.Framework
-	
-[TestFixture]
-class ExpandoTestFixture(AbstractIntegrationTestFixture):
-	
-	override def SetCompilationOptions():
-		super()
-		Parameters.Expando = true
-""", "tests/expando")
-
-
-GenerateTestFixture("src/UnityScript.Tests/ErrorMessagesTestFixture.Generated.boo", """
-namespace UnityScript.Tests
-
-import NUnit.Framework
-	
-partial class ErrorMessagesTestFixture:
-""", "tests/error-messages")
-
-GenerateTestFixture("src/UnityScript.Tests/StackTraceTestFixture.Generated.boo", """
-namespace UnityScript.Tests
-
-import NUnit.Framework	
-
-partial class StackTraceTestFixture:
-""", "tests/stacktrace")
+	return fname for fname in Directory.GetFiles(dir) if fname.EndsWith(".js")	

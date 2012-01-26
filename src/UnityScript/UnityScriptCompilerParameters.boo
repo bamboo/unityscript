@@ -24,6 +24,7 @@ class UnityScriptCompilerParameters(CompilerParameters):
 
 	def constructor():
 		super(Boo.Lang.Compiler.TypeSystem.Reflection.ReflectionTypeSystemProvider())
+		self.Checked = false
 		self.OutputType = CompilerOutputType.Library
 		self.References.Add(typeof(UnityScript.Lang.Array).Assembly)
 		self.References.Add(GetType().Assembly)

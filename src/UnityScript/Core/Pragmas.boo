@@ -12,11 +12,13 @@ static class Pragmas:
 	
 	public final Downcast = "downcast"
 	
-	final ValidPragmas = Strict, Expando, Implicit, Downcast
+	public final Checked = "checked"
 	
-	final Enabled = object()
+	final ValidPragmas = Strict, Expando, Implicit, Downcast, Checked
 	
-	final Disabled = object()
+	final Enabled = true
+	
+	final Disabled = false
 	
 	All:
 		get: return ValidPragmas[:]
@@ -25,10 +27,10 @@ static class Pragmas:
 		return pragma in ValidPragmas
 		
 	def IsEnabledOn(module as Module, pragma as string):
-		return module[pragma] is Enabled
+		return Enabled == module[pragma]
 		
 	def IsDisabledOn(module as Module, pragma as string):
-		return module[pragma] is Disabled
+		return Disabled == module[pragma]
 		
 	def TryToEnableOn(module as Module, pragma as string):
 		if module.ContainsAnnotation(pragma):

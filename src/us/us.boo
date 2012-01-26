@@ -4,25 +4,27 @@ import System
 import System.Reflection
 import Boo.Lang.Compiler
 
-def Main([required] argv as (string)) as int:
+def Main(argv as (string)):
 	try:
-		return run(argv)
+		return runWithCommandLine(argv)
+	except x as TargetInvocationException:
+		print "Execution error: ", x.InnerException
+	except x as ApplicationException:
+		print "Error:", x.Message
 	except x:
 		print "Error:", x
 	return 255
-
-def getAssemblyTitle():
-	return cast(AssemblyTitleAttribute, getAssemblyAttribute(AssemblyTitleAttribute)).Title
 	
-def getAssemblyVersion():
-	return Assembly.GetExecutingAssembly().GetName().Version
+def runWithCommandLine(commandLine as (string)):
+	options = parseCommandLineOptions(commandLine)
+	if options.IsValid and not options.DoHelp:
+		return compile(options)
+	usage(options)
+	return 255
 	
-def getAssemblyCopyright():
-	return cast(AssemblyCopyrightAttribute, getAssemblyAttribute(AssemblyCopyrightAttribute)).Copyright
+def parseCommandLineOptions(commandLine as (string)):
+	return CommandLineOptions(*commandLine)
 	
-def getAssemblyAttribute(type as System.Type):
-	return Attribute.GetCustomAttribute(Assembly.GetExecutingAssembly(), type)
-
 def compile(options as CommandLineOptions):
 	compiler = UnityScriptCompilerFactory.FromCommandLineOptions(options)
 	results = compiler.Run()
@@ -36,35 +38,32 @@ def compile(options as CommandLineOptions):
 	else:
 		print results.Warnings.ToString() if len(results.Warnings)
 		print "Successfully compiled '${len(compiler.Parameters.Input)}' file(s) to '${results.GeneratedAssemblyFileName}'."
+		
 	return 0
-	
+
 def execute(result as CompilerContext, mainMethod as string):
 	for type in result.GeneratedAssembly.GetTypes():
 		method = type.GetMethod(mainMethod)
 		if method is not null:
 			method.Invoke(type(), (,))
-		
-def banner():
-	print "${getAssemblyTitle()} - ${getAssemblyVersion()} ${getAssemblyCopyright()}"
-	print
-
-def run(argv as (string)):
-	options = parseCommandLineOptions(argv)
-	if options.IsValid and not options.DoHelp:
-		try:
-			return compile(options)
-		except x as ApplicationException:
-			print "ERROR:", x.Message
-		except x:
-			print "ERROR:", x
-	else:
-		usage(options)
-		
-	return 255
-	
-def parseCommandLineOptions(argv as (string)):
-	return CommandLineOptions(*argv)
 	
 def usage(options as CommandLineOptions):
 	banner()
 	options.PrintOptions()
+	
+def banner():
+	print "${getAssemblyTitle()} - ${getAssemblyVersion()} ${getAssemblyCopyright()}"
+	print
+
+def getAssemblyTitle():
+	return getAssemblyAttribute[of AssemblyTitleAttribute]().Title
+	
+def getAssemblyVersion():
+	return Assembly.GetExecutingAssembly().GetName().Version
+	
+def getAssemblyCopyright():
+	return getAssemblyAttribute[of AssemblyCopyrightAttribute]().Copyright
+	
+def getAssemblyAttribute[of T(System.Attribute)]() as T:
+	return Attribute.GetCustomAttribute(Assembly.GetExecutingAssembly(), T)
+	

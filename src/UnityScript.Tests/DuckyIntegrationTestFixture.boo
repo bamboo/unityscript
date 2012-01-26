@@ -578,6 +578,10 @@ class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/ulong-bitshift-1.js")
 		
 	
+	[Test] def ulong_bitshift_overflow_regression():
+		RunTestCase("tests/integration/ulong-bitshift-overflow-regression.js")
+		
+	
 	[Test] def value_types_1():
 		RunTestCase("tests/integration/value-types-1.js")
 		
