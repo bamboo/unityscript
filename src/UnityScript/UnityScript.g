@@ -20,6 +20,7 @@ options
 	k = 2;
 	exportVocab = UnityScript; 
 	defaultErrorHandler = true;
+    classHeaderPrefix = "partial";
 }
 tokens
 {

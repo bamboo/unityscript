@@ -27,7 +27,7 @@ import System.Globalization
 import UnityScript
 import UnityScript.Core
 
-class UnityScriptParser(antlr.LLkParser):
+partial class UnityScriptParser(antlr.LLkParser):
 	public static final EOF = 1
 	public static final NULL_TREE_LOOKAHEAD = 3
 	public static final AS = 4
