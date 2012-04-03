@@ -21,13 +21,11 @@ class UnityScriptCompilerParameters(CompilerParameters):
 	property GlobalVariablesBecomeFields = true
 	
 	property DisableEval as string
-
-	def constructor():
-		super(Boo.Lang.Compiler.TypeSystem.Reflection.ReflectionTypeSystemProvider())
+	
+	def constructor(loadDefaultReferences as bool):
+		super(Boo.Lang.Compiler.TypeSystem.Reflection.ReflectionTypeSystemProvider(), loadDefaultReferences)
 		self.Checked = false
 		self.OutputType = CompilerOutputType.Library
-		self.References.Add(typeof(UnityScript.Lang.Array).Assembly)
-		self.References.Add(GetType().Assembly)
 		self.Environment = DeferredEnvironment() {
 			EntityFormatter: { UnityScriptEntityFormatter() },
 			TypeSystemServices: { UnityScriptTypeSystem() },
@@ -35,6 +33,12 @@ class UnityScriptCompilerParameters(CompilerParameters):
 			DowncastPermissions: { UnityDowncastPermissions() },
 			LanguageAmbiance: { UnityScriptAmbiance() }
 		}
+		if loadDefaultReferences:
+			self.References.Add(typeof(UnityScript.Lang.Array).Assembly)
+			self.References.Add(GetType().Assembly)
+	
+	def constructor():
+		self(true)
 		
 	def AddToEnvironment(serviceType as System.Type, factory as ObjectFactory):
 		(Environment as DeferredEnvironment).Add(serviceType, factory)
