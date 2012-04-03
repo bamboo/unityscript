@@ -9,6 +9,7 @@ partial class UnityScriptParser:
 	static def ParseReader(reader as TextReader, fileName as string, context as CompilerContext, targetCompileUnit as CompileUnit):
 		lexer = UnityScriptLexerFor(reader, fileName)
 		if lexer is null:
+			targetCompileUnit.Modules.Add(Module(LexicalInfo(fileName, 1, 1)))
 			return
 			
 		parser = UnityScriptParser(lexer, CompilerContext: context)
