@@ -10,6 +10,8 @@ import UnityScript.TypeSystem
 
 class UnityScriptCompilerParameters(CompilerParameters):
 	
+	public static final DefaultTabSize = 8
+	
 	property ScriptBaseType as System.Type
 	
 	property ScriptMainMethod as string
@@ -21,6 +23,8 @@ class UnityScriptCompilerParameters(CompilerParameters):
 	property GlobalVariablesBecomeFields = true
 	
 	property DisableEval as string
+	
+	property TabSize = DefaultTabSize
 	
 	def constructor(loadDefaultReferences as bool):
 		super(Boo.Lang.Compiler.TypeSystem.Reflection.ReflectionTypeSystemProvider(), loadDefaultReferences)
