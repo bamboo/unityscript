@@ -68,7 +68,7 @@ class ApplySemantics(AbstractVisitorCompilerStep):
 		else:
 			Warnings.Add(UnityScriptWarnings.ScriptMainMethodIsImplicitlyDefined(main.LexicalInfo, main.Name))
 			
-		main.Body.Statements.Extend(module.Globals.Statements)
+		main.Body.Statements.AddRange(module.Globals.Statements)
 		module.Globals.Statements.Clear()
 		
 	def TransformGlobalVariablesIntoFields(module as Module, script as TypeDefinition):
@@ -92,7 +92,7 @@ class ApplySemantics(AbstractVisitorCompilerStep):
 			module.Imports.Add(Import(ns))
 					
 	def MoveAttributes(fromType as TypeDefinition, toType as TypeDefinition):
-		toType.Attributes.Extend(fromType.Attributes)
+		toType.Attributes.AddRange(fromType.Attributes)
 		fromType.Attributes.Clear()
 		
 	def MoveMembers(fromType as TypeDefinition, toType as TypeDefinition):
@@ -128,7 +128,7 @@ class ApplySemantics(AbstractVisitorCompilerStep):
 			EndSourceLocation: method.EndSourceLocation)
 		
 	def FindOrCreateScriptClass(module as Module):
-		for existing as ClassDefinition in module.Members.Select(NodeType.ClassDefinition):
+		for existing in module.Members.OfType of ClassDefinition():
 			if existing.Name == module.Name:
 				module.Members.Remove(existing)
 				if existing.IsPartial: AddScriptBaseType(existing)

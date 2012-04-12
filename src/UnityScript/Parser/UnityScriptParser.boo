@@ -186,7 +186,7 @@ partial class UnityScriptParser(antlr.LLkParser):
 		return node.ContainsAnnotation("LabelInUse")
 	
 	def FlushAttributes(node as INodeWithAttributes):
-		node.Attributes.Extend(_attributes)
+		node.Attributes.AddRange(_attributes)
 		_attributes.Clear()
 		
 	def GlobalVariablesBecomeFields():
