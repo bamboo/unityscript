@@ -3,7 +3,6 @@ namespace UnityScript.Steps
 import Boo.Lang.Compiler.Ast
 import Boo.Lang.Compiler.Steps
 import Boo.Lang.Compiler.TypeSystem
-import Boo.Lang.Compiler.TypeSystem.IEntityExtensions
 
 import UnityScript.Core
 
