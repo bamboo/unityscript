@@ -40,7 +40,7 @@ class EvaluationDomainProviderImplementor(AbstractCompilerComponent):
 		
 	private def ImportsArrayFor(node as ClassDefinition):
 		result = [| (of $string:,) |]
-		result.Items.Extend([| $(i.Namespace) |] for i in node.EnclosingModule.Imports)
+		result.Items.AddRange([| $(i.Namespace) |] for i in node.EnclosingModule.Imports)
 		return result		
 		
 	private def CreateStaticEvaluationDomainProviderReferenceOn(node as ClassDefinition):

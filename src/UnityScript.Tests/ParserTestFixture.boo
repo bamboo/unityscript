@@ -17,6 +17,7 @@ partial class ParserTestFixture(AbstractCompilerTestFixture):
 	def EmptyFile():
 		result = CompileTestCase(StringInput("empty", ""))
 		Assert.AreEqual(0, len(result.Errors), result.Errors.ToString(true))
-		Assert.AreEqual(0, len(result.CompileUnit.Modules))
+		Assert.AreEqual(1, len(result.CompileUnit.Modules))
+		Assert.AreEqual("empty", result.CompileUnit.Modules[0].LexicalInfo.FileName)
 		
 		

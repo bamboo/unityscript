@@ -17,7 +17,7 @@ static class CodeFactory:
 			size = dimensions[0]
 			return [| Boo.Lang.Builtins.array[of $elementType](cast(int, $size)) |].WithLocation(location)
 		initializer = [| Boo.Lang.Builtins.matrix[of $elementType]() |].WithLocation(location)
-		initializer.Arguments.Extend(dimensions)
+		initializer.Arguments.AddRange(dimensions)
 		return initializer
 		
 	def NewDoubleLiteralExpression(location as LexicalInfo, literal as string):

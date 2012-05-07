@@ -508,6 +508,10 @@ partial class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/script-attributes.js")
 		
 	
+	[Test] def script_properties():
+		RunTestCase("tests/integration/script-properties.js")
+		
+	
 	[Test] def shift_left_bitwise_or():
 		RunTestCase("tests/integration/shift-left-bitwise-or.js")
 		

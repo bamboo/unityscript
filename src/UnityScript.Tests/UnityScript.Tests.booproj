@@ -62,6 +62,7 @@
     <Compile Include="SemanticsTestFixture.boo" />
     <Compile Include="StackTraceTestFixture.boo" />
     <Compile Include="StackTraceTestFixture.Generated.boo" />
+    <Compile Include="UnityScriptCompilerParametersTest.boo" />
     <Compile Include="UnityScriptCompilerFactoryTestFixture.boo" />
     <Compile Include="UnityScriptCompilerTestFixture.boo" />
     <Compile Include="UsTestFixture.boo" />
