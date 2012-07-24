@@ -63,7 +63,7 @@ class UnityScriptCompilerFactory:
 		compiler.Parameters.Debug = options.Debug
 		compiler.Parameters.Expando = options.Expando
 		compiler.Parameters.DisableEval = options.DisableEval
-		compiler.Parameters.Imports.Extend(options.Imports)
+		compiler.Parameters.Imports.AddRange(options.Imports)
 		
 		if options.TypeInferenceRuleAttribute:
 			compiler.Parameters.AddToEnvironment(

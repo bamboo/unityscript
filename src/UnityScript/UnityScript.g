@@ -20,6 +20,7 @@ options
 	k = 2;
 	exportVocab = UnityScript; 
 	defaultErrorHandler = true;
+    classHeaderPrefix = "partial";
 }
 tokens
 {
@@ -163,7 +164,7 @@ tokens
 		return node.ContainsAnnotation("LabelInUse")
 	
 	def FlushAttributes(node as INodeWithAttributes):
-		node.Attributes.Extend(_attributes)
+		node.Attributes.AddRange(_attributes)
 		_attributes.Clear()
 		
 	def GlobalVariablesBecomeFields():
@@ -231,12 +232,15 @@ tokens
 	static def CreateModuleName(fname as string):
 		return System.IO.Path.GetFileNameWithoutExtension(fname)
 		
+	static def IsConstructorName(name as string, type as TypeDefinition):
+		return type.NodeType != NodeType.Module and name == type.Name
+		
 	def AddFunctionTo(type as TypeDefinition, nameToken as IToken, getter as IToken, setter as IToken):
 		
 		name = nameToken.getText()
 		location = ToLexicalInfo(nameToken)
 			
-		function as Method = (Constructor(location) if name == type.Name else Method(location, Name: name))
+		function as Method = (Constructor(location) if IsConstructorName(name, type) else Method(location, Name: name))
 		if getter is not null or setter is not null:
 			p = type.Members[name] as Property
 			if p is null:
@@ -363,22 +367,10 @@ module_member[Module module]
 			mm=class_declaration[module]
 			| mm=interface_declaration[module]
 			| mm=enum_declaration[module]
-			| mm=module_function[module]
+			| mm=function_member[module]
 		)
 		{ mm.Modifiers |= mod if mm is not null }
 	)
-;
-
-module_function[TypeDefinition parent] returns [TypeMember member]
-{
-}:
-	FUNCTION name:ID
-	{
-		member = method = Method(ToLexicalInfo(name), Name: name.getText())
-		FlushAttributes(method)
-		parent.Members.Add(method)
-	}
-	function_body[method]
 ;
 
 script_or_assembly_attribute[Module m]
@@ -628,7 +620,7 @@ field_member[TypeDefinition cd] returns [TypeMember member]
 	}
 ;
 
-function_member[ClassDefinition cd] returns [TypeMember member]
+function_member[TypeDefinition cd] returns [TypeMember member]
 {
 }:
 	FUNCTION (getter:GET | setter:SET)? memberName=identifier 

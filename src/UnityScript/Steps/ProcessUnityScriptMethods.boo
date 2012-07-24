@@ -147,7 +147,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		
 	override protected def ProcessBuiltinInvocation(node as MethodInvocationExpression, function as BuiltinFunction):
 		if function is UnityScriptTypeSystem.UnityScriptEval:
-			EvalAnnotation.Mark(_currentMethod.Method)
+			EvalAnnotation.Mark(CurrentMethod)
 			BindExpressionType(node, TypeSystemServices.ObjectType)
 			return
 		if function is UnityScriptTypeSystem.UnityScriptTypeof:
@@ -245,7 +245,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 
 	def TransformIteration(node as ForStatement):
 		iterator = CodeBuilder.DeclareLocal(
-						_currentMethod.Method,
+						CurrentMethod,
 						_context.GetUniqueName("iterator"),
 						TypeSystemServices.IEnumeratorType)
 		iterator.IsUsed = true

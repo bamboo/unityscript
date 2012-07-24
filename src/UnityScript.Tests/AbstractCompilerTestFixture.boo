@@ -11,10 +11,7 @@ abstract class AbstractCompilerTestFixture(AbstractCompilerTest):
 		get: return false
 	
 	static BasePath as string:
-		get:
-			if _basePath is null:
-				_basePath = FindTestsPath()
-			return _basePath
+		get: return _basePath or _basePath = FindTestsPath()
 	
 	private static _basePath as string
 

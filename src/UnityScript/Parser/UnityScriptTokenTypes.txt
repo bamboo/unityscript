@@ -1,4 +1,4 @@
-// $ANTLR 2.7.5 (20050517): UnityScript.g -> UnityScriptTokenTypes.txt$
+// $ANTLR 2.7.5 (20050517): src/UnityScript/UnityScript.g -> UnityScriptTokenTypes.txt$
 UnityScript    // output token vocab name
 AS="as"=4
 BREAK="break"=5

@@ -82,6 +82,10 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/interface-errors.js")
 		
 	
+	[Test] def invalid_array_index():
+		RunTestCase("tests/error-messages/invalid-array-index.js")
+		
+	
 	[Test] def invalid_attribute_sequence():
 		RunTestCase("tests/error-messages/invalid-attribute-sequence.js")
 		
