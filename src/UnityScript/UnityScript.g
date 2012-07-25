@@ -591,7 +591,7 @@ enum_member [EnumDefinition container]
 {			
 }: 
 	(attributes)?
-	name:ID (ASSIGN initializer=integer_literal)?
+	name=identifier (ASSIGN initializer=integer_literal)?
 	{
 		em = EnumMember(ToLexicalInfo(name), Name: name.getText(), Initializer: initializer)
 		FlushAttributes(em)
