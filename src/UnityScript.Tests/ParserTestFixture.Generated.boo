@@ -66,6 +66,14 @@ partial class ParserTestFixture:
 		RunTestCase("tests/parser/for-1.js")
 		
 	
+	[Test] def for_each_in_1():
+		RunTestCase("tests/parser/for-each-in-1.js")
+		
+	
+	[Test] def for_each_in_2():
+		RunTestCase("tests/parser/for-each-in-2.js")
+		
+	
 	[Test] def for_loop_with_array_1():
 		RunTestCase("tests/parser/for-loop-with-array-1.js")
 		
