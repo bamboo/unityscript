@@ -9,7 +9,7 @@ def each(each as Object):
 each = 'Test'
 
 for each in (1, 2, 3):
-	print(i)
+	print(each)
 */
 
 enum Options {
@@ -21,4 +21,4 @@ function each(each: Object) {
 
 var each = "Test";
 for each (var each in [1, 2, 3])
-	print (i);
+	print(each);
