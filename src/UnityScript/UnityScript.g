@@ -48,6 +48,7 @@ tokens
 	INTERFACE="interface";
 	INSTANCEOF="instanceof";
 	NEW="new";
+	NOT="not";
 	NULL="null";
 	RETURN="return";
 	PUBLIC="public";
@@ -1421,7 +1422,7 @@ prefix_unary_expression returns [Expression e]
 		sub:SUBTRACT { op = sub; uOperator = UnaryOperatorType.UnaryNegation; } |
 		inc:INCREMENT { op = inc; uOperator = UnaryOperatorType.Increment; } |
 		dec:DECREMENT { op = dec; uOperator = UnaryOperatorType.Decrement; } |
-		nt:NOT { op = nt; uOperator = UnaryOperatorType.LogicalNot; } |
+		nt:LOGICAL_NOT { op = nt; uOperator = UnaryOperatorType.LogicalNot; } |
 		oc:BITWISE_NOT { op = oc; uOperator = UnaryOperatorType.OnesComplement; }
 	)
 	e=unary_expression { e = UnaryExpression(ToLexicalInfo(op), uOperator, e) }
@@ -1498,6 +1499,7 @@ comparison returns [Expression e]
 	 (
 	  (
 		 (
+		 	(tni:NOT IN { op = BinaryOperatorType.NotMember; token = tni; } ) |
 		 	(tin:IN { op = BinaryOperatorType.Member; token = tin; } ) |
 			(tgt:GREATER_THAN { op = BinaryOperatorType.GreaterThan; token = tgt; } ) |
 			(tgte:GREATER_THAN_OR_EQUAL { op = BinaryOperatorType.GreaterThanOrEqual; token = tgte }) |
@@ -1887,7 +1889,7 @@ EQUALITY: "==";
 
 INEQUALITY: "!=";
 
-NOT: '!';
+LOGICAL_NOT: '!';
 
 QUESTION_MARK: '?';
 
