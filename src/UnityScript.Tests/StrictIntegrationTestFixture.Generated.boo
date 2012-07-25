@@ -456,6 +456,10 @@ partial class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/new-1.js")
 		
 	
+	[Test] def not_in():
+		RunTestCase("tests/integration/not-in.js")
+		
+	
 	[Test] def null_initializer():
 		RunTestCase("tests/integration/null-initializer.js")
 		

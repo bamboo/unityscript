@@ -32,6 +32,7 @@ tokens
 	CONTINUE="continue";
 	DO="do";
 	ELSE="else";
+	EACH="each";
 	ENUM="enum";
 	EXTENDS="extends";
 	FALSE="false";
@@ -47,6 +48,7 @@ tokens
 	INTERFACE="interface";
 	INSTANCEOF="instanceof";
 	NEW="new";
+	NOT="not";
 	NULL="null";
 	RETURN="return";
 	PUBLIC="public";
@@ -589,7 +591,7 @@ enum_member [EnumDefinition container]
 {			
 }: 
 	(attributes)?
-	name:ID (ASSIGN initializer=integer_literal)?
+	name=identifier (ASSIGN initializer=integer_literal)?
 	{
 		em = EnumMember(ToLexicalInfo(name), Name: name.getText(), Initializer: initializer)
 		FlushAttributes(em)
@@ -603,6 +605,7 @@ identifier returns [antlr.IToken token]
 	name:ID { token = name; }
 	| f:FINAL { token = f; KeywordCannotBeUsedAsAnIdentifier(token); }
 	| i:INTERNAL { token = i; KeywordCannotBeUsedAsAnIdentifier(token); }
+	| e:EACH { token = e; }
 ;
 
 field_member[TypeDefinition cd] returns [TypeMember member]
@@ -781,14 +784,18 @@ for_statement [Block container]
 {
 }:
 	f:FOR
-	LPAREN
 	(
-		((identifier | declaration) IN)=>stmt=for_in[container]
-		| stmt=for_c[container]
+		(EACH LPAREN stmt=for_in[container])
+		|
+		(
+			LPAREN
+			(
+				((identifier | declaration) IN) => stmt=for_in[container]
+				| stmt=for_c[container]
+			)
+		)
 	)
-	{
-		stmt.LexicalInfo = ToLexicalInfo(f) if stmt is not null
-	}
+	{ stmt.LexicalInfo = ToLexicalInfo(f) if stmt is not null }
 ;
 
 for_c [Block container] returns [Statement stmt]
@@ -1026,7 +1033,8 @@ member returns [Token name]
 }:
 	id:ID { name=id; } |
 	st:SET { name=st; } |
-	gt:GET { name=gt; }	
+	gt:GET { name=gt; }	|
+	eh:EACH { name=eh; }
 ;
 
 type_reference returns [TypeReference tr]
@@ -1176,9 +1184,10 @@ function_expression returns [BlockExpression e]
 ;
 
 simple_reference_expression returns [Expression e]
-{
+{ 
 }:
-	id:ID { e = ReferenceExpression(ToLexicalInfo(id), Name: id.getText()) }
+	(id:ID | each:EACH { id = each })
+	{ e = ReferenceExpression(ToLexicalInfo(id), Name: id.getText()) }
 ;
 
 reference_expression returns [Expression e]
@@ -1413,7 +1422,7 @@ prefix_unary_expression returns [Expression e]
 		sub:SUBTRACT { op = sub; uOperator = UnaryOperatorType.UnaryNegation; } |
 		inc:INCREMENT { op = inc; uOperator = UnaryOperatorType.Increment; } |
 		dec:DECREMENT { op = dec; uOperator = UnaryOperatorType.Decrement; } |
-		nt:NOT { op = nt; uOperator = UnaryOperatorType.LogicalNot; } |
+		nt:LOGICAL_NOT { op = nt; uOperator = UnaryOperatorType.LogicalNot; } |
 		oc:BITWISE_NOT { op = oc; uOperator = UnaryOperatorType.OnesComplement; }
 	)
 	e=unary_expression { e = UnaryExpression(ToLexicalInfo(op), uOperator, e) }
@@ -1490,6 +1499,7 @@ comparison returns [Expression e]
 	 (
 	  (
 		 (
+		 	(tni:NOT IN { op = BinaryOperatorType.NotMember; token = tni; } ) |
 		 	(tin:IN { op = BinaryOperatorType.Member; token = tin; } ) |
 			(tgt:GREATER_THAN { op = BinaryOperatorType.GreaterThan; token = tgt; } ) |
 			(tgte:GREATER_THAN_OR_EQUAL { op = BinaryOperatorType.GreaterThanOrEqual; token = tgte }) |
@@ -1879,7 +1889,7 @@ EQUALITY: "==";
 
 INEQUALITY: "!=";
 
-NOT: '!';
+LOGICAL_NOT: '!';
 
 QUESTION_MARK: '?';
 
