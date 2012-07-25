@@ -32,6 +32,7 @@ tokens
 	CONTINUE="continue";
 	DO="do";
 	ELSE="else";
+	EACH="each";
 	ENUM="enum";
 	EXTENDS="extends";
 	FALSE="false";
@@ -603,6 +604,7 @@ identifier returns [antlr.IToken token]
 	name:ID { token = name; }
 	| f:FINAL { token = f; KeywordCannotBeUsedAsAnIdentifier(token); }
 	| i:INTERNAL { token = i; KeywordCannotBeUsedAsAnIdentifier(token); }
+	| e:EACH { token = e; }
 ;
 
 field_member[TypeDefinition cd] returns [TypeMember member]
@@ -781,14 +783,18 @@ for_statement [Block container]
 {
 }:
 	f:FOR
-	LPAREN
 	(
-		((identifier | declaration) IN)=>stmt=for_in[container]
-		| stmt=for_c[container]
+		(EACH LPAREN stmt=for_in[container])
+		|
+		(
+			LPAREN
+			(
+				((identifier | declaration) IN) => stmt=for_in[container]
+				| stmt=for_c[container]
+			)
+		)
 	)
-	{
-		stmt.LexicalInfo = ToLexicalInfo(f) if stmt is not null
-	}
+	{ stmt.LexicalInfo = ToLexicalInfo(f) if stmt is not null }
 ;
 
 for_c [Block container] returns [Statement stmt]
@@ -1026,7 +1032,8 @@ member returns [Token name]
 }:
 	id:ID { name=id; } |
 	st:SET { name=st; } |
-	gt:GET { name=gt; }	
+	gt:GET { name=gt; }	|
+	eh:EACH { name=eh; }
 ;
 
 type_reference returns [TypeReference tr]
@@ -1176,9 +1183,10 @@ function_expression returns [BlockExpression e]
 ;
 
 simple_reference_expression returns [Expression e]
-{
+{ 
 }:
-	id:ID { e = ReferenceExpression(ToLexicalInfo(id), Name: id.getText()) }
+	(id:ID | each:EACH { id = each })
+	{ e = ReferenceExpression(ToLexicalInfo(id), Name: id.getText()) }
 ;
 
 reference_expression returns [Expression e]
