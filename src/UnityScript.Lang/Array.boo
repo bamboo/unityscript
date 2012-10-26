@@ -3,7 +3,9 @@ namespace UnityScript.Lang
 import System
 import System.Collections
 
-class Array(CollectionBase, Boo.Lang.Runtime.ICoercible):
+class Array(IList, Boo.Lang.Runtime.ICoercible):
+	
+	InnerList = System.Collections.Generic.List of object()
 
 	def constructor():
 		pass
@@ -22,6 +24,47 @@ class Array(CollectionBase, Boo.Lang.Runtime.ICoercible):
 			AddRange(items[0])
 		else:
 			AddRange(items)
+			
+	def GetEnumerator():
+		return InnerList.GetEnumerator()
+		
+	def CopyTo(target as System.Array, targetIndex as int):
+		elementType = target.GetType().GetElementType()
+		elementsToCopy = Math.Min(len(target) - targetIndex, Count)
+		sourceIndex = 0
+		while sourceIndex < elementsToCopy:
+			rawArrayIndexing:
+				target[targetIndex++] = Boo.Lang.Runtime.RuntimeServices.Coerce(InnerList[sourceIndex++], elementType)
+			
+	Count:
+		get: return InnerList.Count
+		
+	ICollection.IsSynchronized:
+		get: return false
+		
+	ICollection.SyncRoot:
+		get: return self
+		
+	def Clear():
+		InnerList.Clear()
+		
+	def Contains(o):
+		return InnerList.Contains(o)
+		
+	def IndexOf(o):
+		return InnerList.IndexOf(o)
+		
+	def Insert(index as int, element):
+		InnerList.Insert(index, element)
+		
+	def RemoveAt(index as int):
+		InnerList.RemoveAt(index)
+		
+	IList.IsReadOnly:
+		get: return false
+		
+	IList.IsFixedSize:
+		get: return false
 
 	static def op_Implicit(e as IEnumerable) as Array:
 		if e is null: return null
@@ -48,7 +91,9 @@ class Array(CollectionBase, Boo.Lang.Runtime.ICoercible):
 		return self
 	
 	def ToBuiltin(type as System.Type):
-		return self.InnerList.ToArray(type)
+		result = System.Array.CreateInstance(type, Count)
+		CopyTo(result, 0)
+		return result
 	
 	def Add(value as object, *items):
 		self.AddImpl(value, items)
@@ -143,15 +188,8 @@ class Array(CollectionBase, Boo.Lang.Runtime.ICoercible):
 		
 	callable Comparison(lhs as object, rhs as object) as int
 	
-	private class ComparisonComparer(IComparer):
-		def constructor(comparison as Comparison):
-			_comparison = comparison
-		def Compare(lhs, rhs):
-			return _comparison(lhs, rhs)
-		_comparison as Comparison
-	
 	def Sort(comparison as Comparison):
-		self.InnerList.Sort(ComparisonComparer(comparison))
+		self.InnerList.Sort({ x, y | comparison(x, y) })
 		
 	def sort(comparison as Comparison):
 		Sort(comparison)
@@ -162,15 +200,14 @@ class Array(CollectionBase, Boo.Lang.Runtime.ICoercible):
 		return self
 
 	def sort() as Array:
-		self.Sort()
-		return self
+		return self.Sort()
 
 	# Combine to a string
 	def Join (seperator as String):
 		return Builtins.join(self.InnerList, seperator)
 	
 	def join (seperator as String):
-		return Builtins.join(self.InnerList, seperator)	
+		return self.Join(seperator)	
 
 	# Remove
 	def Remove (obj as Object):
@@ -189,13 +226,9 @@ class Array(CollectionBase, Boo.Lang.Runtime.ICoercible):
 	def AddRange([required] collection as IEnumerable):
 		for item in collection:
 			self.InnerList.Add(item)
-			
-	override protected def OnValidate(newValue):
-		pass // anything goes
 
 	private def AddImpl(value as object, [required] items as IEnumerable):
 		self.InnerList.Add(value)
-		
 		for item in items:
 			self.InnerList.Add(item)
 		return self.InnerList.Count
@@ -212,11 +245,9 @@ class Array(CollectionBase, Boo.Lang.Runtime.ICoercible):
 
 	private def ConcatImpl(value as ICollection, [required] items as IEnumerable):
 		arr = Array (self.InnerList)
-		arr.InnerList.AddRange(value)
-
+		arr.AddRange(value)
 		for item as ICollection in items:
-			arr.InnerList.AddRange(item)
-
+			arr.AddRange(item)
 		return arr
 
 	private def EnsureCapacity(capacity as int):
