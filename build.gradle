@@ -1,0 +1,92 @@
+
+buildscript {
+	repositories {
+		ivy { url '../repository' }
+		ivy { url 'http://unity-technologies.github.com/kaizen/repositories/unstable' }
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'kaizen:kaizen:0.2.0'
+	}
+}
+
+allprojects {
+	version = '0.1.1'
+
+	repositories {
+		ivy { url 'http://unity-technologies.github.com/kaizen/repositories/unstable' }
+	}
+}
+
+apply plugin: 'kaizen-bundle'
+apply plugin: 'nunit'
+apply plugin: 'idea'
+
+configurations {
+	boo
+}
+
+ext {
+	booVersion = '0.9.5.6+'
+}
+
+dependencies {
+	boo "boo:boo:$booVersion"
+	'default' project(':us'), project(':UnityScript'), project(':UnityScript.Lang')
+}
+
+unity.mono.booc.executable = file('lib/Boo/booc.exe')
+
+project(':us') {
+	dependencies {
+		'default' project(':UnityScript'), project(':UnityScript.Lang')
+		'default' "boo:Boo.Lang.Useful:$booVersion"
+	}
+	assembly {
+		target = 'exe'
+	}
+}
+
+project(':UnityScript') {
+	dependencies {
+		'default' project(':UnityScript.Lang')
+		['Boo.Lang.Extensions', 'Boo.Lang.Parser', 'Boo.Lang.Compiler', 'Boo.Lang.PatternMatching'].each {
+			'default' "boo:$it:$booVersion"
+		}
+	}
+}
+
+project(':UnityScript.Lang') {
+}
+
+project(':UnityScript.Tests.CSharp') {
+	dependencies {
+		'default' "boo:Boo.Lang:$booVersion"
+	}
+}
+
+project(':UnityScript.Tests') {
+	apply plugin: 'nunit-assembly'
+
+	afterEvaluate {
+		testDefault {
+			exclude 'FailsOnMono'
+		}
+	}
+
+	dependencies {
+		[':UnityScript', ':UnityScript.Lang', ':us', ':UnityScript.Tests.CSharp'].each {
+			'default' project(it)
+		}
+	}
+}
+
+task bundle(type: Zip) {
+	from projectDir
+	include 'README.md'
+	include 'license.txt'
+}
+
+artifacts {
+	'default' bundle
+}
