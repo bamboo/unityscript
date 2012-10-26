@@ -3,3 +3,6 @@ test-results
 *.userprefs
 *.pidb
 /bin
+build
+.gradle
+lib
