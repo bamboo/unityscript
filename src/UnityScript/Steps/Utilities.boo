@@ -16,6 +16,10 @@ def IsPossibleStartCoroutineInvocationForm(node as MethodInvocationExpression):
 	match node:
 		case Node(ParentNode: ExpressionStatement() | YieldStatement()) or IsRhsOfAssignment(node):
 			return true
+		/*
+		case Node(ParentNode: DeclarationStatement(Initializer: initializer)) and node is initializer:
+			return true
+		*/
 		otherwise:
 			return false
 	

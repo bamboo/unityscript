@@ -200,6 +200,10 @@ partial class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/auto-coroutine-return-2.js")
 		
 	
+	[Test] def auto_coroutine_static():
+		RunTestCase("tests/integration/auto-coroutine-static.js")
+		
+	
 	[Test] def cast_operator_1():
 		RunTestCase("tests/integration/cast-operator-1.js")
 		

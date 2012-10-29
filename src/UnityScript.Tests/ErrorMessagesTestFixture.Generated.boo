@@ -34,6 +34,10 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/cannot-convert-error.js")
 		
 	
+	[Test] def cannot_start_coroutine_from_static_function():
+		RunTestCase("tests/error-messages/cannot-start-coroutine-from-static-function.js")
+		
+	
 	[Test] def do_while_const_condition():
 		RunTestCase("tests/error-messages/do-while-const-condition.js")
 		
