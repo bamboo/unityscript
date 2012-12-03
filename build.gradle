@@ -87,6 +87,7 @@ task bundle(type: Zip) {
 	include 'license.txt'
 }
 
-artifacts {
-	'default' bundle
+task publish {
+  dependsOn configurations['default'].dependencies*.dependencyProject.uploadArchives
 }
+
