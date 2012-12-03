@@ -1,3 +1,4 @@
+rootProject.name = 'bundle'
 
 def srcDir = file('src')
 srcDir.listFiles({ it.isDirectory() } as FileFilter).each { 
