@@ -81,10 +81,12 @@ project(':UnityScript.Tests') {
 	}
 }
 
-task bundle(type: Zip) {
-	from projectDir
-	include 'README.md'
-	include 'license.txt'
+def allCompileTasks = subprojects.collectMany { it.tasks }.findAll { it.name.startsWith('compile') }
+def booCompileTasks = allCompileTasks.findAll { it.assembly.language == 'boo' }
+booCompileTasks.each {
+  logger.info "Configuring boo dependencies on $it"
+  it.dependsOn rootProject.configurations.boo
+  it.dependsOn rootProject.tasks.updateBoo
 }
 
 task publish {
