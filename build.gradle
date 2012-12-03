@@ -10,6 +10,10 @@ buildscript {
 	}
 }
 
+apply plugin: 'kaizen-bundle'
+apply plugin: 'nunit'
+apply plugin: 'idea'
+
 allprojects {
 	version = '0.1.1'
 
@@ -17,10 +21,6 @@ allprojects {
 		ivy { url 'http://unity-technologies.github.com/kaizen/repositories/unstable' }
 	}
 }
-
-apply plugin: 'kaizen-bundle'
-apply plugin: 'nunit'
-apply plugin: 'idea'
 
 configurations {
 	boo
