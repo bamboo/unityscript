@@ -62,6 +62,10 @@ project(':UnityScript.Lang') {
   configurations {
     windowsPhone8
   }
+  dependencies {
+    'default' "boo:Boo.Lang:$booVersion"
+    //windowsPhone8 group: 'boo', name: 'Boo.Lang', version: booVersion, configuration: 'windowsPhone8'
+  }
   tasks.compileWindowsPhone8 {
     doLast {
       rootProject.exec {
