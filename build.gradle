@@ -15,6 +15,7 @@ apply plugin: 'nunit'
 apply plugin: 'idea'
 
 allprojects {
+  group = 'unityscript'
 	version = '0.1.1'
 
 	repositories {
