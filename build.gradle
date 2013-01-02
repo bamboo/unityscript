@@ -33,7 +33,7 @@ ext {
 
 dependencies {
 	boo "boo:boo:$booVersion"
-  boo "boo:RetargetAssembly:0.1.0"
+  boo "boo:RetargetAssembly:0.2.0"
 	'default' project(':us'), project(':UnityScript'), project(':UnityScript.Lang')
 }
 
