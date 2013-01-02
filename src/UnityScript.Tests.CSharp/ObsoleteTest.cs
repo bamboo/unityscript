@@ -1,5 +1,3 @@
-using Boo.Lang;
-
 namespace UnityScript.Tests.CSharp 
 {
 	public class ObsoleteTest 

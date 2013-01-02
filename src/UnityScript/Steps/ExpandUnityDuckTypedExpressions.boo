@@ -32,10 +32,6 @@ class ExpandUnityDuckTypedExpressions(ExpandDuckTypedExpressions):
 		return UnityRuntimeServices_GetProperty
 
 	override def ExpandQuackInvocation(node as MethodInvocationExpression):
-		if not IsPossibleStartCoroutineInvocation(node):
-			super(node)
-			return
-			
 		self.ExpandQuackInvocation(node, UnityRuntimeServices_Invoke)
 		node.Arguments.Add(CodeBuilder.CreateTypeofExpression(UnityScriptTypeSystem.ScriptBaseType))
 			

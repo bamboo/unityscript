@@ -77,12 +77,13 @@ class ApplySemantics(AbstractVisitorCompilerStep):
 		module.Globals.Accept(DeclareGlobalVariables(script))
 		
 	def ExistingMainMethodOn(typeDef as TypeDefinition):
-		for member in typeDef.Members:
-			method = member as Method
-			isMainMethod = method is not null \
-				and method.Name == ScriptMainMethod \
-				and len(method.Parameters) == 0
-			return method if isMainMethod
+		return typeDef.Members.OfType[of Method]().FirstOrDefault(IsMainMethod)
+		
+	def IsMainMethod(m as Method):
+		return (
+			m is not null
+			and m.Name == ScriptMainMethod
+			and len(m.Parameters) == 0)
 		
 	def MakeItPartial(global as ClassDefinition):
 		global.Modifiers |= TypeMemberModifiers.Partial

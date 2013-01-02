@@ -32,7 +32,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 	
 	override def Initialize(context as CompilerContext):
 		super(context)
-				
+		
 		// don't transform
 		//     foo == null
 		// into:
@@ -175,28 +175,24 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 	"""
 		super(node, method)
 		
-		if not IsPossibleStartCoroutineInvocation(node):
+		if not IsPossibleStartCoroutineInvocationForm(node):
 			return		
 
-		if method.IsStatic: return		
-		
 		tss = self.UnityScriptTypeSystem
 		if not tss.IsScriptType(method.DeclaringType): return		
 		if not tss.IsGenerator(method): return
+		
+		if CurrentMethod.IsStatic:
+			Warnings.Add(UnityScriptWarnings.CannotStartCoroutineFromStaticFunction(node.LexicalInfo, method.Name))
+			return
 		
 		parentNode = node.ParentNode
 		parentNode.Replace(
 			node,
 			CodeBuilder.CreateMethodInvocation(
-				TargetForStartCoroutineInvocation(node, method),
+				CodeBuilder.CreateSelfReference(node.LexicalInfo, CurrentType),
 				_StartCoroutine,
-				node))
-				
-	def TargetForStartCoroutineInvocation(node as MethodInvocationExpression, method as IMethod):
-		target = cast(MemberReferenceExpression, node.Target).Target
-		if target isa SuperLiteralExpression: // super becomes self for coroutine invocation
-			return CodeBuilder.CreateSelfReference(target.LexicalInfo, method.DeclaringType)
-		return target.CloneNode()
+				node)) 
 				
 	override def ProcessStaticallyTypedAssignment(node as BinaryExpression):
 		TryToResolveAmbiguousAssignment(node)		

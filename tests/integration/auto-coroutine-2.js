@@ -4,10 +4,13 @@ done
 
 // Negative tests to make sure the coroutine detection is not too overeager
 
-class Greeter
-{
-	function Hello (a : int, b : int)
-	{
+class Greeter {
+	function Hello(a: int, b: int) {
+		print(a);
+		yield;
+	}
+	
+	static function StaticHello(a: int, b: int) {
 		print (a);
 		yield;
 	}
@@ -17,13 +20,6 @@ class Greeter
 var t = Greeter();
 t.Hello(1, 2);
 
-// does nothing
-StaticHello(1, 2);
-
-static function StaticHello (a : int, b : int)
-{
-	print (a);
-	yield;
-}
+Greeter.StaticHello(1, 2);
 
 print ("done");

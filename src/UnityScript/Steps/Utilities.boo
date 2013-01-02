@@ -3,17 +3,25 @@ namespace UnityScript.Steps
 import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Ast
 import Boo.Lang.Compiler.TypeSystem
+import PatternMatching
 
 def IsRhsOfAssignment(node as Expression):
-	be = node.ParentNode as BinaryExpression
-	if be is null: return false
-	if be.Operator != BinaryOperatorType.Assign: return false
-	return be.Right is node
+	match node.ParentNode:
+		case BinaryExpression(Operator: BinaryOperatorType.Assign, Right: rhs) and rhs is node:
+			return true
+		otherwise:
+			return false
 	
-def IsPossibleStartCoroutineInvocation(node as MethodInvocationExpression):
-	if node.ParentNode isa ExpressionStatement: return true
-	if node.ParentNode isa YieldStatement: return true
-	return IsRhsOfAssignment(node)
+def IsPossibleStartCoroutineInvocationForm(node as MethodInvocationExpression):
+	match node:
+		case Node(ParentNode: ExpressionStatement() | YieldStatement()) or IsRhsOfAssignment(node):
+			return true
+		/*
+		case Node(ParentNode: DeclarationStatement(Initializer: initializer)) and node is initializer:
+			return true
+		*/
+		otherwise:
+			return false
 	
 def SetScriptClass(context as CompilerContext, klass as ClassDefinition):
 	context["ScriptClass"] = klass

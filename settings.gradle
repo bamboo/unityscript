@@ -1,0 +1,12 @@
+rootProject.name = 'bundle'
+
+def srcDir = file('src')
+srcDir.listFiles({ it.isDirectory() } as FileFilter).each { 
+	settings.include it.name
+}
+
+rootProject.children.each {
+  it.projectDir = new File(srcDir, it.name)
+  it.buildFileName = "${it.name}.gradle"
+}
+
