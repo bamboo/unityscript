@@ -16,7 +16,7 @@ apply plugin: 'idea'
 
 allprojects {
   group = 'unityscript'
-	version = '0.1.1'
+	version = '0.1.2'
 
 	repositories {
 		ivy { url 'http://unity-technologies.github.com/kaizen/repositories/unstable' }
@@ -52,7 +52,7 @@ project(':us') {
 project(':UnityScript') {
 	dependencies {
 		'default' project(':UnityScript.Lang')
-		['Boo.Lang.Extensions', 'Boo.Lang.Parser', 'Boo.Lang.Compiler', 'Boo.Lang.PatternMatching'].each {
+		['Boo.Lang.Extensions', 'Boo.Lang.Parser', 'Boo.Lang.Compiler', 'Boo.Lang.PatternMatching', 'Boo.Lang.Useful'].each {
 			'default' "boo:$it:$booVersion"
 		}
 	}

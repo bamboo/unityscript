@@ -5,7 +5,7 @@ import Boo.Lang.Compiler
 import Boo.Lang.Compiler.Services
 import Boo.Lang.Compiler.TypeSystem
 import Boo.Lang.Compiler.TypeSystem.Services
-
+import Boo.Lang.Compiler.TypeSystem.Reflection
 import UnityScript.TypeSystem
 
 class UnityScriptCompilerParameters(CompilerParameters):
@@ -25,9 +25,15 @@ class UnityScriptCompilerParameters(CompilerParameters):
 	property DisableEval as string
 	
 	property TabSize = DefaultTabSize
+		
+	def constructor():
+		self(true)
 	
 	def constructor(loadDefaultReferences as bool):
-		super(Boo.Lang.Compiler.TypeSystem.Reflection.ReflectionTypeSystemProvider(), loadDefaultReferences)
+		self(ReflectionTypeSystemProvider(), loadDefaultReferences)
+
+	def constructor(reflectionTypeSystemProvider as IReflectionTypeSystemProvider, loadDefaultReferences as bool):
+		super(reflectionTypeSystemProvider, loadDefaultReferences)
 		self.Checked = false
 		self.OutputType = CompilerOutputType.Library
 		self.Environment = DeferredEnvironment() {
@@ -41,9 +47,6 @@ class UnityScriptCompilerParameters(CompilerParameters):
 			self.References.Add(typeof(UnityScript.Lang.Array).Assembly)
 			self.References.Add(GetType().Assembly)
 	
-	def constructor():
-		self(true)
-		
 	def AddToEnvironment(serviceType as System.Type, factory as ObjectFactory):
 		(Environment as DeferredEnvironment).Add(serviceType, factory)
 		
