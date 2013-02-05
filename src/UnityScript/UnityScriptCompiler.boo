@@ -5,8 +5,15 @@ import Boo.Lang.Compiler
 class UnityScriptCompiler:
 
 	[getter(Parameters)]
-	_parameters = UnityScriptCompilerParameters()
-	_compiler = BooCompiler(_parameters)
+	_parameters as UnityScriptCompilerParameters
+	_compiler as BooCompiler
+
+	def constructor():
+		self(UnityScriptCompilerParameters())
+
+	def constructor([required] parameters as UnityScriptCompilerParameters):
+		_parameters = parameters
+		_compiler = BooCompiler(_parameters)
 
 	def Run():
 		return _compiler.Run()

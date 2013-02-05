@@ -31,7 +31,7 @@
 			<arg file="${build.dir}/UnityScript.Tests.dll" />
 		</exec>
 		
-		<nunit2 unless="${mono}">       
+		<nunit2 unless="${mono}">
 			<formatter type="Plain" />
 			<test>
 				<assemblies basedir="${build.dir}">				
