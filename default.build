@@ -41,6 +41,17 @@
 		</nunit2>
 	</target>
 	
+	<property name="nosign" value="false" />
+	
+	<target name="sign">
+		<property name="keyfile.path" value="${boo.dir}/src/boo.snk" overwrite="false" />
+	</target>
+
+	<target name="nosign">
+		<property name="keyfile.path" value="" overwrite="false" />
+		<property name="nosign" value="true" overwrite="true" />
+	</target>
+
 	<target name="all" depends="UnityScript.Tests, prevent-system-references, verify-assemblies">
 	</target>
 	
@@ -84,6 +95,7 @@
 		<booc
 			target="library"
 			output="${build.dir}/UnityScript.Tests.dll"
+			keyfile="${keyfile.path}"
 			debug="true">
 			<sources basedir="src/UnityScript.Tests">
 				<include name="**/*.boo" />
@@ -137,6 +149,7 @@
 			target="library"
 			output="${build.dir}/UnityScript.Lang.dll"
 			debug="${debug}"
+			keyfile="${keyfile.path}"
 			noconfig="true">
 			<sources basedir="src/UnityScript.Lang">
 				<include name="**/*.boo" />
@@ -146,6 +159,7 @@
 		<booc
 			target="library"
 			output="${build.dir}/UnityScript.dll"
+			keyfile="${keyfile.path}"
 			debug="${debug}">
 			<sources basedir="src/UnityScript">
 				<include name="**/*.boo" />
@@ -162,6 +176,7 @@
 		<booc
 			output="${build.dir}/us.exe"
 			target="exe"
+			keyfile="${keyfile.path}"
 			debug="${debug}">
 			<sources basedir="src/us">
 				<include name="*.boo" />
@@ -174,6 +189,7 @@
 	</target>
 	
 	<target name="init">
+		<call target="sign" unless="${nosign}" />
 		<mkdir dir="${build.dir}" />
 		<copy todir="${build.dir}">
 			<fileset basedir="${boo.lib.dir}">
