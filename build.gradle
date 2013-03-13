@@ -16,7 +16,7 @@ apply plugin: 'idea'
 
 allprojects {
   group = 'unityscript'
-	version = '0.1.2'
+	version = '0.1.3'
 
 	repositories {
 		ivy { url 'http://unity-technologies.github.com/kaizen/repositories/unstable' }
@@ -28,7 +28,7 @@ configurations {
 }
 
 ext {
-	booVersion = '0.9.5.7'
+	booVersion = '0.9.6'
 }
 
 dependencies {
