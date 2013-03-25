@@ -16,7 +16,7 @@ apply plugin: 'idea'
 
 allprojects {
   group = 'unityscript'
-	version = '0.1.3'
+	version = '0.1.4'
 
 	repositories {
 		ivy { url 'http://unity-technologies.github.com/kaizen/repositories/unstable' }
@@ -28,12 +28,12 @@ configurations {
 }
 
 ext {
-	booVersion = '0.9.6'
+	booVersion = '0.9.7'
 }
 
 dependencies {
 	boo "boo:boo:$booVersion"
-  boo "boo:RetargetAssembly:0.2.0"
+  boo "boo:RetargetAssembly:0.2.1"
 	'default' project(':us'), project(':UnityScript'), project(':UnityScript.Lang')
 }
 
