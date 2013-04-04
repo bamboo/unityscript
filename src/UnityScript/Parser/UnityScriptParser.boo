@@ -279,19 +279,6 @@ partial class UnityScriptParser(antlr.LLkParser):
 			FlushAttributes(function)
 		return function
 	
-	def ValidateFunctionDeclaration(function as Method, getter as IToken, setter as IToken):
-		// TODO: move this error checking to a compiler step
-		// as well as properly checking the type of the accessors
-		// against the type of the property
-		if setter is not null:
-			if function.Parameters.Count != 1 or function.Parameters[0].Name != "value":
-				ReportError(UnityScriptCompilerErrors.InvalidPropertySetter(function.LexicalInfo))
-			function.Parameters.Clear()
-			return
-		if getter is not null:
-			if function.Parameters.Count > 0:
-				ReportError(UnityScriptCompilerErrors.InvalidPropertySetter(function.LexicalInfo))
-	
 	protected def initialize():
 		tokenNames = tokenNames_
 	
@@ -1223,8 +1210,6 @@ partial class UnityScriptParser(antlr.LLkParser):
 			if 0 == inputState.guessing:
 				member = function = AddFunctionTo(cd, memberName, getter, setter) 
 			function_body(function)
-			if 0 == inputState.guessing:
-				ValidateFunctionDeclaration(function, getter, setter) 
 		except ex as RecognitionException:
 			if (0 == inputState.guessing):
 				reportError(ex)
@@ -1547,8 +1532,6 @@ partial class UnityScriptParser(antlr.LLkParser):
 			else: // line 1969
 					raise NoViableAltException(LT(1), getFilename())
 			match(RPAREN)
-			if 0 == inputState.guessing:
-				ValidateFunctionDeclaration(function, getter, setter) 
 			_givenValue  = LA(1)
 			if ((_givenValue == COLON)): // 1831
 				match(COLON)

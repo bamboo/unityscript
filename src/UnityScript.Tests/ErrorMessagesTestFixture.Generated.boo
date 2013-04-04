@@ -98,6 +98,14 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/invalid-generator-return-type.js")
 		
 	
+	[Test] def invalid_setter_return_type():
+		RunTestCase("tests/error-messages/invalid-setter-return-type.js")
+		
+	
+	[Test] def invalid_setter():
+		RunTestCase("tests/error-messages/invalid-setter.js")
+		
+	
 	[Test] def iterator_warning():
 		RunTestCase("tests/error-messages/iterator-warning.js")
 		

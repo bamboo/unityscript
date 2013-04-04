@@ -28,6 +28,9 @@ static class UnityScriptCompilerErrors:
 	def EvalHasBeenDisabled(location as LexicalInfo, reason as string):
 		return CreateError("UCE0008", location, reason)
 		
+	def SetterCanNotDeclareReturnType(location as LexicalInfo):
+		return CreateError("UCE0009", location, "Property setter can not declare return type.")
+		
 	private def CreateError(code as string, location as LexicalInfo, message as string):
 		return Boo.Lang.Compiler.CompilerError(code, location, message, null)
 		
