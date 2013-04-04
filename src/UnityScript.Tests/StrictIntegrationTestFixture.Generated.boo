@@ -623,3 +623,7 @@ partial class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
 	[Test] def vars_1():
 		RunTestCase("tests/integration/vars-1.js")
 		
+	
+	[Test] def yield_null():
+		RunTestCase("tests/integration/yield-null.js")
+		

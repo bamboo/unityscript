@@ -626,6 +626,8 @@ class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/vars-1.js")
 		
 	
+	[Test] def yield_null():
+		RunTestCase("tests/integration/yield-null.js")
 	[Test] def Array_cast_to_native_array_of_struct():
 		RunTestCase("tests/ducky/Array-cast-to-native-array-of-struct.js")
 		
