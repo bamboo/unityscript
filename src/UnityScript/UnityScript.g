@@ -231,9 +231,6 @@ tokens
 			li = ToLexicalInfo(LT(1))
 		ReportError(UnityScriptCompilerErrors.SemicolonExpected(li))		
 	
-	static def CreateModuleName(fname as string):
-		return System.IO.Path.GetFileNameWithoutExtension(fname)
-		
 	static def IsConstructorName(name as string, type as TypeDefinition):
 		return type.NodeType != NodeType.Module and name == type.Name
 		
@@ -276,8 +273,7 @@ tokens
 
 start[CompileUnit cu]
 {
-	module = Module(LexicalInfo(getFilename(), 1, 1))
-	module.Name = CreateModuleName(getFilename())
+	module = CodeFactory.NewModule(getFilename())
 	cu.Modules.Add(module)
 	globals = module.Globals
 }:

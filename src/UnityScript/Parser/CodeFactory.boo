@@ -5,6 +5,9 @@ import Boo.Lang.Compiler.Ast
 
 static class CodeFactory:
 	
+	def NewModule(fileName as string):
+		return Module(LexicalInfo(fileName, 1, 1), Name: ModuleNameFromFileName(fileName))
+	
 	def NewArrayComprehension(location as LexicalInfo, projection as Expression, variable as Declaration, expression as Expression, filter as Expression):
 		ge = GeneratorExpression(location, Expression: projection, Iterator: expression)
 		ge.Declarations.Add(variable)
@@ -35,3 +38,6 @@ static class CodeFactory:
 	def WithLocation[of T(Node)](node as T, location as LexicalInfo):
 		node.LexicalInfo = location
 		return node
+		
+def ModuleNameFromFileName(fname as string):
+	return System.IO.Path.GetFileNameWithoutExtension(fname)
