@@ -34,11 +34,11 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 		super(context)
 		
 		// don't transform
-		//     foo == null
+		//		 foo == null
 		// into:
-		//     foo is null
+		//		 foo is null
 		// but into:
-		//     foo.Equals(null)						
+		//		 foo.Equals(null)						
 		self.OptimizeNullComparisons = false
 		
 	def ResolveUnityRuntimeMethod(name as string):
@@ -70,7 +70,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 			return null
 		return super(d)
 				
-	override def OnModule(module as Module):  
+	override def OnModule(module as Module):	
 		ActiveModule = module
 		super(module)
 			
@@ -192,7 +192,7 @@ class ProcessUnityScriptMethods(ProcessMethodBodiesWithDuckTyping):
 			CodeBuilder.CreateMethodInvocation(
 				CodeBuilder.CreateSelfReference(node.LexicalInfo, CurrentType),
 				_StartCoroutine,
-				node)) 
+				node))
 				
 	override def ProcessStaticallyTypedAssignment(node as BinaryExpression):
 		TryToResolveAmbiguousAssignment(node)		
