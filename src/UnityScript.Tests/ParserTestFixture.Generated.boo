@@ -50,6 +50,14 @@ partial class ParserTestFixture:
 		RunTestCase("tests/parser/do-while-false.js")
 		
 	
+	[Test] def empty_blocks():
+		RunTestCase("tests/parser/empty-blocks.js")
+		
+	
+	[Test] def empty_map_literal():
+		RunTestCase("tests/parser/empty-map-literal.js")
+		
+	
 	[Test] def enums():
 		RunTestCase("tests/parser/enums.js")
 		

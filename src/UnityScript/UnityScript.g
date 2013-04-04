@@ -277,7 +277,7 @@ start[CompileUnit cu]
 			module_member[module]
 		)
 		| module_member[module]
-		| statement[globals]
+		| compound_or_single_stmt[globals]
 	)*
 	eof:EOF
 	{
@@ -663,7 +663,7 @@ block[Block b]
 {
 }:
 	LBRACE
-	(statement[b])*
+	(compound_or_single_stmt[b])*
 	rbrace:RBRACE { SetEndSourceLocation(b, rbrace) }
 ;
 
