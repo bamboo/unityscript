@@ -374,6 +374,10 @@ class DuckyIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/functions-1.js")
 		
 	
+	[Test] def functions_as_ternary_operands():
+		RunTestCase("tests/integration/functions-as-ternary-operands.js")
+		
+	
 	[Test] def generator_inheritance_calling_super():
 		RunTestCase("tests/integration/generator-inheritance-calling-super.js")
 		
