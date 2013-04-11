@@ -356,6 +356,10 @@ partial class StrictIntegrationTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/integration/for-continue-2.js")
 		
 	
+	[Test] def for_in_switch_break():
+		RunTestCase("tests/integration/for-in-switch-break.js")
+		
+	
 	[Test] def for_over_null():
 		RunTestCase("tests/integration/for-over-null.js")
 		

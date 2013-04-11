@@ -96,8 +96,14 @@ class GotoOnTopLevelBreak(DepthFirstTransformer):
 		ReplaceCurrentNode(NewGoto(_label))
 		
 	override def OnWhileStatement(node as WhileStatement):
+		OnLoopBody node.Block
+		
+	override def OnForStatement(node as ForStatement):
+		OnLoopBody node.Block
+		
+	def OnLoopBody(block as Block):
 		++_level
-		node.Block.Accept(self)
+		block.Accept(self)
 		--_level
 		
 def NewGoto(label as LabelStatement):
