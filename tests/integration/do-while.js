@@ -24,10 +24,10 @@ do {
 } while (true);
 
 i = 100;
-do { 
+do {
 	print(i);
 	var j = 0;
-	do { 
+	do {
 		print(i + ", " + j);
 		if (++j >= 2) break;
 	} while (true);
