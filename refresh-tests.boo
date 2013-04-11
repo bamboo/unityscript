@@ -179,4 +179,6 @@ def GenerateTestFixtureSource(
 	return writer.ToString()
 	
 def JavascriptFilesIn(dir as string):
-	return fname for fname in Directory.GetFiles(dir) if fname.EndsWith(".js")	
+	jsFiles = array(fname for fname in Directory.GetFiles(dir) if fname.EndsWith(".js"))
+	Array.Sort(jsFiles, StringComparer.Ordinal)
+	return jsFiles
