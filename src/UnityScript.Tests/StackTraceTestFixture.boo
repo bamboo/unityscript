@@ -3,6 +3,7 @@ namespace UnityScript.Tests
 import NUnit.Framework
 
 [TestFixture]
+[Category("FailsOnMono")]
 partial class StackTraceTestFixture(AbstractIntegrationTestFixture):
 	override def ExecuteScript(type as System.Type):
 		try:
