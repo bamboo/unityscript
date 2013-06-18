@@ -43,6 +43,10 @@ class EvalTestFixture(AbstractIntegrationTestFixture):
 		RunTestCase("tests/eval/eval-in-static-function-3.js")
 		
 	
+	[Test] def eval_with_pragma_strict():
+		RunTestCase("tests/eval/eval-with-pragma-strict.js")
+		
+	
 	[Test] def functions_1():
 		RunTestCase("tests/eval/functions-1.js")
 		

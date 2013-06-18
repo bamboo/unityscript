@@ -18,13 +18,13 @@ class EvaluationDomainProviderImplementor(AbstractCompilerComponent):
 				
 				private $domainField as $EvaluationDomain
 				
-				def GetEvaluationDomain():
+				public def GetEvaluationDomain():
 					return $domainField or ($domainField = $EvaluationDomain())
 					
-				def GetImports():
+				public def GetImports():
 					return $(ImportsArrayFor(node))
 					
-				def GetAssemblyReferences():
+				public def GetAssemblyReferences():
 					return $(AssemblyReferencesArray())
 		|]
 		
