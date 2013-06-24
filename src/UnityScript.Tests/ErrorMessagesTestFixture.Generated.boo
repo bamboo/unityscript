@@ -30,6 +30,10 @@ partial class ErrorMessagesTestFixture:
 		RunTestCase("tests/error-messages/builtins.js")
 		
 	
+	[Test] def cannot_convert_enum_to_float():
+		RunTestCase("tests/error-messages/cannot-convert-enum-to-float.js")
+		
+	
 	[Test] def cannot_convert_error():
 		RunTestCase("tests/error-messages/cannot-convert-error.js")
 		
